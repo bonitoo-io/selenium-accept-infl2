@@ -1,6 +1,7 @@
 const { By, Key, promise, until} = require('selenium-webdriver');
 
 const notificationSuccessMsg = '[data-testid=notification-success] div.notification-message'
+const notificationCloseButton = '[data-testid=notification-success] button.notification-close'
 
 class basePage{
 
@@ -28,11 +29,16 @@ class basePage{
             if(selector.type === 'css'){
                 await this.driver.wait(until.elementLocated(By.css(selector.selector)))
             }
+            // TODO - implement other selector types
         })
     }
 
     async getNoficicationSuccessMsg(){
         return await this.driver.findElement(By.css(notificationSuccessMsg))
+    }
+
+    async getNotificationCloseButtons(){
+        return await this.driver.findElements(By.css(notificationCloseButton))
     }
 
 }

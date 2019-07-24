@@ -8,3 +8,7 @@ let bSteps = new baseSteps(__wdriver)
 Then(/^the success notification says "(.*?)"$/, async message => {
     await bSteps.isNotificationMessage(message)
 })
+
+When(/^close all notifications$/, async() => {
+    await bSteps.closeAllNotifications()
+})

@@ -14,10 +14,25 @@ class influxPage extends basePage {
         return await this.driver.findElement(By.css(navMenu))
     }
 
+    /*
     async isLoaded(){
         await super.isLoaded([{type:'css', selector:navMenu}], urlCtx)
-    }
+    }*/
 
+    //N.B. Method overloading not supported in JS - however this page is extended
+
+    async isLoaded(selectors = undefined, url = undefined){
+        if(!selectors){
+            await super.isLoaded([{type:'css', selector:navMenu}], urlCtx)
+            return;
+        }
+
+        if(url){
+            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]),url)
+        }else{
+            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]), urlCtx)
+        }
+    }
 
 }
 

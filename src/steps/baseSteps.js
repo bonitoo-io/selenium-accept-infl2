@@ -45,6 +45,25 @@ class baseSteps{
             })
         })
     }
+
+    async containsNotificationText(text){
+        await this.basePage.getNoficicationSuccessMsg().then(async elem => {
+            await elem.getText().then(async eltxt => {
+                await expect(eltxt).to.include(text)
+            }).catch(async err => {
+                console.error(err)
+            })
+        })
+    }
+
+    async closeAllNotifications(){
+        await this.basePage.getNotificationCloseButtons().then(btns => {
+            btns.forEach(async(btn) => {
+                await btn.click()
+            })
+        })
+
+    }
 }
 
 module.exports = baseSteps

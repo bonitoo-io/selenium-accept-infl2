@@ -1,12 +1,22 @@
-const basePage = require(__srcdir + '/pages/basePage.js')
+const influxPage = require(__srcdir + '/pages/influxPage.js')
 const { By, Key, promise, until} = require('selenium-webdriver');
 
-const navMenu = "[data-testid=nav-menu]"
+const logoutButton = '[data-testid=button]'
 
-class homePage extends basePage {
+// TODO - add selectors - especially for isLoaded below
+
+class homePage extends influxPage {
 
     constructor(driver){
         super(driver)
+    }
+
+    async getLogoutButton(){
+        return await this.driver.findElement(By.css(logoutButton))
+    }
+
+    async isLoaded(){
+        await super.isLoaded([{type: 'css', selector: logoutButton}])
     }
 
 }

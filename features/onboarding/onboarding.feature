@@ -2,7 +2,7 @@ Feature: Onboard to Influxdbv2
   Create an initial user and organization
 
   Scenario: Onboard Basic
-
+# TODO - verify notifications when loading the home page
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate
@@ -16,7 +16,9 @@ Feature: Onboard to Influxdbv2
     When click next from setup page
     Then verify ready page
     Then the success notification says "Initial user details have been successfully set"
+    When close all notifications
     When click quick start button
+    Then the home page is loaded
 
   Scenario: Onboard Advanced
 
@@ -32,8 +34,10 @@ Feature: Onboard to Influxdbv2
     When enter a new bucket name "DEFAULT"
     When click next from setup page
     Then verify ready page
+    Then the success notification says "Initial user details have been successfully set"
     When click advanced button
 
+  Scenario: Onboard field checks
 
 
 
