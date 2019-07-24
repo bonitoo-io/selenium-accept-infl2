@@ -5,6 +5,8 @@ Selenium Acceptance tests for the Influxdbv2 UI.
 **Run cycle**
 
 ```bash
+git clone https://github.com/bonitoo-io/selenium-accept-infl2.git
+cd selenium-accept-infl2/
 npm install
 npm run influx:setup
 npm test
