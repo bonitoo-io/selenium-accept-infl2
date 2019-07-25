@@ -7,12 +7,12 @@ var options = {
     reportSuiteAsScenarios: true,
     launchReport: false,
     metadata: {
-        "App Version":"0.3.2",
-        "Test Environment": "STAGING",
-        "Browser": "Chrome  54.0.2840.98",
-        "Platform": "Windows 10",
+        "App Version":"2.0.0-alpha",
+        "Test Environment": "Deveolop",
+        "Browser": "Chrome  74",
+        "Platform": "Ubuntu 16.04",
         "Parallel": "Scenarios",
-        "Executed": "Remote"
+        "Executed": "local"
     }
 };
 

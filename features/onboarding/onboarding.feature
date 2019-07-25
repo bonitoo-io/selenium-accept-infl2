@@ -16,8 +16,10 @@ Feature: Onboard to Influxdbv2
     When click next from setup page
     Then verify ready page
     Then the success notification says "Initial user details have been successfully set"
-    When close all notifications
     When click quick start button
+    Then the success notification says "The Local Metrics Dashboard has been created"
+    Then the success notification contains "The InfluxDB Scraper has been configured"
+    When close all notifications
     Then the home page is loaded
 
   Scenario: Onboard Advanced
@@ -35,7 +37,9 @@ Feature: Onboard to Influxdbv2
     When click next from setup page
     Then verify ready page
     Then the success notification says "Initial user details have been successfully set"
+    When close all notifications
     When click advanced button
+    Then the buckets tab is loaded
 
   Scenario: Onboard field checks
 

@@ -33,8 +33,9 @@ class basePage{
         })
     }
 
-    async getNoficicationSuccessMsg(){
-        return await this.driver.findElement(By.css(notificationSuccessMsg))
+    async getNoficicationSuccessMsgs(){
+        await this.waitUntilElementCss(notificationSuccessMsg)
+        return await this.driver.findElements(By.css(notificationSuccessMsg))
     }
 
     async getNotificationCloseButtons(){

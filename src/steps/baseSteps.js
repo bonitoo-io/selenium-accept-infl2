@@ -1,5 +1,6 @@
 const fs = require('fs')
 const expect = require('chai').expect;
+const assert = require('chai').assert;
 
 
 const basePage = require (__srcdir + '/pages/basePage.js')
@@ -37,23 +38,44 @@ class baseSteps{
     }
 
     async isNotificationMessage(message){
-        await this.basePage.getNoficicationSuccessMsg().then(async elem => {
-            await elem.getText().then(async eltxt => {
-                await expect(eltxt).to.equal(message)
-            }).catch(async err => {
-                console.error(err)
-            })
+        //wait a second for all notifications to load
+        await this.driver.sleep(1000)
+
+        await this.basePage.getNoficicationSuccessMsgs().then(async elems => {
+            let match = false
+
+            for(var i = 0; i < elems.length; i++){
+                if(await elems[i].getText() === message){
+                    match = true;
+                    break;
+                }
+            }
+
+            assert(match, `Failed to find "${message}" in notifications`)
         })
     }
 
     async containsNotificationText(text){
+        await this.basePage.getNoficicationSuccessMsgs().then(async elems => {
+            let match = false
+
+            for(var i = 0; i < elems.length; i++){
+                if((await elems[i].getText()).includes(text)){
+                    match = true;
+                    break;
+                }
+            }
+
+            assert(match, `Failed to find notification containing "${text}"`)
+        })
+/*
         await this.basePage.getNoficicationSuccessMsg().then(async elem => {
             await elem.getText().then(async eltxt => {
                 await expect(eltxt).to.include(text)
             }).catch(async err => {
                 console.error(err)
             })
-        })
+        }) */
     }
 
     async closeAllNotifications(){
