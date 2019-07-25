@@ -1,17 +1,17 @@
-const basePage = require(__srcdir + '/pages/basePage.js')
-const { By, Key, promise, until} = require('selenium-webdriver');
+const basePage = require(__srcdir + '/pages/basePage.js');
+const { By } = require('selenium-webdriver');
 
-const navMenu = "[data-testid=nav-menu]"
-const urlCtx = 'orgs'
+const navMenu = '[data-testid=nav-menu]';
+const urlCtx = 'orgs';
 
 class influxPage extends basePage {
 
     constructor(driver){
-        super(driver)
+        super(driver);
     }
 
     async getNavMenu(){
-        return await this.driver.findElement(By.css(navMenu))
+        return await this.driver.findElement(By.css(navMenu));
     }
 
     /*
@@ -23,17 +23,17 @@ class influxPage extends basePage {
 
     async isLoaded(selectors = undefined, url = undefined){
         if(!selectors){
-            await super.isLoaded([{type:'css', selector:navMenu}], urlCtx)
+            await super.isLoaded([{type:'css', selector:navMenu}], urlCtx);
             return;
         }
 
         if(url){
-            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]),url)
+            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]),url);
         }else{
-            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]), urlCtx)
+            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]), urlCtx);
         }
     }
 
 }
 
-module.exports = influxPage
+module.exports = influxPage;

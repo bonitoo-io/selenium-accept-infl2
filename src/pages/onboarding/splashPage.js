@@ -1,14 +1,14 @@
-const basePage = require(__srcdir + '/pages/basePage.js')
-const { By, Key, promise, until} = require('selenium-webdriver');
+const basePage = require(__srcdir + '/pages/basePage.js');
+const { By } = require('selenium-webdriver');
 
-const headMain = '[data-testid=init-step--head-main]'
-const creditsLink = '[data-testid=credits] a'
-const startButton =  '[data-testid=onboarding-get-started]'
+const headMain = '[data-testid=init-step--head-main]';
+const creditsLink = '[data-testid=credits] a';
+const startButton =  '[data-testid=onboarding-get-started]';
 
 class splashPage extends basePage {
 
     constructor(driver){
-        super(driver)
+        super(driver);
     }
 
     async getHeadMain(){
@@ -18,11 +18,11 @@ class splashPage extends basePage {
     }
 
     async getCreditsLink(){
-        return await this.driver.findElement(By.css(creditsLink))
+        return await this.driver.findElement(By.css(creditsLink));
     }
 
     async getStartButton(){
-        return await this.driver.findElement(By.css(startButton))
+        return await this.driver.findElement(By.css(startButton));
     }
 
 }

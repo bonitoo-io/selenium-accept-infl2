@@ -1,17 +1,17 @@
-const basePage = require(__srcdir + '/pages/basePage.js')
-const { By, Key, promise, until} = require('selenium-webdriver');
+const basePage = require(__srcdir + '/pages/basePage.js');
+const { By, until} = require('selenium-webdriver');
 
-const headerMain = '[data-testid=admin-step--head-main]'
-const navCrumbToken = 'data-testid=nav-step--'
-const inputFieldToken = 'data-testid=input-field--'
-const nextButton = '[data-testid=next]'
-const formErrorMessage = '[data-testid=form--element-error]'
+const headerMain = '[data-testid=admin-step--head-main]';
+const navCrumbToken = 'data-testid=nav-step--';
+const inputFieldToken = 'data-testid=input-field--';
+const nextButton = '[data-testid=next]';
+const formErrorMessage = '[data-testid=form--element-error]';
 
 
 class initialSetupPage extends basePage {
 
     constructor(driver){
-        super(driver)
+        super(driver);
     }
 
     async getHeaderMain(){
@@ -24,33 +24,33 @@ class initialSetupPage extends basePage {
     }
 
     async getInputField(name){
-        return await this.driver.findElement(By.css(`[${inputFieldToken}${name}]`))
+        return await this.driver.findElement(By.css(`[${inputFieldToken}${name}]`));
     }
 
     async getNextButton(){
-        return this.driver.wait(until.elementLocated(By.css(nextButton)))
+        return this.driver.wait(until.elementLocated(By.css(nextButton)));
         //return await this.driver.findElement(By.css(nextButton))
     }
 
     async getFormErrorMessage(){
-        return this.driver.wait(until.elementLocated(By.css(formErrorMessage)))
+        return this.driver.wait(until.elementLocated(By.css(formErrorMessage)));
     }
 
     async isFormErrorDisplayed(){
         try {
-            await this.driver.findElement(By.css(formErrorMessage)).isDisplayed()
-            return true
+            await this.driver.findElement(By.css(formErrorMessage)).isDisplayed();
+            return true;
         }catch(err){
-            if(err.name === "NoSuchElementError"){
-                return false
+            if(err.name === 'NoSuchElementError'){
+                return false;
             }else{
-                throw err
+                throw err;
             }
         }
     }
 
     async isNextButtonEnabled(){
-        return await this.driver.findElement(By.css(nextButton)).isEnabled()
+        return await this.driver.findElement(By.css(nextButton)).isEnabled();
     }
 
 }
