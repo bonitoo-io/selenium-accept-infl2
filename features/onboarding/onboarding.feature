@@ -2,7 +2,7 @@ Feature: Onboard to Influxdbv2
   Create an initial user and organization
 
   Scenario: Onboard Basic
-# TODO - verify notifications when loading the home page
+# Golden path check 1
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate
@@ -23,7 +23,7 @@ Feature: Onboard to Influxdbv2
     Then the home page is loaded
 
   Scenario: Onboard Advanced
-
+# Golden path check 2
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate
@@ -42,9 +42,17 @@ Feature: Onboard to Influxdbv2
     Then the buckets tab is loaded
 
   Scenario: Onboard field checks
-
-
-
-
-
-
+# N.B. would expect there to be rules for min/max length or allowed/disallowed characters in user-names
+# however none currently exist -- TODO add tests for such rules if they are ever implemented
+    Given I open the Influx onboarding page
+    Then there is a Welcome message
+    Then there is a link to corporate
+    When I click on Get Started
+    Then the Initial Setup Page is loaded
+    Then the continue button is disabled
+    When enter a new user name "zaphod"
+    When enter a new password "42"
+    When enter confirm the new password "24"
+    Then the form error message says "Passwords do not match"
+    When enter confirm the new password "42"
+    Then the form error message is not present

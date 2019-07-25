@@ -82,6 +82,7 @@ class onboardingSteps extends baseSteps {
 
     async setInputFieldValue(field, value){
         await this.initialSetupPage.getInputField(field).then( async elem => {
+            await elem.clear()
             await elem.sendKeys(value)
          //   await this.delay(3000)
         })
@@ -129,6 +130,22 @@ class onboardingSteps extends baseSteps {
             await this.influxPage.isLoaded()
             //await this.delay(3000)
         })
+    }
+
+    async verifyFormErrorMessage(message){
+        await this.initialSetupPage.getFormErrorMessage().then(async elem => {
+            await elem.getText().then( eltxt => {
+                expect(eltxt).to.equal(message)
+            })
+        })
+    }
+
+    async verifyFormErrorMessageNotPresent(){
+        expect(await this.initialSetupPage.isFormErrorDisplayed()).to.be.false
+    }
+
+    async verifyContinueButtonDisabled(){
+        expect(await this.initialSetupPage.isNextButtonEnabled()).to.be.false
     }
 
     async failTest(){

@@ -98,6 +98,10 @@ Then(/^the Initial Setup Page is loaded$/, async () => {
 
 })
 
+Then(/^the continue button is disabled$/, async () => {
+    await onbSteps.verifyContinueButtonDisabled()
+})
+
 When(/^enter a new user name "(.*?)"$/, async name => {
     await onbSteps.setInputFieldValue('username', (name === 'DEFAULT') ? __defaultUser.name : name)
     //return "pending";
@@ -111,6 +115,14 @@ When(/^enter a new password "(.*?)"$/, async password => {
 When(/^enter confirm the new password "(.*?)"$/, async password => {
     await onbSteps.setInputFieldValue('password-chk', (password === 'DEFAULT') ? __defaultUser.password : password)
     //return "pending";
+})
+
+Then(/^the form error message says "(.*?)"$/, async message => {
+    await onbSteps.verifyFormErrorMessage(message)
+})
+
+Then(/^the form error message is not present$/, async () => {
+    await onbSteps.verifyFormErrorMessageNotPresent()
 })
 
 When(/^enter enter a new organization name "(.*?)"$/, async orgname => {
