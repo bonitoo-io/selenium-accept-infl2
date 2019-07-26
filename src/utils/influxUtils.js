@@ -7,7 +7,7 @@ const defaultUser = require(__basedir + '/bonitoo.conf.json').default_user;
 
 axios.defaults.baseURL = `${config.protocol}://${config.host}:${config.port}`;
 
-/* Uncomment to debug
+/* Uncomment to debug axios
 axios.interceptors.request.use(request => {
     console.log('Starting Request', request)
     return request
@@ -23,18 +23,6 @@ const flush = async () => {
     // console.log('calling flush')
     await axios.get('/debug/flush');
 };
-
-/* inspirace
-export const setupUser = (): Cypress.Chainable<Cypress.Response> => {
-    return cy.fixture('user').then(({username, password, org, bucket}) => {
-        return cy.request({
-            method: 'POST',
-            url: '/api/v2/setup',
-            body: {username, password, org, bucket},
-        })
-    })
-}
-*/
 
 // user { username: 'name', password: 'password', org; 'orgname', bucket: 'bucketname' }
 const setupUser = async(user) => {
