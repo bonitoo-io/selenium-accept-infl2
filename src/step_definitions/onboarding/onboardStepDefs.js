@@ -1,5 +1,5 @@
 import { AfterAll, Before, BeforeAll, Given, Then, When } from 'cucumber';
-import { flush } from '../../utils/InfluxUtils';
+import { flush } from '../../utils/influxUtils';
 
 const onboardingSteps = require(__srcdir + '/steps/onboarding/onboardingSteps.js');
 
@@ -87,7 +87,7 @@ Then(/^the continue button is disabled$/, async () => {
 });
 
 When(/^enter a new user name "(.*?)"$/, async name => {
-    await onbSteps.setInputFieldValue('username', (name === 'DEFAULT') ? __defaultUser.name : name);
+    await onbSteps.setInputFieldValue('username', (name === 'DEFAULT') ? __defaultUser.username : name);
     //return "pending";
 });
 
@@ -109,19 +109,23 @@ Then(/^the form error message is not present$/, async () => {
     await onbSteps.verifyFormErrorMessageNotPresent();
 });
 
-When(/^enter enter a new organization name "(.*?)"$/, async orgname => {
-    await onbSteps.setInputFieldValue('orgname', (orgname === 'DEFAULT') ? __defaultUser.orgname : orgname);
+When(/^enter a new organization name "(.*?)"$/, async orgname => {
+    await onbSteps.setInputFieldValue('orgname', (orgname === 'DEFAULT') ? __defaultUser.org : orgname);
     //return "pending";
 });
 
 When(/^enter a new bucket name "(.*?)"$/, async bucketname => {
-    await onbSteps.setInputFieldValue('bucketname', (bucketname === 'DEFAULT') ? __defaultUser.bucketname : bucketname);
+    await onbSteps.setInputFieldValue('bucketname', (bucketname === 'DEFAULT') ? __defaultUser.bucket : bucketname);
     //return "pending";
 });
 
 When(/^click next from setup page$/, async () => {
     await onbSteps.clickContinueButton();
     //   return "pending";
+});
+
+When(/^click next from setup page without page check$/, async() => {
+    await onbSteps.clickContinueButton(false);
 });
 
 Then(/^verify ready page$/, async () => {

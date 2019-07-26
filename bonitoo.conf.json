@@ -1,10 +1,10 @@
 {
   "active": "development",
   "default_user": {
-    "name": "admin",
+    "username": "admin",
     "password": "changeit",
-    "orgname": "qa",
-    "bucketname": "qa"
+    "org": "qa",
+    "bucket": "qa"
   },
   "development" : {
     "config_id" : "development",

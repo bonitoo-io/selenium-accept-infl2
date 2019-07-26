@@ -87,10 +87,12 @@ class onboardingSteps extends baseSteps {
         });
     }
 
-    async clickContinueButton(){
+    async clickContinueButton(chkReadyPage = true){
         await this.initialSetupPage.getNextButton().then(async btn => {
             await btn.click();
-            await this.readyPage.isLoaded();
+            if(chkReadyPage) {
+                await this.readyPage.isLoaded();
+            }
             //await this.delay(1000) // no wait implicit or explicit seems to work.  Always getting title for previous step
         }).catch(async err => {
             console.log(err);

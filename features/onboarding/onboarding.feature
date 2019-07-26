@@ -11,7 +11,7 @@ Feature: Onboard to Influxdbv2
     When enter a new user name "DEFAULT"
     When enter a new password "DEFAULT"
     When enter confirm the new password "DEFAULT"
-    When enter enter a new organization name "DEFAULT"
+    When enter a new organization name "DEFAULT"
     When enter a new bucket name "DEFAULT"
     When click next from setup page
     Then verify ready page
@@ -32,7 +32,7 @@ Feature: Onboard to Influxdbv2
     When enter a new user name "DEFAULT"
     When enter a new password "DEFAULT"
     When enter confirm the new password "DEFAULT"
-    When enter enter a new organization name "DEFAULT"
+    When enter a new organization name "DEFAULT"
     When enter a new bucket name "DEFAULT"
     When click next from setup page
     Then verify ready page
@@ -44,6 +44,7 @@ Feature: Onboard to Influxdbv2
   Scenario: Onboard field checks
 # N.B. would expect there to be rules for min/max length or allowed/disallowed characters in user-names
 # however none currently exist -- TODO add tests for such rules if they are ever implemented
+    # TODO - setup breadcrumb color change on password length less than 8 chars
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate
@@ -56,3 +57,8 @@ Feature: Onboard to Influxdbv2
     Then the form error message says "Passwords do not match"
     When enter confirm the new password "42"
     Then the form error message is not present
+    When enter a new organization name "asdf"
+    When enter a new bucket name "asdf"
+    When click next from setup page without page check
+    Then the error notification contains "passwords must be at least 8 characters long"
+

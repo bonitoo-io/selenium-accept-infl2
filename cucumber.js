@@ -4,7 +4,7 @@ const {Builder, By, Key, promise, until} = require('selenium-webdriver');
 global.__basedir = __dirname
 global.__srcdir = __dirname + "/src"
 
-const { flush, config, defaultUser } = require(__srcdir + '/utils/InfluxUtils');
+const { flush, config, defaultUser } = require(__srcdir + '/utils/influxUtils');
 
 var common = '--require "src/step_definitions/**/*.js" --require hooks.js --require-module babel-core/register ';
 

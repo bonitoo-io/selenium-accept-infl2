@@ -78,6 +78,21 @@ class baseSteps{
         }) */
     }
 
+    async containsErrorNotificationText(text){
+        await this.basePage.getNotificationErrorMsgs().then(async elems => {
+            let match = false;
+
+            for(var i = 0; i < elems.length; i++){
+                if((await elems[i].getText()).includes(text)){
+                    match = true;
+                    break;
+                }
+            }
+
+            assert(match, `Failed to find error notification containing "${text}"`);
+        });
+    }
+
     async closeAllNotifications(){
         await this.basePage.getNotificationCloseButtons().then(btns => {
             btns.forEach(async(btn) => {

@@ -1,6 +1,7 @@
 const { By, until} = require('selenium-webdriver');
 
 const notificationSuccessMsg = '[data-testid=notification-success] div.notification-message';
+const notificationErrorMsg = '[data-testid=notification-error] div.notification-message';
 const notificationCloseButton = '[data-testid=notification-success] button.notification-close';
 
 class basePage{
@@ -19,6 +20,11 @@ class basePage{
         await this.driver.wait(until.elementLocated(By.css(selector)));
     }
 
+    async waitUntilElementVisibleCss(selector){
+        await this.driver.wait(until.elementIsVisible(this.driver.findElement(By.css(selector))));
+    }
+
+
     // selectors should be array of {type, selector}
     async isLoaded(selectors, url = undefined){
         if(url){
@@ -34,8 +40,13 @@ class basePage{
     }
 
     async getNoficicationSuccessMsgs(){
-        await this.waitUntilElementCss(notificationSuccessMsg);
+        await this.waitUntilElementVisibleCss(notificationSuccessMsg);
         return await this.driver.findElements(By.css(notificationSuccessMsg));
+    }
+
+    async getNotificationErrorMsgs(){
+        await this.waitUntilElementVisibleCss(notificationErrorMsg);
+        return await this.driver.findElements(By.css(notificationErrorMsg));
     }
 
     async getNotificationCloseButtons(){
