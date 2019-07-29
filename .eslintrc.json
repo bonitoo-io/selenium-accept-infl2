@@ -11,7 +11,8 @@
         "__basedir" : "readonly",
         "__wdriver" : "readonly",
         "__defaultUser": "readonly",
-        "__config": "readonly"
+        "__config": "readonly",
+        "__users": "writable"
     },
     "parserOptions": {
         "ecmaVersion": 2018,

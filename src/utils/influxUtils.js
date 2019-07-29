@@ -26,9 +26,32 @@ const flush = async () => {
 
 // user { username: 'name', password: 'password', org; 'orgname', bucket: 'bucketname' }
 const setupUser = async(user) => {
-    await axios.post('/api/v2/setup', user);
+    await axios.post('/api/v2/setup', user).then(resp => {
+        user.id = resp.data.user.id;
+        user.orgid = resp.data.org.id;
+        user.bucketid = resp.data.bucket.id;
+        putUser(user);
+        //        console.log("DEBUG __users: " + JSON.stringify(__users, null, '\t'))
+        //console.log("DEBUG resp " + JSON.stringify(resp.data, null, '\t'))
+    });
 };
 
-module.exports = { flush, config, defaultUser, setupUser };
+// user { username: 'name', password: 'password', org; 'orgname', bucket: 'bucketname' }
+const putUser = (user) => {
+    if(!(user.username in __users)){
+        __users[user.username] = user;
+        return;
+    }
+    throw `${user.username} already defined in global users`;
+};
+
+const getUser = (name) => {
+    if(name in __users){
+        return __users[name];
+    }
+    throw `${name} is not a key in global users`;
+};
+
+module.exports = { flush, config, defaultUser, setupUser, putUser, getUser };
 
 //flush()

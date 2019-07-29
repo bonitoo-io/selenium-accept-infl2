@@ -35,6 +35,5 @@ When(/^run setup over REST "(.*?)"$/, async( newUser ) => {
         await influxUtils.setupUser(user);
     }
 
-
 });
 
