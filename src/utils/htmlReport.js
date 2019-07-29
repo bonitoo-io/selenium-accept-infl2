@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var reporter = require('cucumber-html-reporter');
 
 var options = {

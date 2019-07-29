@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const cucumberJunitConvert = require('cucumber-junit-convert');
 
 const options = {

@@ -8,7 +8,9 @@
     "influx:setup": "cd scripts && ./influxdb2_community_test_env.sh setup-qa && cd -",
     "influx:stop": "./scripts/influxdb2_community_test_env.sh stop",
     "influx:clean": "./scripts/influxdb2_community_test_env.sh clean",
-    "test": "mkdirp report && cucumber-js"
+    "test": "mkdirp report && cucumber-js",
+    "report:html": "chmod 775 src/utils/htmlReport.js; src/utils/htmlReport.js",
+    "report:junit": "chmod 775 src/utils/junitReport.js; src/utils/junitReport.js"
   },
   "author": "",
   "license": "ISC",
