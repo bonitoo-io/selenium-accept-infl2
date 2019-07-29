@@ -1,4 +1,5 @@
 // TBD - leverage influxdbv2 REST API
+const process = require('process')
 const axios = require('axios');
 
 const active_config = require(__basedir + '/bonitoo.conf.json').active;
@@ -6,7 +7,23 @@ const config = require(__basedir + '/bonitoo.conf.json')[active_config];
 const defaultUser = require(__basedir + '/bonitoo.conf.json').default_user;
 
 axios.defaults.baseURL = `${config.protocol}://${config.host}:${config.port}`;
+
+global.__config = config
+global.__defaultUser = defaultUser
 global.__users = { 'init': undefined };
+
+process.argv.slice(2).forEach((val, index) => {
+
+    let pair = val.split("=")
+
+    switch(pair[0]){
+        case 'headless': //overrides value in config file
+            config.headless = (pair[1] === 'true')
+            console.log(config.headless ? "running headless" : "running headed")
+            break;
+    }
+
+})
 
 /* Uncomment to debug axios
 axios.interceptors.request.use(request => {

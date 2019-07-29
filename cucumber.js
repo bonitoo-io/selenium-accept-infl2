@@ -8,9 +8,6 @@ const { flush, config, defaultUser } = require(__srcdir + '/utils/influxUtils');
 
 var common = '--require "src/step_definitions/**/*.js" --require hooks.js --require-module babel-core/register ';
 
-global.__config = config
-global.__defaultUser = defaultUser
-
 if(__config.headless) {
     global.__wdriver = new Builder()
         .forBrowser(__config.browser)
