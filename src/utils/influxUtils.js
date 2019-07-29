@@ -6,6 +6,7 @@ const config = require(__basedir + '/bonitoo.conf.json')[active_config];
 const defaultUser = require(__basedir + '/bonitoo.conf.json').default_user;
 
 axios.defaults.baseURL = `${config.protocol}://${config.host}:${config.port}`;
+global.__users = { 'init': undefined };
 
 /* Uncomment to debug axios
 axios.interceptors.request.use(request => {

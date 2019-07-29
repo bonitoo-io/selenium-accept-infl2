@@ -10,8 +10,6 @@ var common = '--require "src/step_definitions/**/*.js" --require hooks.js --requ
 
 global.__config = config
 global.__defaultUser = defaultUser
-global.__users = { 'init': undefined };
-//__users[__defaultUser.username] = __defaultUser; Do not initialize default user here - need to get id's from server
 
 if(__config.headless) {
     global.__wdriver = new Builder()
