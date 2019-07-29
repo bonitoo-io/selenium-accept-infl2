@@ -37,3 +37,36 @@ When(/^run setup over REST "(.*?)"$/, async( newUser ) => {
 
 });
 
+When(/^API sign in user "(.*?)"$/, async username => {
+    await influxUtils.signIn(username);
+});
+
+When(/^API end session$/, async() => {
+    await influxUtils.endSession();
+});
+
+When(/^write basic test data for org "(.*?)" to bucket "(.*?)"$/, async (org,bucket) => {
+    await influxUtils.writeData(org,bucket);
+});
+
+When(/^write sine data for org "(.*?)" to bucket "(.*?)"$/, async (org, bucket) =>{
+
+    let nowNano = new Date().getTime() * 1000000;
+
+    let intervalNano = 600 * 1000 * 1000000; //10 min in nanosecs
+
+    let lines = [];
+
+    let recCount = 256;
+
+    let startTime = nowNano - (recCount * intervalNano);
+
+    for(let i = 0; i < recCount; i++){
+        lines[i] = 'sinus point=' + Math.sin(i) + ' ' + (startTime + (i * intervalNano));
+    }
+
+    await influxUtils.writeData(org, bucket, lines);
+
+
+});
+
