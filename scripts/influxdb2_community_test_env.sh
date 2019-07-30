@@ -61,7 +61,7 @@ run_docker_influx_test_env(){
 }
 
 stop_docker_influx(){
-  if [ "$(docker ps -q -f name=$INSTANCE_NAME)" ] ; then
+  if [ "$(sudo docker ps -q -f name=$INSTANCE_NAME)" ] ; then
       echo "["$(date +"%d.%m.%Y %T")"] stopping docker instance ${INSTANCE_NAME}"
       sudo docker stop ${INSTANCE_NAME}
       echo "["$(date +"%d.%m.%Y %T")"] stopped $INSTANCE_NAME"
@@ -69,7 +69,7 @@ stop_docker_influx(){
 }
 
 remove_docker_influx(){
-  if [ "$(docker ps -a -q -f name=$INSTANCE_NAME)" ] ; then
+  if [ "$(sudo docker ps -a -q -f name=$INSTANCE_NAME)" ] ; then
       echo "["$(date +"%d.%m.%Y %T")"] removing docker instance ${INSTANCE_NAME}"
       sudo docker rm ${INSTANCE_NAME}
       echo "["$(date +"%d.%m.%Y %T")"] removed $INSTANCE_NAME"
