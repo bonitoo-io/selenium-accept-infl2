@@ -24,16 +24,6 @@ class onboardingSteps extends baseSteps {
 
     async verifyHeadContains(text){
 
-        //Promises 201 - passing promises between methods
-        //N.B. getHeadMain returned a Promise wrapping an element
-        //let elem = await this.splashPage.getHeadMain()
-
-        //elem get text also returns a promise
-        //let val = await elem.getText()
-
-        //console.log("DEBUG val " + val)
-
-        //ERGO
         await this.splashPage.getHeadMain().then(elem => {
             elem.getText().then(eltxt => {
                 expect(eltxt)
@@ -93,7 +83,6 @@ class onboardingSteps extends baseSteps {
             if(chkReadyPage) {
                 await this.readyPage.isLoaded();
             }
-            //await this.delay(1000) // no wait implicit or explicit seems to work.  Always getting title for previous step
         }).catch(async err => {
             console.log(err);
         });
@@ -129,7 +118,6 @@ class onboardingSteps extends baseSteps {
         await this.readyPage.getAdvancedButton().then(async btn =>{
             await btn.click();
             await this.influxPage.isLoaded();
-            //await this.delay(3000)
         });
     }
 

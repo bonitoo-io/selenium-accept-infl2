@@ -15,9 +15,9 @@ class baseSteps{
         await this.driver.sleep(timeout);
     }
 
-    async open(url){
+    /* async open(url){
         await this.driver.get(url);
-    }
+    } */
 
     async openBase(){
         await this.driver.get( `${__config.protocol}://${__config.host}:${__config.port}/`);
@@ -27,6 +27,15 @@ class baseSteps{
             });
         });
 
+    }
+
+    async openContext(ctx){
+        await this.driver.get( `${__config.protocol}://${__config.host}:${__config.port}/` + ctx);
+        await this.driver.wait(function(driver = this.driver) {
+            return driver.executeScript('return document.readyState').then(function(readyState) {
+                return readyState === 'complete';
+            });
+        });
     }
 
     async waitForPageLoad(){

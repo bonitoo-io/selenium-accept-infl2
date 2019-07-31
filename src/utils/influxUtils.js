@@ -40,6 +40,8 @@ axios.interceptors.response.use(response => {
 const flush = async () => {
     // console.log('calling flush')
     await axios.get('/debug/flush');
+    delete global.__users;
+    global.__users = { 'init': undefined };
 };
 
 // user { username: 'name', password: 'password', org; 'orgname', bucket: 'bucketname' }
@@ -64,10 +66,11 @@ const putUser = (user) => {
 };
 
 const getUser = (name) => {
+
     if(name in __users){
         return __users[name];
     }
-    throw `${name} is not a key in global users`;
+    throw `"${name}" is not a key in global users`;
 };
 
 const signIn = async (username) => {
@@ -117,6 +120,15 @@ const writeData = async (org, //string
 
 };
 
-module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData };
+//TODO - create cell and view to attach to dashboard
+const createDashboard = async(name, orgId) => {
+    return await axios.post('/api/v2/dashboards', { name, orgId }).then(resp => {
+        return resp.data;
+    }).catch(err => {
+        console.log('ERROR: ' + err);
+    });
+};
+
+module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData, createDashboard };
 
 //flush()

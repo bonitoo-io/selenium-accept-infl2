@@ -1,4 +1,4 @@
-import { Then, When } from 'cucumber';
+import { Given, Then, When } from 'cucumber';
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
@@ -21,7 +21,7 @@ When(/^close all notifications$/, async() => {
 });
 
 // newUser if not DEFAULT should follow {username: 'name', password: 'password', org: 'org', bucket: 'bucket'}
-When(/^run setup over REST "(.*?)"$/, async( newUser ) => {
+Given(/^run setup over REST "(.*?)"$/, async( newUser ) => {
 
     await influxUtils.flush();
 
@@ -67,6 +67,22 @@ When(/^write sine data for org "(.*?)" to bucket "(.*?)"$/, async (org, bucket) 
 
     await influxUtils.writeData(org, bucket, lines);
 
+
+});
+
+
+When(/^API create a dashboard named "(.*?)" for user "(.*?)"$/, async (name, username) => {
+
+    let user = await influxUtils.getUser(username);
+
+    let dashb = await influxUtils.createDashboard(name, user.orgid);
+
+    if(user.dashboards === undefined){
+        user.dashboards = new Object();
+    }
+
+    //Save dashboard for later use
+    user.dashboards[name] =  dashb;
 
 });
 
