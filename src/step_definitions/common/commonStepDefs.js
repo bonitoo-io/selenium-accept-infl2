@@ -1,8 +1,12 @@
 import { Given, Then, When } from 'cucumber';
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
+const signinSteps = require(__srcdir + '/steps/signin/signinSteps.js');
+const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 let bSteps = new baseSteps(__wdriver);
+let sSteps = new signinSteps(__wdriver);
+let iSteps = new influxSteps(__wdriver);
 
 Then(/^the success notification says "(.*?)"$/, async message => {
     await bSteps.isNotificationMessage(message);
@@ -38,11 +42,22 @@ Given(/^run setup over REST "(.*?)"$/, async( newUser ) => {
 });
 
 When(/^API sign in user "(.*?)"$/, async username => {
-    await influxUtils.signIn(username);
+    await influxUtils.signIn((username === 'DEFAULT') ? __defaultUser.username : username).then(async () => {
+        // await sSteps.driver.sleep(1500)
+
+    }).catch(async err => {
+        console.log('ERROR ' +  err);
+    });
 });
 
 When(/^API end session$/, async() => {
     await influxUtils.endSession();
+});
+
+When(/^UI sign in user "(.*?)"$/, async username => {
+    let user = influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
+    await sSteps.signin(user);
+    //await sSteps.driver.sleep(1500)
 });
 
 When(/^write basic test data for org "(.*?)" to bucket "(.*?)"$/, async (org,bucket) => {
@@ -83,6 +98,22 @@ When(/^API create a dashboard named "(.*?)" for user "(.*?)"$/, async (name, use
 
     //Save dashboard for later use
     user.dashboards[name] =  dashb;
+
+});
+
+
+When(/^open page "(.*?)" for user "(.*?)"$/, async (page, username) => {
+
+    let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
+    let ctx = 'orgs/' + user.orgid;
+    if(page !== 'HOME'){
+        ctx += `/${page}`;
+    }
+
+    await bSteps.openContext(ctx);
+
+    await iSteps.isLoaded();
+    //await bSteps.driver.sleep(3000)
 
 });
 

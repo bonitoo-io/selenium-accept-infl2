@@ -24,6 +24,8 @@ function writeScreenShot(filename) {
 
 After(function (scenario ,  callback  ) {
 
+    //__wdriver.sleep(1500) //DEBUG - getting shots out of order
+
     if(!fs.existsSync(`./${__config.screenshot_dir}`)){
         fs.mkdir(`./${__config.screenshot_dir}`, () => {})
     }

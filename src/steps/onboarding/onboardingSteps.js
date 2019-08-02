@@ -101,7 +101,7 @@ class onboardingSteps extends baseSteps {
     async verifyNavCrumbTextColor(crumb, color){
         await this.initialSetupPage.getCrumbStep(crumb).then( async elem => {
             await elem.getCssValue('color').then(async cssColor => {
-                await expect(cssColor).to.equal(color);
+                await expect(cssColor).to.include(color);
             });
         });
     }

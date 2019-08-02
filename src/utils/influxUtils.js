@@ -76,9 +76,14 @@ const getUser = (name) => {
 const signIn = async (username) => {
 
     let user = getUser(username);
-    return await axios.post('/api/v2/signin', '', {auth: {username: user.username, password: user.password}}).then(resp => {
+    return await axios.post('/api/v2/signin', '', {auth: {username: user.username, password: user.password}}).then(async resp => {
+        //console.log("DEBUG Headers " + JSON.stringify(resp.headers))
         let cookie = resp.headers['set-cookie'][0];
-        axios.defaults.headers.common['Cookie'] = cookie;
+        axios.defaults.headers.common['Cookie'] = cookie; //for axios
+        //let pair = cookie.split('=')
+        //let expiry = new Date(Date.now() + (24 * 60 * 60 * 1000));
+        //await __wdriver.get(`${__config.protocol}://${__config.host}:${__config.port}/`)  //  not working even with valid session cookie redirected to login
+        //await __wdriver.manage().addCookie({name: pair[0], value: pair[1], expiry: expiry, domain: __config.host}); //for selenium
         return cookie;
     }).catch(err => {
         console.log(err);

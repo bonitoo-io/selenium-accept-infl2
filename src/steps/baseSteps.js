@@ -1,5 +1,5 @@
 //const fs = require('fs')
-//const expect = require('chai').expect;
+const expect = require('chai').expect;
 const assert = require('chai').assert;
 
 
@@ -77,14 +77,6 @@ class baseSteps{
 
             assert(match, `Failed to find notification containing "${text}"`);
         });
-        /*
-        await this.basePage.getNoficicationSuccessMsg().then(async elem => {
-            await elem.getText().then(async eltxt => {
-                await expect(eltxt).to.include(text)
-            }).catch(async err => {
-                console.error(err)
-            })
-        }) */
     }
 
     async containsErrorNotificationText(text){
@@ -109,6 +101,23 @@ class baseSteps{
             });
         });
 
+    }
+
+    async hoverOver(element){
+        let actions = await this.driver.actions();
+        await actions.move({origin: element}).perform().then(() => {
+            //console.log("SUCCESS " + resp)
+        }).catch( err => {
+            console.log('ERR ' + err);
+        });
+    }
+
+    async assertVisible(element){
+        expect(await element.isDisplayed()).to.equal(true);
+    }
+
+    async assertNotVisible(element){
+        expect(await element.isDisplayed()).to.equal(false);
     }
 }
 

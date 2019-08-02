@@ -133,7 +133,8 @@ Then(/^verify ready page$/, async () => {
     await onbSteps.verifyNavCrumbText('complete', 'Complete');
     await onbSteps.delay(1000);
     //ideally following should be not an exact match but a general value match e.g. lighter than, darker than
-    await onbSteps.verifyNavCrumbTextColor('complete', 'rgba(246, 246, 248, 1)');
+    //also firefox returns different rgb function signature, so just test for rgb values
+    await onbSteps.verifyNavCrumbTextColor('complete', '246, 246, 248');
     //return "pending";
 
 });

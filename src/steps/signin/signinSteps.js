@@ -50,6 +50,13 @@ class signinSteps extends baseSteps {
             await btn.click();
         });
     }
+
+    async signin(user){
+        await this.enterUsername(user.username);
+        await this.enterPassword(user.password);
+        await this.clickSigninButton();
+        await this.influxPage.isLoaded();
+    }
 }
 
 module.exports = signinSteps;
