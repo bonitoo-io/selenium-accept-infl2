@@ -10,7 +10,8 @@
     "influx:clean": "./scripts/influxdb2_community_test_env.sh clean",
     "test": "mkdirp report && cucumber-js",
     "report:html": "chmod 775 src/utils/htmlReport.js; src/utils/htmlReport.js",
-    "report:junit": "chmod 775 src/utils/junitReport.js; src/utils/junitReport.js"
+    "report:junit": "chmod 775 src/utils/junitReport.js; src/utils/junitReport.js",
+    "kill:chrome" : "killall chrome"
   },
   "author": "",
   "license": "ISC",
