@@ -11,7 +11,7 @@
     "test": "mkdirp report && cucumber-js",
     "report:html": "chmod 775 src/utils/htmlReport.js; src/utils/htmlReport.js",
     "report:junit": "chmod 775 src/utils/junitReport.js; src/utils/junitReport.js",
-    "kill:chrome" : "killall chrome"
+    "kill:chrome" : "killall chrome || true"
   },
   "author": "",
   "license": "ISC",
