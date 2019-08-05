@@ -13,7 +13,16 @@ Feature: Influx common
     When hover over the "home" menu item
     Then the home submenu items are "visible"
     When click nav sub menu "Create Organization"
+    Then the Create Organization form is loaded
     When open page "HOME" for user "DEFAULT"
+    When hover over the "home" menu item
+    When click nav sub menu "Logout"
+    Then the sign in page is loaded
+    When UI sign in user "DEFAULT"
 
-
-
+  Scenario: Hover Data Explorer
+    Then the menu item text "Data Explorer" is "hidden"
+    When hover over the "explorer" menu item
+    Then the menu item text "Data Explorer" is "visible"
+    When click nav sub menu "Data Explorer"
+#    Then the Data Explorer page is loaded

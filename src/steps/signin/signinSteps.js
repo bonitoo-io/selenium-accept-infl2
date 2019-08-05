@@ -31,6 +31,14 @@ class signinSteps extends baseSteps {
         });
     }
 
+    async verifyIsLoaded(){
+        this.assertVisible(await this.signinPage.getHeading());
+        this.assertVisible(await this.signinPage.getNameInput());
+        this.assertVisible(await this.signinPage.getPasswordInput());
+        this.assertVisible(await this.signinPage.getSigninButton());
+        this.assertVisible(await this.signinPage.getCreditsLink());
+    }
+
     async enterUsername(name){
         await this.signinPage.getNameInput().then(async input => {
             await input.clear();

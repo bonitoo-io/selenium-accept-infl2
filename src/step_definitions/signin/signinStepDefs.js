@@ -7,6 +7,10 @@ When(/^open the signin page$/, async () => {
     await sSteps.openContext(sSteps.signinPage.urlCtx);
 });
 
+Then(/^the sign in page is loaded$/, async () => {
+    await sSteps.verifyIsLoaded()
+})
+
 Then(/^the heading contains "(.*?)"$/, async text => {
     await sSteps.verifyHeadingContains(text);
 });

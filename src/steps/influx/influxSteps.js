@@ -80,6 +80,15 @@ class influxSteps extends baseSteps {
         });
     }
 
+    async verifyVisibilityItemByText(text, visible = true){
+        if(visible) {
+           await this.assertVisible(await this.influxPage.getSubItemByText(text))
+        }else{
+           await this.assertNotVisible(await this.influxPage.getSubItemByText(text))
+        }
+    }
+
+
 }
 
 module.exports = influxSteps;
