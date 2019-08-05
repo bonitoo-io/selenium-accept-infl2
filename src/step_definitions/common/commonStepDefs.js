@@ -1,4 +1,5 @@
-import { Given, Then, When } from 'cucumber';
+import { AfterAll, Given, Then, When } from 'cucumber';
+import {flush} from '../../utils/influxUtils';
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const signinSteps = require(__srcdir + '/steps/signin/signinSteps.js');
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
@@ -7,6 +8,28 @@ const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 let bSteps = new baseSteps(__wdriver);
 let sSteps = new signinSteps(__wdriver);
 let iSteps = new influxSteps(__wdriver);
+
+Given(/^I reset the environment$/, async () => {
+    await bSteps.driver.sleep(1000); //since gets called after scenarios, need a short delay to avoid promise resolution issues
+    await flush();
+});
+
+/*
+Before(() => {
+})
+
+BeforeAll(() => {
+})
+
+After(() => {
+    console.log("DEBUG After hook")
+})
+*/
+
+AfterAll(async() => {
+    await bSteps.driver.close();
+});
+
 
 Then(/^the success notification says "(.*?)"$/, async message => {
     await bSteps.isNotificationMessage(message);
@@ -47,6 +70,7 @@ When(/^API sign in user "(.*?)"$/, async username => {
 
     }).catch(async err => {
         console.log('ERROR ' +  err);
+        throw(err);
     });
 });
 

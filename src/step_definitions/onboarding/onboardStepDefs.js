@@ -1,20 +1,9 @@
-import { AfterAll, Before, BeforeAll, Given, Then, When } from 'cucumber';
-import { flush } from '../../utils/influxUtils';
+import { Given, Then, When } from 'cucumber';
 
 const onboardingSteps = require(__srcdir + '/steps/onboarding/onboardingSteps.js');
 
 let driver = __wdriver;
 let onbSteps = new onboardingSteps(driver);
-
-Before( async () => {
-    // console.log("DEBUG Before hook " )
-    await driver.sleep(1000); //since gets called after scenarios, need a short delay to avoid promise resolution issues
-    await flush();
-});
-
-BeforeAll(async() => {
-    // console.log("DEBUG BeforeAll " )
-});
 
 Given(/^I open the Influx onboarding page$/, async () => {
 
@@ -153,13 +142,4 @@ Then(/^Fail$/, async() => {
     await onbSteps.failTest();
 });
 
-/*
-After(() => {
-    console.log("DEBUG After hook")
-})
-*/
-
-AfterAll(async() => {
-    await driver.close();
-});
 

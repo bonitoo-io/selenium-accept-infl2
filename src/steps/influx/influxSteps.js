@@ -74,6 +74,12 @@ class influxSteps extends baseSteps {
         }
     }
 
+    async clickSubMenuItem(item){
+        await this.influxPage.getSubItemByText(item).then( async elem => {
+            await elem.click();
+        });
+    }
+
 }
 
 module.exports = influxSteps;

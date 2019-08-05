@@ -13,6 +13,8 @@ const navMenuHomeHeading = '//a[text() = \'admin (qa)\']';
 const navMenuHomeNewOrg = 'a.cf-nav--sub-item[href=\'/orgs/new\']';
 const navMenuHomeLogout = 'a.cf-nav--sub-item[href=\'/logout\']';
 
+const navMenuXpath = '//*[@data-testid = \'nav-menu\']';
+
 const urlCtx = 'orgs';
 
 class influxPage extends basePage {
@@ -87,6 +89,15 @@ class influxPage extends basePage {
     async getMenuHomeLogout(){
         return await this.driver.findElement(By.css(navMenuHomeLogout));
     }
+
+    async getSubItemByText(text){
+        return await this.driver.findElement(By.xpath(navMenuXpath + `//*[text() = '${text}']`));
+    }
+
+    async getSubItemContainingText(text){
+        return await this.driver.findElement(By.xpath(navMenuXpath + `//*[contains(text(), '${text}')]`));
+    }
+
 
 
 }

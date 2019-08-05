@@ -2,6 +2,7 @@ Feature: Signin
   Use and abuse the signin page
 
   Scenario: Basic Signin
+    Given I reset the environment
     Given run setup over REST "DEFAULT"
     When open the signin page
     Then the heading contains "InfluxData"
@@ -13,6 +14,7 @@ Feature: Signin
     Then the home page is loaded
 
    Scenario Outline: Signin Bad Credentials
+     Given I reset the environment
      Given run setup over REST "DEFAULT"
      When open the signin page
      When enter the username "<USERNAME>"

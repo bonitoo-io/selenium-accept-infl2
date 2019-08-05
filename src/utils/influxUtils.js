@@ -87,6 +87,7 @@ const signIn = async (username) => {
         return cookie;
     }).catch(err => {
         console.log(err);
+        throw(err); //need to rethrow error - otherwise cucumber will not catch it and test will be success
     });
 
 };
@@ -131,6 +132,7 @@ const createDashboard = async(name, orgId) => {
         return resp.data;
     }).catch(err => {
         console.log('ERROR: ' + err);
+        throw(err); // rethrow it to cucumber
     });
 };
 

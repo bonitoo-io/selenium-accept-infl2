@@ -3,6 +3,7 @@ Feature: Onboard to Influxdbv2
 
   Scenario: Onboard Basic
 # Golden path check 1
+    Given I reset the environment
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate
@@ -24,6 +25,7 @@ Feature: Onboard to Influxdbv2
 
   Scenario: Onboard Advanced
 # Golden path check 2
+    Given I reset the environment
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate
@@ -45,6 +47,7 @@ Feature: Onboard to Influxdbv2
 # N.B. would expect there to be rules for min/max length or allowed/disallowed characters in user-names
 # however none currently exist -- TODO add tests for such rules if they are ever implemented
     # TODO - setup breadcrumb color change on password length less than 8 chars
+    Given I reset the environment
     Given I open the Influx onboarding page
     Then there is a Welcome message
     Then there is a link to corporate

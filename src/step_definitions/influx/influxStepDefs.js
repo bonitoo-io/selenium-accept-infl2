@@ -18,3 +18,7 @@ Then(/^the home submenu items are "(.*?)"$/, async(state) => {
     await iSteps.verifySubMenuItems('home:neworg', state);
     await iSteps.verifySubMenuItems('home:logout', state);
 });
+
+When(/^click nav sub menu "(.*?)"$/, async(item) => {
+    await iSteps.clickSubMenuItem(item);
+});

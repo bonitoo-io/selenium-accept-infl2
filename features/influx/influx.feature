@@ -12,6 +12,8 @@ Feature: Influx common
     Then the home submenu items are "hidden"
     When hover over the "home" menu item
     Then the home submenu items are "visible"
+    When click nav sub menu "Create Organization"
+    When open page "HOME" for user "DEFAULT"
 
 
 

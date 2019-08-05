@@ -109,6 +109,7 @@ class baseSteps{
             //console.log("SUCCESS " + resp)
         }).catch( err => {
             console.log('ERR ' + err);
+            throw(err); // rethrow to cucumber - else error not flagged and step is success
         });
     }
 
