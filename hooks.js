@@ -12,17 +12,20 @@ BeforeAll(async function (scenario, callback) {
 })
 */
 
-function writeScreenShot(filename) {
-    __wdriver.takeScreenshot().then(async (image, err) => {
-        fs.writeFile(filename, image, 'base64', (err) => {
+async function writeScreenShot(filename) {
+    return await __wdriver.takeScreenshot().then(async (image, err) => {
+
+        await fs.writeFile(filename, image, 'base64', (err) => {
             if (err) {
                 console.log(err)
             }
         })
+
+        return image
     })
 }
 
-After(function (scenario ,  callback  ) {
+After(async function (scenario /*,   callback */) {
 
     //__wdriver.sleep(1500) //DEBUG - getting shots out of order
 
@@ -42,13 +45,18 @@ After(function (scenario ,  callback  ) {
         now.getSeconds().toString().padStart(2, '0')
     let filebase = __config.screenshot_dir + '/' + feature + "-" + nowStr + "-" + name
 
+    let world = this
 
     if(scenario.result.status === Status.FAILED){
-        writeScreenShot(filebase + "-ERR" + ".png")
+            await writeScreenShot(filebase + "-ERR" + ".png").then(async img => {
+                await world.attach(img, 'image/png')
+            })
     }else {
-        writeScreenShot(filebase + "--OK" + ".png")
+            await writeScreenShot(filebase + "--OK" + ".png").then(async img => {
+                await world.attach(img, 'image/png')
+            })
     }
-    callback()
+    //callback()
 
 });
 
