@@ -2,6 +2,7 @@ Feature: Influx common
   Click through the controls common to all influx pages
 
   Scenario: Open home page
+    Given I reset the environment
     Given run setup over REST "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
@@ -25,4 +26,4 @@ Feature: Influx common
     When hover over the "explorer" menu item
     Then the menu item text "Data Explorer" is "visible"
     When click nav sub menu "Data Explorer"
-#    Then the Data Explorer page is loaded
+    Then the Data Explorer page is loaded

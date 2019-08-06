@@ -24,7 +24,7 @@ class influxSteps extends baseSteps {
         this.assertVisible(await this.influxPage.getMenuFeedback());
     }
 
-    async getPageElem(item){
+    async getNavMenuElem(item){
         let elem = undefined;
         switch(item.toLowerCase()){
         case 'home':
@@ -60,15 +60,15 @@ class influxSteps extends baseSteps {
         return elem;
     }
 
-    async hover(item){
-        this.hoverOver(await this.getPageElem(item));
+    async hoverNavMenu(item){
+        this.hoverOver(await this.getNavMenuElem(item));
     }
 
     async verifySubMenuItems(item, state = 'hidden'){
         if(state === 'hidden'){
-            this.assertNotVisible(await this.getPageElem(item));
+            this.assertNotVisible(await this.getNavMenuElem(item));
         }else if(state === 'visible'){
-            this.assertVisible(await this.getPageElem(item));
+            this.assertVisible(await this.getNavMenuElem(item));
         }else{
             throw `unkown menu state ${state}`;
         }
@@ -80,7 +80,7 @@ class influxSteps extends baseSteps {
         });
     }
 
-    async verifyVisibilityItemByText(text, visible = true){
+    async verifyVisibilityNavItemByText(text, visible = true){
         if(visible) {
            await this.assertVisible(await this.influxPage.getSubItemByText(text))
         }else{

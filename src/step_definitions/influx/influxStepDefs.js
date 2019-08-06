@@ -17,7 +17,7 @@ Then(/^the Create Organization form is loaded$/, async () => {
 })
 
 When(/^hover over the "(.*?)" menu item$/, async (item) => {
-    await iSteps.hover(item);
+    await iSteps.hoverNavMenu(item);
 });
 
 Then(/^the home submenu items are "(.*?)"$/, async(state) => {
@@ -31,5 +31,5 @@ When(/^click nav sub menu "(.*?)"$/, async(item) => {
 });
 
 Then(/^the menu item text "(.*?)" is "(.*?)"$/, async (text, state) => {
-        await iSteps.verifyVisibilityItemByText(text, state.toLowerCase() !== 'hidden')
+        await iSteps.verifyVisibilityNavItemByText(text, state.toLowerCase() !== 'hidden')
 })

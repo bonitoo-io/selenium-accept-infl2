@@ -32,9 +32,17 @@ class basePage{
         }
 
         selectors.forEach(async (selector) => {
-            if(selector.type === 'css'){
-                await this.driver.wait(until.elementLocated(By.css(selector.selector)));
+            switch(selector.type){
+                case 'css':
+                    await this.driver.wait(until.elementLocated(By.css(selector.selector)));
+                    break;
+                case 'xpath':
+                    await this.driver.wait(until.elementLocated(By.xpath(selector.selector)));
+                    break;
+                default:
+                    throw `Unkown selector ${selector.type}`
             }
+
             // TODO - implement other selector types
         });
     }

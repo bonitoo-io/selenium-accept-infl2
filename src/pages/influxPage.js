@@ -15,6 +15,8 @@ const navMenuHomeLogout = 'a.cf-nav--sub-item[href=\'/logout\']';
 
 const navMenuXpath = '//*[@data-testid = \'nav-menu\']';
 
+const pageHeader = '[data-testid=page-header]'
+
 const urlCtx = 'orgs';
 
 class influxPage extends basePage {
@@ -26,6 +28,11 @@ class influxPage extends basePage {
     async getNavMenu(){
         return await this.driver.findElement(By.css(navMenu));
     }
+
+    async getPageHeader(){
+        return await this.driver.findElement(By.css(pageHeader));
+    }
+
 
     /*
     async isLoaded(){
@@ -97,7 +104,6 @@ class influxPage extends basePage {
     async getSubItemContainingText(text){
         return await this.driver.findElement(By.xpath(navMenuXpath + `//*[contains(text(), '${text}')]`));
     }
-
 
 
 }
