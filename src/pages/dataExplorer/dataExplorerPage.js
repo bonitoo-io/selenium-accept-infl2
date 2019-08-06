@@ -35,7 +35,7 @@ class dataExplorerPage extends influxPage {
             {type: 'css', selector: autorefreshDropdown},
             {type: 'css', selector: timeRangeDropdown},
             {type: 'css', selector: submitQueryButton}
-        ]);
+        ], urlCtx);
     }
 
     async getTimeLocaleDropdown(){

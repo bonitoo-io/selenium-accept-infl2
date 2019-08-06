@@ -105,7 +105,6 @@ class influxPage extends basePage {
         return await this.driver.findElement(By.xpath(navMenuXpath + `//*[contains(text(), '${text}')]`));
     }
 
-
 }
 
 module.exports = influxPage;

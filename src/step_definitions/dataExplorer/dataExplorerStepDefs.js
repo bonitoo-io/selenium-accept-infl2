@@ -6,4 +6,5 @@ let deSteps = new dataExplorerSteps(__wdriver);
 Then(/^the Data Explorer page is loaded$/, async () => {
     await deSteps.isLoaded()
     await deSteps.verifyIsLoaded()
+    await deSteps.verifyHeaderContains('Data Explorer')
 })

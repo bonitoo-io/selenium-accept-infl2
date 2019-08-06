@@ -11,6 +11,11 @@ Then(/^influx page is loaded$/, async() => {
 
 });
 
+Then(/^the header contains the org name "(.*?)"$/, async (orgname) => {
+  await iSteps.verifyHeaderContains((orgname === 'DEFAULT') ? __defaultUser.org : orgname)
+})
+
+
 Then(/^the Create Organization form is loaded$/, async () => {
     await cOrgSteps.isLoaded();
     await cOrgSteps.verifyIsLoaded();

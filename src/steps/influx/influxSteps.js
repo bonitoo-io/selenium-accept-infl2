@@ -1,5 +1,5 @@
 //const assert = require('chai').assert;
-//const expect = require('chai').expect;
+const expect = require('chai').expect;
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const influxPage = require(__srcdir + '/pages/influxPage.js');
 
@@ -86,6 +86,14 @@ class influxSteps extends baseSteps {
         }else{
            await this.assertNotVisible(await this.influxPage.getSubItemByText(text))
         }
+    }
+
+    async verifyHeaderContains(text){
+        await this.influxPage.getPageHeader().then(async elem => {
+            await elem.getText().then(async elTxt => {
+                expect(elTxt).to.include(text)
+            })
+        })
     }
 
 

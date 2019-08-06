@@ -8,6 +8,7 @@ Feature: Influx common
     When UI sign in user "DEFAULT"
     When open page "HOME" for user "DEFAULT"
     Then influx page is loaded
+    Then the header contains the org name "DEFAULT"
 
   Scenario: Hover home item
     Then the home submenu items are "hidden"
@@ -27,3 +28,10 @@ Feature: Influx common
     Then the menu item text "Data Explorer" is "visible"
     When click nav sub menu "Data Explorer"
     Then the Data Explorer page is loaded
+
+   Scenario: Hover Dashboards
+     Then the menu item text "Dashboards" is "hidden"
+     When hover over the "dashboards" menu item
+     Then the menu item text "Dashboards" is "visible"
+     When click nav sub menu "Dashboards"
+     Then the Dashboards page is loaded
