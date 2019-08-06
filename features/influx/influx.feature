@@ -43,3 +43,11 @@ Feature: Influx common
     When click nav sub menu "Tasks"
     Then the Tasks page is loaded
 
+  Scenario: Hover Settings
+    Then the menu item text "Settings" is "hidden"
+    When hover over the "settings" menu item
+    Then the menu item text "Settings" is "visible"
+    When click nav sub menu "Settings"
+    Then the Settings page is loaded
+
+

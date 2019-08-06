@@ -1,7 +1,9 @@
 const influxPage = require(__srcdir + '/pages/influxPage.js');
-//const { By, Key, promise, until} = require('selenium-webdriver');
+const { By } = require('selenium-webdriver');
 
-const pageHeader = '[data-testid=page-header]';
+const tabsXpath = '//div[@class = \'tabs\']';
+
+const urlCtx = 'settings';
 
 class settingsPage extends influxPage {
 
@@ -10,15 +12,19 @@ class settingsPage extends influxPage {
     }
 
     async isLoaded(){
-        await super.isLoaded([{type: 'css', selector: pageHeader}]);
+        await super.isLoaded([{type: 'xpath', selector: tabsXpath}], urlCtx);
     }
 
     async isTabLoaded(tabUrlPart, selectors = undefined){
         if(selectors) {
-            await super.isLoaded(selectors.concat([{type: 'css', selector: pageHeader}]), tabUrlPart);
+            await super.isLoaded(selectors.concat([{type: 'xpath', selector: tabsXpath}]), tabUrlPart);
         }else{
-            await super.isLoaded([{type: 'css', selector: pageHeader}], tabUrlPart);
+            await super.isLoaded([{type: 'xpath', selector: tabsXpath}], tabUrlPart);
         }
+    }
+
+    async getTabByName(name){
+        return await this.driver.findElement(By.xpath(`${tabsXpath}//a[text()='${name}']`));
     }
 
 }

@@ -50,14 +50,17 @@ class influxPage extends basePage {
                 {type: 'css', selector: navMenuTasks},
                 {type: 'css', selector: navMenuSettings},
                 {type: 'css', selector: navMenuFeedback},
+                {type: 'css', selector: pageHeader}
             ], urlCtx);
             return;
         }
 
         if(url){
-            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]),url);
+            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu},
+                {type: 'css', selector: pageHeader}]),url);
         }else{
-            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu}]), urlCtx);
+            await super.isLoaded(selectors.concat([{type: 'css', selector: navMenu},
+                {type: 'css', selector: pageHeader}]), urlCtx);
         }
     }
 
