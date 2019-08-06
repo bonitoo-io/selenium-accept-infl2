@@ -1,5 +1,5 @@
-const baseSteps = require(__srcdir + '/steps/baseSteps.js')
-const createOrgPage = require(__srcdir + '/pages/createOrgPage.js')
+const baseSteps = require(__srcdir + '/steps/baseSteps.js');
+const createOrgPage = require(__srcdir + '/pages/createOrgPage.js');
 
 class createOrgSteps extends baseSteps {
 
@@ -22,4 +22,4 @@ class createOrgSteps extends baseSteps {
     }
 }
 
-module.exports = createOrgSteps
+module.exports = createOrgSteps;

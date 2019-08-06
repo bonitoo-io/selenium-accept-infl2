@@ -1,6 +1,6 @@
 import { Then, When } from 'cucumber';
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
-const createOrgSteps = require(__srcdir + '/steps/createOrgSteps.js')
+const createOrgSteps = require(__srcdir + '/steps/createOrgSteps.js');
 
 let iSteps = new influxSteps(__wdriver);
 let cOrgSteps = new createOrgSteps(__wdriver);
@@ -12,14 +12,14 @@ Then(/^influx page is loaded$/, async() => {
 });
 
 Then(/^the header contains the org name "(.*?)"$/, async (orgname) => {
-  await iSteps.verifyHeaderContains((orgname === 'DEFAULT') ? __defaultUser.org : orgname)
-})
+    await iSteps.verifyHeaderContains((orgname === 'DEFAULT') ? __defaultUser.org : orgname);
+});
 
 
 Then(/^the Create Organization form is loaded$/, async () => {
     await cOrgSteps.isLoaded();
     await cOrgSteps.verifyIsLoaded();
-})
+});
 
 When(/^hover over the "(.*?)" menu item$/, async (item) => {
     await iSteps.hoverNavMenu(item);
@@ -36,5 +36,5 @@ When(/^click nav sub menu "(.*?)"$/, async(item) => {
 });
 
 Then(/^the menu item text "(.*?)" is "(.*?)"$/, async (text, state) => {
-        await iSteps.verifyVisibilityNavItemByText(text, state.toLowerCase() !== 'hidden')
-})
+    await iSteps.verifyVisibilityNavItemByText(text, state.toLowerCase() !== 'hidden');
+});

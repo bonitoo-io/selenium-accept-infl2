@@ -4,7 +4,7 @@ const dataExplorerPage = require(__srcdir + '/pages/dataExplorer/dataExplorerPag
 class dataExplorerSteps extends influxSteps{
 
     constructor(driver){
-        super(driver)
+        super(driver);
         this.dePage = new dataExplorerPage(driver);
     }
 
@@ -28,4 +28,4 @@ class dataExplorerSteps extends influxSteps{
 
 }
 
-module.exports = dataExplorerSteps
+module.exports = dataExplorerSteps;

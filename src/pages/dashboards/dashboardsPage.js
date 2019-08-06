@@ -11,7 +11,7 @@ const urlCtx = 'dashboards';
 class dashboardsPage extends influxPage {
 
     constructor(driver){
-        super(driver)
+        super(driver);
     }
 
     async isLoaded(){
@@ -40,4 +40,4 @@ class dashboardsPage extends influxPage {
 
 }
 
-module.exports = dashboardsPage
+module.exports = dashboardsPage;

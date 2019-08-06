@@ -8,8 +8,8 @@ When(/^open the signin page$/, async () => {
 });
 
 Then(/^the sign in page is loaded$/, async () => {
-    await sSteps.verifyIsLoaded()
-})
+    await sSteps.verifyIsLoaded();
+});
 
 Then(/^the heading contains "(.*?)"$/, async text => {
     await sSteps.verifyHeadingContains(text);

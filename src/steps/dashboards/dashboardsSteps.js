@@ -4,8 +4,8 @@ const dashboardsPage = require(__srcdir + '/pages/dashboards/dashboardsPage.js')
 class dashboardsSteps extends influxSteps {
 
     constructor(driver){
-        super(driver)
-        this.dbdsPage = new dashboardsPage(driver)
+        super(driver);
+        this.dbdsPage = new dashboardsPage(driver);
     }
 
     async isLoaded(){
@@ -20,5 +20,5 @@ class dashboardsSteps extends influxSteps {
     }
 }
 
-module.exports = dashboardsSteps
+module.exports = dashboardsSteps;
 

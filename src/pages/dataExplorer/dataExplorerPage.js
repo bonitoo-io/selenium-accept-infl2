@@ -1,7 +1,7 @@
 const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
-const timeLocaleDropdown = '[data-testid=select-dropdown]'
+const timeLocaleDropdown = '[data-testid=select-dropdown]';
 const graphTimeDropdodwn = '.page-header--right [data-testid=dropdown]';
 const customizeGraphButton = '.page-header--right [data-testid=button] .cog-thick';
 const saveAsButton = '//button[./span[text() = \'Save As\']]';
@@ -21,7 +21,7 @@ const urlCtx = 'data-explorer';
 class dataExplorerPage extends influxPage {
 
     constructor(driver){
-        super(driver)
+        super(driver);
     }
 
 
@@ -80,4 +80,4 @@ class dataExplorerPage extends influxPage {
 
 }
 
-module.exports = dataExplorerPage
+module.exports = dataExplorerPage;

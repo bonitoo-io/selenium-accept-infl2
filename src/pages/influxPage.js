@@ -15,7 +15,7 @@ const navMenuHomeLogout = 'a.cf-nav--sub-item[href=\'/logout\']';
 
 const navMenuXpath = '//*[@data-testid = \'nav-menu\']';
 
-const pageHeader = '[data-testid=page-header]'
+const pageHeader = '[data-testid=page-header]';
 
 const urlCtx = 'orgs';
 

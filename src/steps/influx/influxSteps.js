@@ -82,18 +82,18 @@ class influxSteps extends baseSteps {
 
     async verifyVisibilityNavItemByText(text, visible = true){
         if(visible) {
-           await this.assertVisible(await this.influxPage.getSubItemByText(text))
+            await this.assertVisible(await this.influxPage.getSubItemByText(text));
         }else{
-           await this.assertNotVisible(await this.influxPage.getSubItemByText(text))
+            await this.assertNotVisible(await this.influxPage.getSubItemByText(text));
         }
     }
 
     async verifyHeaderContains(text){
         await this.influxPage.getPageHeader().then(async elem => {
             await elem.getText().then(async elTxt => {
-                expect(elTxt).to.include(text)
-            })
-        })
+                expect(elTxt).to.include(text);
+            });
+        });
     }
 
 
