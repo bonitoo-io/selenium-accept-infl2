@@ -35,3 +35,11 @@ Feature: Influx common
      Then the menu item text "Dashboards" is "visible"
      When click nav sub menu "Dashboards"
      Then the Dashboards page is loaded
+
+  Scenario: Hover Tasks
+    Then the menu item text "Tasks" is "hidden"
+    When hover over the "tasks" menu item
+    Then the menu item text "Tasks" is "visible"
+    When click nav sub menu "Tasks"
+    Then the Tasks page is loaded
+

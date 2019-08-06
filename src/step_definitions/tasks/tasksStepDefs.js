@@ -1,0 +1,10 @@
+import { Then, When } from 'cucumber';
+const tasksSteps = require(__srcdir + '/steps/tasks/tasksSteps.js');
+
+let tSteps = new tasksSteps(__wdriver);
+
+Then(/^the Tasks page is loaded$/, async() => {
+    await tSteps.isLoaded();
+    await tSteps.verifyIsLoaded();
+    await tSteps.verifyHeaderContains('Tasks');
+});
