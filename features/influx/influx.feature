@@ -50,4 +50,10 @@ Feature: Influx common
     When click nav sub menu "Settings"
     Then the Settings page is loaded
 
+  Scenario: Hover Feedback
+    Then the menu item text "Feedback" is "hidden"
+    When hover over the "feedback" menu item
+    Then the menu item text "Feedback" is "visible"
+    Then the feedback URL should include "https://docs.google.com/forms"
+
 

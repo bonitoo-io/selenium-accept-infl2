@@ -52,7 +52,7 @@ class influxSteps extends baseSteps {
             elem = await this.influxPage.getMenuSettings();
             break;
         case 'feedback':
-            elem = await this.influxPage.getMenuHome();
+            elem = await this.influxPage.getMenuFeedback();
             break;
         default:
             throw `Unkown menu item ${item}`;
@@ -92,6 +92,16 @@ class influxSteps extends baseSteps {
         await this.influxPage.getPageHeader().then(async elem => {
             await elem.getText().then(async elTxt => {
                 expect(elTxt).to.include(text);
+            });
+        });
+    }
+
+    async verifyFeedbackLinkContains(text){
+        await this.getNavMenuElem('feedback').then(async elem => {
+            await elem.findElement({xpath: './..'}).then(async el2 => { //the getNavMenuElem method uses span inside a tag
+                await el2.getAttribute('href').then(async attrib =>{
+                    expect(attrib).to.include(text);
+                });
             });
         });
     }

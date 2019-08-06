@@ -38,3 +38,7 @@ When(/^click nav sub menu "(.*?)"$/, async(item) => {
 Then(/^the menu item text "(.*?)" is "(.*?)"$/, async (text, state) => {
     await iSteps.verifyVisibilityNavItemByText(text, state.toLowerCase() !== 'hidden');
 });
+
+Then(/^the feedback URL should include "(.*?)"$/, async text => {
+    await iSteps.verifyFeedbackLinkContains(text);
+});
