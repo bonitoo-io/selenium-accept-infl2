@@ -35,6 +35,11 @@ When(/^click nav sub menu "(.*?)"$/, async(item) => {
     await iSteps.clickSubMenuItem(item);
 });
 
+When(/^click nav menu item "(.*?)"$/, async(item) => {
+    await iSteps.clickMenuItem(item);
+});
+
+
 Then(/^the menu item text "(.*?)" is "(.*?)"$/, async (text, state) => {
     await iSteps.verifyVisibilityNavItemByText(text, state.toLowerCase() !== 'hidden');
 });

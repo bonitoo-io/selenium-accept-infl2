@@ -74,6 +74,12 @@ class influxSteps extends baseSteps {
         }
     }
 
+    async clickMenuItem(item){
+        await this.getNavMenuElem(item).then(async elem => {
+            await elem.click();
+        });
+    }
+
     async clickSubMenuItem(item){
         await this.influxPage.getSubItemByText(item).then( async elem => {
             await elem.click();
