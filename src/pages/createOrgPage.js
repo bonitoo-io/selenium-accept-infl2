@@ -1,4 +1,4 @@
-const influxPage = require(__srcdir + '/pages/influxPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 const { By } = require('selenium-webdriver');
 
 const formOverlay = '[data-testid=overlay--children]';
@@ -11,7 +11,7 @@ const buttonCreate = 'button[title=Create]';
 
 const urlCtx = 'orgs/new';
 
-class createOrgPage extends influxPage {
+class createOrgPage extends basePage {
 
     constructor(driver){
         super(driver);

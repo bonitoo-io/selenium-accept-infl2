@@ -16,7 +16,7 @@ Then(/^the header contains the org name "(.*?)"$/, async (orgname) => {
 });
 
 
-Then(/^the Create Organization form is loaded$/, async () => {
+Then(/^the Create Organization form is loaded$/, {timeout: 2 * 5000}, async () => {
     await cOrgSteps.isLoaded();
     await cOrgSteps.verifyIsLoaded();
 });

@@ -24,6 +24,10 @@ class settingsSteps extends influxSteps{
         this.assertVisible(await this.setPage.getTabByName('Org Profile'));
     }
 
+    async clickTab(name){
+        await (await this.setPage.getTabByName(name)).click()
+    }
+
 }
 
 module.exports = settingsSteps;

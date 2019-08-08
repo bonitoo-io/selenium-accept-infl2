@@ -1,11 +1,13 @@
-import { Then } from 'cucumber';
+import { Then, When } from 'cucumber';
 const bucketsSteps = require(__srcdir + '/steps/settings/bucketsSteps.js');
 const telegrafsSteps = require(__srcdir + '/steps/settings/telegrafsSteps.js');
 const settingsSteps = require(__srcdir + '/steps/settings/settingsSteps.js');
+const scrapersSteps = require(__srcdir + '/steps/settings/scrapersSteps.js');
 
 let bktTabSteps = new bucketsSteps(__wdriver);
 let setSteps = new settingsSteps(__wdriver);
 let teleTabSteps = new telegrafsSteps(__wdriver);
+let scrTabSteps = new scrapersSteps(__wdriver);
 
 Then(/^the Settings page is loaded$/, {timeout: 2 * 5000}, async() => {
     await setSteps.isLoaded();
@@ -20,4 +22,12 @@ Then(/^the buckets tab is loaded$/, async() => {
 Then(/^the Telegraf Tab is loaded$/, async() => {
     await teleTabSteps.isLoaded();
 });
+
+When(/^click the settings tab "(.*?)"$/,  async(name) => {
+    await setSteps.clickTab(name)
+})
+
+Then(/^the Scrapers Tab is loaded$/, {timeout: 2 * 5000}, async() => {
+    await scrTabSteps.isLoaded()
+})
 
