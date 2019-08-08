@@ -28,20 +28,20 @@ class basePage{
     // selectors should be array of {type, selector}
     async isLoaded(selectors, url = undefined){
         if(url){
-            await this.driver.wait(until.urlContains(url))
+            await this.driver.wait(until.urlContains(url));
         }
 
         //selectors.forEach(async (selector) => { //N.B. for each seems to be swallowing thrown errors
         for(let i = 0; i < selectors.length; i++) {
             switch (selectors[i].type) {
-                case 'css':
-                    await this.driver.wait(until.elementLocated(By.css(selectors[i].selector)), 5000)
-                    break;
-                case 'xpath':
-                    await this.driver.wait(until.elementLocated(By.xpath(selectors[i].selector)), 5000)
-                    break;
-                default:
-                    throw `Unkown selector type ${JSON.stringify(selectors[i])}`;
+            case 'css':
+                await this.driver.wait(until.elementLocated(By.css(selectors[i].selector)), 5000);
+                break;
+            case 'xpath':
+                await this.driver.wait(until.elementLocated(By.xpath(selectors[i].selector)), 5000);
+                break;
+            default:
+                throw `Unkown selector type ${JSON.stringify(selectors[i])}`;
             }
 
             // TODO - implement other selector types

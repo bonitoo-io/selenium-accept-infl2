@@ -25,7 +25,7 @@ class settingsSteps extends influxSteps{
     }
 
     async clickTab(name){
-        await (await this.setPage.getTabByName(name)).click()
+        await (await this.setPage.getTabByName(name)).click();
     }
 
 }

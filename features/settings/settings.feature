@@ -1,0 +1,26 @@
+Feature: Settings Base
+  As a user I want to open the settings page
+  So that I can explore how this Influx2 installation is set up
+
+  Scenario: Verify Tabs
+    Given I reset the environment
+    Given run setup over REST "DEFAULT"
+    When open the signin page
+    When UI sign in user "DEFAULT"
+    When open page "settings" for user "DEFAULT"
+    When click the settings tab "Buckets"
+    Then the buckets tab is loaded
+    When click the settings tab "Telegraf"
+    Then the Telegraf Tab is loaded
+    When click the settings tab "Scrapers"
+    Then the Scrapers Tab is loaded
+    When click the settings tab "Variables"
+    Then the variables Tab is loaded
+    When click the settings tab "Templates"
+    Then the templates Tab is loaded
+    When click the settings tab "Labels"
+    Then the labels Tab is loaded
+    When click the settings tab "Tokens"
+    Then the tokens Tab is loaded
+    When click the settings tab "Org Profile"
+    Then the org profile Tab is loaded
