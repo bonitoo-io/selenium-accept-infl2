@@ -9,7 +9,7 @@ const viewArea = '.time-machine--view';
 const viewRawToggle = '.time-machine-queries--controls [data-testid=slide-toggle--label]';
 const autorefreshDropdown = 'div.autorefresh-dropdown';
 const pausedAutorefreshButton = 'button.autorefresh-dropdown--pause'; //Present only when autorefresh is paused - not good candidate for page loade check
-const timeRangeDropdown = '[data-testid=component-spacer] div:nth-of-type(4)';
+const timeRangeDropdown = '[data-testid="flex-box"] div:nth-of-type(4) button';
 const scriptEditToggle = '[data-testid=switch-to-script-editor] '; //N.B. disappears when in Script edit mode - not good candidate for page load check
 const queryBuildToggle = '[data-testid=switch-to-query-builder]'; //N.B. not present when in Query builder mode - not good candidate for page load check
 const submitQueryButton = '[data-testid=time-machine-submit-button]';

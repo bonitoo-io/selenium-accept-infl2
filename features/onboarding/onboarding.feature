@@ -18,7 +18,7 @@ Feature: Onboard to Influxdbv2
     Then verify ready page
     Then the success notification says "Initial user details have been successfully set"
     When click quick start button
-    Then the success notification says "The Local Metrics Dashboard has been created"
+    Then the success notification contains "Metrics Dashboard has been created"
     Then the success notification contains "The InfluxDB Scraper has been configured"
     When close all notifications
     Then the home page is loaded

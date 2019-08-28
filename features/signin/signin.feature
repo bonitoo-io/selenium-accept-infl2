@@ -24,8 +24,8 @@ Feature: Signin
 
      Examples:
      | USERNAME | PASSWORD | MESSAGE |
-     | wumpus   | DEFAULT  |  Login failed: username or password is invalid |
-     | DEFAULT  | wuumpuus |  Login failed: username or password is invalid |
+     | wumpus   | DEFAULT  | Could not sign in |
+     | DEFAULT  | wuumpuus | Could not sign in |
 
 
      # N.B. TODO - consider Security scenarios - Brute force password, injection attack
