@@ -1,5 +1,5 @@
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
-const bucketsTab = require(__srcdir + '/pages/settings/bucketsTab.js');
+const bucketsTab = require(__srcdir + '/pages/loadData/bucketsTab.js');
 
 class bucketsSteps extends baseSteps {
 

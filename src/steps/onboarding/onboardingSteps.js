@@ -4,7 +4,7 @@ const splashPage = require(__srcdir + '/pages/onboarding/splashPage.js');
 const initialSetupPage = require(__srcdir + '/pages/onboarding/initialSetupPage.js');
 const readyPage = require(__srcdir + '/pages/onboarding/readyPage.js');
 const influxPage = require(__srcdir + '/pages/influxPage.js');
-const bucketsTab = require(__srcdir + '/pages/settings/bucketsTab.js');
+const bucketsTab = require(__srcdir + '/pages/loadData/bucketsTab.js');
 
 
 class onboardingSteps extends baseSteps {

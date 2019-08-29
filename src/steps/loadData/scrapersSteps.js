@@ -1,5 +1,5 @@
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
-const scrapersTab = require(__srcdir + '/pages/settings/scrapersTab.js');
+const scrapersTab = require(__srcdir + '/pages/loadData/scrapersTab.js');
 
 class scrapersSteps extends baseSteps{
 

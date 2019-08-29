@@ -1,5 +1,5 @@
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
-const telegrafsTab = require(__srcdir + '/pages/settings/telegrafsTab.js');
+const telegrafsTab = require(__srcdir + '/pages/loadData/telegrafsTab.js');
 
 class telegrafsSteps extends baseSteps{
 
