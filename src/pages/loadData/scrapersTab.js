@@ -1,6 +1,6 @@
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
-const scrapersFilter = '[data-testid=input-field]';
+const scrapersFilter = '[data-testid=search-widget]';
 const createScraperHeader = '[data-testid=create-scraper-button-header]';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const urlSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
