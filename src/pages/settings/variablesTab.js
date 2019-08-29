@@ -1,6 +1,6 @@
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
-const variablesFilter = '[data-testid=input-field]';
+const variablesFilter = '[data-testid=search-widget]';
 const createVariableHeader = '.tabbed-page-section--header [data-testid=add-resource-dropdown--button]';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const typeSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';

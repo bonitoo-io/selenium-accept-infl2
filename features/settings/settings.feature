@@ -8,12 +8,6 @@ Feature: Settings Base
     When open the signin page
     When UI sign in user "DEFAULT"
     When open page "settings" for user "DEFAULT"
-    When click the settings tab "Buckets"
-    Then the buckets tab is loaded
-    When click the settings tab "Telegraf"
-    Then the Telegraf Tab is loaded
-    When click the settings tab "Scrapers"
-    Then the Scrapers Tab is loaded
     When click the settings tab "Variables"
     Then the variables Tab is loaded
     When click the settings tab "Templates"
@@ -22,5 +16,7 @@ Feature: Settings Base
     Then the labels Tab is loaded
     When click the settings tab "Tokens"
     Then the tokens Tab is loaded
-    When click the settings tab "Org Profile"
+    When click the settings tab "Profile"
     Then the org profile Tab is loaded
+    When click the settings tab "Members"
+    Then the members Tab is loaded

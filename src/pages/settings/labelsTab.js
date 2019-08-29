@@ -1,6 +1,6 @@
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
-const labelsFilter = '[data-testid=input-field]';
+const labelsFilter = '[data-testid=search-widget]';
 const createLabelHeader = '[data-testid=button-create]';
 const nameSort = '[data-testid=sorter--name]';
 const descSort = '[data-testid=sorter--desc]';

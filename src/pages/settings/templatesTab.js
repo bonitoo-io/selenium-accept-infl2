@@ -1,7 +1,7 @@
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
 const templatesFilter = '[data-testid=search-widget]';
-const importTemplateButton = '.tabs--contents-header [data-testid=button]';
+const importTemplateButton = '[title=\'Import Template\']';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const templatesTypeFilterButton = '[data-testid=radio-button]';
 const resourceList = '[data-testid=resource-list]';
