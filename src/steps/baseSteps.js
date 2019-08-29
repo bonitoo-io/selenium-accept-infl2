@@ -104,8 +104,10 @@ class baseSteps{
     }
 
     async hoverOver(element){
-        let actions = await this.driver.actions();
-        await actions.move({origin: element}).perform().then(() => {
+        let actions = await this.driver.actions({bridge: true});
+        await actions.move({origin: element}).perform().then(async () => {
+//            console.log("DEBUG hover success ");
+//            await this.driver.sleep(1000)
             //console.log("SUCCESS " + resp)
         }).catch( err => {
             console.log('ERR ' + err);

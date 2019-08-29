@@ -43,6 +43,15 @@ Feature: Influx common
     When click nav sub menu "Tasks"
     Then the Tasks page is loaded
 
+  Scenario: Hover Load Data
+    Then the menu item text "Settings" is "hidden"
+    When hover over the "loadData" menu item
+    Then the menu item text "Load Data" is "visible"
+    Then the menu item text "Buckets" is "visible"
+    Then the menu item text "Telegraf" is "visible"
+    Then the menu item text "Scrapers" is "visible"
+    When click nav sub menu "Load Data"
+
   Scenario: Hover Settings
     Then the menu item text "Settings" is "hidden"
     When hover over the "settings" menu item

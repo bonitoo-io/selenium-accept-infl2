@@ -14,14 +14,14 @@ class settingsSteps extends influxSteps{
 
     async verifyIsLoaded(){
         this.assertVisible(await this.setPage.getTabByName('Members'));
-        this.assertVisible(await this.setPage.getTabByName('Buckets'));
-        this.assertVisible(await this.setPage.getTabByName('Telegraf'));
-        this.assertVisible(await this.setPage.getTabByName('Scrapers'));
+//        this.assertVisible(await this.setPage.getTabByName('Buckets')); moved to new load data page
+//        this.assertVisible(await this.setPage.getTabByName('Telegraf')); ditto
+//        this.assertVisible(await this.setPage.getTabByName('Scrapers')); ditto
         this.assertVisible(await this.setPage.getTabByName('Variables'));
         this.assertVisible(await this.setPage.getTabByName('Templates'));
         this.assertVisible(await this.setPage.getTabByName('Labels'));
         this.assertVisible(await this.setPage.getTabByName('Tokens'));
-        this.assertVisible(await this.setPage.getTabByName('Org Profile'));
+        this.assertVisible(await this.setPage.getTabByName('Profile'));
     }
 
     async clickTab(name){

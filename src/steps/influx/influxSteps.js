@@ -54,14 +54,19 @@ class influxSteps extends baseSteps {
         case 'feedback':
             elem = await this.influxPage.getMenuFeedback();
             break;
+        case 'loaddata':
+            elem = await this.influxPage.getMenuLoadData();
+//            await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
+            break;
         default:
             throw `Unkown menu item ${item}`;
         }
+
         return elem;
     }
 
     async hoverNavMenu(item){
-        this.hoverOver(await this.getNavMenuElem(item));
+        await this.hoverOver(await this.getNavMenuElem(item));
     }
 
     async verifySubMenuItems(item, state = 'hidden'){

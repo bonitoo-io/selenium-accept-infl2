@@ -6,6 +6,7 @@ const navMenuHome = '[data-testid=nav-menu--item] span.cubo-nav';
 const navMenuDExplorer = '[data-testid=nav-menu--item] span.graphline-2';
 const navMenuDashboards = '[data-testid=nav-menu--item] span.dashboards';
 const navMenuTasks = '[data-testid=nav-menu--item] span.calendar';
+const navMenuLoadData = '[data-testid=nav-menu--item] span.disks';
 const navMenuSettings = '[data-testid=nav-menu--item] span.wrench';
 const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
 
@@ -80,6 +81,10 @@ class influxPage extends basePage {
         return await this.driver.findElement(By.css(navMenuTasks));
     }
 
+    async getMenuLoadData(){
+        return await this.driver.findElement(By.css(navMenuLoadData));
+    }
+
     async getMenuSettings(){
         return await this.driver.findElement(By.css(navMenuSettings));
     }
@@ -107,6 +112,7 @@ class influxPage extends basePage {
     async getSubItemContainingText(text){
         return await this.driver.findElement(By.xpath(navMenuXpath + `//*[contains(text(), '${text}')]`));
     }
+
 
 }
 
