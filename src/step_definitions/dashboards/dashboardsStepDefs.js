@@ -9,3 +9,11 @@ Then(/^the Dashboards page is loaded$/, {timeout: 2 * 5000}, async() => {
     await dbdsSteps.verifyHeaderContains('Dashboards');
 });
 
+When(/^click create dashboard control$/, async() => {
+    await dbdsSteps.clickCreateDashboard();
+});
+
+When(/^click "(.*)" in create dashboard dropdown$/, async item => {
+    await dbdsSteps.clickCreateDashboardItem(item);
+});
+

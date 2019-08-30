@@ -16,3 +16,12 @@ When(/^I click the panel "(.*)"$/, async title => {
     await hSteps.clickQuickStartPanel(title);
 });
 
+Then(/^the dashboards panel contains a link to "(.*)"$/, async dbdName => {
+    await hSteps.verifyDbdPanelDashboard(dbdName);
+});
+
+When(/^click the dashboard link to "(.*)"$/, async dbdName => {
+
+    await hSteps.clickDbdPanelDashboard(dbdName);
+
+});

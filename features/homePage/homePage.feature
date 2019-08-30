@@ -15,16 +15,32 @@ Feature: Home Page
     When I click the panel "Data Collector"
     Then the Telegraf Tab is loaded
 
-  Scenario: Click Dashboards Panel
+  Scenario: Check Dashboards Panel
     When hover over the "home" menu item
     When click nav menu item "home"
     When I click the panel "Dashboard"
     Then the Dashboards page is loaded
+    When click create dashboard control
+    When click "New Dashboard" in create dashboard dropdown
+    When name dashboard "Test Dashboard"
+    When hover over the "home" menu item
+    When click nav menu item "home"
+    Then the dashboards panel contains a link to "Test Dashboard"
+    When click the dashboard link to "Test Dashboard"
+    Then the dashboard named "Test Dashboard" is loaded
 
   Scenario: Click Explorer Panel
     When hover over the "home" menu item
     When click nav menu item "home"
     When I click the panel "Explorer"
     Then the Data Explorer page is loaded
+
+  Scenario: Logout from Account
+    When hover over the "home" menu item
+    When click nav menu item "home"
+    When click logout from the home page
+    Then the sign in page is loaded
+    When UI sign in user "DEFAULT"
+
 
 

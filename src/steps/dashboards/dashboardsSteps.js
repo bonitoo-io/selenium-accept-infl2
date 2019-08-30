@@ -18,6 +18,18 @@ class dashboardsSteps extends influxSteps {
         this.assertVisible(await this.dbdsPage.getNameSortButton());
         this.assertVisible(await this.dbdsPage.getModifiedSortButton());
     }
+
+    async clickCreateDashboard(){
+        await this.dbdsPage.getCreateDashboardDropdown().then(async elem => {
+            await elem.click();
+        })
+    }
+
+    async clickCreateDashboardItem(item){
+        await this.dbdsPage.getCreateDashboardItem(item).then(async elem => {
+            await elem.click();
+        })
+    }
 }
 
 module.exports = dashboardsSteps;

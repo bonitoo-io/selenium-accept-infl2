@@ -38,6 +38,10 @@ class dashboardsPage extends influxPage {
         return await this.driver.findElement(By.css(modifiedSortButton));
     }
 
+    async getCreateDashboardItem(item){
+        return await this.driver.findElement(By.css(`[data-testid^=add-resource-dropdown--][id='${item}']`));
+    }
+
 }
 
 module.exports = dashboardsPage;

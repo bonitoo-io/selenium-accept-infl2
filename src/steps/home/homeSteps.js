@@ -1,5 +1,6 @@
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const homePage = require(__srcdir + '/pages/home/homePage.js');
+const { By } = require('selenium-webdriver');
 
 class homeSteps extends influxSteps {
 
@@ -43,6 +44,22 @@ class homeSteps extends influxSteps {
         default:
             throw `Unknown Quick Start Panel: ${title}`;
         }
+    }
+
+    async verifyDbdPanelDashboard(dbdName){
+        this.homePage.getDashboardsList().then(async elem => {
+            await elem.findElement(By.xpath(`./li/a[text() = '${dbdName}']`)).then(async link => {
+                await this.assertVisible(link);
+            })
+        })
+    }
+
+    async clickDbdPanelDashboard(dbdName){
+        this.homePage.getDashboardsList().then(async elem => {
+            await elem.findElement(By.xpath(`./li/a[text() = '${dbdName}']`)).then(async link => {
+                await link.click();
+            })
+        })
     }
 
 

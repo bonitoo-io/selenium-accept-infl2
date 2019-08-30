@@ -59,6 +59,10 @@ class homePage extends influxPage {
     async getUsefulLinkByText(text){
         return await this.driver.findElement(By.xpath(`${usefulLinkList}//a[contains(text(), '${text}')]`));
     }
+
+    async getDashboardsList(){
+        return await this.driver.findElement(By.xpath(dashboardsList));
+    }
 }
 
 module.exports = homePage;
