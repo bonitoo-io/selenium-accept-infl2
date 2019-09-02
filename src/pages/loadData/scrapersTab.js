@@ -1,4 +1,4 @@
-const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
+const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
 
 const scrapersFilter = '[data-testid=search-widget]';
 const createScraperHeader = '[data-testid=create-scraper-button-header]';
@@ -9,7 +9,7 @@ const bucketSort = '[data-testid=resource-list--sorter]:nth-of-type(3)';
 
 const urlCtx = 'scrapers';
 
-class scrapersTab extends settingsPage{
+class scrapersTab extends loadDataPage{
 
     constructor(driver){
         super(driver);

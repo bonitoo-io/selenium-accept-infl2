@@ -121,7 +121,6 @@ class baseSteps{
     }
 
     async assertNotVisible(element){
-        console.log('DEBUG assertNotVisible ' + JSON.stringify(element));
         await expect(await element.isDisplayed()).to.equal(false);
         //await expect(await element.isDisplayed()).to.equal(false).catch( async err => {
         //    console.log("assertNotVisible Error: " + await element.getCssValue())

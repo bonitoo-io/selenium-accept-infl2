@@ -1,4 +1,4 @@
-const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
+const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
 const { By } = require('selenium-webdriver');
 
 const bucketCards = '[data-testid=bucket--card]';
@@ -16,7 +16,7 @@ const popupCreateButton = '[data-testid=overlay--body] button[title*=Create]';
 
 const urlCtx = 'buckets';
 
-class bucketsTab extends settingsPage {
+class bucketsTab extends loadDataPage {
 
     constructor(driver){
         super(driver);
