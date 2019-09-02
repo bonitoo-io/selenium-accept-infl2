@@ -1,4 +1,4 @@
-import { Then, When } from 'cucumber';
+import { Then } from 'cucumber';
 const dataExplorerSteps = require(__srcdir + '/steps/dataExplorer/dataExplorerSteps.js');
 
 let deSteps = new dataExplorerSteps(__wdriver);

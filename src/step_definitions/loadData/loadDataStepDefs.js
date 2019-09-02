@@ -1,4 +1,4 @@
-import { Then, When } from 'cucumber';
+import { Then } from 'cucumber';
 const bucketsSteps = require(__srcdir + '/steps/loadData/bucketsSteps.js');
 const telegrafsSteps = require(__srcdir + '/steps/loadData/telegrafsSteps.js');
 const scrapersSteps = require(__srcdir + '/steps/loadData/scrapersSteps.js');

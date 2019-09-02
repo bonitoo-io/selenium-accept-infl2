@@ -1,4 +1,4 @@
-import { Then, When } from 'cucumber';
+import { Then } from 'cucumber';
 const tasksSteps = require(__srcdir + '/steps/tasks/tasksSteps.js');
 
 let tSteps = new tasksSteps(__wdriver);

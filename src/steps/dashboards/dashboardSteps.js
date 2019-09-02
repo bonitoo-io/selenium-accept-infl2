@@ -17,20 +17,20 @@ class dashboardSteps extends influxSteps {
                 await this.dbdPage.getNameInput().then(async input => {
                     await input.clear().then(async () => {
                         await input.sendKeys(name + Key.ENTER).then(async () => {
-                        })
-                    })
-                })
-            })
-        })
+                        });
+                    });
+                });
+            });
+        });
     }
 
     async verifyDashboardLoaded(name){
-        await this.dbdPage.isLoaded()
+        await this.dbdPage.isLoaded();
         await this.dbdPage.getPageTitle().then(async title => {
             await title.getText().then(async text => {
-                await expect(text).to.equal(name)
-            })
-        })
+                await expect(text).to.equal(name);
+            });
+        });
 
     }
 

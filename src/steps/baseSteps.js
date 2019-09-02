@@ -1,6 +1,7 @@
 //const fs = require('fs')
 const expect = require('chai').expect;
 const assert = require('chai').assert;
+const { By } = require('selenium-webdriver');
 
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -106,8 +107,8 @@ class baseSteps{
     async hoverOver(element){
         let actions = await this.driver.actions({bridge: true});
         await actions.move({origin: element}).perform().then(async () => {
-//            console.log("DEBUG hover success ");
-//            await this.driver.sleep(1000)
+            //            console.log("DEBUG hover success ");
+            //            await this.driver.sleep(1000)
             //console.log("SUCCESS " + resp)
         }).catch( err => {
             console.log('ERR ' + err);
@@ -116,11 +117,40 @@ class baseSteps{
     }
 
     async assertVisible(element){
-        expect(await element.isDisplayed()).to.equal(true);
+        await expect(await element.isDisplayed()).to.equal(true);
     }
 
     async assertNotVisible(element){
-        expect(await element.isDisplayed()).to.equal(false);
+        console.log('DEBUG assertNotVisible ' + JSON.stringify(element));
+        await expect(await element.isDisplayed()).to.equal(false);
+        //await expect(await element.isDisplayed()).to.equal(false).catch( async err => {
+        //    console.log("assertNotVisible Error: " + await element.getCssValue())
+        //    throw(err);
+        //});
+    }
+
+    //selector type should be {type, selector}
+    async assertNotPresent(selector){
+        switch(selector.type){
+        case 'css':
+            await this.driver.findElements(By.css(selector.selector)).then(async elems => {
+                await expect(elems.length).to.equal(0);
+            }).catch(async err => {
+                err += ' expected ' + JSON.stringify(selector) + ' to not be present';
+                throw err;
+            });
+            break;
+        case 'xpath':
+            await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
+                await expect(elems.length).to.equal(0);
+            }).catch(async err => {
+                err.message += ' expected ' + selector + ' to not be present';
+                throw err;
+            });
+            break;
+        default:
+            throw `Unknown selector type ${selector}`;
+        }
     }
 }
 

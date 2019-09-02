@@ -56,7 +56,7 @@ class influxSteps extends baseSteps {
             break;
         case 'loaddata':
             elem = await this.influxPage.getMenuLoadData();
-//            await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
+            //            await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
             break;
         default:
             throw `Unkown menu item ${item}`;

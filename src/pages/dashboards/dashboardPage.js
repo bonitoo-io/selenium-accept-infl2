@@ -23,6 +23,6 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.css(nameInput));
     }
 
-};
+}
 
 module.exports = dashboardPage;

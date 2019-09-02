@@ -22,13 +22,13 @@ class dashboardsSteps extends influxSteps {
     async clickCreateDashboard(){
         await this.dbdsPage.getCreateDashboardDropdown().then(async elem => {
             await elem.click();
-        })
+        });
     }
 
     async clickCreateDashboardItem(item){
         await this.dbdsPage.getCreateDashboardItem(item).then(async elem => {
             await elem.click();
-        })
+        });
     }
 }
 
