@@ -65,7 +65,6 @@ When(/^input the name of the bucket as "(.*)"$/, async (name) => {
 
 When(/^clear all Retention Policy interval controls$/, async () => {
    await bktTabSteps.clearAllRetentionPolicyIntervals();
-    await bktTabSteps.driver.sleep(3000)
 });
 
 When(/^enter "(.*)" into the Retention Policy "(.*)" control$/, async(amount, unit) => {
@@ -74,13 +73,17 @@ When(/^enter "(.*)" into the Retention Policy "(.*)" control$/, async(amount, un
 
 Then(/^the Retention Policy "(.*)" control contains the value "(.*)"$/, async(unit, value) => {
    await bktTabSteps.verifyIntervalValue(value, unit);
-    await bktTabSteps.driver.sleep(3000)
 });
 
 
-When(/^set the retention policy of the bucket as (.*)$/, async (rp) => {
+When(/^set the retention policy of the bucket as "(.*)"$/, async (rp) => {
     if(rp.toLowerCase() === 'never'){
-        await bktTabSteps.clickRPNever();
+        await bktTabSteps.clickRetentionPolicyButton('never');
+    }else{
+        rp = rp.trim();
+        let policy = rp.split(" ");
+        await bktTabSteps.clickRetentionPolicyButton('intervals');
+        await bktTabSteps.enterIntervalValue(policy[0], policy[1]);
     }
 });
 
@@ -95,4 +98,12 @@ Then(/^the Retention Policy warning message contains "(.*)"$/, async (msg) => {
 Then(/^the Retention Policy warning message has disappeared$/, {timeout: 2 * 5000}, async () => {
    await bktTabSteps.verifyFormErrorMessageNotPresent();
 });
+
+Then(/^the bucket named "(.*)" is in the list$/, async (name) => {
+   await bktTabSteps.verifyBucketInListByName(name);
+});
+
+Then(/^the bucket named "(.*)" has a Retention Policy of "(.*)"$/, async (name, rp) => {
+    await bktTabSteps.verifyBucketHasRetentionPolicy(name, rp);
+})
 

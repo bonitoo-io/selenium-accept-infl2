@@ -62,21 +62,24 @@ Scenario: Exercise Create Bucket Dialog
   When cancel the Create Bucket Popup
   Then the Create Bucket Popup is not present
 
-#Scenario Outline: Create Buckets with Retention Policies
-#  When click the Create Bucket button
-#  When input the name of the bucket as <NAME>
-#  When set the retention policy of the bucket as <RETENTION>
-#  When click the Create Bucket popup Create button
+Scenario Outline: Create Buckets with Retention Policies
+  When click the Create Bucket button
+  When input the name of the bucket as "<NAME>"
+  When set the retention policy of the bucket as "<RETENTION>"
+  When click the Create Bucket popup Create button
+  Then the bucket named "<NAME>" is in the list
+  Then the bucket named "<NAME>" has a Retention Policy of "<RETENTION>"
 
-#Examples:
-#  |NAME| RETENTION |
-#  | Trvala | Never |
-  #| Mesicni | 28 Days  |
-  #| Tydenni |  7 Days  |
-  #| Denni | 1 Day  |
-  #| Puldenni | 12 Hours |
-  #| Hodinova  | 1 Hour |
-  #| Oprava    | 1 Day  |
+Examples:
+  |NAME| RETENTION |
+#  | Trvala | Never | N.B. triggers issue 14903 - skip for now
+  | Mesicni | 28 Days  |
+  | Tydenni |  7 Days  |
+  # fudging with hours and days due to issue 14905
+  | Denni | 1 Days  |
+  | Puldenni | 12 Hours |
+  | Hodinova  | 1 Hours |
+  | Oprava    | 1 Days  |
 
 #Scenario: Modifify Retention Policy
 #  Given pending

@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect, assert } = require('chai');
 const { By, Key } = require('selenium-webdriver');
 
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
@@ -212,12 +212,6 @@ class bucketsSteps extends baseSteps {
         }
     }
 
-    async  clickRPNever(){
-        await this.bucketsTab.getPopupRetentionNever().then(async btn => {
-            await btn.click();
-        })
-    }
-
     async clickCreatePopupCreate(){
         await this.bucketsTab.getPopupCreateButton().then( async btn => {
             await btn.click();
@@ -235,6 +229,42 @@ class bucketsSteps extends baseSteps {
 
     async verifyFormErrorMessageNotPresent(){
         await this.assertNotPresent(await bucketsTab.getPopupFormErrorSelector());
+    }
+
+    async verifyBucketInListByName(name){
+        await this.bucketsTab.getBucketCards().then(async cards => {
+            for(let i = 0; i < cards.length; i++){
+                let crd_nm = await cards[i].findElement(By.xpath('.//span[contains(@class,\'cf-resource-name--text\')]/span'));
+                if((await crd_nm.getText()) === name){
+                    assert(true, `matched card with name ${name}`);
+                    return;
+                }
+            }
+            assert.fail(`Failed to locate card named ${name} in current list`);
+        });
+    }
+
+    async verifyBucketHasRetentionPolicy(name, rp){
+        await this.bucketsTab.getBucketCards().then(async cards => {
+            for(let i = 0; i < cards.length; i++){
+                let crd_nm = await cards[i].findElement(By.xpath('.//span[contains(@class,\'cf-resource-name--text\')]/span'));
+                if((await crd_nm.getText()) === name){
+                    await cards[i].findElement(By.xpath('.//*[@data-testid=\'cf-resource-card--meta-item\']')).then(async elem => {
+                       //await console.log("DEBUG cards[i] " + await elem.getText());
+                        // rpText should be of form e.g. 'Retention: 28 days'
+                       await elem.getText().then(async rpText => {
+                           let policy = rp.trim().toLowerCase().split(' ');
+                           let rpPolicy = rpText.trim().toLowerCase().split(' ');
+                           await expect(parseInt(policy[0])).to.equal(parseInt(rpPolicy[1]));
+                           await expect(policy[1]).to.equal(rpPolicy[2]);
+                       })
+                    });
+                    return;
+                }
+            }
+            assert.fail(`Failed to locate card named ${name} in current list`);
+
+        })
     }
 }
 
