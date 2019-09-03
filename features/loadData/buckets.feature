@@ -13,10 +13,47 @@ Scenario: List Initial Buckets
   Then the buckets tab is loaded
   Then the buckets are sorted as "_monitoring,_tasks,DEFAULT"
 
-Scenario: Open and Close Create Bucket Dialog
+Scenario: Exercise Create Bucket Dialog
   When click the Create Bucket button
   Then the Create Bucket Popup is loaded
   Then the Create button of Create Bucket Popup is disabled
+  Then the Retention Policy radio button "never" is active
+  Then the Retention Policy intervals controls are not present
+  When click the Retention Policy "intervals" button
+  Then the Retention Policy radio button "intervals" is active
+  Then the Retention Policy radio button "never" is inactive
+  Then the Retention Policy intervals controls are present
+  Then the Retention Policy warning message contains "Retention period must be at least an hour"
+  When enter "61" into the Retention Policy "Seconds" control
+  Then the Retention Policy "Seconds" control contains the value "1"
+  Then the Retention Policy "Minutes" control contains the value "1"
+  Then the Retention Policy warning message contains "Retention period must be at least an hour"
+  When clear all Retention Policy interval controls
+  When enter "123" into the Retention Policy "Minutes" control
+  Then the Retention Policy "Minutes" control contains the value "3"
+  Then the Retention Policy "Hours" control contains the value "2"
+  Then the Retention Policy warning message has disappeared
+  When clear all Retention Policy interval controls
+  When enter "80" into the Retention Policy "Hours" control
+  Then the Retention Policy "Hours" control contains the value "8"
+  Then the Retention Policy "Days" control contains the value "3"
+  When clear all Retention Policy interval controls
+  When enter "7" into the Retention Policy "Days" control
+  Then the Retention Policy "Days" control contains the value "7"
+  When clear all Retention Policy interval controls
+  When enter "ABCD" into the Retention Policy "Seconds" control
+  Then the Retention Policy "Seconds" control contains the value "0"
+  When enter "ABCD" into the Retention Policy "Minutes" control
+  Then the Retention Policy "Minutes" control contains the value "0"
+  When enter "ABCD" into the Retention Policy "Hours" control
+  Then the Retention Policy "Hours" control contains the value "0"
+  When enter "ABCD" into the Retention Policy "Days" control
+  Then the Retention Policy "Days" control contains the value "0"
+  When input the name of the bucket as "ABCD"
+  Then the Retention Policy warning message contains "Retention period must be at least an hour"
+  When click the Retention Policy "never" button
+  Then the Retention Policy warning message has disappeared
+  Then the Create button of Create Bucket Popup is enabled
   When dismiss the Create Bucket Popup
   Then the Create Bucket Popup is not present
   When click the Create Bucket button
@@ -26,17 +63,20 @@ Scenario: Open and Close Create Bucket Dialog
   Then the Create Bucket Popup is not present
 
 #Scenario Outline: Create Buckets with Retention Policies
-#  Given pending
+#  When click the Create Bucket button
+#  When input the name of the bucket as <NAME>
+#  When set the retention policy of the bucket as <RETENTION>
+#  When click the Create Bucket popup Create button
 
 #Examples:
 #  |NAME| RETENTION |
 #  | Trvala | Never |
-#  | Mesicni | 28 Days  |
-#  | Tydenni |  7 Days  |
-#  | Denni | 1 Day  |
-#  | Puldenni | 12 Hours |
-#  | Hodinova  | 1 Hour |
-#  | Oprava    | 1 Day  |
+  #| Mesicni | 28 Days  |
+  #| Tydenni |  7 Days  |
+  #| Denni | 1 Day  |
+  #| Puldenni | 12 Hours |
+  #| Hodinova  | 1 Hour |
+  #| Oprava    | 1 Day  |
 
 #Scenario: Modifify Retention Policy
 #  Given pending

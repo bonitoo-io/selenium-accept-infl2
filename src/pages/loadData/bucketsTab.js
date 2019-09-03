@@ -13,6 +13,12 @@ const popupRetentionIntervals = '[data-testid=retention-intervals--button]';
 const popupCancelButton = '[data-testid=overlay--body] button[title=Cancel]';
 const popupDismissButton = '[data-testid=overlay--header] button[class*=dismiss]';
 const popupCreateButton = '[data-testid=overlay--body] button[title*=Create]';
+const popupRPIntervalControls = '[data-testid=form--element] [data-testid=grid--row]';
+const popupRPDaysInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(1) input';
+const popupRPHoursInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(2) input';
+const popupRPMinutesInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(3) input';
+const popupRPSecondsInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(4) input';
+const popupFormError = '[data-testid=form--element-error]';
 
 const urlCtx = 'buckets';
 
@@ -65,6 +71,38 @@ class bucketsTab extends loadDataPage {
 
     async getPopupCancelButton(){
         return await this.driver.findElement(By.css(popupCancelButton));
+    }
+
+    async getPopupRPIntevalControls(){
+        return await this.driver.findElement(By.css(popupRPIntervalControls));
+    }
+
+    static getPopupRPIntervalControlsSelector(){
+        return { type: 'css',  selector: popupRPIntervalControls };
+    }
+
+    async getPopupRPDaysInput(){
+        return await this.driver.findElement(By.css(popupRPDaysInput));
+    }
+
+    async getPopupRPHoursInput(){
+        return await this.driver.findElement(By.css(popupRPHoursInput));
+    }
+
+    async getPopupRPMinutesInput(){
+        return await this.driver.findElement(By.css(popupRPMinutesInput));
+    }
+
+    async getPopupRPSecondsInput(){
+        return await this.driver.findElement(By.css(popupRPSecondsInput));
+    }
+
+    async getPopupFormError(){
+        return await this.driver.findElement(By.css(popupFormError));
+    }
+
+    static getPopupFormErrorSelector(){
+        return { type: 'css',  selector: popupFormError };
     }
 
     async getPopupDismissButton(){
