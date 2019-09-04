@@ -81,7 +81,23 @@ Examples:
   | Hodinova  | 1 Hours |
   | Oprava    | 1 Days  |
 
-#Scenario: Modifify Retention Policy
+Scenario: Modify Retention Policy
+  When click on the bucket named "Oprava"
+  Then the Edit Bucket popup is loaded
+  Then the name edit textbox of the Edit Bucket popup is disabled
+  Then the form help text contains "To rename the bucket use the rename button. Bucket renaming is not allowed here."
+  When dismiss the Edit Bucket Popup
+  Then the Edit Bucket Popup is not present
+  When click on the bucket named "Oprava"
+  Then the Edit Bucket popup is loaded
+  When cancel the Edit Bucket Popup
+  Then the Edit Bucket Popup is not present
+  When click on the bucket named "Oprava"
+  When set the retention policy of the bucket as "36 Hours"
+  When click Edit Bucket Popup Save Changes
+  # N.B. fix following once issue 14905 os resolved
+  Then the bucket named "Oprava" has a Retention Policy of "1 Days 12 Hours"
+
 #  Given pending
 
 #Scenario: Filter Buckets

@@ -48,6 +48,17 @@ class bucketsSteps extends baseSteps {
         await this.assertVisible(await this.bucketsTab.getPopupCreateButton());
     }
 
+    async verifyEditBucketPopup(){
+        await this.assertVisible(await this.bucketsTab.getPopupContainer());
+        await this.assertVisible(await this.bucketsTab.getPopupTitle());
+        await this.assertVisible(await this.bucketsTab.getPopupInputName());
+        await this.assertVisible(await this.bucketsTab.getPopupRetentionNever());
+        await this.assertVisible(await this.bucketsTab.getPopupRetentionIntervals());
+        await this.assertVisible(await this.bucketsTab.getPopupCancelButton());
+        await this.assertVisible(await this.bucketsTab.getPopupDismissButton());
+        await this.assertVisible(await this.bucketsTab.getPopupSaveChanges());
+    }
+
     async verifyCreateBucketPopupNotPresent(){
         await this.assertNotPresent(await bucketsTab.getPopupContainerSelector());
         await this.assertNotPresent(await bucketsTab.getPopupTitleSelector());
@@ -63,6 +74,10 @@ class bucketsSteps extends baseSteps {
 
     async verifyCreateBucketCreateButtonEnabled(enabled){
         await expect(await (await this.bucketsTab.getPopupCreateButton()).isEnabled()).to.equal(enabled);
+    }
+
+    async verifyNameInputEnabled(enabled){
+        await expect(await (await this.bucketsTab.getPopupInputName()).isEnabled()).to.equal(enabled);
     }
 
     async verifyActiveRetentionPolicyButton(rp){
@@ -81,6 +96,14 @@ class bucketsSteps extends baseSteps {
                     await expect(elemClass).to.not.include('active');
                 })
             })
+    }
+
+    async verifyPopupHelpText(text){
+        await this.bucketsTab.getPopupHelpText().then(async elem => {
+            await elem.getText().then(async elText => {
+                expect(elText).to.include(text);
+            })
+        })
     }
 
     async clickRetentionPolicyButton(rp){
@@ -255,8 +278,11 @@ class bucketsSteps extends baseSteps {
                        await elem.getText().then(async rpText => {
                            let policy = rp.trim().toLowerCase().split(' ');
                            let rpPolicy = rpText.trim().toLowerCase().split(' ');
-                           await expect(parseInt(policy[0])).to.equal(parseInt(rpPolicy[1]));
-                           await expect(policy[1]).to.equal(rpPolicy[2]);
+                           rpPolicy.shift(); //remover first 'Retenition: string'
+                           for( let i = 0; i < policy.length; i += 2) {
+                               await expect(parseInt(policy[i])).to.equal(parseInt(rpPolicy[i]));
+                               await expect(policy[i+1]).to.equal(rpPolicy[i+1]);
+                           }
                        })
                     });
                     return;
@@ -264,6 +290,18 @@ class bucketsSteps extends baseSteps {
             }
             assert.fail(`Failed to locate card named ${name} in current list`);
 
+        })
+    }
+
+    async clickOnBucketNamed(name){
+        await this.bucketsTab.getBucketCardByName(name).then(async card => {
+            await card.click();
+        })
+    }
+
+    async clickSaveChanges(){
+        await this.bucketsTab.getPopupSaveChanges().then(async btn => {
+            await btn.click();
         })
     }
 }

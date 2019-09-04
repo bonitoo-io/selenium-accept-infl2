@@ -37,8 +37,16 @@ When(/^dismiss the Create Bucket Popup$/, {timeout: 2 * 5000}, async () => {
     await bktTabSteps.dismissBucketPopup();
 });
 
+When(/^dismiss the Edit Bucket Popup$/, {timeout: 2 * 5000}, async () => {
+    await bktTabSteps.dismissBucketPopup();
+});
+
 // Should be not present - removed from DOM
 Then(/^the Create Bucket Popup is not present$/, {timeout: 2 * 5000}, async () => {
+    await bktTabSteps.verifyCreateBucketPopupNotPresent();
+});
+
+Then(/^the Edit Bucket Popup is not present$/, {timeout: 2 * 5000}, async () => {
     await bktTabSteps.verifyCreateBucketPopupNotPresent();
 });
 
@@ -47,17 +55,21 @@ When(/^cancel the Create Bucket Popup$/, {timeout: 2 * 5000}, async () => {
     await bktTabSteps.cancelBucketPopup();
 });
 
+When(/^cancel the Edit Bucket Popup$/, {timeout: 2 * 5000}, async () => {
+    await bktTabSteps.cancelBucketPopup();
+});
+
 Then(/^the Retention Policy intervals controls are not present$/, {timeout: 2 * 5000}, async () => {
     await bktTabSteps.verifyRPIntervalControlsNotPresent();
-})
+});
 
 Then(/^the Retention Policy intervals controls are present$/, async () => {
     await bktTabSteps.verifyRPIntervalControlsPresent();
-})
+});
 
 When(/^click the Retention Policy "(.*)" button$/, async(rp) => {
     await bktTabSteps.clickRetentionPolicyButton(rp);
-})
+});
 
 When(/^input the name of the bucket as "(.*)"$/, async (name) => {
     await bktTabSteps.setBucketName(name);
@@ -105,5 +117,24 @@ Then(/^the bucket named "(.*)" is in the list$/, async (name) => {
 
 Then(/^the bucket named "(.*)" has a Retention Policy of "(.*)"$/, async (name, rp) => {
     await bktTabSteps.verifyBucketHasRetentionPolicy(name, rp);
+});
+
+When(/^click on the bucket named "(.*)"$/, async (name) => {
+   await bktTabSteps.clickOnBucketNamed(name);
+});
+
+Then(/^the Edit Bucket popup is loaded$/, async () => {
+    await bktTabSteps.verifyEditBucketPopup();
+});
+
+Then(/^the name edit textbox of the Edit Bucket popup is disabled$/, async() => {
+    await bktTabSteps.verifyNameInputEnabled(false);
+});
+
+Then(/^the form help text contains "(.*)"$/, async (text) => {
+    await bktTabSteps.verifyPopupHelpText(text);
 })
 
+When(/^click Edit Bucket Popup Save Changes$/, async () => {
+     await bktTabSteps.clickSaveChanges();
+})

@@ -20,6 +20,10 @@ const popupRPMinutesInput = popupRPIntervalControls + ' [data-testid=grid--colum
 const popupRPSecondsInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(4) input';
 const popupFormError = '[data-testid=form--element-error]';
 
+//Edit Bucket Popup
+const popupSaveChanges = '[data-testid=\'button\'][type=submit]';
+const popupHelpText = '[data-testid=form--help-text]';
+
 const urlCtx = 'buckets';
 
 class bucketsTab extends loadDataPage {
@@ -110,13 +114,30 @@ class bucketsTab extends loadDataPage {
         return await this.smartGetElement({type: 'css', selector: popupDismissButton});
     }
 
-    async getPopupDismissButtonSelector(){
+    static async getPopupDismissButtonSelector(){
         return popupDismissButton;
+    }
+
+    async getPopupHelpText(){
+        return await this.driver.findElement(By.css(popupHelpText));
     }
 
     async getPopupCreateButton(){
         return await this.driver.findElement(By.css(popupCreateButton));
     }
+
+    async getBucketCardByName(name){
+        return await this.driver.findElement(By.css(`[data-testid='bucket--card ${name}']`));
+    }
+
+    static async getBucketCardSelectorByName(name){
+        return {type: 'css', selector: `[data-testid='bucket--card ${name.toLowerCase()}']`}
+    }
+
+    async getPopupSaveChanges(){
+        return await this.driver.findElement(By.css(popupSaveChanges));
+    }
+
 
 }
 
