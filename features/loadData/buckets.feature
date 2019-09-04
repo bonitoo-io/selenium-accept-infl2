@@ -72,13 +72,13 @@ Scenario Outline: Create Buckets with Retention Policies
 
 Examples:
   |NAME| RETENTION |
-#  | Trvala | Never | N.B. triggers issue 14903 - skip for now
-  | Mesicni | 28 Days  |
-  | Tydenni |  7 Days  |
+#  | Trvalá | Never | N.B. triggers issue 14903 - skip for now
+  | Měsícní | 28 Days  |
+  | Týdenní |  7 Days  |
   # fudging with hours and days due to issue 14905
-  | Denni | 1 Days  |
-  | Puldenni | 12 Hours |
-  | Hodinova  | 1 Hours |
+  | Denní | 1 Days  |
+  | Půldenní | 12 Hours |
+  | Hodinová  | 1 Hours |
   | Oprava    | 1 Days  |
 
 Scenario: Modify Retention Policy
@@ -95,22 +95,25 @@ Scenario: Modify Retention Policy
   When click on the bucket named "Oprava"
   When set the retention policy of the bucket as "36 Hours"
   When click Edit Bucket Popup Save Changes
-  # N.B. fix following once issue 14905 os resolved
+  # N.B. fix following once issue 14905 is resolved
   Then the bucket named "Oprava" has a Retention Policy of "1 Days 12 Hours"
 
-#  Given pending
-
-#Scenario: Filter Buckets
-#  Given pending
+Scenario: Filter Buckets
+  When enter "denn" in the filter field
+  Then the buckets are sorted as "Denní,Půldenní,Týdenní"
+  Then the bucket "Oprava" is not in the list
 
 #Scenario: Clear Filter
 #  Given pending
 
 #Scenario: Sort Buckets by Name
+# implementation on hold for issue 14923
 #  Given pending
 
 #Scenario: Sort Buckets by Retention Policy
+# implementation on hold for issue 14923
 #  Given pending
+
 
 #Scenario Outline: Delete Buckets
 #  Given pending

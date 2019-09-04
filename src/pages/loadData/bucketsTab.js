@@ -3,6 +3,7 @@ const { By } = require('selenium-webdriver');
 
 const bucketCards = '[data-testid=bucket--card]';
 const createBucketBtn = 'button[data-testid=\'Create Bucket\']';
+const filterInput = '[data-testid=search-widget]';
 
 // Create Bucket Popup
 const popupContainer = '[data-testid=overlay--container]';
@@ -42,6 +43,10 @@ class bucketsTab extends loadDataPage {
 
     async getCreateBucketBtn(){
         return await this.driver.findElement(By.css(createBucketBtn));
+    }
+
+    async getFilterInput(){
+        return await this.driver.findElement(By.css(filterInput));
     }
 
     //Create Bucket Popup
@@ -131,7 +136,7 @@ class bucketsTab extends loadDataPage {
     }
 
     static async getBucketCardSelectorByName(name){
-        return {type: 'css', selector: `[data-testid='bucket--card ${name.toLowerCase()}']`}
+        return {type: 'css', selector: `[data-testid='bucket--card ${name}']`}
     }
 
     async getPopupSaveChanges(){

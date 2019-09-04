@@ -31,6 +31,10 @@ class bucketsSteps extends baseSteps {
         });
     }
 
+    async verifyBucketNotListedByName(name){
+        await this.assertNotPresent(await bucketsTab.getBucketCardSelectorByName(name));
+    }
+
     async clickCreateBucket(){
         await this.bucketsTab.getCreateBucketBtn().then(async button => {
             await button.click();
@@ -302,6 +306,14 @@ class bucketsSteps extends baseSteps {
     async clickSaveChanges(){
         await this.bucketsTab.getPopupSaveChanges().then(async btn => {
             await btn.click();
+        })
+    }
+
+    async setFilterValue(text){
+        await this.bucketsTab.getFilterInput().then( async input => {
+            await input.clear().then(async () => {
+                await input.sendKeys(text);
+            })
         })
     }
 }

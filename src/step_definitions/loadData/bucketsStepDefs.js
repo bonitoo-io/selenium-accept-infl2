@@ -7,6 +7,10 @@ Then(/^the buckets are sorted as "(.*)"$/, async (bucketNames) => {
     await bktTabSteps.verifyOrderByName(bucketNames);
 });
 
+Then(/^the bucket "(.*)" is not in the list$/, async (name) => {
+    await bktTabSteps.verifyBucketNotListedByName(name);
+});
+
 When(/^click the Create Bucket button$/, async () => {
     await bktTabSteps.clickCreateBucket();
 });
@@ -133,8 +137,13 @@ Then(/^the name edit textbox of the Edit Bucket popup is disabled$/, async() => 
 
 Then(/^the form help text contains "(.*)"$/, async (text) => {
     await bktTabSteps.verifyPopupHelpText(text);
-})
+});
 
 When(/^click Edit Bucket Popup Save Changes$/, async () => {
      await bktTabSteps.clickSaveChanges();
-})
+});
+
+When(/^enter "(.*)" in the filter field$/, async (text) => {
+    await bktTabSteps.setFilterValue(text);
+    await bktTabSteps.driver.sleep(3000);
+});
