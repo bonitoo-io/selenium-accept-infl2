@@ -6,8 +6,8 @@ const navMenuHome = '[data-testid=nav-menu--item] span.cubo-nav';
 const navMenuDExplorer = '[data-testid=nav-menu--item] span.graphline-2';
 const navMenuDashboards = '[data-testid=nav-menu--item] span.dashboards';
 const navMenuTasks = '[data-testid=nav-menu--item] span.calendar';
-const navMenuLoadData = '[data-testid=nav-menu--item] span.disks';
-const navMenuSettings = '[data-testid=nav-menu--item] span.wrench';
+const navMenuLoadData = '[data-testid=nav-menu--item] span.disks-nav';
+const navMenuSettings = '[data-testid=nav-menu--item] span.wrench-nav';
 const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
 
 const navMenuHomeHeading = '//a[text() = \'admin (qa)\']';

@@ -2,14 +2,14 @@ const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
 const timeLocaleDropdown = '[data-testid=select-dropdown]';
-const graphTimeDropdodwn = '.page-header--right [data-testid=dropdown]';
-const customizeGraphButton = '.page-header--right [data-testid=square-button] .cog-thick';
+const graphTimeDropdodwn = '.cf-page-header--right [data-testid=dropdown]';
+const customizeGraphButton = '.cf-page-header--right [data-testid=square-button] .cog-thick';
 const saveAsButton = '//button[./span[text() = \'Save As\']]';
 const viewArea = '.time-machine--view';
 const viewRawToggle = '.time-machine-queries--controls [data-testid=slide-toggle--label]';
 const autorefreshDropdown = 'div.autorefresh-dropdown';
 //const pausedAutorefreshButton = 'button.autorefresh-dropdown--pause'; //Present only when autorefresh is paused - not good candidate for page loade check
-const timeRangeDropdown = '[data-testid="flex-box"] div:nth-of-type(4) button';
+const timeRangeDropdown = '//*[@data-testid=\'flex-box\']/div[3]';
 //const scriptEditToggle = '[data-testid=switch-to-script-editor] '; //N.B. disappears when in Script edit mode - not good candidate for page load check
 //const queryBuildToggle = '[data-testid=switch-to-query-builder]'; //N.B. not present when in Query builder mode - not good candidate for page load check
 const submitQueryButton = '[data-testid=time-machine-submit-button]';
@@ -33,7 +33,7 @@ class dataExplorerPage extends influxPage {
             {type: 'css', selector: viewArea},
             {type: 'css', selector: viewRawToggle},
             {type: 'css', selector: autorefreshDropdown},
-            {type: 'css', selector: timeRangeDropdown},
+            {type: 'xpath', selector: timeRangeDropdown},
             {type: 'css', selector: submitQueryButton}
         ], urlCtx);
     }
@@ -67,7 +67,7 @@ class dataExplorerPage extends influxPage {
     }
 
     async getTimeRangeDropdown(){
-        return await this.driver.findElement(By.css(timeRangeDropdown));
+        return await this.driver.findElement(By.xpath(timeRangeDropdown));
     }
 
     async getSubmitQueryButton(){
