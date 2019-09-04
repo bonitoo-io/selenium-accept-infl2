@@ -16,7 +16,8 @@ class dashboardPage extends influxPage {
 
 
     async getPageTitle(){
-        return await this.driver.findElement(By.css(pageTitle));
+        //return await this.driver.findElement(By.css(pageTitle));
+        return await this.smartGetElement({type: 'css', selector: pageTitle});
     }
 
     async getNameInput(){

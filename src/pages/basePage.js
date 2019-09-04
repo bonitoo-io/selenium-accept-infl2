@@ -64,6 +64,7 @@ class basePage{
     }
 
     // selector shold be of {type, selector}
+    // helper to avoid stale element exceptions etc.
     async smartGetElement(selector, timeout = this.driver.manage().getTimeouts().implicit){
         switch(selector.type){
         case 'css':
@@ -71,12 +72,14 @@ class basePage{
             return await this.driver.findElement(By.css(selector.selector)).catch(async err => {
                 console.log('DEBUG CAUGHT ERROR ' + JSON.stringify(err));
                 console.log('AT ' + selector.selector);
+                throw err;
             });
         case 'xpath':
             await this.driver.wait(until.elementLocated(By.xpath(selector.selector)), timeout);
             return await this.driver.findElement(By.xpath(selector.selector)).catch(async err => {
                 console.log('DEBUG CAUGHT ERROR ' + JSON.stringify(err));
                 console.log('AT ' + selector.selector);
+                throw err;
             });
         default:
             throw `Unkown selector type ${JSON.stringify(selector)}`;
