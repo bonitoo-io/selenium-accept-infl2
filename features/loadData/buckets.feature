@@ -73,7 +73,7 @@ Scenario Outline: Create Buckets with Retention Policies
 Examples:
   |NAME| RETENTION |
 #  | Trvalá | Never | N.B. triggers issue 14903 - skip for now
-  | Měsícní | 28 Days  |
+  | Měsíční | 28 Days  |
   | Týdenní |  7 Days  |
   # fudging with hours and days due to issue 14905
   | Denní | 1 Days  |
@@ -99,15 +99,23 @@ Scenario: Modify Retention Policy
   Then the bucket named "Oprava" has a Retention Policy of "1 Days 12 Hours"
 
 Scenario: Filter Buckets
-  When enter "denn" in the filter field
+  When enter "denn" in the Buckets filter field
   Then the buckets are sorted as "Denní,Půldenní,Týdenní"
   Then the bucket "Oprava" is not in the list
 
-#Scenario: Clear Filter
-#  Given pending
+Scenario: Clear Filter
+  When clear the Buckets filter field
+  Then the bucket named "Oprava" is in the list
+  Then the bucket named "_monitoring" is in the list
+  Then the bucket named "_tasks" is in the list
+  Then the bucket named "Týdenní" is in the list
 
-#Scenario: Sort Buckets by Name
-# implementation on hold for issue 14923
+Scenario: Sort Buckets by Name
+  Given ensure buckets name sort order "desc"
+  Then the buckets are sorted as "_monitoring,_tasks,Denní,Hodinová,Měsíční,Oprava,Půldenní,DEFAULT,Týdenní"
+  Given ensure buckets name sort order "asc"
+  Then the buckets are sorted as "Týdenní,DEFAULT,Půldenní,Oprava,Měsíční,Hodinová,Denní,_tasks,_monitoring"
+  Given ensure buckets name sort order "desc"
 #  Given pending
 
 #Scenario: Sort Buckets by Retention Policy
@@ -115,18 +123,23 @@ Scenario: Filter Buckets
 #  Given pending
 
 
-#Scenario Outline: Delete Buckets
+Scenario Outline: Delete Buckets
+  Then the delete button of the card named "<Name>" is not present
+  When hover over bucket card named "<Name>"
+  When click the delete button of the card named "<Name>"
+  When click the confirm delete button of the card named "<Name>"
+  Then the bucket card named "<Name>" is not in the list
 #  Given pending
 
-#Examples:
-#  | Name |
-#  | Trvala |
-#  | Mesicni |
-#  | Tydenni |
-#  | Denni |
-#  | Puldenni |
-#  | Hodinova  |
-#  | Oprava    |
+Examples:
+  | Name |
+#  | Trvalá | due to issue 14903 - skip for now
+  | Měsíční |
+  | Týdenní |
+  | Denní |
+  | Půldenní |
+  | Hodinová  |
+  | Oprava    |
 
 #Scenario: Add Line Protocol Data to Default
 #  Given pending

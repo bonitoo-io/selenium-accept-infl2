@@ -4,6 +4,8 @@ const { By } = require('selenium-webdriver');
 const bucketCards = '[data-testid=bucket--card]';
 const createBucketBtn = 'button[data-testid=\'Create Bucket\']';
 const filterInput = '[data-testid=search-widget]';
+const nameSorter = '[data-testid=\'resource-list--sorter\']:first-of-type';
+const policySorter = '[data-testid=\'resource-list--sorter\']:last-of-type';
 
 // Create Bucket Popup
 const popupContainer = '[data-testid=overlay--container]';
@@ -47,6 +49,18 @@ class bucketsTab extends loadDataPage {
 
     async getFilterInput(){
         return await this.driver.findElement(By.css(filterInput));
+    }
+
+    async getNameSorter(){
+        return await this.driver.findElement(By.css(nameSorter));
+    }
+
+    static async getNameSorterSelector(){
+        return {type: 'css', selector: nameSorter};
+    }
+
+    async getPolicySorter(){
+        return await this.driver.findElement(By.css(policySorter));
     }
 
     //Create Bucket Popup
@@ -131,13 +145,32 @@ class bucketsTab extends loadDataPage {
         return await this.driver.findElement(By.css(popupCreateButton));
     }
 
-    async getBucketCardByName(name){
+    //get just the name link
+    async getBucketCardName(name){
         return await this.driver.findElement(By.css(`[data-testid='bucket--card ${name}']`));
+    }
+
+    //get the whole card
+    async getBucketCardByName(name){
+        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid=\'bucket--card ${name}\']]`));
+    }
+
+    static async getBucketCardDeleteSelectorByName(name){
+        return {type: 'xpath', selector: `//div[div/div/div[@data-testid=\'bucket--card ${name}\'] ]//*[@data-testid=\'context-delete-menu\']`};
+    }
+
+    async getBucketCardDeleteByName(name){
+        return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`));
     }
 
     static async getBucketCardSelectorByName(name){
         return {type: 'css', selector: `[data-testid='bucket--card ${name}']`}
     }
+
+    async getBucketCardDeleteConfirmByName(name){
+        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`})
+        //return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`));
+    };
 
     async getPopupSaveChanges(){
         return await this.driver.findElement(By.css(popupSaveChanges));

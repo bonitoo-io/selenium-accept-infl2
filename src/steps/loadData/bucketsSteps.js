@@ -1,5 +1,5 @@
 const { expect, assert } = require('chai');
-const { By, Key } = require('selenium-webdriver');
+const { By, Key, until } = require('selenium-webdriver');
 
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const bucketsTab = require(__srcdir + '/pages/loadData/bucketsTab.js');
@@ -271,6 +271,10 @@ class bucketsSteps extends baseSteps {
         });
     }
 
+    async verifyBucktNotInListByName(name){
+        await this.assertNotPresent(await bucketsTab.getBucketCardSelectorByName(name));
+    }
+
     async verifyBucketHasRetentionPolicy(name, rp){
         await this.bucketsTab.getBucketCards().then(async cards => {
             for(let i = 0; i < cards.length; i++){
@@ -298,7 +302,7 @@ class bucketsSteps extends baseSteps {
     }
 
     async clickOnBucketNamed(name){
-        await this.bucketsTab.getBucketCardByName(name).then(async card => {
+        await this.bucketsTab.getBucketCardName(name).then(async card => {
             await card.click();
         })
     }
@@ -310,9 +314,67 @@ class bucketsSteps extends baseSteps {
     }
 
     async setFilterValue(text){
+        let cardCt = (await this.bucketsTab.getBucketCards()).length;
         await this.bucketsTab.getFilterInput().then( async input => {
             await input.clear().then(async () => {
-                await input.sendKeys(text);
+                await input.sendKeys(text).then( async () => {
+                    await this.driver.wait(async () => {
+                        return (await this.bucketsTab.getBucketCards()).length < cardCt;
+                    })
+                });
+            })
+        })
+    }
+
+    async clearFilterValue(){
+        let cardCt = (await this.bucketsTab.getBucketCards()).length;
+        await this.bucketsTab.getFilterInput().then(async input => {
+            await input.clear().then(async() => {
+                await this.driver.wait(async () => {
+                    return (await this.bucketsTab.getBucketCards()).length > cardCt;
+                });
+            });
+        })
+    }
+
+    async ensureNameSortOrder(order){
+        await this.bucketsTab.getNameSorter().then(async elem => {
+            if(!(await elem.getAttribute('title')).toLowerCase().includes(order.toLowerCase())){
+                await elem.click().then(async () => {
+                    await this.driver.wait(until.elementLocated(By.css((await bucketsTab.getNameSorterSelector()).selector)))
+                });
+            }
+        })
+    }
+
+    async hoverOverCardNamed(name){
+        await this.hoverOver(await this.bucketsTab.getBucketCardByName(name));
+    }
+
+    async verifyBucketCardDeleteNotPresent(name){
+        //await this.driver.executeScript('arguments[0].blur()', await this.bucketsTab.getBucketCardDeleteByName(name));
+        await this.bucketsTab.getBucketCardByName('_tasks').then(async elem => {
+            await elem.click().then(async () => {  //remove focus from list
+                await this.driver.sleep(500); //fix later - losing patience
+                await this.assertNotVisible(await this.bucketsTab.getBucketCardDeleteByName(name));
+            });
+        })
+    }
+
+    async clickBucketCardDelete(name){
+        await this.bucketsTab.getBucketCardDeleteByName(name).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.wait(until.elementIsVisible(
+                    await this.bucketsTab.getBucketCardDeleteConfirmByName(name)))
+            });
+        })
+    }
+
+    async clickBucketCardDeleteConfirm(name){
+        await this.bucketsTab.getBucketCardDeleteConfirmByName(name).then(async elem => {
+            await elem.click().then(async () => {
+
+                await this.driver.wait(until.stalenessOf(await this.bucketsTab.getBucketCardDeleteByName(name)));
             })
         })
     }

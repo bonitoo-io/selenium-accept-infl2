@@ -1,4 +1,4 @@
-import { Then, When } from 'cucumber';
+import { Given, Then, When } from 'cucumber';
 const bucketsSteps = require(__srcdir + '/steps/loadData/bucketsSteps.js');
 
 let bktTabSteps = new bucketsSteps(__wdriver);
@@ -119,6 +119,11 @@ Then(/^the bucket named "(.*)" is in the list$/, async (name) => {
    await bktTabSteps.verifyBucketInListByName(name);
 });
 
+Then(/^the bucket card named "(.*)" is not in the list$/, async (name) => {
+    await bktTabSteps.verifyBucktNotInListByName(name);
+})
+
+
 Then(/^the bucket named "(.*)" has a Retention Policy of "(.*)"$/, async (name, rp) => {
     await bktTabSteps.verifyBucketHasRetentionPolicy(name, rp);
 });
@@ -143,7 +148,31 @@ When(/^click Edit Bucket Popup Save Changes$/, async () => {
      await bktTabSteps.clickSaveChanges();
 });
 
-When(/^enter "(.*)" in the filter field$/, async (text) => {
+When(/^enter "(.*)" in the Buckets filter field$/, async (text) => {
     await bktTabSteps.setFilterValue(text);
-    await bktTabSteps.driver.sleep(3000);
 });
+
+When(/^clear the Buckets filter field$/, async () => {
+    await bktTabSteps.clearFilterValue();
+});
+
+Given(/^ensure buckets name sort order "(.*)"$/,{timeout: 2 * 5000}, async (order) => {
+   await bktTabSteps.ensureNameSortOrder(order);
+});
+
+When(/^hover over bucket card named "(.*)"$/,{timeout: 2 * 5000}, async (name) => {
+    await bktTabSteps.hoverOverCardNamed(name);
+    await bktTabSteps.driver.sleep(5000);
+});
+
+Then(/^the delete button of the card named "(.*)" is not present$/, {timeout: 2 * 5000}, async (name) => {
+    await bktTabSteps.verifyBucketCardDeleteNotPresent(name);
+});
+
+When(/^click the delete button of the card named "(.*)"$/, async (name) => {
+    await bktTabSteps.clickBucketCardDelete(name);
+});
+
+When(/^click the confirm delete button of the card named "(.*)"$/, async (name) => {
+    await bktTabSteps.clickBucketCardDeleteConfirm(name);
+})
