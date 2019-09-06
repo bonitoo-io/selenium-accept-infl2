@@ -374,6 +374,8 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getBucketCardDeleteConfirmByName(name).then(async elem => {
             await elem.click().then(async () => {
 
+                await this.driver.sleep(500); // todo - find better wait - however below is flakey
+
                 // await this.driver.wait(until.stalenessOf(await this.bucketsTab.getBucketCardDeleteByName(name)));
             })
         })
