@@ -1,4 +1,4 @@
-const { By, Condition, until} = require('selenium-webdriver');
+const { By, Condition, until, StaleElementReferenceError} = require('selenium-webdriver');
 
 const notificationSuccessMsg = '[data-testid=notification-success] div.notification-message';
 const notificationErrorMsg = '[data-testid=notification-error] div.notification-message';
@@ -65,25 +65,41 @@ class basePage{
 
     // selector shold be of {type, selector}
     // helper to avoid stale element exceptions etc.
-    async smartGetElement(selector, timeout = this.driver.manage().getTimeouts().implicit){
-        switch(selector.type){
-        case 'css':
-            await this.driver.wait(until.elementLocated(By.css(selector.selector)), timeout);
-            return await this.driver.findElement(By.css(selector.selector)).catch(async err => {
-                console.log('DEBUG CAUGHT ERROR ' + JSON.stringify(err));
-                console.log('AT ' + selector.selector);
-                throw err;
-            });
-        case 'xpath':
-            await this.driver.wait(until.elementLocated(By.xpath(selector.selector)), timeout);
-            return await this.driver.findElement(By.xpath(selector.selector)).catch(async err => {
-                console.log('DEBUG CAUGHT ERROR ' + JSON.stringify(err));
-                console.log('AT ' + selector.selector);
-                throw err;
-            });
-        default:
-            throw `Unkown selector type ${JSON.stringify(selector)}`;
+    async smartGetElement(selector, timeout = this.driver.manage().getTimeouts().implicit) {
+        let resultElem; // check staleness with resultElem.enabled() or similar
+        for (let i = 0; i < 3; i++) {
+            try {
+                switch (selector.type) {
+                    case 'css':
+                        await this.driver.wait(until.elementLocated(By.css(selector.selector)), timeout);
+                        resultElem = await this.driver.findElement(By.css(selector.selector)).catch(async err => {
+                            console.log('DEBUG CAUGHT ERROR ' + JSON.stringify(err));
+                            console.log('AT ' + selector.selector);
+                            throw err;
+                        });
+                        break;
+                    case 'xpath':
+                        await this.driver.wait(until.elementLocated(By.xpath(selector.selector)), timeout);
+                        resultElem = await this.driver.findElement(By.xpath(selector.selector)).catch(async err => {
+                            console.log('DEBUG CAUGHT ERROR ' + JSON.stringify(err));
+                            console.log('AT ' + selector.selector);
+                            throw err;
+                        });
+                        break;
+                    default:
+                        throw `Unkown selector type ${JSON.stringify(selector)}`;
+                }
+                await resultElem.isEnabled();
+            } catch (e) {
+                if (e instanceof StaleElementReferenceError && i !== 2) {
+                    console.log("DEBUG caught " + e)
+                    //continue - try to get elem again
+                } else {
+                    throw e;
+                }
+            }
         }
+        return resultElem;
     }
 
     // selector should be of {type, selector}
