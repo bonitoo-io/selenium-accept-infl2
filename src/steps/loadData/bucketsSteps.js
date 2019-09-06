@@ -374,7 +374,7 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getBucketCardDeleteConfirmByName(name).then(async elem => {
             await elem.click().then(async () => {
 
-                await this.driver.wait(until.stalenessOf(await this.bucketsTab.getBucketCardDeleteByName(name)));
+                // await this.driver.wait(until.stalenessOf(await this.bucketsTab.getBucketCardDeleteByName(name)));
             })
         })
     }
