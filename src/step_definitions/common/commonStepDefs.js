@@ -109,17 +109,15 @@ When(/^write sine data for org "(.*?)" to bucket "(.*?)"$/, async (org, bucket) 
 });
 
 When(/^query sine data for org of user "(.*)" from bucket "(.*)"$/, async (user, bucket) => {
-    let nowNano = new Date().getTime() * 1000000;
-    let intervalNano = 600 * 1000 * 1000000; //10 min in nanosecs
-    let recCount = 256;
-    let startTime = nowNano - (recCount * intervalNano);
+    let startTime = '-1d';
     let org = influxUtils.getUser(user).orgid;
     let query = `from(bucket: "${bucket}")
-  |> range(start: -2d) 
+  |> range(start: ${startTime}) 
   |> filter(fn: (r) => r._measurement == "sinus")
   |> filter(fn: (r) => r._field == "point")`;
 
-    await influxUtils.query(org, query);
+    let results = await influxUtils.query(org, query);
+    console.log("DEBUG results: " + results);
 });
 
 

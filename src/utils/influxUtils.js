@@ -129,14 +129,9 @@ const writeData = async (org, //string
 const query = async(orgID, //string
           query // string
           ) => {
-        console.log("DEBUG query " + query);
-        console.log("DEBUG orgID " + orgID);
-        let doquery = `{'query': '${query}'}`;
-        console.log("DEBUG doquery " + doquery);
         return await axios({method: 'post',
                   url: '/api/v2/query?orgID=' + orgID,
-                  data: '{"query": "buckets()"}' }).then(async response => {
-                      console.log("DEBUG immediate: " + JSON.stringify(response.data));
+                  data: {"query": query} }).then(async response => {
                       return response.data;
         }).catch(async err => {
             console.log("CAUGHT ERROR: " + err);
