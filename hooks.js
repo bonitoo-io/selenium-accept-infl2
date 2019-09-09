@@ -6,11 +6,21 @@ Before(function (scenario, callback) {
     callback();
 });
 
-
 BeforeAll(async function (scenario, callback) {
+//    await __wdriver.get('chrome://settings/clearBrowserData').then(async () => {
+//        console.log("DEBUG clearing browser cache");
+//        await __wdriver.sleep(3000);
+//        await __wdriver.switchTo().activeElement();
+////    await __wdriver.findElement(By.css("* /deep/ #clearBrowsingDataConfirm")).click();
+//        await __wdriver.findElement(By.css("clearBrowsingDataConfirm")).click();
+//        await __wdriver.sleep(3000);
+//    }).catch(async err => {
+//        console.log("DEBUG caught err " + err);
+//        throw err;
+//    });
     callback();
-})
-*/
+})*/
+
 
 async function writeScreenShot(filename) {
     return await __wdriver.takeScreenshot().then(async (image, err) => {
@@ -60,11 +70,13 @@ After(async function (scenario /*,   callback */) {
 
 });
 
-/*
-AfterAll(function ( callback ) {
 
-    callback();
+/*
+AfterAll(async function ( ) {
+
+
 });
 */
+
 
 
