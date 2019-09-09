@@ -29,11 +29,11 @@ Feature: Home Page
     When click the dashboard link to "Test Dashboard"
     Then the dashboard named "Test Dashboard" is loaded
 
-  Scenario: Click Explorer Panel
+  Scenario: Click Alerting Panel
     When hover over the "home" menu item
     When click nav menu item "home"
-    When I click the panel "Explorer"
-    Then the Data Explorer page is loaded
+    When I click the panel "Alerting"
+    Then the Alerting page is loaded
 
   Scenario: Logout from Account
     When hover over the "home" menu item

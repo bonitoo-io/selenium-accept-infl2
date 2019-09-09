@@ -4,7 +4,7 @@ const { By } = require('selenium-webdriver');
 const logoutButton = '[data-testid=button]';
 const getStartedDataCollect = 'div.getting-started--container:nth-of-type(1)';
 const getStartedDashboard = 'div.getting-started--container:nth-of-type(2)';
-const getStartedExplore = 'div.getting-started--container:nth-of-type(3)';
+const getStartedAlerting = 'div.getting-started--container:nth-of-type(3)';
 const tutorialsList = '//ul[contains(@class, \'tutorials\')]';
 const dashboardsList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][2]//ul';
 const usefulLinkList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][3]//ul';
@@ -22,7 +22,7 @@ class homePage extends influxPage {
         await super.isLoaded([{type: 'css', selector: logoutButton},
             {type: 'css', selector: getStartedDataCollect},
             {type: 'css', selector: getStartedDashboard},
-            {type: 'css', selector: getStartedExplore},
+            {type: 'css', selector: getStartedAlerting},
             {type: 'xpath', selector: tutorialsList},
             {type: 'xpath', selector: usefulLinkList},
         ]);
@@ -40,8 +40,8 @@ class homePage extends influxPage {
         return await this.driver.findElement(By.css(getStartedDashboard));
     }
 
-    async getGetStartedExplore(){
-        return await this.driver.findElement(By.css(getStartedExplore));
+    async getGetStartedAlerting(){
+        return await this.driver.findElement(By.css(getStartedAlerting));
     }
 
     async getTutorialsList(){

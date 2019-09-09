@@ -17,7 +17,7 @@ class homeSteps extends influxSteps {
         this.assertVisible(await this.homePage.getLogoutButton());
         this.assertVisible(await this.homePage.getGetStartedDataCollect());
         this.assertVisible(await this.homePage.getGetStartedDashboard());
-        this.assertVisible(await this.homePage.getGetStartedExplore());
+        this.assertVisible(await this.homePage.getGetStartedAlerting());
         this.assertVisible(await this.homePage.getTutorialsList());
         this.assertVisible(await this.homePage.getUsefulLinksList());
         this.assertVisible(await this.homePage.getTutorialLinkByText('Get Started with Flux'));
@@ -38,8 +38,8 @@ class homeSteps extends influxSteps {
         case 'dashboard':
             await (await this.homePage.getGetStartedDashboard()).click();
             break;
-        case 'explorer':
-            await (await this.homePage.getGetStartedExplore()).click();
+        case 'alerting':
+            await (await this.homePage.getGetStartedAlerting()).click();
             break;
         default:
             throw `Unknown Quick Start Panel: ${title}`;

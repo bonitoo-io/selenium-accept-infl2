@@ -126,6 +126,25 @@ const writeData = async (org, //string
 
 };
 
+const query = async(orgID, //string
+          query // string
+          ) => {
+        console.log("DEBUG query " + query);
+        console.log("DEBUG orgID " + orgID);
+        let doquery = `{'query': '${query}'}`;
+        console.log("DEBUG doquery " + doquery);
+        return await axios({method: 'post',
+                  url: '/api/v2/query?orgID=' + orgID,
+                  data: '{"query": "buckets()"}' }).then(async response => {
+                      console.log("DEBUG immediate: " + JSON.stringify(response.data));
+                      return response.data;
+        }).catch(async err => {
+            console.log("CAUGHT ERROR: " + err);
+        })
+
+
+};
+
 //TODO - create cell and view to attach to dashboard
 const createDashboard = async(name, orgId) => {
     return await axios.post('/api/v2/dashboards', { name, orgId }).then(resp => {
@@ -136,6 +155,6 @@ const createDashboard = async(name, orgId) => {
     });
 };
 
-module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData, createDashboard };
+module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData, createDashboard, query };
 
 //flush()

@@ -20,7 +20,7 @@ class settingsSteps extends influxSteps{
         this.assertVisible(await this.setPage.getTabByName('Variables'));
         this.assertVisible(await this.setPage.getTabByName('Templates'));
         this.assertVisible(await this.setPage.getTabByName('Labels'));
-        this.assertVisible(await this.setPage.getTabByName('Tokens'));
+        // this.assertVisible(await this.setPage.getTabByName('Tokens')); // tokens no longer part of settings
         this.assertVisible(await this.setPage.getTabByName('Profile'));
     }
 

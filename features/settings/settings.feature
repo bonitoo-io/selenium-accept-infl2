@@ -14,8 +14,8 @@ Feature: Settings Base
     Then the templates Tab is loaded
     When click the settings tab "Labels"
     Then the labels Tab is loaded
-    When click the settings tab "Tokens"
-    Then the tokens Tab is loaded
+#    When click the settings tab "Tokens" # Tokens tab is no longer available
+#    Then the tokens Tab is loaded # Tokens tab is no longer available
     When click the settings tab "Profile"
     Then the org profile Tab is loaded
     When click the settings tab "Members"
