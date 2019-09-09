@@ -43,6 +43,14 @@ Feature: Influx common
     When click nav sub menu "Tasks"
     Then the Tasks page is loaded
 
+# N.B. this is only tested with alerting turned on, e.g. in js console influx.toggleFeature("alerting")
+#  Scenario: Hover Alerting
+#    Then the menu item text "Monitoring & Alerting" is "hidden"
+#    When hover over the "alerting" menu item
+#    Then the menu item text "Monitoring & Alerting" is "visible"
+#    When click nav sub menu "Monitoring & Alerting"
+#    Then the Alerting page is loaded
+
   Scenario: Hover Load Data
     Then the menu item text "Settings" is "hidden"
     When hover over the "loadData" menu item

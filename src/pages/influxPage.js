@@ -6,6 +6,7 @@ const navMenuHome = '[data-testid=nav-menu--item] span.cubo-nav';
 const navMenuDExplorer = '[data-testid=nav-menu--item] span.graphline-2';
 const navMenuDashboards = '[data-testid=nav-menu--item] span.dashboards';
 const navMenuTasks = '[data-testid=nav-menu--item] span.calendar';
+// const navMenuAlerting = '[data-testid=nav-menu--item] span.bell'; //N.B. only available with alerting on
 const navMenuLoadData = '[data-testid=nav-menu--item] span.disks-nav';
 const navMenuSettings = '[data-testid=nav-menu--item] span.wrench-nav';
 const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
@@ -49,6 +50,8 @@ class influxPage extends basePage {
                 {type: 'css', selector: navMenuDExplorer},
                 {type: 'css', selector: navMenuDashboards},
                 {type: 'css', selector: navMenuTasks},
+                //{type: 'css', selector: navMenuAlerting}, //N.B. only available with alerting on
+                {type: 'css', selector: navMenuLoadData},
                 {type: 'css', selector: navMenuSettings},
                 {type: 'css', selector: navMenuFeedback},
                 {type: 'css', selector: pageHeader}
@@ -80,6 +83,12 @@ class influxPage extends basePage {
     async getMenuTasks(){
         return await this.driver.findElement(By.css(navMenuTasks));
     }
+
+    /* N.B. only available with alerting enabled
+    async getMenuAlerting(){
+        return await this.driver.findElement(By.css(navMenuAlerting));
+    }
+    */
 
     async getMenuLoadData(){
         return await this.driver.findElement(By.css(navMenuLoadData));
