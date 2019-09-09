@@ -16,9 +16,9 @@ if(__config.headless) {
     switch (__config.browser.toLowerCase()) {
         case "chrome":
         global.__wdriver = new Builder()
+            .withCapabilities(caps)
             .forBrowser(__config.browser)
             .setChromeOptions(new chrome.Options().headless().windowSize({width: 1024, height: 768}))
-            .withCapabilities(caps)
             .build();
             break;
         case "firefox":
