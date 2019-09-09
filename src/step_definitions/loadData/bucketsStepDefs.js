@@ -175,4 +175,8 @@ When(/^click the delete button of the card named "(.*)"$/, async (name) => {
 
 When(/^click the confirm delete button of the card named "(.*)"$/, async (name) => {
     await bktTabSteps.clickBucketCardDeleteConfirm(name);
-})
+});
+
+When(/^click add data button for bucket "(.*)"$/, async (name) => {
+    await bktTabSteps.clickAddDataButtonOfCard((name === 'DEFAULT') ? __defaultUser.bucket : name);
+});

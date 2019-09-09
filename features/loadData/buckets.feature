@@ -141,7 +141,8 @@ Examples:
   | Hodinová  |
   | Oprava    |
 
-#Scenario: Add Line Protocol Data to Default
+Scenario: Add Line Protocol Data to Default
+  When click add data button for bucket "DEFAULT"
 #  Given pending
 
 #Scenario: Add Scraper to Default

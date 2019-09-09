@@ -2,6 +2,8 @@ Feature: Settings Base
   As a user I want to open the settings page
   So that I can explore how this Influx2 installation is set up
 
+# TODO with alerting / load data refactor now submenu is richer
+
   Scenario: Verify Tabs
     Given I reset the environment
     Given run setup over REST "DEFAULT"

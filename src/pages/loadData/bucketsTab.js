@@ -170,6 +170,10 @@ class bucketsTab extends loadDataPage {
     async getBucketCardDeleteConfirmByName(name){
         return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`})
         //return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`));
+    }
+
+    async getBucketCardAddDataByName(name){
+        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}']]//button[@title = 'Add Data']`})
     };
 
     async getPopupSaveChanges(){

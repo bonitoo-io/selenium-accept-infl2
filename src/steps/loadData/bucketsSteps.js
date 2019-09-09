@@ -380,6 +380,14 @@ class bucketsSteps extends baseSteps {
             })
         })
     }
+
+    async clickAddDataButtonOfCard(name){
+        await this.bucketsTab.getBucketCardAddDataByName(name).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(3000); // todo - wait for popup items
+            })
+        })
+    }
 }
 
 module.exports = bucketsSteps;
