@@ -163,6 +163,10 @@ class bucketsTab extends loadDataPage {
         return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`));
     }
 
+    async getBucketCardRetentionByName(name){
+        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
+    }
+
     static async getBucketCardSelectorByName(name){
         return {type: 'css', selector: `[data-testid='bucket--card ${name}']`}
     }

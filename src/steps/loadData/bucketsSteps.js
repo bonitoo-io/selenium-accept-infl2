@@ -276,6 +276,20 @@ class bucketsSteps extends baseSteps {
     }
 
     async verifyBucketHasRetentionPolicy(name, rp){
+
+        await this.bucketsTab.getBucketCardRetentionByName(name).then(async elem => {
+            await elem.getText().then(async rpText => {
+                let policy = rp.trim().toLowerCase().split(' ');
+                let rpPolicy = rpText.trim().toLowerCase().split(' ');
+                rpPolicy.shift(); //remover first 'Retenition: string'
+                for( let i = 0; i < policy.length; i += 2) {
+                    await expect(parseInt(policy[i])).to.equal(parseInt(rpPolicy[i]));
+                    await expect(policy[i+1]).to.equal(rpPolicy[i+1]);
+                }
+            })
+        })
+
+        /*
         await this.bucketsTab.getBucketCards().then(async cards => {
             for(let i = 0; i < cards.length; i++){
                 let crd_nm = await cards[i].findElement(By.xpath('.//span[contains(@class,\'cf-resource-name--text\')]/span'));
@@ -284,6 +298,8 @@ class bucketsSteps extends baseSteps {
                        //await console.log("DEBUG cards[i] " + await elem.getText());
                         // rpText should be of form e.g. 'Retention: 28 days'
                        await elem.getText().then(async rpText => {
+                           console.log("DEBUG rp #" + rp + "#");
+                           console.log("DEBUG rpText #" + rpText + "#");
                            let policy = rp.trim().toLowerCase().split(' ');
                            let rpPolicy = rpText.trim().toLowerCase().split(' ');
                            rpPolicy.shift(); //remover first 'Retenition: string'
@@ -298,7 +314,7 @@ class bucketsSteps extends baseSteps {
             }
             assert.fail(`Failed to locate card named ${name} in current list`);
 
-        })
+        })*/
     }
 
     async clickOnBucketNamed(name){

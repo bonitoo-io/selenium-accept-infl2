@@ -85,7 +85,7 @@ Scenario: Modify Retention Policy
   When click on the bucket named "Oprava"
   Then the Edit Bucket popup is loaded
   Then the name edit textbox of the Edit Bucket popup is disabled
-  Then the form help text contains "To rename the bucket use the rename button. Bucket renaming is not allowed here."
+  Then the form help text contains "To rename the bucket use the RENAME button. Bucket renaming is not allowed here."
   When dismiss the Edit Bucket Popup
   Then the Edit Bucket Popup is not present
   When click on the bucket named "Oprava"
