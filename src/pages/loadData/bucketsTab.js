@@ -27,6 +27,22 @@ const popupFormError = '[data-testid=form--element-error]';
 const popupSaveChanges = '[data-testid=\'button\'][type=submit]';
 const popupHelpText = '[data-testid=form--help-text]';
 
+//Add data line protocol Popup Wizard
+//reuse popup title above
+//reuse dismiss above
+const wizardStepTitle = '.wizard-step--title';
+const wizardStepSubTitle = '[data-testid=form-container] [class*=sub-title]';
+const wizardRadioUploadFile = '[data-testid=radio--button][title=\'Upload File\']';
+const wizardRadioManual = '[data-testid=radio--button][title=\'Enter Manually\']';
+const wizardPrecisionDropdown = '[class*=precision][data-testid=dropdown]';
+const wizardDragAndDrop = 'div.drag-and-drop';
+const wizardContinueButton = '[data-testid=next]';
+const wizardTextArea = '[data-testid=textarea]';
+const wizardFinishButton = '[data-testid=next][title=\'Finish\']';
+const wizardStepStateText = '.wizard-step--text-state';
+const wizardSparkleSpinner = '[data-testid=sparkle-spinner]';
+
+
 const urlCtx = 'buckets';
 
 class bucketsTab extends loadDataPage {
@@ -167,6 +183,14 @@ class bucketsTab extends loadDataPage {
         return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
     }
 
+    async getBucketCardPopoverByName(name){
+        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[@data-testid='popover--contents']`));
+    }
+
+    async getBucketCardPopoverItemByName(name, item){
+        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[@data-testid='popover--contents']//div[contains(text(), '${item}')]`));
+    }
+
     static async getBucketCardSelectorByName(name){
         return {type: 'css', selector: `[data-testid='bucket--card ${name}']`}
     }
@@ -184,6 +208,67 @@ class bucketsTab extends loadDataPage {
         return await this.driver.findElement(By.css(popupSaveChanges));
     }
 
+    async getWizardStepTitle(){
+        return await this.driver.findElement(By.css(wizardStepTitle));
+    }
+
+    static async getWizardStepTitleSelector(){
+        return {type: 'css', selector: wizardStepTitle }
+    }
+
+    async getWizardStepSubTitle(){
+        return await this.driver.findElement(By.css(wizardStepSubTitle));
+    }
+
+    static async getWizardStepSubTitleSelector(){
+        return {type: 'css', selector: wizardStepSubTitle }
+    }
+
+
+    async getWizardRadioUploadFile(){
+        return await this.driver.findElement(By.css(wizardRadioUploadFile));
+    }
+
+    async getWizardRadioManual(){
+        return await this.driver.findElement(By.css(wizardRadioManual));
+    }
+
+    async getWizardPrecisionDropdown(){
+        return await this.driver.findElement(By.css(wizardPrecisionDropdown));
+    }
+
+    async getWizardDragAndDrop(){
+        return await this.driver.findElement(By.css(wizardDragAndDrop));
+    }
+
+    async getWizardContinueButton(){
+        return await this.driver.findElement(By.css(wizardContinueButton));
+    }
+
+    static async getWizardContinueButtonSelector(){
+        return {type: 'css', selector: wizardContinueButton }
+    }
+
+
+    async getWizardTextArea(){
+        return await this.driver.findElement(By.css(wizardTextArea));
+    }
+
+    async getWizardDropdownPrecisionItem(prec){
+        return await this.driver.findElement(By.css(`[data-testid=\'dropdown-item\'][id=\'${prec}']`));
+    }
+
+    async getWizardFinishButton(){
+        return await this.driver.findElement(By.css(wizardFinishButton));
+    }
+
+    async getWizardStepStateText(){
+        return await this.driver.findElement(By.css(wizardStepStateText));
+    }
+
+    async getWizardSparkleSpinner(){
+        return await this.driver.findElement(By.css(wizardSparkleSpinner));
+    }
 
 }
 

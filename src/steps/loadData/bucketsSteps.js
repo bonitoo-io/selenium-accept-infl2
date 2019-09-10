@@ -377,6 +377,14 @@ class bucketsSteps extends baseSteps {
         })
     }
 
+    async verifyBucketCardPopoverVisible(name, toBeVisible){
+        if(toBeVisible){
+            await this.assertVisible(await this.bucketsTab.getBucketCardPopoverByName(name));
+        }else{
+            await this.assertNotVisible(await this.bucketsTab.getBucketCardPopoverByName(name));
+        }
+    }
+
     async clickBucketCardDelete(name){
         await this.bucketsTab.getBucketCardDeleteByName(name).then(async elem => {
             await elem.click().then(async () => {
@@ -400,10 +408,141 @@ class bucketsSteps extends baseSteps {
     async clickAddDataButtonOfCard(name){
         await this.bucketsTab.getBucketCardAddDataByName(name).then(async elem => {
             await elem.click().then(async () => {
-                await this.driver.sleep(3000); // todo - wait for popup items
+                await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getBucketCardPopoverByName(name)));
             })
         })
     }
+
+    async clickPopoverItemForBucketCard(name, item){
+        await this.bucketsTab.getBucketCardPopoverItemByName(name, item).then(async elem => {
+            elem.click().then( async () => {
+                await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getWizardStepTitle()))
+            })
+        })
+    }
+
+    async verifyLineProtocolWizardVisible(visibility){
+        if(visibility){
+            await this.assertVisible(await this.bucketsTab.getWizardStepTitle());
+            await this.assertVisible(await this.bucketsTab.getWizardStepSubTitle());
+            await this.assertVisible(await this.bucketsTab.getWizardDragAndDrop());
+            await this.assertVisible(await this.bucketsTab.getWizardRadioUploadFile());
+            await this.assertVisible(await this.bucketsTab.getWizardRadioManual());
+            await this.assertVisible(await this.bucketsTab.getWizardPrecisionDropdown());
+            await this.assertVisible(await this.bucketsTab.getWizardContinueButton());
+        }else{
+            await this.assertNotPresent(await bucketsTab.getWizardStepTitleSelector());
+            await this.assertNotPresent(await bucketsTab.getWizardStepSubTitleSelector());
+            await this.assertNotPresent(await bucketsTab.getWizardContinueButtonSelector());
+        }
+    }
+
+    async verifyDataPointsTextAreaVisible(visibility){
+        if(visibility){
+            await this.assertVisible(await this.bucketsTab.getWizardTextArea());
+        }else{
+            await this.assertNotVisible(await this.bucketsTab.getWizardTextArea());
+        }
+    }
+
+    async clickRadioButton(name){
+        if(name.toLowerCase().includes('manual')) {
+            await this.bucketsTab.getWizardRadioManual().then(async elem => {
+                await elem.click().then( async () => {
+                    await this.driver.sleep(500); //todo better wait
+                })
+            })
+        }else{
+            await this.bucketsTab.getWizardRadioUploadFile().then(async () => {
+                await elem.click().then(async () => {
+                    await this.driver.sleep(500); //todo better wait
+                })
+            })
+
+        }
+    }
+
+    async enterLineProtocolDataPoints(count, value, start, mode, type, prec){
+        let samples = [];
+        let dataPoints = [];
+        let nowMillis = new Date().getTime();
+        //myMeasurement,host=myHost testField="testData" 1556896326
+        let intervals = await baseSteps.getIntervalMillis(count, start);
+        console.log("DEBUG intervals " + JSON.stringify(intervals));
+        let startMillis = nowMillis - intervals.full;
+        console.log("DEBUG nowMillis " + nowMillis + " startMillis " + startMillis);
+        switch(mode.toLowerCase()){
+            case 'fibonacci':
+                samples = await baseSteps.genFibonacciValues(count);
+                break;
+            default:
+                throw `Unhandled mode ${mode}`;
+        }
+        console.log("DEBUG samples " + samples.length + " " + samples);
+        for(let i = 0; i < samples.length; i++){
+            dataPoints.push(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`)
+        }
+        console.log("DEBUG dataPoints ");
+        await this.bucketsTab.getWizardTextArea().then(async elem => {
+            dataPoints.forEach(async point => {
+                await console.log(point);
+                await elem.sendKeys(point);
+            })
+        });
+
+    }
+
+    async clickLineProtocolPrecisionDropdown(){
+        await this.bucketsTab.getWizardPrecisionDropdown().then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(500); //todo better wait
+            })
+        })
+    }
+
+    async clickLineProtocolContinue(){
+        await this.bucketsTab.getWizardContinueButton().then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(500); //todo better wait
+            })
+        })
+    }
+
+    async clickLineProtocolPrecisionItem(prec){
+        await this.bucketsTab.getWizardDropdownPrecisionItem(prec).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(500); //todo better wait
+            })
+        })
+    }
+
+    async verifyLineProtocolWizardSecondStep(){
+        await this.assertVisible(await this.bucketsTab.getWizardSparkleSpinner());
+        await this.assertVisible(await this.bucketsTab.getWizardStepStateText());
+        await this.assertVisible(await this.bucketsTab.getWizardFinishButton());
+
+    }
+
+    async verifyWizardStepStatusMessage(msg){
+        await this.bucketsTab.getWizardStepStateText().then(async elem => {
+            await elem.getText().then(async elText => {
+                expect(elText).to.equal(msg);
+            });
+            await elem.getCssValue('color').then( async color => {
+                expect(color).to.equal('rgba(78, 216, 160, 1)')
+            })
+        })
+    }
+
+    async clickLineProtocolFinish(){
+        await this.bucketsTab.getWizardFinishButton().then( async button => {
+            await button.click().then(async () => {
+                await this.driver.sleep(500); //todo better wait
+            })
+        })
+    }
+
+
 }
 
 module.exports = bucketsSteps;

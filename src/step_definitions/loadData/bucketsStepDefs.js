@@ -1,5 +1,6 @@
 import { Given, Then, When } from 'cucumber';
 const bucketsSteps = require(__srcdir + '/steps/loadData/bucketsSteps.js');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 let bktTabSteps = new bucketsSteps(__wdriver);
 
@@ -180,3 +181,69 @@ When(/^click the confirm delete button of the card named "(.*)"$/, async (name) 
 When(/^click add data button for bucket "(.*)"$/, async (name) => {
     await bktTabSteps.clickAddDataButtonOfCard((name === 'DEFAULT') ? __defaultUser.bucket : name);
 });
+
+Then(/^the add data popover for the bucket "(.*)" is not visible$/, async (name) => {
+    await bktTabSteps.verifyBucketCardPopoverVisible((name === 'DEFAULT') ? __defaultUser.bucket : name, false);
+});
+
+Then(/^the add data popover for the bucket "(.*)" is visible$/, async (name) => {
+    await bktTabSteps.verifyBucketCardPopoverVisible((name === 'DEFAULT') ? __defaultUser.bucket : name, true);
+});
+
+When(/^click the popover item "(.*)" for the bucket "(.*)"$/, async (item, name) => {
+    await bktTabSteps.clickPopoverItemForBucketCard((name === 'DEFAULT') ? __defaultUser.bucket : name, item);
+});
+
+Then(/^the first page of the Line Protocol Wizard is loaded$/, async () => {
+    await bktTabSteps.verifyLineProtocolWizardVisible(true);
+});
+
+When(/^click radio button "(.*)"$/, async (name) => {
+   await bktTabSteps.clickRadioButton(name);
+});
+
+Then(/^the data point text area is visible$/, async () => {
+    await bktTabSteps.verifyDataPointsTextAreaVisible(true);
+});
+
+When(/^enter "(.*)" datapoints with value named "(.*)" starting at "(.*)" with "(.*)" data of type "(.*)" and prec "(.*)"$/,
+    async (count, value, start, mode, type, prec) => {
+    await bktTabSteps.enterLineProtocolDataPoints(count, value, start, mode, type, prec);
+    await bktTabSteps.driver.sleep(3000);
+});
+
+When(/^click the Line Protocol wizard precision dropdown$/, async () => {
+   await bktTabSteps.clickLineProtocolPrecisionDropdown();
+});
+
+When(/^click the Line Protocol wizard continue button$/, async () => {
+    await bktTabSteps.clickLineProtocolContinue();
+});
+
+When(/^click the line Protocol wizard precision "(.*)"$/, async (prec) => {
+    await bktTabSteps.clickLineProtocolPrecisionItem(prec);
+});
+
+Then(/^the line Protocol wizard second step opens$/, async() => {
+   await bktTabSteps.verifyLineProtocolWizardSecondStep();
+});
+
+Then(/^the Line Protocol wizard step status message is "(.*)"$/, async msg => {
+    await bktTabSteps.verifyWizardStepStatusMessage(msg);
+});
+
+When(/^click the Line Protocol wizard finish button$/, async () => {
+    await bktTabSteps.clickLineProtocolFinish();
+});
+
+Then(/^the line Protocol wizard is not present$/, {timeout: 2 * 5000}, async () => {
+    await bktTabSteps.verifyLineProtocolWizardVisible(false)
+});
+
+Then(/^the bucket "(.*)" for user "(.*)" contains "(.*)" datapoints of "(.*)" data with value named "(.*)" starting at "(.*)"$/,
+    async (bucket, user, count, mode, value, start) => {
+    await bktTabSteps.verifyBucketContains((bucket === 'DEFAULT') ? __defaultUser.bucket : bucket,
+        (user === 'DEFAULT')? __defaultUser: influxUtils.getUser(name),
+        count, mode, value, start);
+});
+

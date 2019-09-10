@@ -2,6 +2,7 @@
 const expect = require('chai').expect;
 const assert = require('chai').assert;
 const { By } = require('selenium-webdriver');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -150,6 +151,61 @@ class baseSteps{
         default:
             throw `Unknown selector type ${selector}`;
         }
+    }
+
+    static async genFibonacciValues(count){
+        let result = [];
+        for(let i = 0; i < count; i++){
+            if(i === 0){
+                result.push(1);
+            }else if(i === 1){
+                result.push(2)
+            }else{
+                result.push(result[i-1] + result[i-2]);
+            }
+        }
+        console.log("DEBUG result " + result.length + " count " + count);
+        return result;
+    }
+
+    // 'start' should have time format e.g. -2h, 30m, 1d
+    static async getIntervalMillis(count, start){
+        let time = start.slice(0, -1);
+        let fullInterval  = 0;
+        let pointInterval = 0;
+        switch(start[start.length - 1]){
+            case 'd': //days
+                fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
+                break;
+            case 'h': //hours
+                fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
+                break;
+            case 'm': //minutes
+                fullInterval = Math.abs(parseInt(time)) * 60000;
+                break;
+            case 's': //seconds
+                fullInterval = Math.abs(parseInt(time)) * 1000;
+                break;
+            default:
+                throw new `unhandle time unit ${start}`;
+        }
+
+        pointInterval = fullInterval / count;
+        return {full: fullInterval, step: pointInterval}
+    }
+
+
+    // 'start' should be in flux time format e.g. -2h, -1d, -30m
+    async verifyBucketContains(bucket, user, count, mode, value, start){
+        // NEED TO LOGIN FIRST OTHERWISE 401 - not using same cookies as browser
+//        console.log("verifyBucketContains() TO BE IMPLEMENTED");
+        let query = `from(bucket: "${bucket}")
+    |> range(start: ${start})
+    |> filter(fn: (r) => r._measurement == "${mode}")
+    |> filter(fn: (r) => r._field == "${value}")`;
+
+        let results = await influxUtils.query(user.orgId, query);
+        console.log("DEBUG results: " + results);
     }
 }
 
