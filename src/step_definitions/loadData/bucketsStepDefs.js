@@ -245,8 +245,9 @@ Then(/^the line Protocol wizard is not present$/, {timeout: 2 * 5000}, async () 
 
 Then(/^the bucket "(.*)" for user "(.*)" contains "(.*)" datapoints of "(.*)" data with value named "(.*)" starting at "(.*)"$/,
     async (bucket, user, count, mode, value, start) => {
+
     await bktTabSteps.verifyBucketContains((bucket === 'DEFAULT') ? __defaultUser.bucket : bucket,
-        (user === 'DEFAULT')? __defaultUser: influxUtils.getUser(name),
+        (user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(name),
         count, mode, value, start);
 });
 

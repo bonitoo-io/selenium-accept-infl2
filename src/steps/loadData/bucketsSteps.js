@@ -510,11 +510,9 @@ class bucketsSteps extends baseSteps {
         let samples = [];
         let dataPoints = [];
         let nowMillis = new Date().getTime();
-        //myMeasurement,host=myHost testField="testData" 1556896326
+        //line protocol i.e. myMeasurement,host=myHost testField="testData" 1556896326
         let intervals = await baseSteps.getIntervalMillis(count, start);
-        console.log("DEBUG intervals " + JSON.stringify(intervals));
         let startMillis = nowMillis - intervals.full;
-        console.log("DEBUG nowMillis " + nowMillis + " startMillis " + startMillis);
         switch(mode.toLowerCase()){
             case 'fibonacci':
                 samples = await baseSteps.genFibonacciValues(count);
@@ -522,14 +520,11 @@ class bucketsSteps extends baseSteps {
             default:
                 throw `Unhandled mode ${mode}`;
         }
-        console.log("DEBUG samples " + samples.length + " " + samples);
         for(let i = 0; i < samples.length; i++){
             dataPoints.push(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`)
         }
-        console.log("DEBUG dataPoints ");
         await this.bucketsTab.getWizardTextArea().then(async elem => {
             dataPoints.forEach(async point => {
-                await console.log(point);
                 await elem.sendKeys(point);
             })
         });

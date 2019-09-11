@@ -164,7 +164,6 @@ class baseSteps{
                 result.push(result[i-1] + result[i-2]);
             }
         }
-        console.log("DEBUG result " + result.length + " count " + count);
         return result;
     }
 
@@ -198,14 +197,29 @@ class baseSteps{
     // 'start' should be in flux time format e.g. -2h, -1d, -30m
     async verifyBucketContains(bucket, user, count, mode, value, start){
         // NEED TO LOGIN FIRST OTHERWISE 401 - not using same cookies as browser
-//        console.log("verifyBucketContains() TO BE IMPLEMENTED");
         let query = `from(bucket: "${bucket}")
     |> range(start: ${start})
     |> filter(fn: (r) => r._measurement == "${mode}")
     |> filter(fn: (r) => r._field == "${value}")`;
 
-        let results = await influxUtils.query(user.orgId, query);
-        console.log("DEBUG results: " + results);
+        let results = await influxUtils.query(user.orgid, query);
+        let resTable = await (await results.split('\r\n')).filter((row) => {
+            return row.split(',').length > 9;
+        });
+
+        let firstRow = resTable[1].split(',');
+        let lastRow = resTable[resTable.length - 1].split(',');
+
+        firstRow.shift();
+        lastRow.shift();
+
+        expect(parseInt(firstRow[5])).to.equal(1);
+        expect(firstRow[6]).to.equal(value);
+        expect(firstRow[7]).to.equal(mode);
+        expect(parseInt(lastRow[5])).to.equal(233);
+        expect(lastRow[6]).to.equal(value);
+        expect(lastRow[7]).to.equal(mode);
+
     }
 }
 
