@@ -531,6 +531,14 @@ class bucketsSteps extends baseSteps {
 
     }
 
+    async enterLineProtocolRawData(data){
+        await this.bucketsTab.getWizardTextArea().then(async elem => {
+            await elem.sendKeys(data).then(async () => {
+                await this.driver.sleep(500); // todo better wait
+            })
+        })
+    }
+
     async clickLineProtocolPrecisionDropdown(){
         await this.bucketsTab.getWizardPrecisionDropdown().then(async elem => {
             await elem.click().then(async () => {
@@ -567,10 +575,30 @@ class bucketsSteps extends baseSteps {
             await elem.getText().then(async elText => {
                 expect(elText).to.equal(msg);
             });
-            await elem.getCssValue('color').then( async color => {
-                expect(color).to.equal('rgba(78, 216, 160, 1)')
-            })
+            if(msg.toLowerCase().includes('success')) {
+                await elem.getCssValue('color').then(async color => {
+                    expect(color).to.equal('rgba(78, 216, 160, 1)')
+                })
+            }
         })
+    }
+
+    async verifyWizardStepStatusMessageContains(msg){
+        await this.bucketsTab.getWizardStepStateText().then(async elem => {
+            await elem.getText().then(async elText => {
+                expect(elText).to.include(msg);
+            });
+            if(msg.toLowerCase().includes('success')) {
+                await elem.getCssValue('color').then(async color => {
+                    expect(color).to.equal('rgba(78, 216, 160, 1)')
+                })
+            }else{
+                await elem.getCssValue('color').then(async color => {
+                    expect(color).to.equal('rgba(249, 95, 83, 1)')
+                })
+            }
+        })
+
     }
 
     async clickLineProtocolFinish(){

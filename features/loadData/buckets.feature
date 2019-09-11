@@ -161,6 +161,21 @@ Scenario: Add Manual Line Protocol Data to Default
   When API sign in user "DEFAULT"
   Then the bucket "DEFAULT" for user "DEFAULT" contains "12" datapoints of "fibonacci" data with value named "foo" starting at "-3h"
 
+  Scenario: Add Manual Line Protocol Bad Data to Default
+    Then the add data popover for the bucket "DEFAULT" is not visible
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Line Protocol" for the bucket "DEFAULT"
+    Then the first page of the Line Protocol Wizard is loaded
+    When click radio button "Enter Manually"
+    Then the data point text area is visible
+    When enter "bad data" into the line protocol text area
+    When click the Line Protocol wizard continue button
+    Then the line Protocol wizard second step opens
+    Then the Line Protocol wizard step status message contains "Unable to Write Data"
+    When click the Line Protocol wizard finish button
+    Then the line Protocol wizard is not present
+
 #Scenario: Add Scraper to Default
 #  Given pending
 

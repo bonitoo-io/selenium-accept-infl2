@@ -215,6 +215,10 @@ When(/^enter "(.*)" datapoints with value named "(.*)" starting at "(.*)" with "
     await bktTabSteps.driver.sleep(3000);
 });
 
+When(/^enter "(.*)" into the line protocol text area$/, async data => {
+    await bktTabSteps.enterLineProtocolRawData(data);
+})
+
 When(/^click the Line Protocol wizard precision dropdown$/, async () => {
    await bktTabSteps.clickLineProtocolPrecisionDropdown();
 });
@@ -233,6 +237,10 @@ Then(/^the line Protocol wizard second step opens$/, async() => {
 
 Then(/^the Line Protocol wizard step status message is "(.*)"$/, async msg => {
     await bktTabSteps.verifyWizardStepStatusMessage(msg);
+});
+
+Then(/^the Line Protocol wizard step status message contains "(.*)"$/, async msg => {
+    await bktTabSteps.verifyWizardStepStatusMessageContains(msg);
 });
 
 When(/^click the Line Protocol wizard finish button$/, async () => {
