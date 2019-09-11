@@ -23,36 +23,38 @@ Scenario: Exercise Create Bucket Dialog
   Then the Retention Policy radio button "intervals" is active
   Then the Retention Policy radio button "never" is inactive
   Then the Retention Policy intervals controls are present
-  Then the Retention Policy warning message contains "Retention period must be at least an hour"
-  When enter "61" into the Retention Policy "Seconds" control
-  Then the Retention Policy "Seconds" control contains the value "1"
-  Then the Retention Policy "Minutes" control contains the value "1"
-  Then the Retention Policy warning message contains "Retention period must be at least an hour"
-  When clear all Retention Policy interval controls
-  When enter "123" into the Retention Policy "Minutes" control
-  Then the Retention Policy "Minutes" control contains the value "3"
-  Then the Retention Policy "Hours" control contains the value "2"
-  Then the Retention Policy warning message has disappeared
-  When clear all Retention Policy interval controls
-  When enter "80" into the Retention Policy "Hours" control
-  Then the Retention Policy "Hours" control contains the value "8"
-  Then the Retention Policy "Days" control contains the value "3"
-  When clear all Retention Policy interval controls
-  When enter "7" into the Retention Policy "Days" control
-  Then the Retention Policy "Days" control contains the value "7"
-  When clear all Retention Policy interval controls
-  When enter "ABCD" into the Retention Policy "Seconds" control
-  Then the Retention Policy "Seconds" control contains the value "0"
-  When enter "ABCD" into the Retention Policy "Minutes" control
-  Then the Retention Policy "Minutes" control contains the value "0"
-  When enter "ABCD" into the Retention Policy "Hours" control
-  Then the Retention Policy "Hours" control contains the value "0"
-  When enter "ABCD" into the Retention Policy "Days" control
-  Then the Retention Policy "Days" control contains the value "0"
+  # N.B. controls replaced with dropdown selector 2019-09-11
+  #TODO check new dropdown
+  #Then the Retention Policy warning message contains "Retention period must be at least an hour"
+  #When enter "61" into the Retention Policy "Seconds" control
+  #Then the Retention Policy "Seconds" control contains the value "1"
+  #Then the Retention Policy "Minutes" control contains the value "1"
+  #Then the Retention Policy warning message contains "Retention period must be at least an hour"
+  #When clear all Retention Policy interval controls
+  #When enter "123" into the Retention Policy "Minutes" control
+  #Then the Retention Policy "Minutes" control contains the value "3"
+  #Then the Retention Policy "Hours" control contains the value "2"
+  #Then the Retention Policy warning message has disappeared
+  #When clear all Retention Policy interval controls
+  #When enter "80" into the Retention Policy "Hours" control
+  #Then the Retention Policy "Hours" control contains the value "8"
+  #Then the Retention Policy "Days" control contains the value "3"
+  #When clear all Retention Policy interval controls
+  #When enter "7" into the Retention Policy "Days" control
+  #Then the Retention Policy "Days" control contains the value "7"
+  #When clear all Retention Policy interval controls
+  #When enter "ABCD" into the Retention Policy "Seconds" control
+  #Then the Retention Policy "Seconds" control contains the value "0"
+  #When enter "ABCD" into the Retention Policy "Minutes" control
+  #Then the Retention Policy "Minutes" control contains the value "0"
+  #When enter "ABCD" into the Retention Policy "Hours" control
+  #Then the Retention Policy "Hours" control contains the value "0"
+  #When enter "ABCD" into the Retention Policy "Days" control
+  #Then the Retention Policy "Days" control contains the value "0"
   When input the name of the bucket as "ABCD"
-  Then the Retention Policy warning message contains "Retention period must be at least an hour"
+  #Then the Retention Policy warning message contains "Retention period must be at least an hour"
   When click the Retention Policy "never" button
-  Then the Retention Policy warning message has disappeared
+  #Then the Retention Policy warning message has disappeared
   Then the Create button of Create Bucket Popup is enabled
   When dismiss the Create Bucket Popup
   Then the Create Bucket Popup is not present
@@ -72,14 +74,13 @@ Scenario Outline: Create Buckets with Retention Policies
 
 Examples:
   |NAME| RETENTION |
-#  | Trvalá | Never | N.B. triggers issue 14903 - skip for now
-  | Měsíční | 28 Days  |
-  | Týdenní |  7 Days  |
-  # fudging with hours and days due to issue 14905
-  | Denní | 1 Days  |
-  | Půldenní | 12 Hours |
-  | Hodinová  | 1 Hours |
-  | Oprava    | 1 Days  |
+  | Trvalá | Never |
+  | Měsíční | 30d  |
+  | Týdenní |  7d  |
+  | Denní | 24h  |
+  | Půldenní | 12h |
+  | Hodinová  | 1h |
+  | Oprava    | 24h  |
 
 Scenario: Modify Retention Policy
   When click on the bucket named "Oprava"
@@ -93,10 +94,10 @@ Scenario: Modify Retention Policy
   When cancel the Edit Bucket Popup
   Then the Edit Bucket Popup is not present
   When click on the bucket named "Oprava"
-  When set the retention policy of the bucket as "36 Hours"
+  When set the retention policy of the bucket as "48h"
   When click Edit Bucket Popup Save Changes
   # N.B. fix following once issue 14905 is resolved
-  Then the bucket named "Oprava" has a Retention Policy of "1 Days 12 Hours"
+  Then the bucket named "Oprava" has a Retention Policy of "48h"
 
 Scenario: Filter Buckets
   When enter "denn" in the Buckets filter field
@@ -112,9 +113,9 @@ Scenario: Clear Filter
 
 Scenario: Sort Buckets by Name
   Given ensure buckets name sort order "desc"
-  Then the buckets are sorted as "_monitoring,_tasks,Denní,Hodinová,Měsíční,Oprava,Půldenní,DEFAULT,Týdenní"
+  Then the buckets are sorted as "_monitoring,_tasks,Denní,Hodinová,Měsíční,Oprava,Půldenní,DEFAULT,Trvalá,Týdenní"
   Given ensure buckets name sort order "asc"
-  Then the buckets are sorted as "Týdenní,DEFAULT,Půldenní,Oprava,Měsíční,Hodinová,Denní,_tasks,_monitoring"
+  Then the buckets are sorted as "Týdenní,Trvalá,DEFAULT,Půldenní,Oprava,Měsíční,Hodinová,Denní,_tasks,_monitoring"
   Given ensure buckets name sort order "desc"
 #  Given pending
 

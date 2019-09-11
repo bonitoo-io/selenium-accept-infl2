@@ -94,13 +94,16 @@ Then(/^the Retention Policy "(.*)" control contains the value "(.*)"$/, async(un
 
 
 When(/^set the retention policy of the bucket as "(.*)"$/, async (rp) => {
+
     if(rp.toLowerCase() === 'never'){
         await bktTabSteps.clickRetentionPolicyButton('never');
     }else{
-        rp = rp.trim();
-        let policy = rp.split(" ");
+        //rp = rp.trim();
+        //let policy = rp.split(" ");
         await bktTabSteps.clickRetentionPolicyButton('intervals');
-        await bktTabSteps.enterIntervalValue(policy[0], policy[1]);
+        await bktTabSteps.clickPopupRPDurationSelectorButton();
+        await bktTabSteps.clickRPSelectorValue(rp);
+        //await bktTabSteps.enterIntervalValue(policy[0], policy[1]);
     }
 });
 

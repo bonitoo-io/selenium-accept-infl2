@@ -4,6 +4,18 @@ const { By, Key, until } = require('selenium-webdriver');
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const bucketsTab = require(__srcdir + '/pages/loadData/bucketsTab.js');
 
+let durationsMap = new Map();
+durationsMap.set('1h', '1 hour');
+durationsMap.set('6h', '6 hours');
+durationsMap.set('12h', '12 hours');
+durationsMap.set('24h', '1 days');
+durationsMap.set('48h', '2 days');
+durationsMap.set('72h', '3 days');
+durationsMap.set('7d', '7 days');
+durationsMap.set('14d', '14 days');
+durationsMap.set('30d', '30 days');
+durationsMap.set('90d', '90 days');
+durationsMap.set('1y', '365 days');
 
 class bucketsSteps extends baseSteps {
 
@@ -69,11 +81,23 @@ class bucketsSteps extends baseSteps {
     }
 
     async verifyRPIntervalControlsNotPresent(){
-        await this.assertNotPresent(await bucketsTab.getPopupRPIntervalControlsSelector());
+        // N.B. Interval controls replaced with dropdown 2019-09-11
+        //await this.assertNotPresent(await bucketsTab.getPopupRPIntervalControlsSelector());
+        await this.assertNotPresent(await bucketsTab.getPopupRPDurationSelectorButtonSelector());
     }
 
     async verifyRPIntervalControlsPresent(){
-        await this.assertVisible(await this.bucketsTab.getPopupRPIntevalControls());
+        // N.B. Interval controls replaced with dropdown 2019-09-11
+        //await this.assertVisible(await this.bucketsTab.getPopupRPIntevalControls());
+        await this.assertVisible(await this.bucketsTab.getPopupRPDurationSelectorButton());
+    }
+
+    async clickPopupRPDurationSelectorButton(){
+        await this.bucketsTab.getPopupRPDurationSelectorButton().then(async btn => {
+            await btn.click().then(async  () => {
+                await this.driver.sleep(500); //todo implement better wait
+            })
+        })
     }
 
     async verifyCreateBucketCreateButtonEnabled(enabled){
@@ -178,6 +202,15 @@ class bucketsSteps extends baseSteps {
         }
     }
 
+    //Replaces above 2019-09-11
+    async clickRPSelectorValue(rp){
+        await this.bucketsTab.getPopupRPDurationSelectorItem(rp).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(500); //todo better wait
+            })
+        })
+    }
+
     async clearAllRetentionPolicyIntervals(){
         await this.bucketsTab.getPopupRPSecondsInput().then(async elem => {
             await elem.clear();
@@ -277,15 +310,26 @@ class bucketsSteps extends baseSteps {
 
     async verifyBucketHasRetentionPolicy(name, rp){
 
+
         await this.bucketsTab.getBucketCardRetentionByName(name).then(async elem => {
             await elem.getText().then(async rpText => {
-                let policy = rp.trim().toLowerCase().split(' ');
-                let rpPolicy = rpText.trim().toLowerCase().split(' ');
-                rpPolicy.shift(); //remover first 'Retenition: string'
-                for( let i = 0; i < policy.length; i += 2) {
-                    await expect(parseInt(policy[i])).to.equal(parseInt(rpPolicy[i]));
-                    await expect(policy[i+1]).to.equal(rpPolicy[i+1]);
+                if(rp.toLowerCase() === 'never'){
+                    let rpPolicy = rpText.trim().toLowerCase().split(' ');
+                    rpPolicy.shift();
+                    await expect(rpPolicy[0]).to.equal('forever');
+                }else{
+                    console.log("DEBUG check durations map key: " + rp + " and value " + durationsMap.get(rp));
+                    await expect(rpText).to.include(durationsMap.get(rp));
+                    //let policy = rp.trim().toLowerCase().split(' ');
+//                    let rpPolicy = rpText.trim().toLowerCase().split(':');
+//                    rpPolicy.shift(); //remover first 'Retenition: string'
+//                    await expect(rpPolicy[0])
+//                    for( let i = 0; i < policy.length; i += 2) {
+//                        await expect(parseInt(policy[i])).to.equal(parseInt(rpPolicy[i]));
+//                        await expect(policy[i+1]).to.equal(rpPolicy[i+1]);
+//                    }
                 }
+
             })
         })
 

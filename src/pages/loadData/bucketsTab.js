@@ -17,6 +17,7 @@ const popupCancelButton = '[data-testid=overlay--body] button[title=Cancel]';
 const popupDismissButton = '[data-testid=overlay--header] button[class*=dismiss]';
 const popupCreateButton = '[data-testid=overlay--body] button[title*=Create]';
 const popupRPIntervalControls = '[data-testid=form--element] [data-testid=grid--row]';
+const popupRPDurationSelectorButton = '[data-testid=duration-selector--button]';
 const popupRPDaysInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(1) input';
 const popupRPHoursInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(2) input';
 const popupRPMinutesInput = popupRPIntervalControls + ' [data-testid=grid--column]:nth-of-type(3) input';
@@ -120,6 +121,14 @@ class bucketsTab extends loadDataPage {
         return { type: 'css',  selector: popupRPIntervalControls };
     }
 
+    async getPopupRPDurationSelectorButton(){
+        return await this.driver.findElement(By.css(popupRPDurationSelectorButton));
+    }
+
+    static getPopupRPDurationSelectorButtonSelector(){
+        return {type: 'css', selector: popupRPDurationSelectorButton}
+    }
+
     async getPopupRPDaysInput(){
         return await this.driver.findElement(By.css(popupRPDaysInput));
     }
@@ -151,6 +160,10 @@ class bucketsTab extends loadDataPage {
 
     static async getPopupDismissButtonSelector(){
         return popupDismissButton;
+    }
+
+    async getPopupRPDurationSelectorItem(duration){
+        return await this.driver.findElement(By.css(`[data-testid=duration-selector--${duration}]`));
     }
 
     async getPopupHelpText(){
