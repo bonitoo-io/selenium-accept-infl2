@@ -310,6 +310,7 @@ class bucketsSteps extends baseSteps {
 
     async verifyBucketHasRetentionPolicy(name, rp){
 
+        await this.driver.sleep(500); //todo - this is troubleshoot of occasional old value for rpText
 
         await this.bucketsTab.getBucketCardRetentionByName(name).then(async elem => {
             await elem.getText().then(async rpText => {
@@ -318,7 +319,6 @@ class bucketsSteps extends baseSteps {
                     rpPolicy.shift();
                     await expect(rpPolicy[0]).to.equal('forever');
                 }else{
-                    console.log("DEBUG check durations map key: " + rp + " and value " + durationsMap.get(rp));
                     await expect(rpText).to.include(durationsMap.get(rp));
                     //let policy = rp.trim().toLowerCase().split(' ');
 //                    let rpPolicy = rpText.trim().toLowerCase().split(':');
@@ -460,7 +460,11 @@ class bucketsSteps extends baseSteps {
     async clickPopoverItemForBucketCard(name, item){
         await this.bucketsTab.getBucketCardPopoverItemByName(name, item).then(async elem => {
             elem.click().then( async () => {
-                await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getWizardStepTitle()))
+                if(item.toLowerCase().includes('line protocol')) {
+                    await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getWizardStepTitle()))
+                }else{
+                    await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getPopupOverlayContainer()));
+                }
             })
         })
     }

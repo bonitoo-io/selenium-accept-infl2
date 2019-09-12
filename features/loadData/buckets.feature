@@ -24,7 +24,6 @@ Scenario: Exercise Create Bucket Dialog
   Then the Retention Policy radio button "never" is inactive
   Then the Retention Policy intervals controls are present
   # N.B. controls replaced with dropdown selector 2019-09-11
-  #TODO check new dropdown
   #Then the Retention Policy warning message contains "Retention period must be at least an hour"
   #When enter "61" into the Retention Policy "Seconds" control
   #Then the Retention Policy "Seconds" control contains the value "1"
@@ -176,10 +175,58 @@ Scenario: Add Manual Line Protocol Data to Default
     When click the Line Protocol wizard finish button
     Then the line Protocol wizard is not present
 
+  Scenario: Exercise create Scraper popup
+    Then the add data popover for the bucket "DEFAULT" is not visible
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
+    Then the Create Scraper popup is loaded
+    When dismiss the Create Scraper popup
+    Then the Create Scraper popup is no longer present
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
+    Then the Create Scraper popup is loaded
+    When cancel the Create Scraper popup
+    Then the Create Scraper popup is no longer present
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
+    Then the Create Scraper popup is loaded
+    When clear the Scraper Popup name input
+    Then the form element error message is "Name cannot be empty"
+    Then a form input error icon is shown
+    Then the Create Scrapper popup create button is disabled
+    When enter the name "Mumford" into the Create Scraper popup name input
+    Then the form element error message is not shown
+    Then no form input error icon is shown
+    Then the Create Scrapper popup create button is enabled
+    When click the Create Scrapper buckets dropdown
+    Then an item for the bucket "DEFAULT" is an item in the buckets dropdown
+    When click the Create Scrapper buckets dropdown
+    Then NO items in the buckets dropdown are shown
+    When clear Scraper Popup the Target Url input
+    Then the form element error message is "Target URL cannot be empty"
+    Then a form input error icon is shown
+    Then the Create Scrapper popup create button is disabled
+    When enter the value "http://localhost:9999/metrics" into the Create Scraper popup url input
+    Then the form element error message is not shown
+    Then no form input error icon is shown
+    Then the Create Scrapper popup create button is enabled
+    When dismiss the Create Scraper popup
+    Then the Create Scraper popup is no longer present
+
 #Scenario: Add Scraper to Default
 #  Given pending
+# hint to get list of measurements in bucket - verify scraper
+#  from(bucket: "qa")
+#  |> range(start: -1h, stop: now())
+#  |> keep(columns: ["_measurement"])
+#  |> distinct(column: "_measurement")
+#  |> sort()
 
 #Scenario: Add Telegraf to Default
+# hint - perhaps no need at present to test actual connection - just that the artifact is created
 #  Given pending
 
 

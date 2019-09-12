@@ -117,8 +117,39 @@ class baseSteps{
         });
     }
 
+    async verifyElementErrorMessage(msg, equal = true){
+        await this.basePage.getPopupFormElementError().then(async elem => {
+            await elem.getText().then(async elText => {
+                if(equal) {
+                    expect(elText).to.equal(msg);
+                }else{
+                    expect(elText).to.include(msg);
+                }
+            })
+        })
+    }
+
+    async verifyNoElementErrorMessage(){
+        await this.assertNotPresent(basePage.getPopupFormElementErrorSelector());
+    }
+
+    async verifyInputErrorIcon(){
+        await this.basePage.getFormInputErrors(async elems => {
+            expect(elems.length).to.be.above(0);
+        })
+    }
+
+    async verifyNoFormInputErrorIcon(){
+        await this.assertNotPresent(basePage.getFormInputErrorSelector())
+    }
+
     async assertVisible(element){
-        await expect(await element.isDisplayed()).to.equal(true);
+        try {
+            await expect(await element.isDisplayed()).to.equal(true)
+        }catch(err){
+            console.log("Assert Visible failed: " + err + "/n waiting for " + JSON.stringify(element));
+            throw err;
+        }
     }
 
     async assertNotVisible(element){

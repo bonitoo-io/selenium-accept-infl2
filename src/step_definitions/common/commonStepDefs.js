@@ -152,3 +152,19 @@ When(/^open page "(.*?)" for user "(.*?)"$/, async (page, username) => {
 
 });
 
+Then(/^the form element error message is "(.*)"$/, async msg => {
+   await bSteps.verifyElementErrorMessage(msg);
+});
+
+Then(/^the form element error message is not shown$/, async () => {
+   await bSteps.verifyNoElementErrorMessage();
+});
+
+Then(/^no form input error icon is shown$/, async () => {
+    await bSteps.verifyNoFormInputErrorIcon();
+});
+
+Then(/^a form input error icon is shown$/, async () => {
+   await bSteps.verifyInputErrorIcon();
+});
+

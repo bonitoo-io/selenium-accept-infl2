@@ -3,6 +3,9 @@ const { By, Condition, until, StaleElementReferenceError} = require('selenium-we
 const notificationSuccessMsg = '[data-testid=notification-success] div.notification-message';
 const notificationErrorMsg = '[data-testid=notification-error] div.notification-message';
 const notificationCloseButton = '[data-testid=notification-success] button.notification-close';
+const popupOverlayContainer = '[data-testid=overlay--container]';
+const popupFormElementError  = '[data-testid=form--element-error]';
+const formInputError = '[data-testid=input-error]';
 
 class basePage{
 
@@ -119,6 +122,31 @@ class basePage{
             }
         });
     }
+
+    async getPopupOverlayContainer(){
+        return await this.driver.findElement(By.css(popupOverlayContainer));
+    }
+
+    static getPopupOverlayContainerSelector(){
+        return { type: 'css', selector: popupOverlayContainer};
+    }
+
+    async getPopupFormElementError(){
+        return await this.driver.findElement(By.css(popupFormElementError));
+    }
+
+    static getPopupFormElementErrorSelector(){
+        return { type: 'css', selector: popupFormElementError};
+    }
+
+    async getFormInputErrors(){
+        return await this.driver.findElements(By.css(formInputError));
+    }
+
+    static getFormInputErrorSelector(){
+        return { type: 'css', selector: formInputError};
+    }
+
 
 }
 
