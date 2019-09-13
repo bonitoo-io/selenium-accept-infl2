@@ -134,6 +134,47 @@ class loadDataSteps extends influxSteps{
         })
     }
 
+    async verifyCreateTelegrafWizardLoaded(){
+        await this.assertVisible(await this.ldPage.getPopupWizardTitle());
+        await this.assertVisible(await this.ldPage.getPopupWizardSubTitle());
+        await this.assertVisible(await this.ldPage.getPopupWizardContinue());
+        await this.assertVisible(await this.ldPage.getBucketDropdown());
+        await this.assertVisible(await this.ldPage.getPluginsFilter());
+    }
+
+    async clickBucketsDropdown(){
+        await this.ldPage.getBucketDropdown().then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(100); // todo better wait
+            })
+        })
+    }
+
+    async selectBucketsDropdownItem(item){
+        await this.ldPage.getBucketDropdownItem(item).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(100); // todo better wait
+            })
+        })
+    }
+
+    async selectTelegrafWizardPluginTile(tile){
+        await this.ldPage.getPluginTileByName(tile).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(100); //todo better wait
+            })
+        })
+    }
+
+    async enterTelegrafWizardName(name){
+        await this.ldPage.getTelegrafNameInput().then(async elem => {
+           await elem.clear().then(async () => {
+               await elem.sendKeys(name).then(async () => {
+                   await this.driver.sleep(100); //todo better wait
+               })
+           })
+        });
+    }
 
 }
 

@@ -1,12 +1,14 @@
+const { By } = require('selenium-webdriver');
 const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
 
 const telegrafsFilter = '[data-testid=search-widget]';
-const createConfigHeader = '//div[@data-testid=\'tabs--tab-contents\']/div[@data-testid=\'flex-box\']/button';
+const createConfigInHeader = '//div[@data-testid=\'tabs--tab-contents\']/div[@data-testid=\'flex-box\']/button';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const bucketSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
-//const createConfigBody = 'div.resource-list--body [data-testid=button]';
+const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
 
 const urlCtx = 'telegrafs';
+
 
 class telegrafsTab extends loadDataPage{
 
@@ -18,12 +20,17 @@ class telegrafsTab extends loadDataPage{
         await super.isTabLoaded(urlCtx,
             [
                 {type: 'css', selector: telegrafsFilter},
-                {type: 'xpath', selector: createConfigHeader},
+                {type: 'xpath', selector: createConfigInHeader},
                 {type: 'css', selector: nameSort},
                 {type: 'css', selector: bucketSort},
             ]
         );
     }
+
+    async getTelegraphCardByName(name){
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][//span[text()='${name}']]`))
+    }
+
 
 }
 

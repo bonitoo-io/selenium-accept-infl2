@@ -459,11 +459,15 @@ class bucketsSteps extends baseSteps {
 
     async clickPopoverItemForBucketCard(name, item){
         await this.bucketsTab.getBucketCardPopoverItemByName(name, item).then(async elem => {
-            elem.click().then( async () => {
-                if(item.toLowerCase().includes('line protocol')) {
-                    await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getWizardStepTitle()))
-                }else{
+            await elem.click().then( async () => {
+                if(item.toLowerCase().includes('scrape metrics')) {
                     await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getPopupOverlayContainer()));
+                }else{ //line protocol and telegraf lead to wizard
+                    await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getWizardStepTitle()))
+                        .catch(async err => {
+                            console.log("Caught err" + err);
+                            throw err;
+                        })
                 }
             })
         })

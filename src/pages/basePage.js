@@ -6,6 +6,10 @@ const notificationCloseButton = '[data-testid=notification-success] button.notif
 const popupOverlayContainer = '[data-testid=overlay--container]';
 const popupFormElementError  = '[data-testid=form--element-error]';
 const formInputError = '[data-testid=input-error]';
+const popupDismiss = '[data-testid=overlay--header] button[class*=dismiss]';
+const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
+const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
+const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
 
 class basePage{
 
@@ -145,6 +149,26 @@ class basePage{
 
     static getFormInputErrorSelector(){
         return { type: 'css', selector: formInputError};
+    }
+
+    async getPopupDismiss(){
+        return await this.driver.findElement(By.css(popupDismiss));
+    }
+
+    async getPopupWizardContinue(){
+        return await this.driver.findElement(By.css(popupWizardContinue));
+    }
+
+    static getPopupWizardContinueSlector(){
+        return {type: 'css', selector: popupWizardContinue};
+    }
+
+    async getPopupWizardTitle(){
+        return await this.driver.findElement(By.css(popupWizardTitle));
+    }
+
+    async getPopupWizardSubTitle(){
+        return await this.driver.findElement(By.css(popupWizardSubTitle));
     }
 
 

@@ -168,3 +168,8 @@ Then(/^a form input error icon is shown$/, async () => {
    await bSteps.verifyInputErrorIcon();
 });
 
+When(/^click the Popup Wizard continue button$/, {timeout: 15000}, async() => {
+   await bSteps.clickPopupWizardContinue();
+   //await bSteps.driver.sleep(10000);
+});
+

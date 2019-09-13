@@ -80,3 +80,25 @@ When(/^click the create scraper create button$/, async () => {
 When(/^click load data tab "(.*)"$/, async (tab) => {
    await ldSteps.clickTab(tab);
 });
+
+Then(/^the Create Telegraf Config Wizard is loaded$/, async () => {
+   await ldSteps.verifyCreateTelegrafWizardLoaded();
+});
+
+When(/^click the buckets dropdown button$/, async () => {
+    await ldSteps.clickBucketsDropdown();
+});
+
+When(/^select the buckets dropdown item "(.*)"$/, async item => {
+   await ldSteps.selectBucketsDropdownItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
+});
+
+When(/^select the telegraf plugin tile "(.*)"$/, async tile => {
+    await ldSteps.selectTelegrafWizardPluginTile(tile);
+});
+
+When(/^enter the telegraf name "(.*)"$/, async name => {
+    await ldSteps.enterTelegrafWizardName(name);
+});
+
+

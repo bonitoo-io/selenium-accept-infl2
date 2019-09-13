@@ -226,17 +226,23 @@ Scenario: Add Manual Line Protocol Data to Default
     When click load data tab "Scrapers"
     Then there is a scraper card for "Courbet"
 
-#Scenario: Add Scraper to Default
-#  Given pending
-# hint to get list of measurements in bucket - verify scraper
-#  from(bucket: "qa")
-#  |> range(start: -1h, stop: now())
-#  |> keep(columns: ["_measurement"])
-#  |> distinct(column: "_measurement")
-#  |> sort()
-
-#Scenario: Add Telegraf to Default
-# hint - perhaps no need at present to test actual connection - just that the artifact is created
-#  Given pending
-
+  Scenario: Add Telegraf to Default
+    When hover over the "loadData" menu item
+    When click nav sub menu "Buckets"
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Configure Telegraf Agent" for the bucket "DEFAULT"
+    Then the Create Telegraf Config Wizard is loaded
+    When click the buckets dropdown button
+    When select the buckets dropdown item "DEFAULT"
+    When select the telegraf plugin tile "System"
+    When click the Popup Wizard continue button
+    When enter the telegraf name "Daumier"
+    When click the Popup Wizard continue button
+    Then the success notification contains "telegraf plugin: system."
+    Then the success notification contains "configurations have been saved"
+    When close all notifications
+    When click the Popup Wizard continue button
+    When click load data tab "Telegrafs"
+    Then there is a telegraf card for "Daumier"
 

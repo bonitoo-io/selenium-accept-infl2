@@ -1,17 +1,17 @@
-{
+  {
   "name": "selenium-accept",
   "version": "0.0.1",
   "description": "selenium acceptance tests for influxdbv2 ui",
   "main": "index.js",
   "scripts": {
-    "clean": "rm screenshots/*.png; rm report/*",
+    "clean": "rm -rdf screenshots/*; rm report/*",
     "influx:setup": "cd scripts && ./influxdb2_community_test_env.sh setup-qa && cd -",
     "influx:stop": "./scripts/influxdb2_community_test_env.sh stop",
     "influx:clean": "./scripts/influxdb2_community_test_env.sh clean",
     "test": "mkdirp report && cucumber-js",
     "report:html": "chmod 775 src/utils/htmlReport.js; src/utils/htmlReport.js",
     "report:junit": "chmod 775 src/utils/junitReport.js; src/utils/junitReport.js",
-    "kill:chrome" : "killall chrome || true"
+    "kill:chrome": "killall chrome || true"
   },
   "author": "",
   "license": "ISC",

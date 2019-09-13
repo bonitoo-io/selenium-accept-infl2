@@ -12,6 +12,10 @@ class telegrafsSteps extends baseSteps{
         await this.teleTab.isTabLoaded();
     }
 
+    async verifyTelegrafCardByName(name){
+        await this.assertVisible(await this.teleTab.getTelegraphCardByName(name));
+    }
+
 }
 
 module.exports = telegrafsSteps;

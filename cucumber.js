@@ -1,11 +1,31 @@
 const chrome = require('selenium-webdriver/chrome');
-const ffox = require('selenium-webdriver/firefox')
+const ffox = require('selenium-webdriver/firefox');
+const fs = require('fs');
 const {Builder, Capabilities, By, Key, promise, until} = require('selenium-webdriver');
 //following provides cleaner paths in require statements
-global.__basedir = __dirname
-global.__srcdir = __dirname + "/src"
+global.__basedir = __dirname;
+global.__srcdir = __dirname + "/src";
+global.__runtime = new Date();
+global.__runtimeStr = __runtime.getFullYear().toString() +
+    (__runtime.getMonth() + 1).toString().padStart(2, '0') +
+    __runtime.getDate().toString().padStart(2, '0') + "-" +
+    __runtime.getHours().toString().padStart(2, '0') +
+    __runtime.getMinutes().toString().padStart(2, '0') +
+    __runtime.getSeconds().toString().padStart(2, '0');
+
 
 const { flush, config, defaultUser } = require(__srcdir + '/utils/influxUtils');
+
+global.__screenShotDir = __config.screenshot_dir + "/" + __runtimeStr;
+
+fs.mkdir(`./${__screenShotDir}`, () => {})
+/*
+mkdirp(__screenShotDir, function (err) {
+    if (err) console.error(err)
+    else console.log('created screenshots directory ' + __screenShotDir)
+});
+*/
+
 
 var common = '--require "src/step_definitions/**/*.js" --require hooks.js --require-module babel-core/register ';
 

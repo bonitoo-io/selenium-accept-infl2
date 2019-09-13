@@ -97,11 +97,13 @@ class baseSteps{
     }
 
     async closeAllNotifications(){
+        await this.driver.sleep(500); //might not be loaded - todo better wait
         await this.basePage.getNotificationCloseButtons().then(btns => {
             btns.forEach(async(btn) => {
                 await btn.click();
             });
         });
+        await this.driver.sleep(500); //make sure are closed - todo better wait
 
     }
 
@@ -251,6 +253,17 @@ class baseSteps{
         expect(lastRow[6]).to.equal(value);
         expect(lastRow[7]).to.equal(mode);
 
+    }
+
+    async clickPopupWizardContinue(){
+        await this.basePage.getPopupWizardContinue().then(async button => {
+            await button.click().then(async () => {
+               // await this.driver.wait( // this wait is not consistent
+                    // await this.basePage.getUntilElementNotPresent(
+                        //basePage.getPopupWizardContinueSlector())) //
+                await this.driver.sleep(500); // todo better wait
+            })
+        })
     }
 }
 

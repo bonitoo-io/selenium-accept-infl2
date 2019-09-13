@@ -17,6 +17,16 @@ const createScraperCancel = '[data-testid=create-scraper--cancel]';
 const createScraperSubmit = '[data-testid=create-scraper--submit]';
 const createScraperBucketDropdownItems = '[data-testid=bucket-dropdown] [data-testid=dropdown-item]';
 
+//Create Telegraf Config Wizard - accessible from buckets and telegraf
+const bucketDropdown = '[data-testid=bucket-dropdown]';
+const pluginsFilter = '[data-testid=input-field][placeholder*=Plugins]';
+const telegrafNameInput = '[data-testid=input-field][title$=\'Name\']';
+const telegrafDescrInput = '[data-testid=input-field][title$=\'Description\']';
+//common controls in basePage
+const codeSnippetWithToken = 'div.code-snippet:first-of-type';
+const codeSnippetWithTelegrafCommand = 'div.code-snippet:nth-of-type(2)';
+
+
 class loadDataPage extends influxPage {
 
     constructor(driver){
@@ -94,6 +104,40 @@ class loadDataPage extends influxPage {
 
     static getCreateScraperBucketDropdownItemsSelector(){
         return {type: 'css', selector: createScraperBucketDropdownItems};
+    }
+
+    //Create telegraf wizard
+    async getBucketDropdown(){
+        return await this.driver.findElement(By.css(bucketDropdown))
+    }
+
+    async getPluginsFilter(){
+        return await this.driver.findElement(By.css(pluginsFilter));
+    }
+
+    async getPluginTileByName(name){
+        return await this.driver.findElement(By.css(`[data-testid=telegraf-plugins--${name}]`));
+    }
+
+    async getBucketDropdownItem(item){
+        return await this.driver.findElement(
+            By.xpath(`//*[@data-testid='dropdown-item'][div[text()='${item.toLowerCase()}']]`))
+    }
+
+    async getTelegrafNameInput(){
+        return await this.driver.findElement(By.css(telegrafNameInput))
+    }
+
+    async getTelegrafDescrInput(){
+        return await this.driver.findElement(By.css(telegrafDescrInput));
+    }
+
+    async getCodeSnippetWithToken(){
+        return await this.driver.findElement(By.css(codeSnippetWithToken));
+    }
+
+    async getCodeSnippetWithTelegrafCommand(){
+        return await this.driver.findElement(By.css(codeSnippetWithTelegrafCommand));
     }
 
 
