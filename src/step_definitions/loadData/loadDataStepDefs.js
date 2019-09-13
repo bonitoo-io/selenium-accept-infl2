@@ -72,3 +72,11 @@ Then(/^an item for the bucket "(.*)" is an item in the buckets dropdown$/, async
 Then(/^NO items in the buckets dropdown are shown$/, async () => {
    await ldSteps.verifyNoBucketItemsInBucketsDropdownShown();
 });
+
+When(/^click the create scraper create button$/, async () => {
+   await ldSteps.clickCreateScraperBucketCreateButton();
+});
+
+When(/^click load data tab "(.*)"$/, async (tab) => {
+   await ldSteps.clickTab(tab);
+});

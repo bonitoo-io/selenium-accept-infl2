@@ -1,3 +1,4 @@
+const { By } = require('selenium-webdriver');
 const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
 
 const scrapersFilter = '[data-testid=search-widget]';
@@ -25,6 +26,10 @@ class scrapersTab extends loadDataPage{
                 {type: 'css', selector: bucketSort},
             ]
         );
+    }
+
+    async getScraperCardByName(name){
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][//span[text() = '${name}']]`))
     }
 
 }

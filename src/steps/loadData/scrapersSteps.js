@@ -12,6 +12,10 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.isTabLoaded();
     }
 
+    async verifyExistsCardByName(card){
+        await this.assertVisible(await this.scrapeTab.getScraperCardByName(card));
+    }
+
 }
 
 module.exports = scrapersSteps;

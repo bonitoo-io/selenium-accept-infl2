@@ -216,6 +216,16 @@ Scenario: Add Manual Line Protocol Data to Default
     When dismiss the Create Scraper popup
     Then the Create Scraper popup is no longer present
 
+  Scenario: Add Scraper to Default
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
+    When enter the name "Courbet" into the Create Scraper popup name input
+    When click the create scraper create button
+    Then the success notification contains "Scraper was created successfully"
+    When click load data tab "Scrapers"
+    Then there is a scraper card for "Courbet"
+
 #Scenario: Add Scraper to Default
 #  Given pending
 # hint to get list of measurements in bucket - verify scraper

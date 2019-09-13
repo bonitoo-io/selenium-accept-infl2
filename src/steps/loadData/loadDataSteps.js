@@ -23,7 +23,9 @@ class loadDataSteps extends influxSteps{
     }
 
     async clickTab(name){
-        await (await this.ldPage.getTabByName(name)).click();
+        await this.ldPage.getTabByName(name).then(async tab => {
+            await tab.click();
+        })
     }
 
     async createScraperPopupLoaded(){
@@ -90,8 +92,10 @@ class loadDataSteps extends influxSteps{
 
     async enterCreateScraperName(name){
         await this.ldPage.getCreateScraperNameInput().then(async elem => {
-            await elem.sendKeys(name).then(async () => {
-                await this.driver.sleep(200); // todo better wait
+            await elem.clear().then(async () => {
+                await elem.sendKeys(name).then(async () => {
+                    await this.driver.sleep(200); // todo better wait
+                })
             })
         })
     }
@@ -120,6 +124,14 @@ class loadDataSteps extends influxSteps{
 
     async verifyNoBucketItemsInBucketsDropdownShown(){
         await this.assertNotPresent(loadDataPage.getCreateScraperBucketDropdownItemsSelector());
+    }
+
+    async clickCreateScraperBucketCreateButton(){
+        await this.ldPage.getCreateScraperSubmit().then(async btn => {
+            await btn.click().then(async () => {
+                await this.driver.sleep(300); // todo better wait
+            })
+        })
     }
 
 
