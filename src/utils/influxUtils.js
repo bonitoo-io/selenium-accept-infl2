@@ -140,6 +140,23 @@ const query = async(orgID, //string
 
 };
 
+//{"name":"ASDF","retentionRules":[],"orgID":"727d19908f30184f","organization":"qa"}
+const createBucket = async(orgId, // String
+                           orgName, //String
+                            bucketName, //String
+                ) => {
+    //throw "createBuctket() not implemented";
+    return await axios({
+        method: 'post',
+        url: '/api/v2/buckets',
+        data: { "name": bucketName, "orgID": orgId, "organization": orgName }
+    }).then(async response => {
+        return response.data;
+    }).catch(async err => {
+        console.log("influxUtils.createBucket - Error " + err);
+    })
+};
+
 //TODO - create cell and view to attach to dashboard
 const createDashboard = async(name, orgId) => {
     return await axios.post('/api/v2/dashboards', { name, orgId }).then(resp => {
@@ -150,6 +167,6 @@ const createDashboard = async(name, orgId) => {
     });
 };
 
-module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData, createDashboard, query };
+module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData, createDashboard, query, createBucket };
 
 //flush()

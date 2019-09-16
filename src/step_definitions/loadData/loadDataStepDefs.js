@@ -65,6 +65,10 @@ When(/^click the Create Scrapper buckets dropdown$/, async () => {
     await ldSteps.clickCreateScraperBucketsDropdown();
 });
 
+When(/^select the Scrapper buckets dropdown item "(.*)"$/, async (item) => {
+   await ldSteps.selectCreateScraperBucketsItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
+});
+
 Then(/^an item for the bucket "(.*)" is an item in the buckets dropdown$/, async item => {
    await ldSteps.verifyCreateScraperBucketsDropdownItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
 });

@@ -116,6 +116,14 @@ class loadDataSteps extends influxSteps{
         })
     }
 
+    async selectCreateScraperBucketsItem(item){
+        await this.ldPage.getCreateScraperBucketDropdownItem(item).then(async elem => {
+            await elem.click().then(async () => {
+                await this.driver.sleep(100); //todo better wait
+            })
+        })
+    }
+
     async verifyCreateScraperBucketsDropdownItem(item){
         await this.ldPage.getCreateScraperBucketDropdownItem(item).then(async elem => {
             await expect(await elem.isDisplayed()).to.equal(true);

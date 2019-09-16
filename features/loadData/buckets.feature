@@ -175,47 +175,6 @@ Scenario: Add Manual Line Protocol Data to Default
     When click the Line Protocol wizard finish button
     Then the line Protocol wizard is not present
 
-  Scenario: Exercise create Scraper popup
-    Then the add data popover for the bucket "DEFAULT" is not visible
-    When click add data button for bucket "DEFAULT"
-    Then the add data popover for the bucket "DEFAULT" is visible
-    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
-    Then the Create Scraper popup is loaded
-    When dismiss the Create Scraper popup
-    Then the Create Scraper popup is no longer present
-    When click add data button for bucket "DEFAULT"
-    Then the add data popover for the bucket "DEFAULT" is visible
-    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
-    Then the Create Scraper popup is loaded
-    When cancel the Create Scraper popup
-    Then the Create Scraper popup is no longer present
-    When click add data button for bucket "DEFAULT"
-    Then the add data popover for the bucket "DEFAULT" is visible
-    When click the popover item "Scrape Metrics" for the bucket "DEFAULT"
-    Then the Create Scraper popup is loaded
-    When clear the Scraper Popup name input
-    Then the form element error message is "Name cannot be empty"
-    Then a form input error icon is shown
-    Then the Create Scrapper popup create button is disabled
-    When enter the name "Mumford" into the Create Scraper popup name input
-    Then the form element error message is not shown
-    Then no form input error icon is shown
-    Then the Create Scrapper popup create button is enabled
-    When click the Create Scrapper buckets dropdown
-    Then an item for the bucket "DEFAULT" is an item in the buckets dropdown
-    When click the Create Scrapper buckets dropdown
-    Then NO items in the buckets dropdown are shown
-    When clear Scraper Popup the Target Url input
-    Then the form element error message is "Target URL cannot be empty"
-    Then a form input error icon is shown
-    Then the Create Scrapper popup create button is disabled
-    When enter the value "http://localhost:9999/metrics" into the Create Scraper popup url input
-    Then the form element error message is not shown
-    Then no form input error icon is shown
-    Then the Create Scrapper popup create button is enabled
-    When dismiss the Create Scraper popup
-    Then the Create Scraper popup is no longer present
-
   Scenario: Add Scraper to Default
     When click add data button for bucket "DEFAULT"
     Then the add data popover for the bucket "DEFAULT" is visible

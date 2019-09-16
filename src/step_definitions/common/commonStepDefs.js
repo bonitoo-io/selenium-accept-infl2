@@ -136,6 +136,13 @@ When(/^API create a dashboard named "(.*?)" for user "(.*?)"$/, async (name, use
 
 });
 
+When(/^API create a bucket named "(.*)" for user "(.*)"$/, async (bucket, username) => {
+   let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
+   let newBucket = await influxUtils.createBucket(user.orgid, user.org, bucket);
+
+   //console.log("DEBUG newBucket: " + JSON.stringify(newBucket) );
+
+});
 
 When(/^open page "(.*?)" for user "(.*?)"$/, async (page, username) => {
 
