@@ -57,12 +57,15 @@ Scenario Outline: Create Scrapers
   When enter the name "<NAME>" into the Create Scraper popup name input
   When click the Create Scrapper buckets dropdown
   When select the Scrapper buckets dropdown item "<BUCKET>"
+  When clear Scraper Popup the Target Url input
   When enter the value "<ENDPOINT>" into the Create Scraper popup url input
   When click the create scraper create button
   Then the success notification contains "Scraper was created successfully"
   When close all notifications
   Then the create scraper button empty is no longer present
   Then there is a scraper card for "<NAME>"
+  Then the scraper card named "<NAME>" has the bucket "<BUCKET>"
+  Then the scraper card named "<NAME>" has the endpoint "<ENDPOINT>"
 
   Examples:
   | NAME | ENDPOINT | BUCKET |
@@ -71,13 +74,46 @@ Scenario Outline: Create Scrapers
   | Brno | http://localhost:10018/bogus | DEFAULT |
   | Brest | http://localhost:10018/bogus | Duchamp |
 
-#Scenario: Filter Scrapers
+Scenario: Filter Scrapers
+  Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
+  When enter the value "Br" into the scraper filter
+  Then the scraper name sort order is "Brest,Brno"
+  Then the scraper card "Melnik" is no longer present in the list
+  Then the scraper card "Morlaix" is no longer present in the list
+  When clear the scraper filter
+  Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
-#Scenario: Sort Scrapers by Name
+Scenario: Sort Scrapers by Name
+  When click the scraper sort by name button
+  Then the scraper name sort order is "Morlaix,Melnik,Brno,Brest"
+  When click the scraper sort by name button
+  Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
-#Scenario: Sort Scrapers by URL
+Scenario: Sort Scrapers by URL
+  When click the scraper sort By URL button
+  Then the scraper name sort order is "Brno,Brest,Melnik,Morlaix"
+  When click the scraper sort By URL button
+  Then the scraper name sort order is "Melnik,Morlaix,Brno,Brest"
 
-#Scenario: Sort Scrapers by Bucket
+Scenario: Sort Scrapers by Bucket
+  When click the scraper sort By Bucket button
+  Then the scraper name sort order is "Morlaix,Brest,Melnik,Brno"
+  When click the scraper sort By Bucket button
+  Then the scraper name sort order is "Melnik,Brno,Morlaix,Brest"
 
+Scenario: Rename Scraper
+  When hover over the scraper card name "Brno"
+  When click the scraper card name edit control for the card "Brno"
+  When Enter the value "Plzeň" for the card "Brno"
+  Then the success notification contains "Scraper "Plzeň" was updated successfully"
+  Then there is a scraper card for "Plzeň"
+  Then the scraper card "Brno" is no longer present in the list
+
+Scenario Outline: Verify Scraper data
+  Then the typical query "<NAMED_QUERY>" by user "<USER>" on the bucket "<BUCKET>" contains the values "<EXPECTED_VALUES>"
+
+  Examples:
+  |USER|BUCKET|NAMED_QUERY|EXPECTED_VALUES|
+  |DEFAULT| Duchamp | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
 
 
