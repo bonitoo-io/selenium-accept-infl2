@@ -156,36 +156,41 @@ class scrapersSteps extends baseSteps{
         })
     }
 
-    async verifyNamedQueryResponseValues(queryName, username, bucket, values){
+    // TODO refactor the data mapping part of this into a utility function for reuse elsewhere
+    async verifyNamedQueryResponseValues(queryName, username, bucket, values, field = '_value'){
         let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
         let query;
-        //switch(queryName){
-        //    case 'Measurements':
-                query = namedQueriesMap.get(queryName);
-                query = query.replace("[BUCKET]", bucket);
-        //        break;
-        //    default:
-        //        throw new `Unknown named query ${queryName}`;
-        //}
-
-        console.log("DEBUG query: " + query );
-
-        /*
-        * Sample results string needs parsing
-        * ,result,table,_value
-,_result,0,boltdb_reads_total
-,_result,0,boltdb_writes_total
-,_result,0,go_gc_duration_seconds
-,_result,0,go_goroutines
-
-        * */
+        query = namedQueriesMap.get(queryName);
+        query = query.replace("[BUCKET]", bucket);
 
         let qresults = await influxUtils.query(user.orgid, query);
 
         let resultsArr = qresults.split('\r\n,');
 
-        console.log("DEBUG resultsArr " + resultsArr + " qresults type " + typeof resultsArr);
+        let resultsMapArr = [];
 
+        let resultsMapKeys = resultsArr[0].split(',');
+
+        resultsMapKeys.shift(); //first element is empty string
+
+        for(let i = 0; i < resultsArr.length; i++){
+            if(i === 0){
+                continue;
+            }
+            resultsMapArr[i-1] = new Map();
+            let colVals = resultsArr[i].split(',');
+            for(let j = 0; j < resultsMapKeys.length; j++){
+                await resultsMapArr[i-1].set(resultsMapKeys[j], colVals[j]);
+            }
+        }
+
+        let targetValues = values.split(',');
+
+        targetValues.forEach(async value => {
+           await expect(resultsMapArr.filter(rec =>
+               rec.get(field) === targetValues[0]
+           ).length).to.be.above(0, `failed to locate record with value ${value} in field ${field}`);
+        });
     }
 
 

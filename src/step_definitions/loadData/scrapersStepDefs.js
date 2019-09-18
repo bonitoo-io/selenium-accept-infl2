@@ -73,8 +73,11 @@ When(/^Enter the value "(.*)" for the card "(.*)"$/, {timeout: 10000}, async ( n
    await scrTabSteps.driver.sleep(5000)
 });
 
-Then(/^the typical query "(.*)" by user "(.*)" on the bucket "(.*)" contains the values "(.*)"$/,
+Then(/^the named query "(.*)" by user "(.*)" on the bucket "(.*)" contains the values "(.*)"$/,
     async (queryName, user, bucket, values) => {
-    await scrTabSteps.verifyNamedQueryResponseValues(queryName,user,bucket, values);
+    await scrTabSteps.verifyNamedQueryResponseValues(queryName,
+        user,
+        (bucket === 'DEFAULT') ? __defaultUser.bucket : bucket,
+        values);
 });
 

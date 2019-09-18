@@ -110,10 +110,11 @@ Scenario: Rename Scraper
   Then the scraper card "Brno" is no longer present in the list
 
 Scenario Outline: Verify Scraper data
-  Then the typical query "<NAMED_QUERY>" by user "<USER>" on the bucket "<BUCKET>" contains the values "<EXPECTED_VALUES>"
+  Then the named query "<NAMED_QUERY>" by user "<USER>" on the bucket "<BUCKET>" contains the values "<EXPECTED_VALUES>"
 
   Examples:
   |USER|BUCKET|NAMED_QUERY|EXPECTED_VALUES|
   |DEFAULT| Duchamp | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
+  |DEFAULT| DEFAULT | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
 
 
