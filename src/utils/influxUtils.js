@@ -140,6 +140,30 @@ const query = async(orgID, //string
 
 };
 
+//Parse query result string to Array[Map()] of column items
+const parseQueryResults = async(results) => {
+    let resultsArr = results.split('\r\n,');
+
+    let resultsMapArr = [];
+
+    let resultsMapKeys = resultsArr[0].split(',');
+
+    resultsMapKeys.shift(); //first element is empty string
+
+    for(let i = 0; i < resultsArr.length; i++){
+        if(i === 0){
+            continue;
+        }
+        resultsMapArr[i-1] = new Map();
+        let colVals = resultsArr[i].split(',');
+        for(let j = 0; j < resultsMapKeys.length; j++){
+            await resultsMapArr[i-1].set(resultsMapKeys[j], colVals[j]);
+        }
+    }
+
+    return resultsMapArr;
+};
+
 //{"name":"ASDF","retentionRules":[],"orgID":"727d19908f30184f","organization":"qa"}
 const createBucket = async(orgId, // String
                            orgName, //String
@@ -167,6 +191,19 @@ const createDashboard = async(name, orgId) => {
     });
 };
 
-module.exports = { flush, config, defaultUser, setupUser, putUser, getUser, signIn, endSession, writeData, createDashboard, query, createBucket };
+module.exports = { flush,
+    config,
+    defaultUser,
+    setupUser,
+    putUser,
+    getUser,
+    signIn,
+    endSession,
+    writeData,
+    createDashboard,
+    query,
+    createBucket,
+    parseQueryResults
+};
 
 //flush()
