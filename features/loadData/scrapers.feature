@@ -117,4 +117,16 @@ Scenario Outline: Verify Scraper data
   |DEFAULT| Duchamp | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
   |DEFAULT| DEFAULT | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
 
+Scenario Outline: Delete Scraper
+  Then the delete button of the scraper card named "<NAME>" is not present
+  When hover over scraper card named "<NAME>"
+  When click the delete button of the scraper card named "<NAME>"
+  When click the confirm delete button of the scraper card named "<NAME>"
+  Then the scraper card "<NAME>" is no longer present in the list
 
+  Examples:
+    | NAME |
+    | Melnik |
+    | Morlaix |
+    | Plzeň |
+    | Brest |

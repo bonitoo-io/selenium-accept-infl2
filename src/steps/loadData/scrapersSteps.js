@@ -173,6 +173,36 @@ class scrapersSteps extends baseSteps{
         });
     }
 
+    async verifyScraperCardDeleteNotPresent(name){
+        await this.scrapeTab.getScrapersFilter().then(async elem => {
+            await elem.click().then(async () => {  //remove focus from list
+                await this.driver.sleep(500); //todo fix later - losing patience - better wait
+                await this.assertNotVisible(await this.scrapeTab.getScraperCardDeleteByName(name));
+            });
+        })
+
+    }
+
+    async hoverOverScraperCard(name){
+        await this.hoverOver(await this.scrapeTab.getScraperCardByName(name));
+    }
+
+    async clickScraperCardDeleteButton(name){
+        await this.scrapeTab.getScraperCardDeleteByName(name).then(async button => {
+           await button.click().then(async () => {
+              await this.driver.sleep(100); // todo better wait
+           });
+        });
+    }
+
+    async clickScraperCardDeleteConfirm(name){
+        await this.scrapeTab.getScraperCardDeleteConfirmByName(name).then(async button => {
+            await button.click().then(async () => {
+                await this.driver.sleep(200); //todo better wait
+            })
+        })
+    }
+
 
 
 }

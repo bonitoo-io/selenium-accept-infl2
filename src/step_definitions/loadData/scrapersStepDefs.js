@@ -81,3 +81,20 @@ Then(/^the named query "(.*)" by user "(.*)" on the bucket "(.*)" contains the v
         values);
 });
 
+Then(/^the delete button of the scraper card named "(.*)" is not present$/, async name => {
+   await scrTabSteps.verifyScraperCardDeleteNotPresent(name)
+});
+
+When(/^hover over scraper card named "(.*)"$/, async name => {
+    await scrTabSteps.hoverOverScraperCard(name);
+});
+
+When(/^click the delete button of the scraper card named "(.*)"$/, async name => {
+   await scrTabSteps.clickScraperCardDeleteButton(name);
+});
+
+When(/^click the confirm delete button of the scraper card named "(.*)"$/, async name => {
+   await scrTabSteps.clickScraperCardDeleteConfirm(name);
+});
+
+

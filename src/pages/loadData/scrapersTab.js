@@ -45,6 +45,14 @@ class scrapersTab extends loadDataPage{
         return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='input-field']`))
     }
 
+    async getScraperCardDeleteByName(name){
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][.//span[text()='${name}']]//*[@data-testid='context-menu']`));
+    }
+
+    async getScraperCardDeleteConfirmByName(name){
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][.//span[text()='${name}']]//*[@data-testid='confirmation-button']`));
+    }
+
     async getScrapersFilter(){
         return this.driver.findElement(By.css(scrapersFilter));
     }
