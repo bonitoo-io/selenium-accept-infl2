@@ -265,6 +265,26 @@ class baseSteps{
             })
         })
     }
+
+    async dismissPopup(){
+        await this.basePage.getPopupDismiss().then(async button => {
+            await button.click().then(async () => {
+                await this.driver.sleep(200); // todo better wait
+            })
+        })
+    }
+
+    /*
+      Since not currently refining waits - and focusing on velocity of adding new tests - use this
+      for simple situations
+     */
+    async clickAndWait(element,
+                       wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20) }){ //wait 1/10th implicit timeout
+        //console.log("DEBUG timeout " + ((await this.driver.manage().getTimeouts()).implicit/20));
+        await element.click().then(async () => {
+            await wait();
+        })
+    }
 }
 
 module.exports = baseSteps;

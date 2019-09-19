@@ -167,8 +167,16 @@ class basePage{
         return await this.driver.findElement(By.css(popupWizardTitle));
     }
 
+    static getPopupWizardTitleSelector(){
+        return {type: 'css', selector: popupWizardTitle};
+    }
+
     async getPopupWizardSubTitle(){
         return await this.driver.findElement(By.css(popupWizardSubTitle));
+    }
+
+    static getPopupWizardSubTitleSelector(){
+        return {type: 'css', selector: popupWizardSubTitle};
     }
 
 

@@ -9,6 +9,11 @@ const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
 
 const urlCtx = 'telegrafs';
 
+// Telegraf wizard
+const bucketDropdownBtn = '[data-testid=bucket-dropdown--button] ';
+const pluginFilter = '[data-testid=input-field][placeholder*=\'Plugins\']';
+const pluginTileTemplate = '[data-testid=telegraf-plugins--%TILE_NAME%]';
+
 
 class telegrafsTab extends loadDataPage{
 
@@ -29,6 +34,44 @@ class telegrafsTab extends loadDataPage{
 
     async getTelegraphCardByName(name){
         return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][//span[text()='${name}']]`))
+    }
+
+    async getTelegrafsFilter(){
+        return await this.driver.findElement(By.css(telegrafsFilter));
+    }
+
+    async getCreateConfigInHeader(){
+        return await this.driver.findElement(By.xpath(createConfigInHeader));
+    }
+
+    async getNameSort(){
+        return await this.driver.findElement(By.css(nameSort));
+    }
+
+    async getBucketSort(){
+        return await this.driver.findElement(By.css(bucketSort));
+    }
+
+    async getCreateConfigInBody(){
+        return await this.driver.findElement(By.css(createConfigInBody));
+    }
+
+    // Telegraf Wizard
+
+    async getBucketDropdownBtn(){
+        return await this.driver.findElement(By.css(bucketDropdownBtn));
+    }
+
+    async getPluginFilter(){
+        return await this.driver.findElement(By.css(pluginFilter));
+    }
+
+    async getPluginTileByName(name){
+        return await this.driver.findElement(By.css(pluginTileTemplate.replace('%TILE_NAME%', name)))
+    }
+
+    static getPluginTitleSelectorByName(name){
+        return { type: 'css', selector: pluginTileTemplate.replace('%TILE_NAME%', name)}
     }
 
 
