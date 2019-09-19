@@ -1,4 +1,4 @@
-Feature: Scrapers
+Feature: Load Data - Scrapers
   As a user I want to Read Create Update and Delete Scrapers
   So that I can manage the stores used with Influxdbv2
 # Move exercise create scraper popup here
