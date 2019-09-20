@@ -180,3 +180,15 @@ When(/^click the Popup Wizard continue button$/, {timeout: 15000}, async() => {
    //await bSteps.driver.sleep(10000);
 });
 
+When(/^click the wizard previous button$/, async () => {
+   await bSteps.clickPopupWizardPrevious();
+});
+
+When(/^click the Popup Wizard done button$/, async () => {
+   await bSteps.clickPopupWizardContinue();
+});
+
+Then(/^the popup wizard continue button is disabled$/, async() => {
+    await bSteps.verifyWizardContinueButtonDisabled();
+});
+

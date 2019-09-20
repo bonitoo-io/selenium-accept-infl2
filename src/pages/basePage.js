@@ -8,6 +8,7 @@ const popupFormElementError  = '[data-testid=form--element-error]';
 const formInputError = '[data-testid=input-error]';
 const popupDismiss = '[data-testid=overlay--header] button[class*=dismiss]';
 const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
+const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
 
@@ -159,8 +160,16 @@ class basePage{
         return await this.driver.findElement(By.css(popupWizardContinue));
     }
 
-    static getPopupWizardContinueSlector(){
+    static getPopupWizardContinueSelector(){
         return {type: 'css', selector: popupWizardContinue};
+    }
+
+    async getPopupWizardBack(){
+        return await this.driver.findElement(By.css(popupWizardBack));
+    }
+
+    static getPopupWizardBackSelector(){
+        return {type: 'css', selector: popupWizardBack};
     }
 
     async getPopupWizardTitle(){

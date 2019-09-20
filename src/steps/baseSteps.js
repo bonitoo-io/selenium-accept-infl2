@@ -266,6 +266,10 @@ class baseSteps{
         })
     }
 
+    async clickPopupWizardPrevious(){
+        await this.clickAndWait(await this.basePage.getPopupWizardBack()); // todo better wait
+    }
+
     async dismissPopup(){
         await this.basePage.getPopupDismiss().then(async button => {
             await button.click().then(async () => {
@@ -284,6 +288,28 @@ class baseSteps{
         await element.click().then(async () => {
             await wait();
         })
+    }
+
+    async verifyElementText(element, text){
+        await element.getText().then(async elText => {
+            await expect(elText).to.equal(text);
+        });
+    }
+
+    async verifyElementContainsText(element, text){
+        await element.getText().then(async elText => {
+            await expect(elText).to.include(text);
+        })
+    }
+
+    async verifyElementDisabled(element){
+        await element.getAttribute('disabled').then(async elAttr => {
+            await expect(elAttr).to.not.be.null;
+        })
+    }
+
+    async verifyWizardContinueButtonDisabled(){
+        await this.verifyElementDisabled(await this.basePage.getPopupWizardContinue());
     }
 }
 

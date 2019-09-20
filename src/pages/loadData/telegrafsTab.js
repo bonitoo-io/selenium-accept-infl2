@@ -14,6 +14,16 @@ const bucketDropdownBtn = '[data-testid=bucket-dropdown--button] ';
 const pluginFilter = '[data-testid=input-field][placeholder*=\'Plugins\']';
 const pluginTileTemplate = '[data-testid=telegraf-plugins--%TILE_NAME%]';
 
+// Telegraf wizard step 2
+const configurationNameInput = '[data-testid=input-field][title*=\'Configuration Name\']';
+const configurationDescrInput = '[data-testid=input-field][title*=\'Configuration Descr\']';
+const configurationPluginsSideBar = '//*[*[text()=\'Plugins\']]//div[contains(@class,\'side-bar--tabs\')]';
+
+//Telegraf wizard edit plugin
+const pluginDockerEditEndpoint = '//*[label/span[text()=\'endpoint\']]//*[@data-testid=\'input-field\']';
+
+
+
 
 class telegrafsTab extends loadDataPage{
 
@@ -72,6 +82,40 @@ class telegrafsTab extends loadDataPage{
 
     static getPluginTitleSelectorByName(name){
         return { type: 'css', selector: pluginTileTemplate.replace('%TILE_NAME%', name)}
+    }
+
+    // Telegraf Wizard step 2
+    async getPluginItemByName(name){
+        return await this.driver.findElement(By.xpath(`//*[contains(@class, 'side-bar--tab')][text() = '${name.toLowerCase()}']`));
+    }
+
+    async getConfigurationNameInput(){
+        return await this.driver.findElement(By.css(configurationNameInput));
+    }
+
+    static getConfigurationNameInputSelector(){
+        return { type: 'css', selector: configurationNameInput}
+    }
+
+    async getConfigurationDescrInput(){
+        return await this.driver.findElement(By.css(configurationDescrInput));
+    }
+
+    static getConfigurationDescrInputSelector(){
+        return { type: 'css', selector: configurationDescrInput};
+    }
+
+    async getConfigurationPluginsSideBar(){
+        return await this.driver.findElement(By.xpath(configurationPluginsSideBar));
+    }
+
+    static configurationPluginsSideBarSelector(){
+        return { type: 'css', selector: configurationPluginsSideBar}
+    }
+
+    //Telegraf wizard edit plugin
+    async getPluginDockerEditEndpoint(){
+        return await this.driver.findElement(By.xpath(pluginDockerEditEndpoint));
     }
 
 
