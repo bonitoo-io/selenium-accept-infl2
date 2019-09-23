@@ -1,11 +1,11 @@
 const { expect } = require('chai');
 const { By, Key } = require('selenium-webdriver');
 
-const baseSteps = require(__srcdir + '/steps/baseSteps.js');
+const loadDataSteps = require(__srcdir + '/steps/loadData/loadDataSteps.js');
 const telegrafsTab = require(__srcdir + '/pages/loadData/telegrafsTab.js');
 const basePage = require(__srcdir + '/pages/basePage.js');
 
-class telegrafsSteps extends baseSteps{
+class telegrafsSteps extends loadDataSteps{
 
     constructor(driver){
         super(driver);
@@ -86,6 +86,15 @@ class telegrafsSteps extends baseSteps{
         await this.assertVisible(await this.teleTab.getPopupWizardBack());
         await this.assertVisible(await this.teleTab.getConfigurationPluginsSideBar());
         await this.assertVisible(await this.teleTab.getPopupWizardBack());
+    }
+
+    async verifyCreateWizardStep3Loaded(){
+        await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Test your Configuration');
+        await this.verifyElementContainsText(await this.teleTab.getPopupWizardSubTitle(), 'Start Telegraf and ensure data is being written to InfluxDB');
+        await this.assertVisible(await this.teleTab.getPopupWizardBack());
+        await this.assertVisible(await this.teleTab.getPopupWizardBack());
+        await this.assertVisible(await this.teleTab.getCodeToken());
+        await this.assertVisible(await this.teleTab.getCodeCliTelegraf());
     }
 
     async verifyCreateWizardStep2PluginsList(plugins){
@@ -234,6 +243,16 @@ class telegrafsSteps extends baseSteps{
 
             }
         }
+    }
+
+    async verifyBucketForTelegrafCard(name, bucket){
+        await this.teleTab.getTelegrafCardByName(name).then(async card => {
+            await card.findElement(By.xpath('.//div[contains(text(), \'Bucket\')]')).then(async elem => {
+                await elem.getText().then(async elText => {
+                    expect(elText).to.include(bucket);
+                })
+            })
+        })
     }
 
 }

@@ -184,6 +184,16 @@ class loadDataSteps extends influxSteps{
         });
     }
 
+    async enterTelegrafWizardDescr(descr){
+        await this.ldPage.getTelegrafDescrInput().then(async elem => {
+            await elem.clear().then(async () => {
+                await elem.sendKeys(descr).then(async () => {
+                    await this.driver.sleep(100); //todo better wait
+                })
+            })
+        });
+    }
+
 }
 
 module.exports = loadDataSteps;

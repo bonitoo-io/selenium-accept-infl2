@@ -36,7 +36,10 @@ Then(/^the success notification says "(.*?)"$/, async message => {
 });
 
 Then(/^the success notification contains "(.*?)"$/, async text => {
-    await bSteps.containsNotificationText(text);
+    //can be used in template or outline - some cases may needed to be skipped
+    if(text.toLowerCase() !== 'skip') {
+        await bSteps.containsNotificationText(text);
+    }
 });
 
 Then(/^the error notification contains "(.*?)"$/, async text => {

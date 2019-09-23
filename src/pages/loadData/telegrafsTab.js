@@ -6,6 +6,7 @@ const createConfigInHeader = '//div[@data-testid=\'tabs--tab-contents\']/div[@da
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const bucketSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
 const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
+const telegrafCardTemplate = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]';
 
 const urlCtx = 'telegrafs';
 
@@ -26,7 +27,9 @@ const pluginNGINXEditEndpoint = '//*[label/span[text()=\'urls\']]//*[@data-testi
 const pluginRedisServersEditEndpoint = '//*[label/span[text()=\'servers\']]//*[@data-testid=\'input-field\']';
 const pluginRedisPasswordEditEndpoint = '//*[label/span[text()=\'password\']]//*[@data-testid=\'input-field\']';
 
-
+//Telegraf wizard step 3
+const codeToken = '//code[contains(text(), \'TOKEN\')]';
+const codeCliTelegraf = '//code[contains(text(), \'telegraf\')]';
 
 
 
@@ -138,6 +141,18 @@ class telegrafsTab extends loadDataPage{
 
     async getPluginRedisPasswordEditEndpoint(){
         return await this.driver.findElement(By.xpath(pluginRedisPasswordEditEndpoint));
+    }
+
+    async getCodeToken(){
+        return await this.driver.findElement(By.xpath(codeToken));
+    }
+
+    async getCodeCliTelegraf(){
+        return await this.driver.findElement(By.xpath(codeCliTelegraf));
+    }
+
+    async getTelegrafCardByName(name){
+        return await this.driver.findElement(By.xpath(telegrafCardTemplate.replace('%NAME%', name)));
     }
 
 }

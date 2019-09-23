@@ -270,6 +270,10 @@ class baseSteps{
         await this.clickAndWait(await this.basePage.getPopupWizardBack()); // todo better wait
     }
 
+    async clickPopupWizardFinish(){
+        await this.clickAndWait(await this.basePage.getPopupWizardContinue()); //todo better wait
+    }
+
     async dismissPopup(){
         await this.basePage.getPopupDismiss().then(async button => {
             await button.click().then(async () => {

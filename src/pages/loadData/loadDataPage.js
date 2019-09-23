@@ -121,7 +121,7 @@ class loadDataPage extends influxPage {
 
     async getBucketDropdownItem(item){
         return await this.driver.findElement(
-            By.xpath(`//*[@data-testid='dropdown-item'][div[text()='${item.toLowerCase()}']]`))
+            By.xpath(`//*[@data-testid='dropdown-item'][div[text()='${item}']]`))
     }
 
     async getTelegrafNameInput(){

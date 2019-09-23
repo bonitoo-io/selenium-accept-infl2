@@ -61,18 +61,35 @@ Scenario Outline: Edit Plugin Values
   | NGINX      | ASDF        | urls             | NONE                 | http://localhost:10080 |
   | Redis      | SKIP,SKIP   | servers,password | SKIP                 | tcp://localhost:6379,wumpus |
 
-Scenario: Cleanup from outline
+Scenario: Cleanup from Edit Plugin Values
   When dismiss the Create Telegraf Wizard
 
-#Scenario Outline: Create Telegraf
-#  When click the create Telegraf button in header
+#N.B. just add UI artifacts - no need to check backend at this point
+Scenario Outline: Create Telegraf
+  When click the create Telegraf button in header
+  When click the select bucket dropdown in the Create Telegraf Wizard
+  When click the bucket item "<BUCKET>" in the Create Telegraf Wizard
+  When click the plugin tile "<PLUGIN>" in the Create Telegraf Wizard
+  When click the Popup Wizard continue button
+  When enter the name "<NAME>" in the Create Telegraf Wizard
+  When enter the description "<DESCR>" in the Create Telegraf Wizard
+  When click the Popup Wizard continue button
+  Then the success notification contains "<SUCCESS_MSG>"
+  Then the success notification contains "Your configurations have been saved"
+  When close all notifications
+  Then the create Telegraf Wizard final step is loaded
+  When click the Create Telegraf Wizard finish button
+  # Verify listing
+  Then there is a telegraf card for "<NAME>"
+  Then the bucket of the telegraf card "<NAME>" is "<BUCKET>"
 
-#  Examples:
-#    | PLUGIN     |
-#    | Docker     |
-#    | Kubernetes |
-#    | NGINX      |
-#    | Redis      |
+  Examples:
+    | PLUGIN     | BUCKET  | NAME      | DESCR        | SUCCESS_MSG |
+    | System     | DEFAULT |Strakonice | Lorem ipsum  | Successfully created dashboards for telegraf plugin: system. |
+    | Docker     | Duchamp |Decin      | Lorem ipsum  | SKIP |
+    | Kubernetes | DEFAULT |Kladno     | Lorem ipsum  | SKIP |
+    | NGINX      | Duchamp |Nyburk     | Lorem ipsum  | SKIP |
+    | Redis      | DEFAULT |Rakovnik   | Lorem ipsum  | SKIP |
 
 
 

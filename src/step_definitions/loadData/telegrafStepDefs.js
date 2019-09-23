@@ -86,3 +86,24 @@ Then(/^verify the edit plugin error notification with message "(.*)"$/, async ms
 When(/^clear the create Telegraf edit plugin fields (.*)$/, async fields => {
    await teleTabSteps.clearCreateTelegrafPluginFields(fields);
 });
+
+When(/^enter the name "(.*)" in the Create Telegraf Wizard$/, async name => {
+   await teleTabSteps.enterTelegrafWizardName(name);
+});
+
+When(/^enter the description "(.*)" in the Create Telegraf Wizard$/, async descr => {
+   await teleTabSteps.enterTelegrafWizardDescr(descr);
+});
+
+When(/^click the Create Telegraf Wizard finish button$/, async () => {
+   await teleTabSteps.clickPopupWizardFinish();
+});
+
+Then(/^the create Telegraf Wizard final step is loaded$/, async () => {
+   await teleTabSteps.verifyCreateWizardStep3Loaded();
+});
+
+Then(/^the bucket of the telegraf card "(.*)" is "(.*)"$/, async (name, bucket) => {
+   await teleTabSteps.verifyBucketForTelegrafCard(name, (bucket === 'DEFAULT') ? __defaultUser.bucket : bucket);
+});
+
