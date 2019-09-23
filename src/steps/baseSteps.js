@@ -1,7 +1,7 @@
 //const fs = require('fs')
 const expect = require('chai').expect;
 const assert = require('chai').assert;
-const { By } = require('selenium-webdriver');
+const { By, Key } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 
@@ -311,6 +311,23 @@ class baseSteps{
     async verifyWizardContinueButtonDisabled(){
         await this.verifyElementDisabled(await this.basePage.getPopupWizardContinue());
     }
+
+    async verifyWizardDocsLinkURL(url){
+        await this.basePage.getPopupWizardDocsLink().then(async elem => {
+            await elem.getAttribute('href').then(async href => {
+                await expect(href).to.equal(url);
+            })
+        })
+    }
+
+    async clearInputText(input){
+        await input.sendKeys(Key.END);
+        while((await input.getAttribute('value')).length > 0){
+            await input.sendKeys(Key.BACK_SPACE)
+        }
+        await this.driver.sleep(200)
+    }
+
 }
 
 module.exports = baseSteps;

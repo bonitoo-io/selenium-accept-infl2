@@ -24,24 +24,58 @@ Scenario: Exercise create Telegraf wizard
   Then the create Telegraf Wizard second step is loaded
   Then the create Telegraf plugins sidebar contains "cpu,disk,diskio,mem,net,processes,swap,system"
   Then the create Telegraf plugin sidebar "system" item is in state "success"
+  Then the create Telegraf plugin sidebar "cpu" item is in state "success"
+  Then the create Telegraf plugin sidebar "mem" item is in state "success"
   When dismiss the Create Telegraf Wizard
   Then the Create Telegraf Wizard is no longer present
   When click the create Telegraf button empty
-  When click the plugin tile "Docker" in the Create Telegraf Wizard
+
+Scenario Outline: Edit Plugin Values
+  When click the plugin tile "<PLUGIN>" in the Create Telegraf Wizard
   When click the Popup Wizard continue button
   Then the create Telegraf Wizard second step is loaded
-  Then the create Telegraf plugins sidebar contains "Docker"
-  Then the create Telegraf plugin sidebar "Docker" item is in state "neutral"
-  When click the create Telegraf plugin sidebar "Docker" item
-  Then the create Telegraf edit plugin "Docker" step is loaded
+  Then the create Telegraf plugins sidebar contains "<PLUGIN>"
+  Then the create Telegraf plugin sidebar "<PLUGIN>" item is in state "neutral"
+  When click the create Telegraf plugin sidebar "<PLUGIN>" item
+  Then the create Telegraf edit plugin "<PLUGIN>" step is loaded
   When click the Popup Wizard done button
-  Then the create Telegraf plugin sidebar "Docker" item is in state "error"
+  Then the create Telegraf plugin sidebar "<PLUGIN>" item is in state "error"
+  When click the create Telegraf plugin sidebar "<PLUGIN>" item
+  When enter the values <FAKE_VALUES> into the fields <FIELDS>
+  Then verify the edit plugin error notification with message "<ERRMSGS>"
+  When clear the create Telegraf edit plugin fields <FIELDS>
+  When enter the values <TRUE_VALUES> into the fields <FIELDS>
+  When click the Popup Wizard done button
+  Then the create Telegraf plugin sidebar "<PLUGIN>" item is in state "success"
   When click the wizard previous button
   Then the Create Telegraf Wizard is loaded
-  Then the Create Telegraf wizard plugin tile "Docker" is selected
-  When click the plugin tile "Docker" in the Create Telegraf Wizard
-  Then the Create Telegraf wizard plugin tile "Docker" is not selected
+  Then the Create Telegraf wizard plugin tile "<PLUGIN>" is selected
+  When click the plugin tile "<PLUGIN>" in the Create Telegraf Wizard
+  Then the Create Telegraf wizard plugin tile "<PLUGIN>" is not selected
   Then the popup wizard continue button is disabled
+
+  Examples:
+  | PLUGIN     | FAKE_VALUES | FIELDS           | ERRMSGS               | TRUE_VALUES |
+  | Docker     | SKIP        | endpoint         | SKIP                 | http://localhost:10080 |
+  | Kubernetes | ASDF        | url              | Must be a valid URI. | http://localhost:10080 |
+  | NGINX      | ASDF        | urls             | NONE                 | http://localhost:10080 |
+  | Redis      | SKIP,SKIP   | servers,password | SKIP                 | tcp://localhost:6379,wumpus |
+
+Scenario: Cleanup from outline
+  When dismiss the Create Telegraf Wizard
+
+#Scenario Outline: Create Telegraf
+#  When click the create Telegraf button in header
+
+#  Examples:
+#    | PLUGIN     |
+#    | Docker     |
+#    | Kubernetes |
+#    | NGINX      |
+#    | Redis      |
+
+
+
   # cycle through each plugin and verify plugins list and previous button
   # Check plugin configuration page
   # e.g. Then the create Telegraf edit plugin "Docker" step is loaded

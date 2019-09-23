@@ -11,6 +11,7 @@ const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
 const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
+const popupWizardDocsLink = '[data-testid=overlay--body] [data-testid=docs-link]';
 
 class basePage{
 
@@ -186,6 +187,10 @@ class basePage{
 
     static getPopupWizardSubTitleSelector(){
         return {type: 'css', selector: popupWizardSubTitle};
+    }
+
+    async getPopupWizardDocsLink(){
+        return await this.driver.findElement(By.css(popupWizardDocsLink));
     }
 
 

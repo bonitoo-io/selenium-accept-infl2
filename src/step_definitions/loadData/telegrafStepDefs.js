@@ -75,8 +75,14 @@ Then(/^the Create Telegraf wizard plugin tile "(.*)" is not selected$/, async pl
    await teleTabSteps.verifyCreateWizardPluginTileNotSelected(plugin);
 });
 
-/*
-Then(/^the create Telegraf Wizard continue button is disabled$/, async () => {
-   await teleTabSteps.verifyWizardContinueButtonDisabled();
+When(/^enter the values (.*) into the fields (.*)$/, async (values, fields) => {
+   await teleTabSteps.enterValuesIntoFields(values, fields);
 });
-*/
+
+Then(/^verify the edit plugin error notification with message "(.*)"$/, async msg => {
+   await teleTabSteps.verifyEditPluginErrorMessage(msg);
+});
+
+When(/^clear the create Telegraf edit plugin fields (.*)$/, async fields => {
+   await teleTabSteps.clearCreateTelegrafPluginFields(fields);
+});

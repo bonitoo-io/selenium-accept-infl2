@@ -21,6 +21,12 @@ const configurationPluginsSideBar = '//*[*[text()=\'Plugins\']]//div[contains(@c
 
 //Telegraf wizard edit plugin
 const pluginDockerEditEndpoint = '//*[label/span[text()=\'endpoint\']]//*[@data-testid=\'input-field\']';
+const pluginK8SEditEndpoint = '//*[label/span[text()=\'url\']]//*[@data-testid=\'input-field\']';
+const pluginNGINXEditEndpoint = '//*[label/span[text()=\'urls\']]//*[@data-testid=\'input-field\']';
+const pluginRedisServersEditEndpoint = '//*[label/span[text()=\'servers\']]//*[@data-testid=\'input-field\']';
+const pluginRedisPasswordEditEndpoint = '//*[label/span[text()=\'password\']]//*[@data-testid=\'input-field\']';
+
+
 
 
 
@@ -118,6 +124,21 @@ class telegrafsTab extends loadDataPage{
         return await this.driver.findElement(By.xpath(pluginDockerEditEndpoint));
     }
 
+    async getPluginK8SEditEndpoint(){
+        return await this.driver.findElement(By.xpath(pluginK8SEditEndpoint));
+    }
+
+    async getPluginNGINXEditEndpoint(){
+        return await this.driver.findElement(By.xpath(pluginNGINXEditEndpoint));
+    }
+
+    async getPluginRedisServersEditEndpoint(){
+        return await this.driver.findElement(By.xpath(pluginRedisServersEditEndpoint));
+    }
+
+    async getPluginRedisPasswordEditEndpoint(){
+        return await this.driver.findElement(By.xpath(pluginRedisPasswordEditEndpoint));
+    }
 
 }
 
