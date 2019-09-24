@@ -46,6 +46,22 @@ When(/^click the plugin tile "(.*)" in the Create Telegraf Wizard$/, async plugi
    await teleTabSteps.clickCreateConfigPluginTile(plugin);
 });
 
+When(/^clear the create Telegraf Wizard plugin filter$/, async () => {
+   await teleTabSteps.clearWizardPluginFilter();
+});
+
+When(/^enter the value "(.*)" in create Telegraf Wizard filter plugins$/, async value => {
+   await teleTabSteps.enterValueIntoPluginsFilter(value);
+});
+
+Then(/^the Create Telegraf wizard plugin tile "(.*)" is visible$/, async plugin => {
+   await teleTabSteps.verifyCreateWizardPluginTileVisible(plugin);
+});
+
+Then(/^the Create Telegraf wizard plugin tile "(.*)" is not present$/, async plugin => {
+   await teleTabSteps.verifyCreateWizardPluginTileNotPresent(plugin);
+});
+
 Then(/^the create Telegraf Wizard second step is loaded$/, {timeout: 10000},  async () => {
    await teleTabSteps.verifyCreateWizardStep2Loaded();
 });
@@ -105,5 +121,13 @@ Then(/^the create Telegraf Wizard final step is loaded$/, async () => {
 
 Then(/^the bucket of the telegraf card "(.*)" is "(.*)"$/, async (name, bucket) => {
    await teleTabSteps.verifyBucketForTelegrafCard(name, (bucket === 'DEFAULT') ? __defaultUser.bucket : bucket);
+});
+
+Then(/^the telegraf sort order is "(.*)"$/, async order => {
+   await teleTabSteps.verifyTelegrafCardSortOrder(order);
+});
+
+When(/^click the telegraf sort by name button$/, async () => {
+   await teleTabSteps.clickTelegrafSortByName();
 });
 

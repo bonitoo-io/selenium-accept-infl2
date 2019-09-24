@@ -7,6 +7,7 @@ const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const bucketSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
 const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
 const telegrafCardTemplate = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]';
+const telegrafCards = '[data-testid=resource-card]';
 
 const urlCtx = 'telegrafs';
 
@@ -30,6 +31,8 @@ const pluginRedisPasswordEditEndpoint = '//*[label/span[text()=\'password\']]//*
 //Telegraf wizard step 3
 const codeToken = '//code[contains(text(), \'TOKEN\')]';
 const codeCliTelegraf = '//code[contains(text(), \'telegraf\')]';
+const copyToClipboardToken = 'div.code-snippet:nth-of-type(1) [data-testid=button-copy]';
+const copyToClipboardCommand = 'div.code-snippet:nth-of-type(2) [data-testid=button-copy]';
 
 
 
@@ -153,6 +156,18 @@ class telegrafsTab extends loadDataPage{
 
     async getTelegrafCardByName(name){
         return await this.driver.findElement(By.xpath(telegrafCardTemplate.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCards(){
+        return await this.driver.findElements(By.css(telegrafCards));
+    }
+
+    async getCopyToClipboardToken(){
+        return await this.driver.findElement(By.css(copyToClipboardToken));
+    }
+
+    async getCopyToClipboardCommand(){
+        return await this.driver.findElement(By.css(copyToClipboardCommand));
     }
 
 }

@@ -19,6 +19,12 @@ Scenario: Exercise create Telegraf wizard
   When click the create Telegraf button in header
   When click the select bucket dropdown in the Create Telegraf Wizard
   When click the bucket item "DEFAULT" in the Create Telegraf Wizard
+  When enter the value "NGI" in create Telegraf Wizard filter plugins
+  Then the Create Telegraf wizard plugin tile "NGINX" is visible
+  Then the Create Telegraf wizard plugin tile "System" is not present
+  Then the Create Telegraf wizard plugin tile "Redis" is not present
+  Then the Create Telegraf wizard plugin tile "Docker" is not present
+  When clear the create Telegraf Wizard plugin filter
   When click the plugin tile "System" in the Create Telegraf Wizard
   When click the Popup Wizard continue button
   Then the create Telegraf Wizard second step is loaded
@@ -83,12 +89,13 @@ Scenario Outline: Create Telegraf
   Then there is a telegraf card for "<NAME>"
   Then the bucket of the telegraf card "<NAME>" is "<BUCKET>"
 
+
   Examples:
     | PLUGIN     | BUCKET  | NAME      | DESCR        | SUCCESS_MSG |
     | System     | DEFAULT |Strakonice | Lorem ipsum  | Successfully created dashboards for telegraf plugin: system. |
     | Docker     | Duchamp |Decin      | Lorem ipsum  | SKIP |
     | Kubernetes | DEFAULT |Kladno     | Lorem ipsum  | SKIP |
-    | NGINX      | Duchamp |Nyburk     | Lorem ipsum  | SKIP |
+    | NGINX      | Duchamp |Nymburk    | Lorem ipsum  | SKIP |
     | Redis      | DEFAULT |Rakovnik   | Lorem ipsum  | SKIP |
 
 
@@ -98,7 +105,18 @@ Scenario Outline: Create Telegraf
   # e.g. Then the create Telegraf edit plugin "Docker" step is loaded
 
 
+# Scenario: Filter Telegrafs - seems buggy issue 15246 - all items removed
 
+Scenario: Sort Telegrafs by Name
+  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
+  When click the telegraf sort by name button
+  Then the telegraf sort order is "Strakonice,Rakovnik,Nymburk,Kladno,Decin"
+  When click the telegraf sort by name button
+  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
+
+# Scenario: Sort Telegrafs by Bucket - seems buggy issue 15247 - not sorted by buckets
+
+# Scenario: Verify setup instructions
 
 # todo - exercise telegraf wizard here
 # N.B. can verify telegrafs at endpoint http://localhost:9999/api/v2/telegrafs

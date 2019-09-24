@@ -64,6 +64,26 @@ class telegrafsSteps extends loadDataSteps{
         await this.clickAndWait(await this.teleTab.getPluginTileByName(plugin));
     }
 
+    async enterValueIntoPluginsFilter(value){
+        await this.teleTab.getPluginsFilter().then(async filter => {
+            await filter.sendKeys(value).then(async () => {
+                this.driver.sleep(100); // todo better wait
+            })
+        })
+    }
+
+    async clearWizardPluginFilter(){
+        await this.clearInputText(await this.teleTab.getPluginsFilter());
+    }
+
+    async verifyCreateWizardPluginTileVisible(plugin){
+        await this.assertVisible(await this.teleTab.getPluginTileByName(plugin));
+    }
+
+    async verifyCreateWizardPluginTileNotPresent(plugin){
+        await this.assertNotPresent(await telegrafsTab.getPluginTitleSelectorByName(plugin))
+    }
+
     async verifyCreateWizardPluginTileSelected(plugin){
         await this.teleTab.getPluginTileByName(plugin).then(async elem => {
            await elem.getAttribute('class').then(async elClass => {
@@ -95,6 +115,10 @@ class telegrafsSteps extends loadDataSteps{
         await this.assertVisible(await this.teleTab.getPopupWizardBack());
         await this.assertVisible(await this.teleTab.getCodeToken());
         await this.assertVisible(await this.teleTab.getCodeCliTelegraf());
+        await this.assertVisible(await this.teleTab.getCopyToClipboardToken());
+        await this.assertVisible(await this.teleTab.getCopyToClipboardCommand());
+        await this.verifyElementContainsText(await this.teleTab.getCodeToken(), 'INFLUX_TOKEN');
+        await this.verifyElementContainsText(await this.teleTab.getCodeCliTelegraf(), 'telegraf --config http://localhost:9999/api/v2/telegrafs/');
     }
 
     async verifyCreateWizardStep2PluginsList(plugins){
@@ -253,6 +277,21 @@ class telegrafsSteps extends loadDataSteps{
                 })
             })
         })
+    }
+
+    async verifyTelegrafCardSortOrder(order){
+        let itemsArray = order.split(',');
+        await this.teleTab.getTelegrafCards().then(async cards => {
+            for( let i = 0; i < cards.length; i++){
+                let cardName = await cards[i].findElement(By.xpath('.//span[contains(@class,\'cf-resource-name--text\')]/span'));
+                let cardText = await cardName.getText();
+                expect(cardText).to.equal(itemsArray[i]);
+            }
+        });
+    }
+
+    async clickTelegrafSortByName(){
+        await this.clickAndWait(await this.teleTab.getNameSort()); //todo better wait
     }
 
 }
