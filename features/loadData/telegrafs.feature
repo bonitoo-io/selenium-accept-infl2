@@ -85,7 +85,6 @@ Scenario Outline: Create Telegraf
   When close all notifications
   Then the create Telegraf Wizard final step is loaded
   When click the Create Telegraf Wizard finish button
-  # Verify listing
   Then there is a telegraf card for "<NAME>"
   Then the bucket of the telegraf card "<NAME>" is "<BUCKET>"
 
@@ -99,12 +98,6 @@ Scenario Outline: Create Telegraf
     | Redis      | DEFAULT |Rakovnik   | Lorem ipsum  | SKIP |
 
 
-
-  # cycle through each plugin and verify plugins list and previous button
-  # Check plugin configuration page
-  # e.g. Then the create Telegraf edit plugin "Docker" step is loaded
-
-
 # Scenario: Filter Telegrafs - seems buggy issue 15246 - all items removed
 
 Scenario: Sort Telegrafs by Name
@@ -116,7 +109,50 @@ Scenario: Sort Telegrafs by Name
 
 # Scenario: Sort Telegrafs by Bucket - seems buggy issue 15247 - not sorted by buckets
 
-# Scenario: Verify setup instructions
+Scenario: Verify setup instructions
+  When click on setup instructions for the telegraf card "Decin"
+  Then the telegraf setup instruction popup is loaded
+  When dismiss the popup
+  Then popup is not loaded
 
-# todo - exercise telegraf wizard here
+Scenario: Verify configuration
+  When click on the name of the telegraf card "Nymburk"
+  Then the telegraf configuration popup for "Nymburk" is loaded
+  When dismiss the popup
+  Then popup is not loaded
+
+Scenario: Edit Telegraf Card
+  When hover over the name of the telegraf card "Nymburk"
+  When click the name edit icon of the telegraf card "Nymburk"
+  When clear the name input of the telegraf card "Nymburk"
+  When set the name input of the telegraf card "Nymburk" to "Norimberk"
+  Then the Telegraf Card "Nymburk" can no longer be found
+  Then there is a telegraf card for "Norimberk"
+  When hover over the description of the telegraf Card "Norimberk"
+  When click the description edit icon of the telegraf card "Norimberk"
+  When clear the desrciption input of the telegraf card "Norimberk"
+  When set the description input of the telegraf card "Norimberk" to "Hunt the Wumpus"
+  Then the description of the telegraf card "Norimberk" is "Hunt the Wumpus"
+
+# N.B. more thorough label testing to be done through settings > label tests
+# Scenario: Add Label
+  # USE API to create two default labels
+  # Add third label with popup
+# Scenario: Remove Label
+  #
+
+Scenario Outline: Delete Telegraf Card
+  When hover over telegraf card "<NAME>"
+  When click delete for telegraf card "<NAME>"
+  When click delete confirm for telegraf card "<NAME>"
+  Then the Telegraf Card "<NAME>" can no longer be found
+
+  Examples:
+  |NAME|
+  |Decin|
+  |Strakonice|
+  |Kladno    |
+  |Norimberk |
+  |Rakovnik  |
+
 # N.B. can verify telegrafs at endpoint http://localhost:9999/api/v2/telegrafs

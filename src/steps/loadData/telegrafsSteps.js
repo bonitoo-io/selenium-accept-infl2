@@ -279,6 +279,15 @@ class telegrafsSteps extends loadDataSteps{
         })
     }
 
+    async verifyDescriptionForTelegrafCard(name, descr){
+        await this.teleTab.getTelegrafCardDescr(name).then(async elem => {
+            await elem.getText().then(async elText => {
+                    expect(elText).to.equal(descr);
+            })
+        })
+
+    }
+
     async verifyTelegrafCardSortOrder(order){
         let itemsArray = order.split(',');
         await this.teleTab.getTelegrafCards().then(async cards => {
@@ -293,6 +302,89 @@ class telegrafsSteps extends loadDataSteps{
     async clickTelegrafSortByName(){
         await this.clickAndWait(await this.teleTab.getNameSort()); //todo better wait
     }
+
+    async clickSetupInstructionsForCard(card){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardSetupInstructions(card)); //todo better wait
+    }
+
+    async verifyTelegrafSetupPopup(){
+        await this.verifyElementContainsText(await this.teleTab.getPopupTitle(), 'Telegraf Setup Instructions');
+        await this.assertVisible(await this.teleTab.getCodeToken());
+        await this.assertVisible(await this.teleTab.getCodeCliTelegraf());
+        await this.assertVisible(await this.teleTab.getCopyToClipboardToken());
+        await this.assertVisible(await this.teleTab.getCopyToClipboardCommand());
+        await this.verifyElementContainsText(await this.teleTab.getCodeToken(), 'INFLUX_TOKEN');
+        await this.verifyElementContainsText(await this.teleTab.getCodeCliTelegraf(), 'telegraf --config http://localhost:9999/api/v2/telegrafs/');
+    }
+
+    async verifyTelegrafConfigPopup(name){
+        await this.verifyElementContainsText(await this.teleTab.getPopupTitle(), `Telegraf Configuration - ${name}`);
+        await this.assertVisible(await this.teleTab.getDownloadConfigButton());
+        await this.assertVisible(await this.teleTab.getCodeMirror());
+    }
+
+    async clickTelegrafCardNamed(name){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardName(name)); //todo better wait
+    }
+
+    async hoverOverTelegrafCardName(name){
+        await this.hoverOver(await this.teleTab.getTelegrafCardName(name));
+    }
+
+    async hoverOverTelegrafCardDescription(card){
+        await this.hoverOver(await this.teleTab.getTelegrafCardDescr(card));
+    }
+
+    async hoverOverTelegrafCard(name){
+        await this.hoverOver(await this.teleTab.getTelegrafCardByName(name));
+    }
+
+
+    async clickNameEditIconOfTelegrafCard(name){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardNameEditBtn(name));
+    }
+
+    async clickDescrEditIconOfTelegrafCard(card){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardDescrEditBtn(card));
+    }
+
+    async clearTelegrafCardNameInput(name){
+        await  this.clearInputText(await this.teleTab.getTelegrafCardNameInput(name));
+    }
+
+    async clearTelegrafCardDescrInput(name){
+        await this.clearInputText(await this.teleTab.getTelegrafCardDescrInput(name))
+    }
+
+    async setNameInputOfTelegrafCard(oldName, newName){
+        await this.teleTab.getTelegrafCardNameInput(oldName).then(async elem => {
+            await elem.sendKeys(newName + Key.ENTER).then(async () => {
+                await this.driver.sleep(100); // todo better wait
+            })
+        })
+    }
+
+    async setDescriptionInputOfTelegrafCard(name, descr){
+        await this.teleTab.getTelegrafCardDescrInput(name).then(async elem => {
+            await elem.sendKeys(descr + Key.ENTER).then(async () => {
+                await this.driver.sleep(100); // todo better wait
+            })
+        })
+    }
+
+    async verifyTelegrafCardNotPresent(name){
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardSelectorByName(name));
+    }
+
+    async clickTelegrafCardDelete(name){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardDelete(name));
+    }
+
+    async clickTelegrafCardDeleteConfirm(name){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardDeleteConfirm(name));
+    }
+
+
 
 }
 

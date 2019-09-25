@@ -282,6 +282,11 @@ class baseSteps{
         })
     }
 
+    async verifyPopupNotPresent(){
+        await this.assertNotPresent(await basePage.getPopupOverlayContainerSelector());
+    }
+
+
     /*
       Since not currently refining waits - and focusing on velocity of adding new tests - use this
       for simple situations

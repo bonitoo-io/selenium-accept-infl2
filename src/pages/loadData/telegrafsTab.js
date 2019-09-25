@@ -8,6 +8,15 @@ const bucketSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
 const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
 const telegrafCardTemplate = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]';
 const telegrafCards = '[data-testid=resource-card]';
+const telegrafCardSetupInstructions = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'setup-instructions-link\']';
+const telegrafCardName = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]';
+const telegrafCardNameEditBtn = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]//span[@data-testid=\'icon\']';
+const telegrafCardNameInput = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]//input[@data-testid=\'collector-card--input\']';
+const telegrafCardDescr = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
+const telegrafCardDescrEditBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']'
+const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//div[@data-testid=\'resource-list--editable-description\']//input'
+const telegrafCardDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
+const telegrafCardDeleteConfirm = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//button[@data-testid=\'context-menu-item\']';
 
 const urlCtx = 'telegrafs';
 
@@ -34,6 +43,8 @@ const codeCliTelegraf = '//code[contains(text(), \'telegraf\')]';
 const copyToClipboardToken = 'div.code-snippet:nth-of-type(1) [data-testid=button-copy]';
 const copyToClipboardCommand = 'div.code-snippet:nth-of-type(2) [data-testid=button-copy]';
 
+//Config Popup
+const downloadConfigButton = '//*[@data-testid=\'button\'][span[text()=\'Download Config\']]';
 
 
 
@@ -154,8 +165,20 @@ class telegrafsTab extends loadDataPage{
         return await this.driver.findElement(By.xpath(codeCliTelegraf));
     }
 
+    // Config popup
+
+    async getDownloadConfigButton(){
+        return await this.driver.findElement(By.xpath(downloadConfigButton));
+    }
+
+    // Telegraf Card List
+
     async getTelegrafCardByName(name){
         return await this.driver.findElement(By.xpath(telegrafCardTemplate.replace('%NAME%', name)));
+    }
+
+    static getTelegrafCardSelectorByName(name){
+        return { type: 'xpath', selector: telegrafCardTemplate.replace('%NAME%', name) }
     }
 
     async getTelegrafCards(){
@@ -168,6 +191,42 @@ class telegrafsTab extends loadDataPage{
 
     async getCopyToClipboardCommand(){
         return await this.driver.findElement(By.css(copyToClipboardCommand));
+    }
+
+    async getTelegrafCardSetupInstructions(card){
+        return await this.driver.findElement(By.xpath(telegrafCardSetupInstructions.replace('%NAME%', card)));
+    }
+
+    async getTelegrafCardName(name){
+        return await this.driver.findElement(By.xpath(telegrafCardName.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardNameEditBtn(name){
+        return await this.driver.findElement(By.xpath(telegrafCardNameEditBtn.replace('%NAME%', name)))
+    }
+
+    async getTelegrafCardNameInput(name){
+        return await this.driver.findElement(By.xpath(telegrafCardNameInput.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardDescr(name){
+        return await this.driver.findElement(By.xpath(telegrafCardDescr.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardDescrEditBtn(name){
+        return await this.driver.findElement(By.xpath(telegrafCardDescrEditBtn.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardDescrInput(name){
+        return await this.driver.findElement(By.xpath(telegrafCardDescrInput.replace('%NAME%', name)))
+    }
+
+    async getTelegrafCardDelete(name){
+        return await this.driver.findElement(By.xpath(telegrafCardDelete.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardDeleteConfirm(name){
+        return await this.driver.findElement(By.xpath(telegrafCardDeleteConfirm.replace('%NAME%', name)));
     }
 
 }

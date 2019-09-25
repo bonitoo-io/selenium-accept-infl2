@@ -195,3 +195,11 @@ Then(/^the popup wizard continue button is disabled$/, async() => {
     await bSteps.verifyWizardContinueButtonDisabled();
 });
 
+When(/^dismiss the popup$/, async () => {
+    await bSteps.dismissPopup();
+});
+
+Then(/^popup is not loaded$/, async () => {
+   await bSteps.verifyPopupNotPresent();
+});
+

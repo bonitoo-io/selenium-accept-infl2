@@ -123,6 +123,10 @@ Then(/^the bucket of the telegraf card "(.*)" is "(.*)"$/, async (name, bucket) 
    await teleTabSteps.verifyBucketForTelegrafCard(name, (bucket === 'DEFAULT') ? __defaultUser.bucket : bucket);
 });
 
+Then(/^the description of the telegraf card "(.*)" is "(.*)"$/, async (name, descr) => {
+   await teleTabSteps.verifyDescriptionForTelegrafCard(name, descr);
+});
+
 Then(/^the telegraf sort order is "(.*)"$/, async order => {
    await teleTabSteps.verifyTelegrafCardSortOrder(order);
 });
@@ -131,3 +135,66 @@ When(/^click the telegraf sort by name button$/, async () => {
    await teleTabSteps.clickTelegrafSortByName();
 });
 
+When(/^click on setup instructions for the telegraf card "(.*)"$/, async card => {
+   await teleTabSteps.clickSetupInstructionsForCard(card);
+});
+
+Then(/^the telegraf setup instruction popup is loaded$/, async () => {
+   await teleTabSteps.verifyTelegrafSetupPopup();
+});
+
+When(/^click on the name of the telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.clickTelegrafCardNamed(name);
+});
+
+When(/^hover over the name of the telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.hoverOverTelegrafCardName(name);
+});
+
+Then(/^the telegraf configuration popup for "(.*)" is loaded$/, async name => {
+   await teleTabSteps.verifyTelegrafConfigPopup(name);
+});
+
+When(/^click the name edit icon of the telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.clickNameEditIconOfTelegrafCard(name);
+});
+
+When(/^clear the name input of the telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.clearTelegrafCardNameInput(name);
+});
+
+When(/^clear the desrciption input of the telegraf card "(.*)"$/, async card => {
+   await teleTabSteps.clearTelegrafCardDescrInput(card);
+});
+
+When(/^set the name input of the telegraf card "(.*)" to "(.*)"$/, async (oldName, newName) => {
+   await teleTabSteps.setNameInputOfTelegrafCard(oldName, newName);
+});
+
+When(/^set the description input of the telegraf card "(.*)" to "(.*)"$/, async (name, descr) => {
+   await teleTabSteps.setDescriptionInputOfTelegrafCard(name, descr);
+});
+
+Then(/^the Telegraf Card "(.*)" can no longer be found$/, async name => {
+   await teleTabSteps.verifyTelegrafCardNotPresent(name);
+});
+
+When(/^hover over the description of the telegraf Card "(.*)"$/, async card => {
+   await teleTabSteps.hoverOverTelegrafCardDescription(card);
+});
+
+When(/^click the description edit icon of the telegraf card "(.*)"$/, async card => {
+   await teleTabSteps.clickDescrEditIconOfTelegrafCard(card);
+});
+
+When(/^hover over telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.hoverOverTelegrafCard(name);
+});
+
+When(/^click delete for telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.clickTelegrafCardDelete(name);
+});
+
+When(/^click delete confirm for telegraf card "(.*)"$/, async name => {
+   await teleTabSteps.clickTelegrafCardDeleteConfirm(name);
+});
