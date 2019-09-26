@@ -277,7 +277,7 @@ class baseSteps{
     async dismissPopup(){
         await this.basePage.getPopupDismiss().then(async button => {
             await button.click().then(async () => {
-                await this.driver.sleep(200); // todo better wait
+                await this.driver.sleep(500); // todo better wait
             })
         })
     }

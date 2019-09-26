@@ -17,6 +17,13 @@ const telegrafCardDescrEditBtn = '//*[@data-testid=\'resource-card\'][div/div/di
 const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//div[@data-testid=\'resource-list--editable-description\']//input'
 const telegrafCardDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
 const telegrafCardDeleteConfirm = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//button[@data-testid=\'context-menu-item\']';
+const telegrafCardAddLabelBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
+const telegrafCardLabelPopup = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover\']';
+const telegrafCardLabelPopupListItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label-list--item %ITEM%\']';
+const telegrafCardLabelPillItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %ITEM%\']';
+const telegrafCardLabelPopupFilter = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover-field\']'
+const telegrafCardLabelEmptyState = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'empty-state--text\']'
+const telegrafCardLabelPillDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %ITEM%\']'
 
 const urlCtx = 'telegrafs';
 
@@ -227,6 +234,58 @@ class telegrafsTab extends loadDataPage{
 
     async getTelegrafCardDeleteConfirm(name){
         return await this.driver.findElement(By.xpath(telegrafCardDeleteConfirm.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardAddLabelBtn(name){
+        return await this.driver.findElement(By.xpath(telegrafCardAddLabelBtn.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardLabelPopup(name){
+        return await this.driver.findElement(By.xpath(telegrafCardLabelPopup.replace('%NAME%', name)));
+    }
+
+    static getTelegrafCardLabelPopupSelector(name){
+        return { type: 'xpath', selector: telegrafCardLabelPopup.replace('%NAME%', name)}
+    }
+
+    async getTelegrafCardLabelPopupListItem(name, item){
+
+        return await this.driver.findElement(By.xpath(telegrafCardLabelPopupListItem
+            .replace('%NAME%', name)
+            .replace('%ITEM%', item)));
+
+    }
+
+    static getTelegrafCardLabelPopupListItemSelector(name, item){
+        return { type: 'xpath', selector: telegrafCardLabelPopupListItem
+                .replace('%NAME%', name)
+                .replace('%ITEM%', item)}
+    }
+
+    async getTelegrafCardLabelPillItem(name, item){
+        return await this.driver.findElement(By.xpath(telegrafCardLabelPillItem
+            .replace('%NAME%', name)
+            .replace('%ITEM%', item)));
+    }
+
+    static getTelegrafCardLabelPillItemSelector(name, item){
+        return { type: 'xpath', selector: telegrafCardLabelPopupListItem
+                .replace('%NAME%', name)
+                .replace('%ITEM%', item)}
+    }
+
+    async getTelegrafCardLabelPopupFilter(name){
+        return await this.driver.findElement(By.xpath(telegrafCardLabelPopupFilter.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardLabelEmptyState(name){
+        return await this.driver.findElement(By.xpath(telegrafCardLabelEmptyState.replace('%NAME%', name)));
+    }
+
+    async getTelegrafCardLabelPillDelete(name, item){
+        return await this.driver.findElement(By.xpath(telegrafCardLabelPillDelete
+            .replace('%NAME%', name)
+            .replace('%ITEM%', item)));
     }
 
 }

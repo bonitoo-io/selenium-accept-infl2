@@ -32,6 +32,10 @@ class telegrafsSteps extends loadDataSteps{
         })
     }
 
+    async clickTelegrafCard(name){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardByName(name));
+    }
+
     async clickCreateTelegrafButtonInHeader(){
         await this.clickAndWait(await this.teleTab.getCreateConfigInHeader()) // todo pass in better wait
     }
@@ -384,7 +388,70 @@ class telegrafsSteps extends loadDataSteps{
         await this.clickAndWait(await this.teleTab.getTelegrafCardDeleteConfirm(name));
     }
 
+    async clickTelegrafCardAddLabel(name){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardAddLabelBtn(name),
+            async () => { await this.driver.sleep(3000) }); //longer wait - troubleshoot labels - not appearing
+    }
 
+    async verifyTelegrafCardLabelPopupNotPresent(name){
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPopupSelector(name))
+    }
+
+    async verifyTelegrafCardLabelPopupIsVisible(name){
+        await this.assertVisible(await this.teleTab.getTelegrafCardLabelPopup(name));
+    }
+
+    async verifyTelegrafCardLabelPopupSelectItem(name, item){
+        await this.assertVisible(await this.teleTab.getTelegrafCardLabelPopupListItem(name, item));
+    }
+
+    async verifyTelegrafCardLabelPopupSelectItemNotPresent(name, item){
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPopupListItemSelector(name, item))
+    }
+
+    async filterTelegrafCardLabeList(name, term){
+        await this.teleTab.getTelegrafCardLabelPopupFilter(name).then(async filter => {
+            await filter.sendKeys(term).then(async () => {
+                await this.driver.sleep(150); //todo better wait
+            })
+        })
+    }
+
+    async enterTermIntoTelegrafCardLabelFilter(name, term){
+        await this.teleTab.getTelegrafCardLabelPopupFilter(name).then(async filter => {
+            await filter.sendKeys(term + Key.ENTER).then(async () => {
+                await this.driver.sleep(150); //todo better wait
+            })
+        })
+    }
+
+    async clearTelegrafCardLabelFilter(name){
+        await this.clearInputText(await this.teleTab.getTelegrafCardLabelPopupFilter(name));
+    }
+
+    async clickTelegrafCardLabelPopupSelectItem(name, item){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardLabelPopupListItem(name, item));
+    }
+
+    async verifyTelegrafCardLabelPillIsVisible(name, item){
+        await this.assertVisible(await this.teleTab.getTelegrafCardLabelPillItem(name, item));
+    }
+
+    async verifyTelegrafCardLabelPillNotPresent(name, label){
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPillItemSelector(name, label))
+    }
+
+    async verifyTelegrafCardLabelListEmptyMsg(name){
+        await this.assertVisible(await this.teleTab.getTelegrafCardLabelEmptyState(name));
+    }
+
+    async hoverTelegrafCardLabelPill(name, label){
+        await this.hoverOver(await this.teleTab.getTelegrafCardLabelPillItem(name, label));
+    }
+
+    async clickTelegrafCardLabelPillDelete(name, label){
+        await this.clickAndWait(await this.teleTab.getTelegrafCardLabelPillDelete(name, label));
+    }
 
 }
 

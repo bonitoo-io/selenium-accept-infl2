@@ -5,6 +5,8 @@ Scenario: Load Initial Telegraf tab
   Given run setup over REST "DEFAULT"
   When API sign in user "DEFAULT"
   When API create a bucket named "Duchamp" for user "DEFAULT"
+  When API create a label "Cesko" described as "Pravda vitezi" with color "#AAFFAA" for user "DEFAULT"
+  When API create a label "Mesto" described as "Matka mest" with color "#FFAAAA" for user "DEFAULT"
   When open the signin page
   When UI sign in user "DEFAULT"
   When hover over the "loadData" menu item
@@ -134,12 +136,39 @@ Scenario: Edit Telegraf Card
   When set the description input of the telegraf card "Norimberk" to "Hunt the Wumpus"
   Then the description of the telegraf card "Norimberk" is "Hunt the Wumpus"
 
-# N.B. more thorough label testing to be done through settings > label tests
-# Scenario: Add Label
-  # USE API to create two default labels
-  # Add third label with popup
-# Scenario: Remove Label
-  #
+  Scenario: Add labels to telegraf
+    Then the Label Popup for the Telegraf Card "Kladno" is not present
+    When click Add Label for Telegraf Card "Kladno"
+    Then the Label Popup for the Telegraf Card "Kladno" is visible
+    Then the item "Cesko" is in the Telegraf Card "Kladno" label select list
+    Then the item "Mesto" is in the Telegraf Card "Kladno" label select list
+    When filter the Telegraf Card "Kladno" label list with "Ce"
+    Then the item "Cesko" is in the Telegraf Card "Kladno" label select list
+    Then the item "Mesto" is NOT in the Telegraf Card "Kladno" label select list
+    When clear the label filter of the Telegraf Card "Kladno"
+    Then the item "Mesto" is in the Telegraf Card "Kladno" label select list
+    When click the item "Cesko" is in the Telegraf Card "Kladno" label select list
+    Then there is a label pill "Cesko" for the Telegraf Card "Kladno"
+    Then the item "Cesko" is NOT in the Telegraf Card "Kladno" label select list
+    When click the item "Mesto" is in the Telegraf Card "Kladno" label select list
+    Then there is a label pill "Mesto" for the Telegraf Card "Kladno"
+    Then the item "Mesto" is NOT in the Telegraf Card "Kladno" label select list
+    Then the label select list for "Kladno" shows the empty state message
+    When enter the value "Lidstvo" into the Telegraf Card "Kladno" label filter
+    Then the create Label popup is loaded
+    # N.B. test the popup thoroughly in the settings > Labels test section
+    When dismiss the popup
+    Then popup is not loaded
+
+  Scenario: Delete label from telegraf
+    When hover over the label pill "Cesko" for the Telegraf Card "Kladno"
+    When click delete the label pill "Cesko" for the Telegraf Card "Kladno"
+    Then the label pill "Cesko" for the Telegraf Card "Kladno" is NOT present
+    When click Add Label for Telegraf Card "Kladno"
+    Then the item "Cesko" is in the Telegraf Card "Kladno" label select list
+    # lose focus
+    When click telegraf card "Kladno"
+    Then the Label Popup for the Telegraf Card "Kladno" is not present
 
 Scenario Outline: Delete Telegraf Card
   When hover over telegraf card "<NAME>"
@@ -156,3 +185,4 @@ Scenario Outline: Delete Telegraf Card
   |Rakovnik  |
 
 # N.B. can verify telegrafs at endpoint http://localhost:9999/api/v2/telegrafs
+# TODO - Test installation of telegraf and instructions - check back end

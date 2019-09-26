@@ -191,6 +191,26 @@ const createDashboard = async(name, orgId) => {
     });
 };
 
+// http://localhost:9999/api/v2/labels
+// {"orgID":"8576cb897e0b4ce9","name":"MyLabel","properties":{"description":"","color":"#7CE490"}}
+const createLabel = async(orgId,
+    labelName,
+    labelDescr,
+    labelColor ) =>{
+
+    return await axios({
+        method: 'post',
+        url: '/api/v2/labels',
+        data: { "orgId": orgId, "name": labelName,
+            "properties": { "description": labelDescr, "color": labelColor }}
+    }).then(resp => {
+        return resp.data;
+    }).catch(err => {
+        console.log('ERROR: ' + err);
+        throw(err);
+    })
+};
+
 module.exports = { flush,
     config,
     defaultUser,
@@ -203,7 +223,8 @@ module.exports = { flush,
     createDashboard,
     query,
     createBucket,
-    parseQueryResults
+    parseQueryResults,
+    createLabel
 };
 
 //flush()

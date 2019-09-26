@@ -18,6 +18,10 @@ When(/^click the create Telegraf button empty$/, async () => {
    await teleTabSteps.clickCreateTelegrafButtonEmpty();
 });
 
+When(/^click telegraf card "(.*)"$/, async (name) => {
+   await teleTabSteps.clickTelegrafCard(name);
+});
+
 When(/^click the create Telegraf button in header$/, async () => {
    await teleTabSteps.clickCreateTelegrafButtonInHeader();
 });
@@ -197,4 +201,60 @@ When(/^click delete for telegraf card "(.*)"$/, async name => {
 
 When(/^click delete confirm for telegraf card "(.*)"$/, async name => {
    await teleTabSteps.clickTelegrafCardDeleteConfirm(name);
+});
+
+When(/^click Add Label for Telegraf Card "(.*)"$/, async name => {
+   await teleTabSteps.clickTelegrafCardAddLabel(name);
+});
+
+Then(/^the Label Popup for the Telegraf Card "(.*)" is not present$/, async name => {
+   await teleTabSteps.verifyTelegrafCardLabelPopupNotPresent(name);
+});
+
+Then(/^the Label Popup for the Telegraf Card "(.*)" is visible$/, async name => {
+   await teleTabSteps.verifyTelegrafCardLabelPopupIsVisible(name);
+});
+
+Then(/^the item "(.*)" is in the Telegraf Card "(.*)" label select list$/, async (item, name) => {
+   await teleTabSteps.verifyTelegrafCardLabelPopupSelectItem(name, item);
+});
+
+Then(/^the item "(.*)" is NOT in the Telegraf Card "(.*)" label select list$/, async (item, name) => {
+   await teleTabSteps.verifyTelegrafCardLabelPopupSelectItemNotPresent(name, item);
+});
+
+When(/^filter the Telegraf Card "(.*)" label list with "(.*)"$/, async (name, term ) => {
+   await teleTabSteps.filterTelegrafCardLabeList(name, term);
+});
+
+When(/^enter the value "(.*)" into the Telegraf Card "(.*)" label filter$/, async (term, name) => {
+   await teleTabSteps.enterTermIntoTelegrafCardLabelFilter(name, term);
+});
+
+When(/^clear the label filter of the Telegraf Card "(.*)"$/, async name => {
+   await teleTabSteps.clearTelegrafCardLabelFilter(name);
+});
+
+When(/^click the item "(.*)" is in the Telegraf Card "(.*)" label select list$/, async (item, name) => {
+   await teleTabSteps.clickTelegrafCardLabelPopupSelectItem(name, item);
+});
+
+Then(/^there is a label pill "(.*)" for the Telegraf Card "(.*)"$/, async (item, name) => {
+   await teleTabSteps.verifyTelegrafCardLabelPillIsVisible(name, item);
+});
+
+Then(/^the label select list for "(.*)" shows the empty state message$/, async name => {
+   await teleTabSteps.verifyTelegrafCardLabelListEmptyMsg(name);
+});
+
+When(/^hover over the label pill "(.*)" for the Telegraf Card "(.*)"$/, async (label, name) => {
+   await teleTabSteps.hoverTelegrafCardLabelPill(name, label);
+});
+
+When(/^click delete the label pill "(.*)" for the Telegraf Card "(.*)"$/, async (label, name) => {
+   await teleTabSteps.clickTelegrafCardLabelPillDelete(name, label);
+});
+
+Then(/^the label pill "(.*)" for the Telegraf Card "(.*)" is NOT present$/, async (label, name) => {
+   await teleTabSteps.verifyTelegrafCardLabelPillNotPresent(name, label);
 });

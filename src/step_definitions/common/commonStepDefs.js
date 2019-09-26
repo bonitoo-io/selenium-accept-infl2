@@ -147,6 +147,16 @@ When(/^API create a bucket named "(.*)" for user "(.*)"$/, async (bucket, userna
 
 });
 
+When(/^API create a label "(.*)" described as "(.*)" with color "(.*)" for user "(.*)"$/,
+      async (labelName, labelDescr, labelColor, user) => {
+    let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
+
+    let newLabel = await influxUtils.createLabel(orgID, labelName, labelDescr, labelColor);
+
+    //console.log("DEBUG newLabel: " + JSON.stringify(newLabel));
+
+      });
+
 When(/^open page "(.*?)" for user "(.*?)"$/, async (page, username) => {
 
     let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
@@ -201,5 +211,10 @@ When(/^dismiss the popup$/, async () => {
 
 Then(/^popup is not loaded$/, async () => {
    await bSteps.verifyPopupNotPresent();
+});
+
+//For troubleshooting
+When(/^wait "(.*)" seconds$/, async secs => {
+   await bSteps.driver.sleep(parseInt(secs));
 });
 
