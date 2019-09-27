@@ -48,7 +48,9 @@ After(async function (scenario /*,   callback */) {
 
     let uri = scenario.sourceLocation.uri
     let feature = uri.substring(uri.lastIndexOf("/") + 1).replace('.','-')
-    let name = scenario.pickle.name.trim().replace(' ', '_')
+    let name = scenario.pickle.name.trim().replace(' ', '_');
+    name = name.replace('/', '-');
+    name = name.replace('\\', '-');
 
     if(feature !== currentFeature){
         scenarioCt = 0;

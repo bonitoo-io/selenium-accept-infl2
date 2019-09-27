@@ -3,7 +3,7 @@ const settingsSteps = require(__srcdir + '/steps/settings/settingsSteps.js');
 const variablesSteps = require(__srcdir + '/steps/settings/variablesSteps.js');
 const membersSteps = require(__srcdir + '/steps/settings/membersSteps.js');
 const labelsSteps = require(__srcdir + '/steps/settings/labelsSteps.js');
-const tokensSteps = require(__srcdir + '/steps/settings/tokensSteps.js');
+const tokensSteps = require(__srcdir + '/steps/loadData/tokensSteps.js');
 const orgProfileSteps = require(__srcdir + '/steps/settings/orgProfileSteps.js');
 const templatesSteps = require(__srcdir + '/steps/settings/templatesSteps.js');
 

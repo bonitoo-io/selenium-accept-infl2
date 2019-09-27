@@ -7,7 +7,9 @@ const popupOverlayContainer = '[data-testid=overlay--container]';
 const popupFormElementError  = '[data-testid=form--element-error]';
 const formInputError = '[data-testid=input-error]';
 const popupDismiss = '[data-testid=overlay--header] button[class*=dismiss]';
+const popupCancel = '[data-testid=overlay--container] button[data-testid=button--cancel]';
 const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
+const popupSave = '[data-testid=overlay--container] button[data-testid=button--save] ';
 const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
@@ -158,6 +160,15 @@ class basePage{
     async getPopupDismiss(){
         return await this.driver.findElement(By.css(popupDismiss));
     }
+
+    async getPopupCancel(){
+        return await this.driver.findElement(By.css(popupCancel));
+    }
+
+    async getPopupSave(){
+        return await this.driver.findElement(By.css(popupSave));
+    }
+
 
     async getPopupWizardContinue(){
         return await this.driver.findElement(By.css(popupWizardContinue));
