@@ -209,6 +209,10 @@ When(/^dismiss the popup$/, async () => {
     await bSteps.dismissPopup();
 });
 
+When(/^click popup cancel button$/, async () => {
+   await bSteps.clickPopupCancelBtn();
+});
+
 Then(/^popup is not loaded$/, async () => {
    await bSteps.verifyPopupNotPresent();
 });

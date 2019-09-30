@@ -39,6 +39,17 @@ class tokensSteps extends baseSteps{
         await this.verifyElementContainsText(await this.tknTab.getPopupTitle(), 'Generate Read/Write Token');
     }
 
+    async verifyAllAccessTokenPopup(){
+        await this.assertVisible(await this.tknTab.getPopupTitle());
+        await this.assertVisible(await this.tknTab.getPopupDismiss());
+        await this.assertVisible(await this.tknTab.getAllAccessCancelButton());
+        await this.assertVisible(await this.tknTab.getAllAccessSaveButton());
+        await this.assertVisible(await this.tknTab.getAllAccessDescrInput());
+        await this.assertVisible(await this.tknTab.getPopupAlert());
+        await this.verifyElementContainsText(await this.tknTab.getPopupTitle(), 'Generate All Access Token');
+        await this.verifyPopupAlertMatchesRegex(/^This token will be able to .* to anything in this organization$/);
+    }
+
     async clickModeScopeRadioButton(mode, set){
         await this.clickAndWait(await this.tknTab.getTypeRadioButton(mode, set));
     }
@@ -92,6 +103,73 @@ class tokensSteps extends baseSteps{
     async clickSelectAllBuckets(mode){
         await this.clickAndWait(await this.tknTab.getSelectAllBuckets(mode));
     }
+
+    async clickDeselectAllBuckets(mode){
+        await this.clickAndWait(await this.tknTab.getDeselectAllBuckets(mode));
+    }
+
+    async clickTokenPopupSelectBucket(mode, bucket){
+        await this.clickAndWait(await this.tknTab.getSearchBucketsListItem(mode, bucket));
+    }
+
+    async verifyPanelBucketsSelected(mode, buckets){
+        let buckArr = buckets.split(',');
+        for(let i = 0; i < buckArr.length; i++){
+            await this.verifyElementContainsClass(
+                await this.tknTab.getSearchBucketsListItem(mode, buckArr[i]),
+                'selected');
+        }
+    }
+
+    async verifyPanelBucketsNotSelected(mode, buckets){
+        let buckArr = buckets.split(',');
+        for(let i = 0; i < buckArr.length; i++){
+            await this.verifyElementDoesNotContainClass(
+                await this.tknTab.getSearchBucketsListItem(mode, buckArr[i]),
+                'selected');
+        }
+    }
+
+    async clickAllAccessPopupCancel(){
+        await this.clickAndWait(await this.tknTab.getAllAccessCancelButton());
+    }
+
+    async setAllAccessTokenDescription(descr){
+        await this.tknTab.getAllAccessDescrInput().then(async input => {
+            await input.sendKeys(descr).then(async () => {
+                await this.delay(150); //todo better wait
+            })
+        })
+    }
+
+    async setReadWriteTokenDescription(descr){
+        await this.tknTab.getDescrInput().then(async input => {
+            await input.sendKeys(descr).then(async () => {
+                await this.delay(150); //todo better wait
+            })
+        })
+    }
+
+    async clickGenerateTokenAllAccessSave(){
+        await this.clickAndWait(await this.tknTab.getAllAccessSaveButton()); // todo better wait
+    }
+
+    async clickGenerateTokenReadWriteSave(){
+        await this.clickAndWait(await this.tknTab.getPopupSave()); // todo better wait
+    }
+
+    async disableTokenInList(descr){
+        await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr))
+    }
+
+    async verifyTokenIsDisabled(descr){
+        await this.verifyElementDoesNotContainClass(
+            await this.tknTab.getTokenCardDisableToggle(descr),
+            'active')
+    }
+
+
+
 
 }
 

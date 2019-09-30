@@ -10,6 +10,7 @@ const statusHeader = '[data-testid=index-list--header-cell]:nth-of-type(2)';
 const tokenCellTemplate = '//*[@data-testid=\'table-cell\'][.//span[text()="%DESCR%"]]';
 const generateTokenDropdownBtn = '[data-testid=dropdown-button--gen-token]';
 const generateTokenItem = '[data-testid=\'dropdown-item generate-token--%ITEM%\']';
+const tokenCardDisableToggle = '//*[td//span[text() = \'%DESCR%\']]//*[@data-testid=\'slide-toggle\']';
 
 // Generate Read/Write token popup
 const descrInput = '[data-testid=\'input-field--descr\']';
@@ -20,6 +21,10 @@ const searchBucketsListItem = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE
 const selectAllBuckets = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//*[@title=\'Select All\']';
 const deselectAllBuckets = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//*[@title=\'Deselect All\']';
 
+//Generate All Access token popup
+const allAccessDescrInput = '[data-testid=form-container] [data-testid=input-field]';
+const allAccessCancelButton = '[data-testid=button][title=Cancel]';
+const allAccessSaveButton = '[data-testid=button][title=Save]';
 
 
 const urlCtx = 'tokens';
@@ -98,6 +103,22 @@ class tokensTab extends settingsPage{
 
     async getDeselectAllBuckets(mode){
         return await this.driver.findElement(By.xpath(deselectAllBuckets.replace('%MODE%', mode)));
+    }
+
+    async getAllAccessDescrInput(){
+        return await this.driver.findElement(By.css(allAccessDescrInput));
+    }
+
+    async getAllAccessCancelButton(){
+        return await this.driver.findElement(By.css(allAccessCancelButton));
+    }
+
+    async getAllAccessSaveButton(){
+        return await this.driver.findElement(By.css(allAccessSaveButton));
+    }
+
+    async getTokenCardDisableToggle(descr){
+        return await this.driver.findElement(By.xpath(tokenCardDisableToggle.replace('%DESCR%', descr)))
     }
 }
 

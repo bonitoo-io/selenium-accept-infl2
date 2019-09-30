@@ -15,7 +15,8 @@ const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
 const popupWizardDocsLink = '[data-testid=overlay--body] [data-testid=docs-link]';
 const popupTitle = '[data-testid=overlay--header] .cf-overlay--title';
-const codeMirror = 'div.CodeMirror'
+const codeMirror = 'div.CodeMirror';
+const popupAlert = '[data-testid=alert]';
 
 class basePage{
 
@@ -213,6 +214,11 @@ class basePage{
     async getCodeMirror(){
         return await this.driver.findElement(By.css(codeMirror));
     }
+
+    async getPopupAlert(){
+        return await this.driver.findElement(By.css(popupAlert));
+    }
+
 
 
 }

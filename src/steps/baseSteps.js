@@ -1,8 +1,13 @@
 //const fs = require('fs')
+const chai = require('chai');
+chai.use(require('chai-match'));
+
 const expect = require('chai').expect;
 const assert = require('chai').assert;
+
 const { By, Key } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
+
 
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -282,6 +287,10 @@ class baseSteps{
         })
     }
 
+    async clickPopupCancelBtn(){
+        await this.clickAndWait(await this.basePage.getPopupCancel()); // todo better wait
+    }
+
     async verifyPopupNotPresent(){
         await this.assertNotPresent(await basePage.getPopupOverlayContainerSelector());
     }
@@ -311,6 +320,18 @@ class baseSteps{
         })
     }
 
+    async verifyElementContainsClass(element, clazz){
+        await element.getAttribute('class').then(async elClass => {
+            await expect(elClass).to.include(clazz);
+        })
+    }
+
+    async verifyElementDoesNotContainClass(element, clazz){
+        await element.getAttribute('class').then(async elClass => {
+            await expect(elClass).to.not.include(clazz);
+        })
+    }
+
     async verifyElementDisabled(element){
         await element.getAttribute('disabled').then(async elAttr => {
             await expect(elAttr).to.not.be.null;
@@ -335,6 +356,26 @@ class baseSteps{
             await input.sendKeys(Key.BACK_SPACE)
         }
         await this.driver.sleep(200)
+    }
+
+    async verifyPopupAlertContainsText(text){
+        await this.basePage.getPopupAlert().then(async elem => {
+            await elem.findElement(By.css( '[class*=contents]')).then(async contentEl => {
+                await contentEl.getText().then(async elText => {
+                    await expect(elText).to.include(text);
+                })
+            })
+        })
+    }
+
+    async verifyPopupAlertMatchesRegex(regex){
+        await this.basePage.getPopupAlert().then(async elem => {
+            await elem.findElement(By.css( '[class*=contents]')).then(async contentEl => {
+                await contentEl.getText().then(async elText => {
+                    await expect(elText).to.match(regex);
+                })
+            })
+        })
     }
 
 }
