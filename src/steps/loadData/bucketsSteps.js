@@ -48,9 +48,10 @@ class bucketsSteps extends baseSteps {
     }
 
     async clickCreateBucket(){
-        await this.bucketsTab.getCreateBucketBtn().then(async button => {
+        await this.clickAndWait(await this.bucketsTab.getCreateBucketBtn()); //todo better wait
+        /*await this.bucketsTab.getCreateBucketBtn().then(async button => {
             await button.click();
-        });
+        }); */
     }
 
     async verifyCreateBucketPopup(){

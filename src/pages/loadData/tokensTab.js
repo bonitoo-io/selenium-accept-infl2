@@ -11,6 +11,12 @@ const tokenCellTemplate = '//*[@data-testid=\'table-cell\'][.//span[text()="%DES
 const generateTokenDropdownBtn = '[data-testid=dropdown-button--gen-token]';
 const generateTokenItem = '[data-testid=\'dropdown-item generate-token--%ITEM%\']';
 const tokenCardDisableToggle = '//*[td//span[text() = \'%DESCR%\']]//*[@data-testid=\'slide-toggle\']';
+const tokensSortByDescription = '//*[@data-testid=\'index-list--header-cell\'][text()=\'Description\']';
+const tokenDescription = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]';
+const tokenDescriptionEditBtn = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]/div[@data-testid=\'editable-name--toggle\']';
+const tokenDescriptionEditInput = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]//input';
+const tokenCardDeleteButton = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[@data-testid=\'delete-token--button\']'
+const tokenCardDeleteConfirm = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[text()=\'Confirm\']';
 
 // Generate Read/Write token popup
 const descrInput = '[data-testid=\'input-field--descr\']';
@@ -25,6 +31,11 @@ const deselectAllBuckets = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\'
 const allAccessDescrInput = '[data-testid=form-container] [data-testid=input-field]';
 const allAccessCancelButton = '[data-testid=button][title=Cancel]';
 const allAccessSaveButton = '[data-testid=button][title=Save]';
+
+//Review token popup
+const tokenReviewTokenCode = 'div.code-snippet--text pre code';
+const tokenReviewPermissions = '[data-testid=permissions-section]';
+const tokenReviewPermissionItem = '//*[@data-testid=\'permissions-section\'][.//h3[text()=\'%ITEM%\']]';
 
 
 const urlCtx = 'tokens';
@@ -49,6 +60,10 @@ class tokensTab extends settingsPage{
 
     async getTokenCellByDescr(descr){
         return await this.driver.findElement(By.xpath(tokenCellTemplate.replace('%DESCR%', descr)))
+    }
+
+    static getTokenCellSelectorByDescr(descr){
+        return { type: 'xpath', selector: tokenCellTemplate.replace('%DESCR%', descr)};
     }
 
     async getGenerateTokenDropdownBtn(){
@@ -119,6 +134,46 @@ class tokensTab extends settingsPage{
 
     async getTokenCardDisableToggle(descr){
         return await this.driver.findElement(By.xpath(tokenCardDisableToggle.replace('%DESCR%', descr)))
+    }
+
+    async getTokenCardDescriptions(){
+        return await this.driver.findElements(By.xpath('//*[@data-testid=\'editable-name\']//span'));
+    }
+
+    async getTokensSortByDescription(){
+        return await this.driver.findElement(By.xpath(tokensSortByDescription));
+    }
+
+    async getTokenDescription(descr){
+        return await this.driver.findElement(By.xpath(tokenDescription.replace('%DESCR%', descr)));
+    }
+
+    async getTokenDescriptionEditBtn(descr){
+        return await this.driver.findElement(By.xpath(tokenDescriptionEditBtn.replace('%DESCR%', descr)));
+    }
+
+    async getTokenDescriptionEditInput(descr){
+        return await this.driver.findElement(By.xpath(tokenDescriptionEditInput.replace('%DESCR%', descr)));
+    }
+
+    async getTokenReviewTokenCode(){
+        return await this.driver.findElement(By.css(tokenReviewTokenCode));
+    }
+
+    async getTokenReviewPermissions(){
+        return await this.driver.findElement(By.css(tokenReviewPermissions));
+    }
+
+    async getTokenReviewPermissionItem(item){
+        return await this.driver.findElement(By.xpath(tokenReviewPermissionItem.replace('%ITEM%', item)));
+    }
+
+    async getTokenCardDeleteButton(descr){
+        return await this.driver.findElement(By.xpath(tokenCardDeleteButton.replace('%DESCR%', descr)));
+    }
+
+    async getTokenCardDeleteConfirm(descr){
+        return await this.driver.findElement(By.xpath(tokenCardDeleteConfirm.replace('%DESCR%', descr)));
     }
 }
 

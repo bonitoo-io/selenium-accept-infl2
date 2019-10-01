@@ -1,5 +1,21 @@
+const { By, Key } = require('selenium-webdriver');
+
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const tokensTab = require(__srcdir + '/pages/loadData/tokensTab.js');
+
+const adminPermissions = ['authorizations',
+    'buckets',
+    'dashboards',
+    'sources',
+    'tasks',
+    'telegrafs',
+    'users',
+    'variables',
+    'scrapers',
+    'secrets',
+    'labels',
+    'views',
+    'documents'];
 
 class tokensSteps extends baseSteps{
 
@@ -162,15 +178,127 @@ class tokensSteps extends baseSteps{
         await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr))
     }
 
+    async enableTokenInList(descr){
+        await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr))
+    }
+
     async verifyTokenIsDisabled(descr){
         await this.verifyElementDoesNotContainClass(
             await this.tknTab.getTokenCardDisableToggle(descr),
             'active')
     }
 
+    async verifyTokenIsEnabled(descr){
+        await this.verifyElementContainsClass(
+            await this.tknTab.getTokenCardDisableToggle(descr),
+            'active')
+    }
 
+    async verifyTokenSortOrder(list){
+        let listArr = list.split(',');
+        let descrArr = await this.tknTab.getTokenCardDescriptions();
+        for(let i = 0; i < listArr.length; i++){
+            await descrArr[i].getText(async descrText => {
+                expect(descrText).to.equal(listArr[i]);
+            });
+        }
+    }
 
+    async clickTokensSortByName(){
+        await this.clickAndWait(await this.tknTab.getTokensSortByDescription());
+    }
 
+    async hoverOverTokenDescription(descr){
+        await this.hoverOver(await this.tknTab.getTokenDescription(descr));
+    }
+
+    async clickTokenDescriptionEditToggle(descr){
+        await this.clickAndWait(await this.tknTab.getTokenDescriptionEditBtn(descr));
+    }
+
+    async clearTokenDescriptionInput(descr){
+        await this.clearInputText(await this.tknTab.getTokenDescriptionEditInput(descr));
+    }
+
+    async resetTokenDescription(oldDescr, newDescr){
+        await this.tknTab.getTokenDescriptionEditInput(oldDescr).then(async input => {
+            await input.sendKeys(newDescr + Key.ENTER).then(async () => {
+                await this.delay(150); //todo better wait
+            })
+        })
+    }
+
+    async verifyTokenCardNotPresent(descr){
+        await this.assertNotPresent(tokensTab.getTokenCellSelectorByDescr(descr));
+    }
+
+    async clickTokenDescription(descr){
+        await this.clickAndWait(await this.tknTab.getTokenDescription(descr));
+    }
+
+    async verifyReviewTokenPopupLoaded(){
+        await this.assertVisible(await this.tknTab.getPopupTitle());
+        await this.assertVisible(await this.tknTab.getPopupDismiss());
+        await this.assertVisible(await this.tknTab.getPopupCopyToClipboard());
+        await this.assertVisible(await this.tknTab.getTokenReviewPermissions());
+    }
+
+    async verifyReviewTokenBucketsAllPrivileges(){
+        let privArr = ['read','write'];
+        for(let i = 0; i < adminPermissions.length; i++){
+            await this.tknTab.getTokenReviewPermissionItem(adminPermissions[i])
+                .then(async elem => {
+                    for( let j = 0; j < privArr.length; j++){
+                        await this.assertVisible(await
+                            elem.findElement(
+                                By.xpath(`//*[@data-testid=\'permissions--item\']/label[text()=\'${privArr[j]}\']`)));
+                    }
+             })
+        }
+
+        //and finally the orgs-<bucket> read item
+        await this.tknTab.getTokenReviewPermissionItem(`orgs-${__defaultUser.bucket}`)
+            .then(async elem => {
+            await this.assertVisible(await elem
+                .findElement(By.xpath('//*[@data-testid=\'permissions--item\']/label[text()=\'read\']')))
+        });
+
+    }
+
+    async verifyReviewTokenBuckets(buckets, privileges){
+        if(privileges.toLowerCase() === 'all'){
+            await this.verifyReviewTokenBucketsAllPrivileges();
+            return;
+        }
+        let bucketsArr = buckets.split(',');
+        let privArr = privileges.split(',');
+        let item = 'buckets';
+        for(let i = 0; i < bucketsArr.length; i++){
+            if(bucketsArr[i].toLowerCase() !== 'all'){
+                item = item + '-' + bucketsArr[i];
+            }
+            await this.tknTab.getTokenReviewPermissionItem(item)
+                .then(async elem => {
+                    for( let j = 0; j < privArr.length; j++){
+                        await this.assertVisible(await
+                            elem.findElement(
+                                By.xpath(`//*[@data-testid=\'permissions--item\']/label[text()=\'${privArr[j]}\']`)));
+                    }
+                })
+        }
+    }
+
+    async hoverOverTokenCard(descr){
+        await this.hoverOver(await this.tknTab.getTokenCellByDescr(descr));
+    }
+
+    async clickTokenCardDeleteButton(descr){
+        await this.clickAndWait(await this.tknTab.getTokenCardDeleteButton(descr));
+    }
+
+    async clickTokenCardDeleteConfirm(descr){
+        await this.clickAndWait(await this.tknTab.getTokenCardDeleteConfirm(descr));
+    }
 }
 
 module.exports = tokensSteps;

@@ -110,6 +110,59 @@ Feature: Load Data - Tokens
 
   # Scenario: Sort By Status # not working see issue 15301
 
-  
+  Scenario: Sort By Name
+    Then the first tokens are sorted by description as "admin's Token, Campbells Soup, Dismaland, La Femme a la perle, La Jocande"
+    When click the tokens sort By Name button
+    Then the first tokens are sorted by description as "Un enterrement a Ornans, Nu descendant un escalier, La Jocande, La Femme a la perle, Dismaland"
+    When click the tokens sort By Name button
+    Then the first tokens are sorted by description as "admin's Token, Campbells Soup, Dismaland, La Femme a la perle, La Jocande"
+
+  Scenario: Edit Description
+    When hover over the token description "La Jocande"
+    When click the token description toggle for "La Jocande"
+    When clear the edit input for description "La Jocande"
+    When set the new description of "La Jocande" to "La Dame a l hermine"
+    Then the success notification contains "Token was updated successfully"
+    Then the tokens list contains the token described as "La Dame a l hermine"
+    Then the tokens list does not contain the token described as "La Jocande"
+    When close all notifications
+
+  Scenario: Enable Token
+    When enable the token described as "Nu descendant un escalier"
+    Then the token described as "Nu descendant un escalier" is enabled
+    Then the success notification contains "Token was updated successfully"
+    When close all notifications
+
+  Scenario Outline: Review Token
+    When click on the token described as "<DESCR>"
+    Then the review token popup is loaded
+    Then the review token popup matches "<BUCKETS>" and "<PRIVILEGES>"
+    When dismiss the popup
+    Then popup is not loaded
+
+  Examples:
+    |DESCR|BUCKETS|PRIVILEGES|
+    | Un enterrement a Ornans | Courbet | read,write |
+    | Nu descendant un escalier | Duchamp | read |
+    | Cambpells Soup            | All       | read,write |
+    | La Dame a l hermine   | ALL                    |ALL |
+
+  Scenario Outline: Delete Token
+    When hover over token card described as "<DESCR>"
+    When click the delete button of the token card described as "<DESCR>"
+    When click delete confirm of the token card described as "<DESCR>"
+    Then the success notification contains "Token was deleted successfully"
+    Then the tokens list does not contain the token described as "<DESCR>"
+    Then close all notifications
+
+  Examples:
+  |DESCR|
+  | Un enterrement a Ornans |
+  | Nu descendant un escalier |
+  | La Femme a la perle       |
+  | Dismaland                 |
+  | Cambpells Soup            |
+  |  La Dame a l hermine   |
+
 
 

@@ -44,6 +44,10 @@ Then(/^the "(.*)" panel shows the empty state text$/, async mode => {
    await tknSteps.verifyPanelEmptyState(mode);
 });
 
+Then(/^the tokens list does not contain the token described as "(.*)"$/, async descr => {
+    await tknSteps.verifyTokenCardNotPresent(descr);
+});
+
 Then(/^the "(.*)" panel bucket selector is present$/, async mode => {
     await tknSteps.verifyBucketSelectorVisible(mode);
 });
@@ -143,6 +147,62 @@ When(/^disable the token described as (.*)$/, async descr => {
     await tknSteps.disableTokenInList(descr);
 });
 
+When(/^enable the token described as "(.*)"$/, async descr => {
+    await tknSteps.enableTokenInList(descr);
+});
+
 Then(/^the token described as (.*) is disabled$/, async descr => {
     await tknSteps.verifyTokenIsDisabled(descr);
+});
+
+Then(/^the token described as "(.*)" is enabled$/, async descr => {
+    await tknSteps.verifyTokenIsEnabled(descr);
+});
+
+Then(/^the first tokens are sorted by description as "(.*)"$/, async list => {
+    await tknSteps.verifyTokenSortOrder(list);
+});
+
+When(/^click the tokens sort By Name button$/, async () => {
+    await tknSteps.clickTokensSortByName();
+});
+
+When(/^hover over the token description "(.*)"$/, async descr => {
+    await tknSteps.hoverOverTokenDescription(descr);
+});
+
+When(/^click the token description toggle for "(.*)"$/, async descr => {
+   await tknSteps.clickTokenDescriptionEditToggle(descr);
+});
+
+When(/^clear the edit input for description "(.*)"$/, async descr => {
+    await tknSteps.clearTokenDescriptionInput(descr);
+});
+
+When(/^set the new description of "(.*)" to "(.*)"$/, async (oldDescr, newDescr) => {
+    await tknSteps.resetTokenDescription(oldDescr, newDescr);
+});
+
+When(/^click on the token described as "(.*)"$/, async descr => {
+    await tknSteps.clickTokenDescription(descr);
+});
+
+Then(/^the review token popup is loaded$/, async () => {
+   await tknSteps.verifyReviewTokenPopupLoaded();
+});
+
+Then(/^the review token popup matches "(.*)" and "(.*)"$/, async (buckets, privileges) => {
+    await tknSteps.verifyReviewTokenBuckets(buckets.replace('DEFAULT', __defaultUser.bucket ), privileges);
+});
+
+When(/^hover over token card described as "(.*)"$/, async descr => {
+    await tknSteps.hoverOverTokenCard(descr);
+});
+
+When(/^click the delete button of the token card described as "(.*)"$/, async descr => {
+    await tknSteps.clickTokenCardDeleteButton(descr);
+});
+
+When(/^click delete confirm of the token card described as "(.*)"$/, async descr => {
+    await tknSteps.clickTokenCardDeleteConfirm(descr);
 });

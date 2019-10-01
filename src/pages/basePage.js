@@ -10,6 +10,7 @@ const popupDismiss = '[data-testid=overlay--header] button[class*=dismiss]';
 const popupCancel = '[data-testid=overlay--container] button[data-testid=button--cancel]';
 const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
 const popupSave = '[data-testid=overlay--container] button[data-testid=button--save] ';
+const popupCopyToClipboard = '[data-testid=button-copy][title=\'Copy to Clipboard\']';
 const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
@@ -219,7 +220,9 @@ class basePage{
         return await this.driver.findElement(By.css(popupAlert));
     }
 
-
+    async getPopupCopyToClipboard(){
+        return await this.driver.findElement(By.css(popupCopyToClipboard));
+    }
 
 }
 
