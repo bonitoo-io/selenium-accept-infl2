@@ -13,17 +13,17 @@ const telegrafCardName = '//*[@data-testid=\'collector-card--name\'][span/span[t
 const telegrafCardNameEditBtn = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]//span[@data-testid=\'icon\']';
 const telegrafCardNameInput = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]//input[@data-testid=\'collector-card--input\']';
 const telegrafCardDescr = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
-const telegrafCardDescrEditBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']'
-const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//div[@data-testid=\'resource-list--editable-description\']//input'
+const telegrafCardDescrEditBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']';
+const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//div[@data-testid=\'resource-list--editable-description\']//input';
 const telegrafCardDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
 const telegrafCardDeleteConfirm = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//button[@data-testid=\'context-menu-item\']';
 const telegrafCardAddLabelBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
 const telegrafCardLabelPopup = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover\']';
 const telegrafCardLabelPopupListItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label-list--item %ITEM%\']';
 const telegrafCardLabelPillItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %ITEM%\']';
-const telegrafCardLabelPopupFilter = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover-field\']'
-const telegrafCardLabelEmptyState = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'empty-state--text\']'
-const telegrafCardLabelPillDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %ITEM%\']'
+const telegrafCardLabelPopupFilter = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover-field\']';
+const telegrafCardLabelEmptyState = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'empty-state--text\']';
+const telegrafCardLabelPillDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %ITEM%\']';
 
 const urlCtx = 'telegrafs';
 
@@ -73,7 +73,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getTelegraphCardByName(name){
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][//span[text()='${name}']]`))
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-card'][//span[text()='${name}']]`));
     }
 
     async getTelegrafsFilter(){
@@ -107,11 +107,11 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getPluginTileByName(name){
-        return await this.driver.findElement(By.css(pluginTileTemplate.replace('%TILE_NAME%', name)))
+        return await this.driver.findElement(By.css(pluginTileTemplate.replace('%TILE_NAME%', name)));
     }
 
     static getPluginTitleSelectorByName(name){
-        return { type: 'css', selector: pluginTileTemplate.replace('%TILE_NAME%', name)}
+        return { type: 'css', selector: pluginTileTemplate.replace('%TILE_NAME%', name)};
     }
 
     // Telegraf Wizard step 2
@@ -124,7 +124,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     static getConfigurationNameInputSelector(){
-        return { type: 'css', selector: configurationNameInput}
+        return { type: 'css', selector: configurationNameInput};
     }
 
     async getConfigurationDescrInput(){
@@ -140,7 +140,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     static configurationPluginsSideBarSelector(){
-        return { type: 'css', selector: configurationPluginsSideBar}
+        return { type: 'css', selector: configurationPluginsSideBar};
     }
 
     //Telegraf wizard edit plugin
@@ -185,7 +185,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     static getTelegrafCardSelectorByName(name){
-        return { type: 'xpath', selector: telegrafCardTemplate.replace('%NAME%', name) }
+        return { type: 'xpath', selector: telegrafCardTemplate.replace('%NAME%', name) };
     }
 
     async getTelegrafCards(){
@@ -209,7 +209,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getTelegrafCardNameEditBtn(name){
-        return await this.driver.findElement(By.xpath(telegrafCardNameEditBtn.replace('%NAME%', name)))
+        return await this.driver.findElement(By.xpath(telegrafCardNameEditBtn.replace('%NAME%', name)));
     }
 
     async getTelegrafCardNameInput(name){
@@ -225,7 +225,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getTelegrafCardDescrInput(name){
-        return await this.driver.findElement(By.xpath(telegrafCardDescrInput.replace('%NAME%', name)))
+        return await this.driver.findElement(By.xpath(telegrafCardDescrInput.replace('%NAME%', name)));
     }
 
     async getTelegrafCardDelete(name){
@@ -245,7 +245,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     static getTelegrafCardLabelPopupSelector(name){
-        return { type: 'xpath', selector: telegrafCardLabelPopup.replace('%NAME%', name)}
+        return { type: 'xpath', selector: telegrafCardLabelPopup.replace('%NAME%', name)};
     }
 
     async getTelegrafCardLabelPopupListItem(name, item){
@@ -258,8 +258,8 @@ class telegrafsTab extends loadDataPage{
 
     static getTelegrafCardLabelPopupListItemSelector(name, item){
         return { type: 'xpath', selector: telegrafCardLabelPopupListItem
-                .replace('%NAME%', name)
-                .replace('%ITEM%', item)}
+            .replace('%NAME%', name)
+            .replace('%ITEM%', item)};
     }
 
     async getTelegrafCardLabelPillItem(name, item){
@@ -270,8 +270,8 @@ class telegrafsTab extends loadDataPage{
 
     static getTelegrafCardLabelPillItemSelector(name, item){
         return { type: 'xpath', selector: telegrafCardLabelPopupListItem
-                .replace('%NAME%', name)
-                .replace('%ITEM%', item)}
+            .replace('%NAME%', name)
+            .replace('%ITEM%', item)};
     }
 
     async getTelegrafCardLabelPopupFilter(name){

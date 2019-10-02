@@ -34,19 +34,19 @@ Then(/^the Create Scraper popup is no longer present$/, {timeout: 2 * 5000}, asy
 });
 
 When(/^cancel the Create Scraper popup$/, async () => {
-   await ldSteps.cancelCreateScraperPopup();
+    await ldSteps.cancelCreateScraperPopup();
 });
 
 When(/^clear the Scraper Popup name input$/, async () => {
-   await ldSteps.clearCreateScraperNameInput();
+    await ldSteps.clearCreateScraperNameInput();
 });
 
 When(/^clear Scraper Popup the Target Url input$/, async () => {
     await ldSteps.clearCreateScraperUrlInput();
-})
+});
 
 Then(/^the Create Scrapper popup create button is disabled$/, async () => {
-   await ldSteps.verifyCreateScraperSubmitEnabled(false);
+    await ldSteps.verifyCreateScraperSubmitEnabled(false);
 });
 
 Then(/^the Create Scrapper popup create button is enabled$/, async () => {
@@ -54,11 +54,11 @@ Then(/^the Create Scrapper popup create button is enabled$/, async () => {
 });
 
 When(/^enter the name "(.*)" into the Create Scraper popup name input$/, async name => {
-   await ldSteps.enterCreateScraperName(name);
+    await ldSteps.enterCreateScraperName(name);
 });
 
 When(/^enter the value "(.*)" into the Create Scraper popup url input$/, async url => {
-   await ldSteps.enterCreateScraperTargetURL(url);
+    await ldSteps.enterCreateScraperTargetURL(url);
 });
 
 When(/^click the Create Scrapper buckets dropdown$/, async () => {
@@ -66,27 +66,27 @@ When(/^click the Create Scrapper buckets dropdown$/, async () => {
 });
 
 When(/^select the Scrapper buckets dropdown item "(.*)"$/, async (item) => {
-   await ldSteps.selectCreateScraperBucketsItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
+    await ldSteps.selectCreateScraperBucketsItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
 });
 
 Then(/^an item for the bucket "(.*)" is an item in the buckets dropdown$/, async item => {
-   await ldSteps.verifyCreateScraperBucketsDropdownItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
+    await ldSteps.verifyCreateScraperBucketsDropdownItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
 });
 
 Then(/^NO items in the buckets dropdown are shown$/, async () => {
-   await ldSteps.verifyNoBucketItemsInBucketsDropdownShown();
+    await ldSteps.verifyNoBucketItemsInBucketsDropdownShown();
 });
 
 When(/^click the create scraper create button$/, async () => {
-   await ldSteps.clickCreateScraperBucketCreateButton();
+    await ldSteps.clickCreateScraperBucketCreateButton();
 });
 
 When(/^click load data tab "(.*)"$/, async (tab) => {
-   await ldSteps.clickTab(tab);
+    await ldSteps.clickTab(tab);
 });
 
 Then(/^the Create Telegraf Config Wizard is loaded$/, async () => {
-   await ldSteps.verifyCreateTelegrafWizardLoaded();
+    await ldSteps.verifyCreateTelegrafWizardLoaded();
 });
 
 When(/^click the buckets dropdown button$/, async () => {
@@ -94,7 +94,7 @@ When(/^click the buckets dropdown button$/, async () => {
 });
 
 When(/^select the buckets dropdown item "(.*)"$/, async item => {
-   await ldSteps.selectBucketsDropdownItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
+    await ldSteps.selectBucketsDropdownItem((item === 'DEFAULT') ? __defaultUser.bucket : item);
 });
 
 When(/^select the telegraf plugin tile "(.*)"$/, async tile => {

@@ -59,7 +59,7 @@ class loadDataPage extends influxPage {
     }
 
     static getCreateScraperTitleSelector(){
-        return { type: 'css', selector: createScraperTitle}
+        return { type: 'css', selector: createScraperTitle};
     }
 
     async getCreateScraperDismiss(){
@@ -71,7 +71,7 @@ class loadDataPage extends influxPage {
     }
 
     static getCreateScraperNameInputSelector(){
-        return { type: 'css', selector: createScraperNameInput}
+        return { type: 'css', selector: createScraperNameInput};
     }
 
     async getCreateScraperBucketDropdown(){
@@ -83,7 +83,7 @@ class loadDataPage extends influxPage {
     }
 
     static getCreateScraperUrlInputSelector(){
-        return { type: 'css', selector: createScraperUrlInput}
+        return { type: 'css', selector: createScraperUrlInput};
     }
 
     async getCreateScraperCancel(){
@@ -108,7 +108,7 @@ class loadDataPage extends influxPage {
 
     //Create telegraf wizard
     async getBucketDropdown(){
-        return await this.driver.findElement(By.css(bucketDropdown))
+        return await this.driver.findElement(By.css(bucketDropdown));
     }
 
     async getPluginsFilter(){
@@ -121,11 +121,11 @@ class loadDataPage extends influxPage {
 
     async getBucketDropdownItem(item){
         return await this.driver.findElement(
-            By.xpath(`//*[@data-testid='dropdown-item'][div[text()='${item}']]`))
+            By.xpath(`//*[@data-testid='dropdown-item'][div[text()='${item}']]`));
     }
 
     async getTelegrafNameInput(){
-        return await this.driver.findElement(By.css(telegrafNameInput))
+        return await this.driver.findElement(By.css(telegrafNameInput));
     }
 
     async getTelegrafDescrInput(){

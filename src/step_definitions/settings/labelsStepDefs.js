@@ -9,5 +9,5 @@ Then(/^the create Label popup is loaded$/, {timeout: 10000}, async () => {
 });
 
 When(/^dismiss the Create Label Popup$/, async () => {
-   lblSteps.dismissCreateLabelPopup();
+    lblSteps.dismissCreateLabelPopup();
 });

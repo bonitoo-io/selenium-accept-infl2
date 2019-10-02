@@ -132,8 +132,8 @@ class baseSteps{
                 }else{
                     expect(elText).to.include(msg);
                 }
-            })
-        })
+            });
+        });
     }
 
     async verifyNoElementErrorMessage(){
@@ -143,18 +143,18 @@ class baseSteps{
     async verifyInputErrorIcon(){
         await this.basePage.getFormInputErrors(async elems => {
             expect(elems.length).to.be.above(0);
-        })
+        });
     }
 
     async verifyNoFormInputErrorIcon(){
-        await this.assertNotPresent(basePage.getFormInputErrorSelector())
+        await this.assertNotPresent(basePage.getFormInputErrorSelector());
     }
 
     async assertVisible(element){
         try {
-            await expect(await element.isDisplayed()).to.equal(true)
+            await expect(await element.isDisplayed()).to.equal(true);
         }catch(err){
-            console.log("Assert Visible failed: " + err + "/n waiting for " + JSON.stringify(element));
+            console.log('Assert Visible failed: ' + err + '/n waiting for ' + JSON.stringify(element));
             throw err;
         }
     }
@@ -197,7 +197,7 @@ class baseSteps{
             if(i === 0){
                 result.push(1);
             }else if(i === 1){
-                result.push(2)
+                result.push(2);
             }else{
                 result.push(result[i-1] + result[i-2]);
             }
@@ -211,24 +211,24 @@ class baseSteps{
         let fullInterval  = 0;
         let pointInterval = 0;
         switch(start[start.length - 1]){
-            case 'd': //days
-                fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
-                break;
-            case 'h': //hours
-                fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
-                break;
-            case 'm': //minutes
-                fullInterval = Math.abs(parseInt(time)) * 60000;
-                break;
-            case 's': //seconds
-                fullInterval = Math.abs(parseInt(time)) * 1000;
-                break;
-            default:
-                throw new `unhandle time unit ${start}`;
+        case 'd': //days
+            fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
+            break;
+        case 'h': //hours
+            fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
+            break;
+        case 'm': //minutes
+            fullInterval = Math.abs(parseInt(time)) * 60000;
+            break;
+        case 's': //seconds
+            fullInterval = Math.abs(parseInt(time)) * 1000;
+            break;
+        default:
+            throw new `unhandle time unit ${start}`;
         }
 
         pointInterval = fullInterval / count;
-        return {full: fullInterval, step: pointInterval}
+        return {full: fullInterval, step: pointInterval};
     }
 
 
@@ -263,12 +263,12 @@ class baseSteps{
     async clickPopupWizardContinue(){
         await this.basePage.getPopupWizardContinue().then(async button => {
             await button.click().then(async () => {
-               // await this.driver.wait( // this wait is not consistent
-                    // await this.basePage.getUntilElementNotPresent(
-                        //basePage.getPopupWizardContinueSlector())) //
+                // await this.driver.wait( // this wait is not consistent
+                // await this.basePage.getUntilElementNotPresent(
+                //basePage.getPopupWizardContinueSlector())) //
                 await this.driver.sleep(500); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickPopupWizardPrevious(){
@@ -283,8 +283,8 @@ class baseSteps{
         await this.basePage.getPopupDismiss().then(async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(500); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickPopupCancelBtn(){
@@ -301,11 +301,11 @@ class baseSteps{
       for simple situations
      */
     async clickAndWait(element,
-                       wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20) }){ //wait 1/10th implicit timeout
+        wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){ //wait 1/10th implicit timeout
         //console.log("DEBUG timeout " + ((await this.driver.manage().getTimeouts()).implicit/20));
         await element.click().then(async () => {
             await wait();
-        })
+        });
     }
 
     async verifyElementText(element, text){
@@ -317,25 +317,25 @@ class baseSteps{
     async verifyElementContainsText(element, text){
         await element.getText().then(async elText => {
             await expect(elText).to.include(text);
-        })
+        });
     }
 
     async verifyElementContainsClass(element, clazz){
         await element.getAttribute('class').then(async elClass => {
             await expect(elClass).to.include(clazz);
-        })
+        });
     }
 
     async verifyElementDoesNotContainClass(element, clazz){
         await element.getAttribute('class').then(async elClass => {
             await expect(elClass).to.not.include(clazz);
-        })
+        });
     }
 
     async verifyElementDisabled(element){
         await element.getAttribute('disabled').then(async elAttr => {
             await expect(elAttr).to.not.be.null;
-        })
+        });
     }
 
     async verifyWizardContinueButtonDisabled(){
@@ -346,16 +346,16 @@ class baseSteps{
         await this.basePage.getPopupWizardDocsLink().then(async elem => {
             await elem.getAttribute('href').then(async href => {
                 await expect(href).to.equal(url);
-            })
-        })
+            });
+        });
     }
 
     async clearInputText(input){
         await input.sendKeys(Key.END);
         while((await input.getAttribute('value')).length > 0){
-            await input.sendKeys(Key.BACK_SPACE)
+            await input.sendKeys(Key.BACK_SPACE);
         }
-        await this.driver.sleep(200)
+        await this.driver.sleep(200);
     }
 
     async verifyPopupAlertContainsText(text){
@@ -363,9 +363,9 @@ class baseSteps{
             await elem.findElement(By.css( '[class*=contents]')).then(async contentEl => {
                 await contentEl.getText().then(async elText => {
                     await expect(elText).to.include(text);
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
     async verifyPopupAlertMatchesRegex(regex){
@@ -373,9 +373,9 @@ class baseSteps{
             await elem.findElement(By.css( '[class*=contents]')).then(async contentEl => {
                 await contentEl.getText().then(async elText => {
                     await expect(elText).to.match(regex);
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
 }

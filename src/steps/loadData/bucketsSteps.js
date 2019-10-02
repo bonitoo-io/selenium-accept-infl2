@@ -1,5 +1,5 @@
 const { expect, assert } = require('chai');
-const { By, Key, until } = require('selenium-webdriver');
+const { By, until } = require('selenium-webdriver');
 
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const bucketsTab = require(__srcdir + '/pages/loadData/bucketsTab.js');
@@ -97,8 +97,8 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getPopupRPDurationSelectorButton().then(async btn => {
             await btn.click().then(async  () => {
                 await this.driver.sleep(500); //todo implement better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyCreateBucketCreateButtonEnabled(enabled){
@@ -114,8 +114,8 @@ class bucketsSteps extends baseSteps {
             .then(async elem => {
                 await elem.getAttribute('class').then( async elemClass => {
                     await expect(elemClass).to.include('active');
-                })
-            })
+                });
+            });
     }
 
     async verifyInactiveRetentionPolicyButton(rp){
@@ -123,23 +123,23 @@ class bucketsSteps extends baseSteps {
             .then(async elem => {
                 await elem.getAttribute('class').then( async elemClass => {
                     await expect(elemClass).to.not.include('active');
-                })
-            })
+                });
+            });
     }
 
     async verifyPopupHelpText(text){
         await this.bucketsTab.getPopupHelpText().then(async elem => {
             await elem.getText().then(async elText => {
                 expect(elText).to.include(text);
-            })
-        })
+            });
+        });
     }
 
     async clickRetentionPolicyButton(rp){
         await this.driver.findElement(By.css(`[data-testid=retention-${rp}--button]`))
             .then(async elem => {
                 await elem.click();
-            })
+            });
     }
 
     async dismissBucketPopup(){
@@ -169,37 +169,37 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getPopupInputName().then(async elem => {
             await elem.clear();
             await elem.sendKeys(name);
-        })
+        });
     }
 
     async enterIntervalValue(amount, unit){
         switch(unit.toLowerCase()){
-            case 'seconds':
-            case 'second':
-                await this.bucketsTab.getPopupRPSecondsInput().then(async elem => {
-                    await elem.sendKeys(amount);
-                });
-                break;
-            case 'minutes':
-            case 'minute':
-                await this.bucketsTab.getPopupRPMinutesInput().then(async elem => {
-                    await elem.sendKeys(amount);
-                });
-                break;
-            case 'hours':
-            case 'hour':
-                await this.bucketsTab.getPopupRPHoursInput().then(async elem => {
-                    await elem.sendKeys(amount);
-                });
-                break;
-            case 'days':
-            case 'day':
-                await this.bucketsTab.getPopupRPDaysInput().then(async elem => {
-                    await elem.sendKeys(amount);
-                });
-                break;
-            default:
-                throw `unknown interval unit ${unit}`;
+        case 'seconds':
+        case 'second':
+            await this.bucketsTab.getPopupRPSecondsInput().then(async elem => {
+                await elem.sendKeys(amount);
+            });
+            break;
+        case 'minutes':
+        case 'minute':
+            await this.bucketsTab.getPopupRPMinutesInput().then(async elem => {
+                await elem.sendKeys(amount);
+            });
+            break;
+        case 'hours':
+        case 'hour':
+            await this.bucketsTab.getPopupRPHoursInput().then(async elem => {
+                await elem.sendKeys(amount);
+            });
+            break;
+        case 'days':
+        case 'day':
+            await this.bucketsTab.getPopupRPDaysInput().then(async elem => {
+                await elem.sendKeys(amount);
+            });
+            break;
+        default:
+            throw `unknown interval unit ${unit}`;
         }
     }
 
@@ -208,84 +208,84 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getPopupRPDurationSelectorItem(rp).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clearAllRetentionPolicyIntervals(){
         await this.bucketsTab.getPopupRPSecondsInput().then(async elem => {
             await elem.clear();
-            await elem.sendKeys('0')
+            await elem.sendKeys('0');
         });
 
         await this.bucketsTab.getPopupRPMinutesInput().then(async elem => {
             await elem.clear();
-            await elem.sendKeys('0')
+            await elem.sendKeys('0');
         });
 
         await this.bucketsTab.getPopupRPHoursInput().then(async elem => {
             await elem.clear();
-            await elem.sendKeys('0')
+            await elem.sendKeys('0');
         });
 
         await this.bucketsTab.getPopupRPDaysInput().then(async elem => {
             await elem.clear();
-            await elem.sendKeys('0')
+            await elem.sendKeys('0');
         });
     }
 
     async verifyIntervalValue(value, unit){
         switch(unit.toLowerCase()){
-            case 'seconds':
-            case 'second':
-                await this.bucketsTab.getPopupRPSecondsInput().then(async elem => {
-                    await elem.getAttribute('value').then(async elVal => {
-                        expect(parseInt(elVal)).to.equal(parseInt(value));
-                    })
+        case 'seconds':
+        case 'second':
+            await this.bucketsTab.getPopupRPSecondsInput().then(async elem => {
+                await elem.getAttribute('value').then(async elVal => {
+                    expect(parseInt(elVal)).to.equal(parseInt(value));
                 });
-                break;
-            case 'minutes':
-            case 'minute':
-                await this.bucketsTab.getPopupRPMinutesInput().then(async elem => {
-                    await elem.getAttribute('value').then(async elVal => {
-                        expect(parseInt(elVal)).to.equal(parseInt(value));
-                    })
+            });
+            break;
+        case 'minutes':
+        case 'minute':
+            await this.bucketsTab.getPopupRPMinutesInput().then(async elem => {
+                await elem.getAttribute('value').then(async elVal => {
+                    expect(parseInt(elVal)).to.equal(parseInt(value));
                 });
-                break;
-            case 'hours':
-            case 'hour':
-                await this.bucketsTab.getPopupRPHoursInput().then(async elem => {
-                    await elem.getAttribute('value').then(async elVal => {
-                        expect(parseInt(elVal)).to.equal(parseInt(value));
-                    })
+            });
+            break;
+        case 'hours':
+        case 'hour':
+            await this.bucketsTab.getPopupRPHoursInput().then(async elem => {
+                await elem.getAttribute('value').then(async elVal => {
+                    expect(parseInt(elVal)).to.equal(parseInt(value));
                 });
-                break;
-            case 'days':
-            case 'day':
-                await this.bucketsTab.getPopupRPDaysInput().then(async elem => {
-                    await elem.getAttribute('value').then(async elVal => {
-                        expect(parseInt(elVal)).to.equal(parseInt(value));
-                    })
+            });
+            break;
+        case 'days':
+        case 'day':
+            await this.bucketsTab.getPopupRPDaysInput().then(async elem => {
+                await elem.getAttribute('value').then(async elVal => {
+                    expect(parseInt(elVal)).to.equal(parseInt(value));
                 });
-                break;
-            default:
-                throw `unknown interval unit ${unit}`;
+            });
+            break;
+        default:
+            throw `unknown interval unit ${unit}`;
         }
     }
 
     async clickCreatePopupCreate(){
         await this.bucketsTab.getPopupCreateButton().then( async btn => {
             await btn.click();
-            await this.driver.sleep(3000)
-        })
+            await this.driver.sleep(3000);
+        });
     }
 
     async verifyFormErrorMessageContains(msg){
         await this.bucketsTab.getPopupFormError().then(async elem => {
             await elem.getText().then(async text => {
                 expect(text).to.include(msg);
-            })
-        })
+            });
+        });
     }
 
     async verifyFormErrorMessageNotPresent(){
@@ -322,17 +322,17 @@ class bucketsSteps extends baseSteps {
                 }else{
                     await expect(rpText).to.include(durationsMap.get(rp));
                     //let policy = rp.trim().toLowerCase().split(' ');
-//                    let rpPolicy = rpText.trim().toLowerCase().split(':');
-//                    rpPolicy.shift(); //remover first 'Retenition: string'
-//                    await expect(rpPolicy[0])
-//                    for( let i = 0; i < policy.length; i += 2) {
-//                        await expect(parseInt(policy[i])).to.equal(parseInt(rpPolicy[i]));
-//                        await expect(policy[i+1]).to.equal(rpPolicy[i+1]);
-//                    }
+                    //                    let rpPolicy = rpText.trim().toLowerCase().split(':');
+                    //                    rpPolicy.shift(); //remover first 'Retenition: string'
+                    //                    await expect(rpPolicy[0])
+                    //                    for( let i = 0; i < policy.length; i += 2) {
+                    //                        await expect(parseInt(policy[i])).to.equal(parseInt(rpPolicy[i]));
+                    //                        await expect(policy[i+1]).to.equal(rpPolicy[i+1]);
+                    //                    }
                 }
 
-            })
-        })
+            });
+        });
 
         /*
         await this.bucketsTab.getBucketCards().then(async cards => {
@@ -365,13 +365,13 @@ class bucketsSteps extends baseSteps {
     async clickOnBucketNamed(name){
         await this.bucketsTab.getBucketCardName(name).then(async card => {
             await card.click();
-        })
+        });
     }
 
     async clickSaveChanges(){
         await this.bucketsTab.getPopupSaveChanges().then(async btn => {
             await btn.click();
-        })
+        });
     }
 
     async setFilterValue(text){
@@ -381,10 +381,10 @@ class bucketsSteps extends baseSteps {
                 await input.sendKeys(text).then( async () => {
                     await this.driver.wait(async () => {
                         return (await this.bucketsTab.getBucketCards()).length < cardCt;
-                    })
+                    });
                 });
-            })
-        })
+            });
+        });
     }
 
     async clearFilterValue(){
@@ -395,17 +395,17 @@ class bucketsSteps extends baseSteps {
                     return (await this.bucketsTab.getBucketCards()).length > cardCt;
                 });
             });
-        })
+        });
     }
 
     async ensureNameSortOrder(order){
         await this.bucketsTab.getNameSorter().then(async elem => {
             if(!(await elem.getAttribute('title')).toLowerCase().includes(order.toLowerCase())){
                 await elem.click().then(async () => {
-                    await this.driver.wait(until.elementLocated(By.css((await bucketsTab.getNameSorterSelector()).selector)))
+                    await this.driver.wait(until.elementLocated(By.css((await bucketsTab.getNameSorterSelector()).selector)));
                 });
             }
-        })
+        });
     }
 
     async hoverOverCardNamed(name){
@@ -419,7 +419,7 @@ class bucketsSteps extends baseSteps {
                 await this.driver.sleep(500); //fix later - losing patience
                 await this.assertNotVisible(await this.bucketsTab.getBucketCardDeleteByName(name));
             });
-        })
+        });
     }
 
     async verifyBucketCardPopoverVisible(name, toBeVisible){
@@ -434,9 +434,9 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getBucketCardDeleteByName(name).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.wait(until.elementIsVisible(
-                    await this.bucketsTab.getBucketCardDeleteConfirmByName(name)))
+                    await this.bucketsTab.getBucketCardDeleteConfirmByName(name)));
             });
-        })
+        });
     }
 
     async clickBucketCardDeleteConfirm(name){
@@ -446,16 +446,16 @@ class bucketsSteps extends baseSteps {
                 await this.driver.sleep(500); // todo - find better wait - however below is flakey
 
                 // await this.driver.wait(until.stalenessOf(await this.bucketsTab.getBucketCardDeleteByName(name)));
-            })
-        })
+            });
+        });
     }
 
     async clickAddDataButtonOfCard(name){
         await this.bucketsTab.getBucketCardAddDataByName(name).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getBucketCardPopoverByName(name)));
-            })
-        })
+            });
+        });
     }
 
     async clickPopoverItemForBucketCard(name, item){
@@ -466,12 +466,12 @@ class bucketsSteps extends baseSteps {
                 }else{ //line protocol and telegraf lead to wizard
                     await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getWizardStepTitle()))
                         .catch(async err => {
-                            console.log("Caught err" + err);
+                            console.log('Caught err' + err);
                             throw err;
-                        })
+                        });
                 }
-            })
-        })
+            });
+        });
     }
 
     async verifyLineProtocolWizardVisible(visibility){
@@ -503,19 +503,18 @@ class bucketsSteps extends baseSteps {
             await this.bucketsTab.getWizardRadioManual().then(async elem => {
                 await elem.click().then( async () => {
                     await this.driver.sleep(500); //todo better wait
-                })
-            })
+                });
+            });
         }else{
-            await this.bucketsTab.getWizardRadioUploadFile().then(async () => {
+            await this.bucketsTab.getWizardRadioUploadFile().then(async elem => {
                 await elem.click().then(async () => {
                     await this.driver.sleep(500); //todo better wait
-                })
-            })
-
+                });
+            });
         }
     }
 
-    async enterLineProtocolDataPoints(count, value, start, mode, type, prec){
+    async enterLineProtocolDataPoints(count, value, start, mode){
         let samples = [];
         let dataPoints = [];
         let nowMillis = new Date().getTime();
@@ -523,19 +522,19 @@ class bucketsSteps extends baseSteps {
         let intervals = await baseSteps.getIntervalMillis(count, start);
         let startMillis = nowMillis - intervals.full;
         switch(mode.toLowerCase()){
-            case 'fibonacci':
-                samples = await baseSteps.genFibonacciValues(count);
-                break;
-            default:
-                throw `Unhandled mode ${mode}`;
+        case 'fibonacci':
+            samples = await baseSteps.genFibonacciValues(count);
+            break;
+        default:
+            throw `Unhandled mode ${mode}`;
         }
         for(let i = 0; i < samples.length; i++){
-            dataPoints.push(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`)
+            dataPoints.push(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
         }
         await this.bucketsTab.getWizardTextArea().then(async elem => {
             dataPoints.forEach(async point => {
                 await elem.sendKeys(point);
-            })
+            });
         });
 
     }
@@ -544,32 +543,32 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getWizardTextArea().then(async elem => {
             await elem.sendKeys(data).then(async () => {
                 await this.driver.sleep(500); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickLineProtocolPrecisionDropdown(){
         await this.bucketsTab.getWizardPrecisionDropdown().then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickLineProtocolContinue(){
         await this.bucketsTab.getWizardContinueButton().then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickLineProtocolPrecisionItem(prec){
         await this.bucketsTab.getWizardDropdownPrecisionItem(prec).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyLineProtocolWizardSecondStep(){
@@ -586,10 +585,10 @@ class bucketsSteps extends baseSteps {
             });
             if(msg.toLowerCase().includes('success')) {
                 await elem.getCssValue('color').then(async color => {
-                    expect(color).to.equal('rgba(78, 216, 160, 1)')
-                })
+                    expect(color).to.equal('rgba(78, 216, 160, 1)');
+                });
             }
-        })
+        });
     }
 
     async verifyWizardStepStatusMessageContains(msg){
@@ -599,14 +598,14 @@ class bucketsSteps extends baseSteps {
             });
             if(msg.toLowerCase().includes('success')) {
                 await elem.getCssValue('color').then(async color => {
-                    expect(color).to.equal('rgba(78, 216, 160, 1)')
-                })
+                    expect(color).to.equal('rgba(78, 216, 160, 1)');
+                });
             }else{
                 await elem.getCssValue('color').then(async color => {
-                    expect(color).to.equal('rgba(249, 95, 83, 1)')
-                })
+                    expect(color).to.equal('rgba(249, 95, 83, 1)');
+                });
             }
-        })
+        });
 
     }
 
@@ -614,8 +613,8 @@ class bucketsSteps extends baseSteps {
         await this.bucketsTab.getWizardFinishButton().then( async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
 

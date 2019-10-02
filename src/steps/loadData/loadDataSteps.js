@@ -25,7 +25,7 @@ class loadDataSteps extends influxSteps{
     async clickTab(name){
         await this.ldPage.getTabByName(name).then(async tab => {
             await tab.click();
-        })
+        });
     }
 
     async createScraperPopupLoaded(){
@@ -42,8 +42,8 @@ class loadDataSteps extends influxSteps{
         await this.ldPage.getCreateScraperDismiss().then(async btn => {
             btn.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyCreateScraperPopupNotPresent(){
@@ -56,38 +56,38 @@ class loadDataSteps extends influxSteps{
         await this.ldPage.getCreateScraperCancel().then(async btn => {
             await btn.click().then(async () => {
                 await this.driver.sleep(500); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clearCreateScraperNameInput(){
         await this.ldPage.getCreateScraperNameInput().then(async input => {
             await input.sendKeys(Key.END);
             while((await input.getAttribute('value')).length > 0){
-                await input.sendKeys(Key.BACK_SPACE)
+                await input.sendKeys(Key.BACK_SPACE);
             }
             await this.driver.sleep(200);
             //N.B. clear skips hook that triggers messages and other state changes
             //await input.clear().then( async () => {
             //    await this.driver.sleep(500); // todo better wait
             //})
-        })
+        });
     }
 
     async clearCreateScraperUrlInput(){
         await this.ldPage.getCreateScraperUrlInput().then(async input => {
             await input.sendKeys(Key.END);
             while((await input.getAttribute('value')).length > 0){
-                await input.sendKeys(Key.BACK_SPACE)
+                await input.sendKeys(Key.BACK_SPACE);
             }
             await this.driver.sleep(200);
-        })
+        });
     }
 
     async verifyCreateScraperSubmitEnabled(state = true){
         await this.ldPage.getCreateScraperSubmit().then(async elem => {
             expect(await elem.isEnabled()).to.equal(state);
-        })
+        });
     }
 
     async enterCreateScraperName(name){
@@ -95,39 +95,39 @@ class loadDataSteps extends influxSteps{
             await elem.clear().then(async () => {
                 await elem.sendKeys(name).then(async () => {
                     await this.driver.sleep(200); // todo better wait
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
     async enterCreateScraperTargetURL(url){
         await this.ldPage.getCreateScraperUrlInput().then(async elem => {
             await elem.sendKeys(url).then(async () => {
                 await this.driver.sleep(200); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickCreateScraperBucketsDropdown(){
         await this.ldPage.getCreateScraperBucketDropdown().then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async selectCreateScraperBucketsItem(item){
         await this.ldPage.getCreateScraperBucketDropdownItem(item).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyCreateScraperBucketsDropdownItem(item){
         await this.ldPage.getCreateScraperBucketDropdownItem(item).then(async elem => {
             await expect(await elem.isDisplayed()).to.equal(true);
-        })
+        });
     }
 
     async verifyNoBucketItemsInBucketsDropdownShown(){
@@ -138,8 +138,8 @@ class loadDataSteps extends influxSteps{
         await this.ldPage.getCreateScraperSubmit().then(async btn => {
             await btn.click().then(async () => {
                 await this.driver.sleep(300); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyCreateTelegrafWizardLoaded(){
@@ -154,33 +154,33 @@ class loadDataSteps extends influxSteps{
         await this.ldPage.getBucketDropdown().then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async selectBucketsDropdownItem(item){
         await this.ldPage.getBucketDropdownItem(item).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async selectTelegrafWizardPluginTile(tile){
         await this.ldPage.getPluginTileByName(tile).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async enterTelegrafWizardName(name){
         await this.ldPage.getTelegrafNameInput().then(async elem => {
-           await elem.clear().then(async () => {
-               await elem.sendKeys(name).then(async () => {
-                   await this.driver.sleep(100); //todo better wait
-               })
-           })
+            await elem.clear().then(async () => {
+                await elem.sendKeys(name).then(async () => {
+                    await this.driver.sleep(100); //todo better wait
+                });
+            });
         });
     }
 
@@ -189,8 +189,8 @@ class loadDataSteps extends influxSteps{
             await elem.clear().then(async () => {
                 await elem.sendKeys(descr).then(async () => {
                     await this.driver.sleep(100); //todo better wait
-                })
-            })
+                });
+            });
         });
     }
 

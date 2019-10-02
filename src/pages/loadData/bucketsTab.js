@@ -126,7 +126,7 @@ class bucketsTab extends loadDataPage {
     }
 
     static getPopupRPDurationSelectorButtonSelector(){
-        return {type: 'css', selector: popupRPDurationSelectorButton}
+        return {type: 'css', selector: popupRPDurationSelectorButton};
     }
 
     async getPopupRPDaysInput(){
@@ -181,11 +181,11 @@ class bucketsTab extends loadDataPage {
 
     //get the whole card
     async getBucketCardByName(name){
-        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid=\'bucket--card ${name}\']]`));
+        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]`));
     }
 
     static async getBucketCardDeleteSelectorByName(name){
-        return {type: 'xpath', selector: `//div[div/div/div[@data-testid=\'bucket--card ${name}\'] ]//*[@data-testid=\'context-delete-menu\']`};
+        return {type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`};
     }
 
     async getBucketCardDeleteByName(name){
@@ -205,17 +205,17 @@ class bucketsTab extends loadDataPage {
     }
 
     static async getBucketCardSelectorByName(name){
-        return {type: 'css', selector: `[data-testid='bucket--card ${name}']`}
+        return {type: 'css', selector: `[data-testid='bucket--card ${name}']`};
     }
 
     async getBucketCardDeleteConfirmByName(name){
-        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`})
+        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`});
         //return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`));
     }
 
     async getBucketCardAddDataByName(name){
-        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}']]//button[@title = 'Add Data']`})
-    };
+        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}']]//button[@title = 'Add Data']`});
+    }
 
     async getPopupSaveChanges(){
         return await this.driver.findElement(By.css(popupSaveChanges));
@@ -226,7 +226,7 @@ class bucketsTab extends loadDataPage {
     }
 
     static async getWizardStepTitleSelector(){
-        return {type: 'css', selector: wizardStepTitle }
+        return {type: 'css', selector: wizardStepTitle };
     }
 
     async getWizardStepSubTitle(){
@@ -234,7 +234,7 @@ class bucketsTab extends loadDataPage {
     }
 
     static async getWizardStepSubTitleSelector(){
-        return {type: 'css', selector: wizardStepSubTitle }
+        return {type: 'css', selector: wizardStepSubTitle };
     }
 
 
@@ -259,7 +259,7 @@ class bucketsTab extends loadDataPage {
     }
 
     static async getWizardContinueButtonSelector(){
-        return {type: 'css', selector: wizardContinueButton }
+        return {type: 'css', selector: wizardContinueButton };
     }
 
 
@@ -268,7 +268,7 @@ class bucketsTab extends loadDataPage {
     }
 
     async getWizardDropdownPrecisionItem(prec){
-        return await this.driver.findElement(By.css(`[data-testid=\'dropdown-item\'][id=\'${prec}']`));
+        return await this.driver.findElement(By.css(`[data-testid='dropdown-item'][id='${prec}']`));
     }
 
     async getWizardFinishButton(){

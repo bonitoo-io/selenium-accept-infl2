@@ -1,4 +1,5 @@
 const { By, Key } = require('selenium-webdriver');
+const{ expect } = require('chai');
 
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const tokensTab = require(__srcdir + '/pages/loadData/tokensTab.js');
@@ -88,9 +89,9 @@ class tokensSteps extends baseSteps{
 
     async verifyPanelBucketList(mode, buckets){
         let buckArr = buckets.split(',');
-       // console.log("DEBUG buckArr " + buckArr);
+        // console.log("DEBUG buckArr " + buckArr);
         for(let i = 0; i < buckArr.length; i++){
-         //   console.log("DEBUG selector " + JSON.stringify(tokensTab.getSearchBucketsListItemSelector(mode, buckArr[i])) );
+            //   console.log("DEBUG selector " + JSON.stringify(tokensTab.getSearchBucketsListItemSelector(mode, buckArr[i])) );
             await this.assertVisible(await this.tknTab.getSearchBucketsListItem(mode, buckArr[i]));
         }
     }
@@ -107,9 +108,9 @@ class tokensSteps extends baseSteps{
             await this.clearInputText(elem).then(async () => {
                 await elem.sendKeys(term).then(async () => {
                     this.delay(150); //todo better wait
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
     async clearPanelBucketsSelector(mode){
@@ -154,16 +155,16 @@ class tokensSteps extends baseSteps{
         await this.tknTab.getAllAccessDescrInput().then(async input => {
             await input.sendKeys(descr).then(async () => {
                 await this.delay(150); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async setReadWriteTokenDescription(descr){
         await this.tknTab.getDescrInput().then(async input => {
             await input.sendKeys(descr).then(async () => {
                 await this.delay(150); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickGenerateTokenAllAccessSave(){
@@ -175,23 +176,23 @@ class tokensSteps extends baseSteps{
     }
 
     async disableTokenInList(descr){
-        await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr))
+        await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr));
     }
 
     async enableTokenInList(descr){
-        await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr))
+        await this.clickAndWait(await this.tknTab.getTokenCardDisableToggle(descr));
     }
 
     async verifyTokenIsDisabled(descr){
         await this.verifyElementDoesNotContainClass(
             await this.tknTab.getTokenCardDisableToggle(descr),
-            'active')
+            'active');
     }
 
     async verifyTokenIsEnabled(descr){
         await this.verifyElementContainsClass(
             await this.tknTab.getTokenCardDisableToggle(descr),
-            'active')
+            'active');
     }
 
     async verifyTokenSortOrder(list){
@@ -224,8 +225,8 @@ class tokensSteps extends baseSteps{
         await this.tknTab.getTokenDescriptionEditInput(oldDescr).then(async input => {
             await input.sendKeys(newDescr + Key.ENTER).then(async () => {
                 await this.delay(150); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyTokenCardNotPresent(descr){
@@ -250,18 +251,18 @@ class tokensSteps extends baseSteps{
                 .then(async elem => {
                     for( let j = 0; j < privArr.length; j++){
                         await this.assertVisible(await
-                            elem.findElement(
-                                By.xpath(`//*[@data-testid=\'permissions--item\']/label[text()=\'${privArr[j]}\']`)));
+                        elem.findElement(
+                            By.xpath(`//*[@data-testid='permissions--item']/label[text()='${privArr[j]}']`)));
                     }
-             })
+                });
         }
 
         //and finally the orgs-<bucket> read item
         await this.tknTab.getTokenReviewPermissionItem(`orgs-${__defaultUser.bucket}`)
             .then(async elem => {
-            await this.assertVisible(await elem
-                .findElement(By.xpath('//*[@data-testid=\'permissions--item\']/label[text()=\'read\']')))
-        });
+                await this.assertVisible(await elem
+                    .findElement(By.xpath('//*[@data-testid=\'permissions--item\']/label[text()=\'read\']')));
+            });
 
     }
 
@@ -281,10 +282,10 @@ class tokensSteps extends baseSteps{
                 .then(async elem => {
                     for( let j = 0; j < privArr.length; j++){
                         await this.assertVisible(await
-                            elem.findElement(
-                                By.xpath(`//*[@data-testid=\'permissions--item\']/label[text()=\'${privArr[j]}\']`)));
+                        elem.findElement(
+                            By.xpath(`//*[@data-testid='permissions--item']/label[text()='${privArr[j]}']`)));
                     }
-                })
+                });
         }
     }
 

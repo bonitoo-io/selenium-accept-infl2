@@ -21,15 +21,15 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async verifyTelegrafTabLoaded(){
-            await this.teleTab.isTabLoaded();
+        await this.teleTab.isTabLoaded();
     }
 
     async clickCreateTelegrafButtonEmpty(){
         await this.teleTab.getCreateConfigInBody().then(async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clickTelegrafCard(name){
@@ -37,7 +37,7 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async clickCreateTelegrafButtonInHeader(){
-        await this.clickAndWait(await this.teleTab.getCreateConfigInHeader()) // todo pass in better wait
+        await this.clickAndWait(await this.teleTab.getCreateConfigInHeader()); // todo pass in better wait
     }
 
     async verifyWizardLoadedP1(){
@@ -72,8 +72,8 @@ class telegrafsSteps extends loadDataSteps{
         await this.teleTab.getPluginsFilter().then(async filter => {
             await filter.sendKeys(value).then(async () => {
                 this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clearWizardPluginFilter(){
@@ -85,14 +85,14 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async verifyCreateWizardPluginTileNotPresent(plugin){
-        await this.assertNotPresent(await telegrafsTab.getPluginTitleSelectorByName(plugin))
+        await this.assertNotPresent(await telegrafsTab.getPluginTitleSelectorByName(plugin));
     }
 
     async verifyCreateWizardPluginTileSelected(plugin){
         await this.teleTab.getPluginTileByName(plugin).then(async elem => {
-           await elem.getAttribute('class').then(async elClass => {
-               await expect(elClass).to.include('selected');
-           })
+            await elem.getAttribute('class').then(async elClass => {
+                await expect(elClass).to.include('selected');
+            });
         });
     }
 
@@ -100,8 +100,8 @@ class telegrafsSteps extends loadDataSteps{
         await this.teleTab.getPluginTileByName(plugin).then(async elem => {
             await elem.getAttribute('class').then(async elClass => {
                 await expect(elClass).to.not.include('selected');
-            })
-        })
+            });
+        });
     }
 
     async verifyCreateWizardStep2Loaded(){
@@ -135,17 +135,17 @@ class telegrafsSteps extends loadDataSteps{
     async verifyCreateWizardPluginState(plugin, state){
         await this.teleTab.getPluginItemByName(plugin).then(async elem => {
             switch(state.toLowerCase()){
-                case 'success':
-                    expect(await elem.getAttribute('class')).to.include('success');
-                    break;
-                case 'failure':
-                case 'fail':
-                case 'error':
-                    expect(await elem.getAttribute('class')).to.include('error');
-                    break;
-                default:
-                    expect(await elem.getAttribute('class')).to.equal('side-bar--tab');
-                    break;
+            case 'success':
+                expect(await elem.getAttribute('class')).to.include('success');
+                break;
+            case 'failure':
+            case 'fail':
+            case 'error':
+                expect(await elem.getAttribute('class')).to.include('error');
+                break;
+            default:
+                expect(await elem.getAttribute('class')).to.equal('side-bar--tab');
+                break;
             }
         });
     }
@@ -160,30 +160,30 @@ class telegrafsSteps extends loadDataSteps{
         await this.assertVisible(await this.teleTab.getPopupWizardContinue());
 
         switch(plugin.toLowerCase()){
-            case 'docker':
-                await this.assertVisible(await this.teleTab.getPluginDockerEditEndpoint());
-                await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Docker');
-                await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker');
-                // todo verify subtitle link to documentation
-                break;
-            case 'kubernetes':
-                await this.assertVisible(await this.teleTab.getPluginK8SEditEndpoint());
-                await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Kubernetes');
-                await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/kubernetes');
-                break;
-            case 'nginx':
-                await this.assertVisible(await this.teleTab.getPluginNGINXEditEndpoint());
-                await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Nginx');
-                await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nginx');
-                break;
-            case 'redis':
-                await this.assertVisible(await this.teleTab.getPluginRedisServersEditEndpoint());
-                await this.assertVisible(await this.teleTab.getPluginRedisPasswordEditEndpoint());
-                await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Redis');
-                await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/redis');
-                break;
-            default:
-                throw `unsupported plugin ${plugin}`;
+        case 'docker':
+            await this.assertVisible(await this.teleTab.getPluginDockerEditEndpoint());
+            await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Docker');
+            await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker');
+            // todo verify subtitle link to documentation
+            break;
+        case 'kubernetes':
+            await this.assertVisible(await this.teleTab.getPluginK8SEditEndpoint());
+            await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Kubernetes');
+            await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/kubernetes');
+            break;
+        case 'nginx':
+            await this.assertVisible(await this.teleTab.getPluginNGINXEditEndpoint());
+            await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Nginx');
+            await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nginx');
+            break;
+        case 'redis':
+            await this.assertVisible(await this.teleTab.getPluginRedisServersEditEndpoint());
+            await this.assertVisible(await this.teleTab.getPluginRedisPasswordEditEndpoint());
+            await this.verifyElementText(await this.teleTab.getPopupWizardTitle(), 'Redis');
+            await this.verifyWizardDocsLinkURL('https://github.com/influxdata/telegraf/tree/master/plugins/inputs/redis');
+            break;
+        default:
+            throw `unsupported plugin ${plugin}`;
         }
     }
 
@@ -195,33 +195,33 @@ class telegrafsSteps extends loadDataSteps{
                 continue;
             }
             switch(fieldsArr[i].toLowerCase()){
-                case 'endpoint':
-                    await this.teleTab.getPluginDockerEditEndpoint().then(async elem => {
-                        await elem.sendKeys(valuesArr[i])
-                    });
-                    break;
-                case 'url':
-                    await this.teleTab.getPluginK8SEditEndpoint().then(async elem => {
-                        await elem.sendKeys(valuesArr[i])
-                    });
-                    break;
-                case 'urls':
-                    await this.teleTab.getPluginNGINXEditEndpoint().then(async elem => {
-                        await elem.sendKeys(valuesArr[i] + Key.ENTER);
-                    });
-                    break;
-                case 'servers':
-                    await this.teleTab.getPluginRedisServersEditEndpoint().then(async elem => {
-                        await elem.sendKeys(valuesArr[i] + Key.ENTER)
-                    });
-                    break;
-                case 'password':
-                    await this.teleTab.getPluginRedisPasswordEditEndpoint().then(async elem => {
-                        await elem.sendKeys(valuesArr[i])
-                    });
-                    break;
-                default:
-                    throw `unhandled field ${fields[i]}`;
+            case 'endpoint':
+                await this.teleTab.getPluginDockerEditEndpoint().then(async elem => {
+                    await elem.sendKeys(valuesArr[i]);
+                });
+                break;
+            case 'url':
+                await this.teleTab.getPluginK8SEditEndpoint().then(async elem => {
+                    await elem.sendKeys(valuesArr[i]);
+                });
+                break;
+            case 'urls':
+                await this.teleTab.getPluginNGINXEditEndpoint().then(async elem => {
+                    await elem.sendKeys(valuesArr[i] + Key.ENTER);
+                });
+                break;
+            case 'servers':
+                await this.teleTab.getPluginRedisServersEditEndpoint().then(async elem => {
+                    await elem.sendKeys(valuesArr[i] + Key.ENTER);
+                });
+                break;
+            case 'password':
+                await this.teleTab.getPluginRedisPasswordEditEndpoint().then(async elem => {
+                    await elem.sendKeys(valuesArr[i]);
+                });
+                break;
+            default:
+                throw `unhandled field ${fields[i]}`;
             }
             await this.driver.sleep(100);
         }
@@ -231,15 +231,15 @@ class telegrafsSteps extends loadDataSteps{
         let msgArr = msgs.split(',');
         for(let i = 0; i < msgArr.length; i++){
             switch(msgArr[i].toLowerCase()){
-                case 'skip':
-                    break;
-                case 'none':
-                    await this.verifyInputErrorIcon();
-                    break;
-                default:
-                    await this.verifyInputErrorIcon();
-                    await this.verifyElementErrorMessage(msgArr[i], false);
-                    break;
+            case 'skip':
+                break;
+            case 'none':
+                await this.verifyInputErrorIcon();
+                break;
+            default:
+                await this.verifyInputErrorIcon();
+                await this.verifyElementErrorMessage(msgArr[i], false);
+                break;
             }
         }
     }
@@ -248,26 +248,26 @@ class telegrafsSteps extends loadDataSteps{
         let fieldsArr = fields.split(',');
         for(let i = 0; i < fieldsArr.length; i++){
             switch(fieldsArr[i].toLowerCase()){
-                case 'endpoint':
-                    await this.clearInputText(await this.teleTab.getPluginDockerEditEndpoint());
-                    break;
-                case 'url':
-                    await this.clearInputText(await this.teleTab.getPluginK8SEditEndpoint());
-                    break;
-                case 'urls':
-                    await this.clearInputText(await this.teleTab.getPluginNGINXEditEndpoint());
-                    //NGINX remove invalid URL from list
-                    await this.clickAndWait(await this.driver.findElement(By.css('[data-testid=confirmation-button--button]')));
-                    await this.clickAndWait(await this.driver.findElement(By.css('[title=Confirm]')));
-                    break;
-                case 'servers':
-                    await this.clearInputText(await this.teleTab.getPluginRedisServersEditEndpoint());
-                    break;
-                case 'password':
-                    await this.clearInputText(await this.teleTab.getPluginRedisPasswordEditEndpoint());
-                    break;
-                default:
-                    throw `unhandled field ${fields[i]}`;
+            case 'endpoint':
+                await this.clearInputText(await this.teleTab.getPluginDockerEditEndpoint());
+                break;
+            case 'url':
+                await this.clearInputText(await this.teleTab.getPluginK8SEditEndpoint());
+                break;
+            case 'urls':
+                await this.clearInputText(await this.teleTab.getPluginNGINXEditEndpoint());
+                //NGINX remove invalid URL from list
+                await this.clickAndWait(await this.driver.findElement(By.css('[data-testid=confirmation-button--button]')));
+                await this.clickAndWait(await this.driver.findElement(By.css('[title=Confirm]')));
+                break;
+            case 'servers':
+                await this.clearInputText(await this.teleTab.getPluginRedisServersEditEndpoint());
+                break;
+            case 'password':
+                await this.clearInputText(await this.teleTab.getPluginRedisPasswordEditEndpoint());
+                break;
+            default:
+                throw `unhandled field ${fields[i]}`;
 
             }
         }
@@ -278,17 +278,17 @@ class telegrafsSteps extends loadDataSteps{
             await card.findElement(By.xpath('.//div[contains(text(), \'Bucket\')]')).then(async elem => {
                 await elem.getText().then(async elText => {
                     expect(elText).to.include(bucket);
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
     async verifyDescriptionForTelegrafCard(name, descr){
         await this.teleTab.getTelegrafCardDescr(name).then(async elem => {
             await elem.getText().then(async elText => {
-                    expect(elText).to.equal(descr);
-            })
-        })
+                expect(elText).to.equal(descr);
+            });
+        });
 
     }
 
@@ -357,23 +357,23 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async clearTelegrafCardDescrInput(name){
-        await this.clearInputText(await this.teleTab.getTelegrafCardDescrInput(name))
+        await this.clearInputText(await this.teleTab.getTelegrafCardDescrInput(name));
     }
 
     async setNameInputOfTelegrafCard(oldName, newName){
         await this.teleTab.getTelegrafCardNameInput(oldName).then(async elem => {
             await elem.sendKeys(newName + Key.ENTER).then(async () => {
                 await this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async setDescriptionInputOfTelegrafCard(name, descr){
         await this.teleTab.getTelegrafCardDescrInput(name).then(async elem => {
             await elem.sendKeys(descr + Key.ENTER).then(async () => {
                 await this.driver.sleep(100); // todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyTelegrafCardNotPresent(name){
@@ -390,11 +390,11 @@ class telegrafsSteps extends loadDataSteps{
 
     async clickTelegrafCardAddLabel(name){
         await this.clickAndWait(await this.teleTab.getTelegrafCardAddLabelBtn(name),
-            async () => { await this.driver.sleep(3000) }); //longer wait - troubleshoot labels - not appearing
+            async () => { await this.driver.sleep(3000); }); //longer wait - troubleshoot labels - not appearing
     }
 
     async verifyTelegrafCardLabelPopupNotPresent(name){
-        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPopupSelector(name))
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPopupSelector(name));
     }
 
     async verifyTelegrafCardLabelPopupIsVisible(name){
@@ -406,23 +406,23 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async verifyTelegrafCardLabelPopupSelectItemNotPresent(name, item){
-        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPopupListItemSelector(name, item))
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPopupListItemSelector(name, item));
     }
 
     async filterTelegrafCardLabeList(name, term){
         await this.teleTab.getTelegrafCardLabelPopupFilter(name).then(async filter => {
             await filter.sendKeys(term).then(async () => {
                 await this.driver.sleep(150); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async enterTermIntoTelegrafCardLabelFilter(name, term){
         await this.teleTab.getTelegrafCardLabelPopupFilter(name).then(async filter => {
             await filter.sendKeys(term + Key.ENTER).then(async () => {
                 await this.driver.sleep(150); //todo better wait
-            })
-        })
+            });
+        });
     }
 
     async clearTelegrafCardLabelFilter(name){
@@ -438,7 +438,7 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async verifyTelegrafCardLabelPillNotPresent(name, label){
-        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPillItemSelector(name, label))
+        await this.assertNotPresent(telegrafsTab.getTelegrafCardLabelPillItemSelector(name, label));
     }
 
     async verifyTelegrafCardLabelListEmptyMsg(name){

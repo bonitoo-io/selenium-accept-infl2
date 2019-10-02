@@ -127,15 +127,15 @@ const writeData = async (org, //string
 };
 
 const query = async(orgID, //string
-          query // string
-          ) => {
-        return await axios({method: 'post',
-                  url: '/api/v2/query?orgID=' + orgID,
-                  data: {"query": query} }).then(async response => {
-                      return response.data;
-        }).catch(async err => {
-            console.log("CAUGHT ERROR: " + err);
-        })
+    query // string
+) => {
+    return await axios({method: 'post',
+        url: '/api/v2/query?orgID=' + orgID,
+        data: {'query': query} }).then(async response => {
+        return response.data;
+    }).catch(async err => {
+        console.log('CAUGHT ERROR: ' + err);
+    });
 
 
 };
@@ -166,19 +166,19 @@ const parseQueryResults = async(results) => {
 
 //{"name":"ASDF","retentionRules":[],"orgID":"727d19908f30184f","organization":"qa"}
 const createBucket = async(orgId, // String
-                           orgName, //String
-                            bucketName, //String
-                ) => {
+    orgName, //String
+    bucketName, //String
+) => {
     //throw "createBuctket() not implemented";
     return await axios({
         method: 'post',
         url: '/api/v2/buckets',
-        data: { "name": bucketName, "orgID": orgId, "organization": orgName }
+        data: { 'name': bucketName, 'orgID': orgId, 'organization': orgName }
     }).then(async response => {
         return response.data;
     }).catch(async err => {
-        console.log("influxUtils.createBucket - Error " + err);
-    })
+        console.log('influxUtils.createBucket - Error ' + err);
+    });
 };
 
 //TODO - create cell and view to attach to dashboard
@@ -201,14 +201,14 @@ const createLabel = async(orgId,
     return await axios({
         method: 'post',
         url: '/api/v2/labels',
-        data: { "orgId": orgId, "name": labelName,
-            "properties": { "description": labelDescr, "color": labelColor }}
+        data: { 'orgId': orgId, 'name': labelName,
+            'properties': { 'description': labelDescr, 'color': labelColor }}
     }).then(resp => {
         return resp.data;
     }).catch(err => {
         console.log('ERROR: ' + err);
         throw(err);
-    })
+    });
 };
 
 module.exports = { flush,

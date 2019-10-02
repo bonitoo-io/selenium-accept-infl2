@@ -15,7 +15,7 @@ const tokensSortByDescription = '//*[@data-testid=\'index-list--header-cell\'][t
 const tokenDescription = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]';
 const tokenDescriptionEditBtn = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]/div[@data-testid=\'editable-name--toggle\']';
 const tokenDescriptionEditInput = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]//input';
-const tokenCardDeleteButton = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[@data-testid=\'delete-token--button\']'
+const tokenCardDeleteButton = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[@data-testid=\'delete-token--button\']';
 const tokenCardDeleteConfirm = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[text()=\'Confirm\']';
 
 // Generate Read/Write token popup
@@ -59,7 +59,7 @@ class tokensTab extends settingsPage{
     }
 
     async getTokenCellByDescr(descr){
-        return await this.driver.findElement(By.xpath(tokenCellTemplate.replace('%DESCR%', descr)))
+        return await this.driver.findElement(By.xpath(tokenCellTemplate.replace('%DESCR%', descr)));
     }
 
     static getTokenCellSelectorByDescr(descr){
@@ -97,7 +97,7 @@ class tokensTab extends settingsPage{
     }
 
     static getEmptyStateTextSelector(mode){
-        return { type: 'xpath', selector: emptyStateText.replace('%MODE%', mode) }
+        return { type: 'xpath', selector: emptyStateText.replace('%MODE%', mode) };
     }
 
     async getSearchBucketsListItem(mode, name){
@@ -108,8 +108,8 @@ class tokensTab extends settingsPage{
 
     static getSearchBucketsListItemSelector(mode, name){
         return { type: 'xpath', selector: searchBucketsListItem
-                .replace('%MODE%', mode)
-                .replace('%NAME%', name)};
+            .replace('%MODE%', mode)
+            .replace('%NAME%', name)};
     }
 
     async getSelectAllBuckets(mode){
@@ -133,7 +133,7 @@ class tokensTab extends settingsPage{
     }
 
     async getTokenCardDisableToggle(descr){
-        return await this.driver.findElement(By.xpath(tokenCardDisableToggle.replace('%DESCR%', descr)))
+        return await this.driver.findElement(By.xpath(tokenCardDisableToggle.replace('%DESCR%', descr)));
     }
 
     async getTokenCardDescriptions(){

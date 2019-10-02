@@ -36,8 +36,8 @@ class scrapersSteps extends baseSteps{
             .then(async elem => {
                 await elem.getText().then(async elText => {
                     await expect(elText).to.include(bucketName);
-                })
-        })
+                });
+            });
     }
 
     async verifyScraperCardHasEndpoint(scraper, endpoint){
@@ -46,8 +46,8 @@ class scrapersSteps extends baseSteps{
             .then(async elem => {
                 await elem.getText().then(async elText => {
                     await expect(elText).to.include(endpoint);
-                })
-            })
+                });
+            });
     }
 
     async verifyScrapersTabIsLoaded(){
@@ -63,16 +63,16 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.getCreateScraperEmpty().then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); //todo implement better wait;
-            })
-        })
+            });
+        });
     }
 
     async clickCreateScraperButtonInHeader(){
         await this.scrapeTab.getCreateScraperHeader().then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.sleep(100); //todo implement better wait;
-            })
-        })
+            });
+        });
     }
 
     async verifyCreateScraperEmptyNotPresent(){
@@ -95,17 +95,17 @@ class scrapersSteps extends baseSteps{
             await filter.clear().then(async () => {
                 await filter.sendKeys(value).then(async () => {
                     await this.driver.sleep(100); //todo implement better wait
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
     async clearScraperFilter(){
         await this.scrapeTab.getScrapersFilter().then(async filter => {
             await filter.clear().then(async () => {
                 await this.driver.sleep(100); //todo implement better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyScraperCardNotPresent(scraper){
@@ -116,24 +116,24 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.getNameSort().then(async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(100); //todo implement better wait
-            })
-        })
+            });
+        });
     }
 
     async clickScraperURLSortButton(){
         await this.scrapeTab.getUrlSort().then(async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(100); //todo implement better wait
-            })
-        })
+            });
+        });
     }
 
     async clickScraperBucketSortButton(){
         await this.scrapeTab.getBucketSort().then(async button => {
             await button.click().then(async() => {
                 await this.driver.sleep(100);
-            })
-        })
+            });
+        });
     }
 
     async mouseOverScraperCardName(name){
@@ -144,7 +144,7 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.getScraperCardNameEditButton(name).then(async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(100); // todo implement better wait
-            })
+            });
         });
     }
 
@@ -152,24 +152,24 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.getScraperCardNameEditField(oldName).then(async input => {
             await input.sendKeys(newName + Key.ENTER).then(async () => {
                 await this.driver.sleep(100); //todo implement better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyNamedQueryResponseValues(queryName, username, bucket, values, field = '_value'){
         let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
         let query;
         query = namedQueriesMap.get(queryName);
-        query = query.replace("[BUCKET]", bucket);
+        query = query.replace('[BUCKET]', bucket);
 
         let resultsMapArr = await influxUtils.parseQueryResults(await influxUtils.query(user.orgid, query));
 
         let targetValues = values.split(',');
 
         targetValues.forEach(async value => {
-           await expect(resultsMapArr.filter(rec =>
-               rec.get(field) === targetValues[0]
-           ).length).to.be.above(0, `failed to locate record with value ${value} in field ${field}`);
+            await expect(resultsMapArr.filter(rec =>
+                rec.get(field) === targetValues[0]
+            ).length).to.be.above(0, `failed to locate record with value ${value} in field ${field}`);
         });
     }
 
@@ -179,7 +179,7 @@ class scrapersSteps extends baseSteps{
                 await this.driver.sleep(500); //todo fix later - losing patience - better wait
                 await this.assertNotVisible(await this.scrapeTab.getScraperCardDeleteByName(name));
             });
-        })
+        });
 
     }
 
@@ -189,9 +189,9 @@ class scrapersSteps extends baseSteps{
 
     async clickScraperCardDeleteButton(name){
         await this.scrapeTab.getScraperCardDeleteByName(name).then(async button => {
-           await button.click().then(async () => {
-              await this.driver.sleep(100); // todo better wait
-           });
+            await button.click().then(async () => {
+                await this.driver.sleep(100); // todo better wait
+            });
         });
     }
 
@@ -199,8 +199,8 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.getScraperCardDeleteConfirmByName(name).then(async button => {
             await button.click().then(async () => {
                 await this.driver.sleep(200); //todo better wait
-            })
-        })
+            });
+        });
     }
 
 

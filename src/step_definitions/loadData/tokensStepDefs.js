@@ -17,7 +17,7 @@ When(/^click the generate token dropdown$/, async () => {
 });
 
 When(/^click the generate token item "(.*)"$/, async item => {
-   await tknSteps.clickGenerateTokenItem(item);
+    await tknSteps.clickGenerateTokenItem(item);
 });
 
 When(/^select token type based on (.*) type$/, async privilege => {
@@ -33,15 +33,15 @@ Then(/^the generate read-write token popup is loaded$/, async () => {
 });
 
 Then(/^the generate all-access token popup is loaded$/, async () => {
-   await tknSteps.verifyAllAccessTokenPopup();
+    await tknSteps.verifyAllAccessTokenPopup();
 });
 
 When(/^click the "(.*)" radio button "(.*)"$/, async (mode, set) => {
-   await tknSteps.clickModeScopeRadioButton(mode, set);
+    await tknSteps.clickModeScopeRadioButton(mode, set);
 });
 
 Then(/^the "(.*)" panel shows the empty state text$/, async mode => {
-   await tknSteps.verifyPanelEmptyState(mode);
+    await tknSteps.verifyPanelEmptyState(mode);
 });
 
 Then(/^the tokens list does not contain the token described as "(.*)"$/, async descr => {
@@ -57,16 +57,16 @@ Then(/^the bucket selector for the "(.*)" panel is not present$/, async mode => 
 });
 
 Then(/^the "(.*)" panel empty state text is not present$/, async mode => {
-   await tknSteps.verifyEmptyStateTextNotPresent(mode);
+    await tknSteps.verifyEmptyStateTextNotPresent(mode);
 });
 
 Then(/^the "(.*)" panel bucket list contains "(.*)"$/, async (mode, buckets) => {
-   await tknSteps.verifyPanelBucketList(mode, buckets.replace('DEFAULT', __defaultUser.bucket));
+    await tknSteps.verifyPanelBucketList(mode, buckets.replace('DEFAULT', __defaultUser.bucket));
 });
 
 When(/^filter the "(.*)" panel bucket selector with "(.*)"$/, {timeout: 10000 }, async (mode, term) => {
     await tknSteps.filterPanelBucketsSelector(mode, term);
-   // await tknSteps.delay(5000)
+    // await tknSteps.delay(5000)
 });
 
 Then(/^the "(.*)" panel bucket list does not contain "(.*)"$/, {timeout: 10000}, async (mode, buckets) => {
@@ -90,7 +90,7 @@ When(/^click the "(.*)" panel bucket "(.*)"$/, async (mode, bucket) => {
 });
 
 Then(/^the "(.*)" panel buckets "(.*)" are selected$/, async (mode,buckets) => {
-   await tknSteps.verifyPanelBucketsSelected(mode, buckets.replace('DEFAULT', __defaultUser.bucket));
+    await tknSteps.verifyPanelBucketsSelected(mode, buckets.replace('DEFAULT', __defaultUser.bucket));
 });
 
 Then(/^the "(.*)" panel buckets "(.*)" are not selected$/, async (mode, buckets) => {
@@ -98,7 +98,7 @@ Then(/^the "(.*)" panel buckets "(.*)" are not selected$/, async (mode, buckets)
 });
 
 When(/^click all-access token popup cancel$/, async () => {
-   await tknSteps.clickAllAccessPopupCancel();
+    await tknSteps.clickAllAccessPopupCancel();
 });
 
 When(/^set token description for (.*) as (.*)$/, async (privilege, description) => {
@@ -119,7 +119,7 @@ When(/^set token privileges for (.*) as (.*)$/, async (bucket, privileges) => {
             if(bkt.toLowerCase() === 'all'){
                 await tknSteps.clickModeScopeRadioButton('Read', 'All Buckets');
             }else{
-                await tknSteps.clickTokenPopupSelectBucket('Read', bkt)
+                await tknSteps.clickTokenPopupSelectBucket('Read', bkt);
             }
         }
 
@@ -127,7 +127,7 @@ When(/^set token privileges for (.*) as (.*)$/, async (bucket, privileges) => {
             if(bkt.toLowerCase() === 'all'){
                 await tknSteps.clickModeScopeRadioButton('Write', 'All Buckets');
             }else{
-                await tknSteps.clickTokenPopupSelectBucket('Write', bkt)
+                await tknSteps.clickTokenPopupSelectBucket('Write', bkt);
             }
         }
     }
@@ -172,7 +172,7 @@ When(/^hover over the token description "(.*)"$/, async descr => {
 });
 
 When(/^click the token description toggle for "(.*)"$/, async descr => {
-   await tknSteps.clickTokenDescriptionEditToggle(descr);
+    await tknSteps.clickTokenDescriptionEditToggle(descr);
 });
 
 When(/^clear the edit input for description "(.*)"$/, async descr => {
@@ -188,7 +188,7 @@ When(/^click on the token described as "(.*)"$/, async descr => {
 });
 
 Then(/^the review token popup is loaded$/, async () => {
-   await tknSteps.verifyReviewTokenPopupLoaded();
+    await tknSteps.verifyReviewTokenPopupLoaded();
 });
 
 Then(/^the review token popup matches "(.*)" and "(.*)"$/, async (buckets, privileges) => {

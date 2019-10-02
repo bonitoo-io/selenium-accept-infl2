@@ -120,7 +120,7 @@ When(/^query sine data for org of user "(.*)" from bucket "(.*)"$/, async (user,
   |> filter(fn: (r) => r._field == "point")`;
 
     let results = await influxUtils.query(org, query);
-    console.log("DEBUG results: " + results);
+    console.log('DEBUG results: ' + results);
 });
 
 
@@ -140,22 +140,15 @@ When(/^API create a dashboard named "(.*?)" for user "(.*?)"$/, async (name, use
 });
 
 When(/^API create a bucket named "(.*)" for user "(.*)"$/, async (bucket, username) => {
-   let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
-   let newBucket = await influxUtils.createBucket(user.orgid, user.org, bucket);
-
-   //console.log("DEBUG newBucket: " + JSON.stringify(newBucket) );
-
+    let user = await influxUtils.getUser((username === 'DEFAULT') ? __defaultUser.username : username);
+    await influxUtils.createBucket(user.orgid, user.org, bucket);
 });
 
 When(/^API create a label "(.*)" described as "(.*)" with color "(.*)" for user "(.*)"$/,
-      async (labelName, labelDescr, labelColor, user) => {
-    let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
-
-    let newLabel = await influxUtils.createLabel(orgID, labelName, labelDescr, labelColor);
-
-    //console.log("DEBUG newLabel: " + JSON.stringify(newLabel));
-
-      });
+    async (labelName, labelDescr, labelColor, user) => {
+        let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
+        await influxUtils.createLabel(orgID, labelName, labelDescr, labelColor);
+    });
 
 When(/^open page "(.*?)" for user "(.*?)"$/, async (page, username) => {
 
@@ -173,11 +166,11 @@ When(/^open page "(.*?)" for user "(.*?)"$/, async (page, username) => {
 });
 
 Then(/^the form element error message is "(.*)"$/, async msg => {
-   await bSteps.verifyElementErrorMessage(msg);
+    await bSteps.verifyElementErrorMessage(msg);
 });
 
 Then(/^the form element error message is not shown$/, async () => {
-   await bSteps.verifyNoElementErrorMessage();
+    await bSteps.verifyNoElementErrorMessage();
 });
 
 Then(/^no form input error icon is shown$/, async () => {
@@ -185,20 +178,20 @@ Then(/^no form input error icon is shown$/, async () => {
 });
 
 Then(/^a form input error icon is shown$/, async () => {
-   await bSteps.verifyInputErrorIcon();
+    await bSteps.verifyInputErrorIcon();
 });
 
 When(/^click the Popup Wizard continue button$/, {timeout: 15000}, async() => {
-   await bSteps.clickPopupWizardContinue();
-   //await bSteps.driver.sleep(10000);
+    await bSteps.clickPopupWizardContinue();
+    //await bSteps.driver.sleep(10000);
 });
 
 When(/^click the wizard previous button$/, async () => {
-   await bSteps.clickPopupWizardPrevious();
+    await bSteps.clickPopupWizardPrevious();
 });
 
 When(/^click the Popup Wizard done button$/, async () => {
-   await bSteps.clickPopupWizardContinue();
+    await bSteps.clickPopupWizardContinue();
 });
 
 Then(/^the popup wizard continue button is disabled$/, async() => {
@@ -210,15 +203,15 @@ When(/^dismiss the popup$/, async () => {
 });
 
 When(/^click popup cancel button$/, async () => {
-   await bSteps.clickPopupCancelBtn();
+    await bSteps.clickPopupCancelBtn();
 });
 
 Then(/^popup is not loaded$/, async () => {
-   await bSteps.verifyPopupNotPresent();
+    await bSteps.verifyPopupNotPresent();
 });
 
 //For troubleshooting
 When(/^wait "(.*)" seconds$/, async secs => {
-   await bSteps.driver.sleep(parseInt(secs));
+    await bSteps.driver.sleep(parseInt(secs));
 });
 

@@ -20,15 +20,11 @@ class dashboardsSteps extends influxSteps {
     }
 
     async clickCreateDashboard(){
-        await this.dbdsPage.getCreateDashboardDropdown().then(async elem => {
-            await elem.click();
-        });
+        await this.clickAndWait(await this.dbdsPage.getCreateDashboardDropdown()); // todo better wait
     }
 
     async clickCreateDashboardItem(item){
-        await this.dbdsPage.getCreateDashboardItem(item).then(async elem => {
-            await elem.click();
-        });
+        await this.clickAndWait(await this.dbdsPage.getCreateDashboardItem(item)); // todo better wait
     }
 }
 

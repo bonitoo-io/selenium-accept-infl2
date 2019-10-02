@@ -38,11 +38,11 @@ class scrapersTab extends loadDataPage{
     }
 
     async getScraperCardNameEditButton(name){
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='icon']`))
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='icon']`));
     }
 
     async getScraperCardNameEditField(name){
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='input-field']`))
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='input-field']`));
     }
 
     async getScraperCardDeleteByName(name){
@@ -66,7 +66,7 @@ class scrapersTab extends loadDataPage{
     }
 
     async getUrlSort(){
-       return this.driver.findElement(By.css(urlSort));
+        return this.driver.findElement(By.css(urlSort));
     }
 
     async getBucketSort(){
@@ -82,7 +82,7 @@ class scrapersTab extends loadDataPage{
     }
 
     async getScraperCards(){
-            return await this.driver.findElements(By.css(scraperCards));
+        return await this.driver.findElements(By.css(scraperCards));
     }
 
 

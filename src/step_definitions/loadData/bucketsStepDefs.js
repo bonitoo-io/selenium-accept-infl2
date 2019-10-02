@@ -33,7 +33,7 @@ Then(/^the Retention Policy radio button "(.*)" is active$/, async (rp) => {
 });
 
 Then(/^the Retention Policy radio button "(.*)" is inactive$/, async (rp) => {
-   await bktTabSteps.verifyInactiveRetentionPolicyButton(rp);
+    await bktTabSteps.verifyInactiveRetentionPolicyButton(rp);
 });
 
 
@@ -81,15 +81,15 @@ When(/^input the name of the bucket as "(.*)"$/, async (name) => {
 });
 
 When(/^clear all Retention Policy interval controls$/, async () => {
-   await bktTabSteps.clearAllRetentionPolicyIntervals();
+    await bktTabSteps.clearAllRetentionPolicyIntervals();
 });
 
 When(/^enter "(.*)" into the Retention Policy "(.*)" control$/, async(amount, unit) => {
-   await bktTabSteps.enterIntervalValue(amount, unit);
+    await bktTabSteps.enterIntervalValue(amount, unit);
 });
 
 Then(/^the Retention Policy "(.*)" control contains the value "(.*)"$/, async(unit, value) => {
-   await bktTabSteps.verifyIntervalValue(value, unit);
+    await bktTabSteps.verifyIntervalValue(value, unit);
 });
 
 
@@ -116,16 +116,16 @@ Then(/^the Retention Policy warning message contains "(.*)"$/, async (msg) => {
 });
 
 Then(/^the Retention Policy warning message has disappeared$/, {timeout: 2 * 5000}, async () => {
-   await bktTabSteps.verifyFormErrorMessageNotPresent();
+    await bktTabSteps.verifyFormErrorMessageNotPresent();
 });
 
 Then(/^the bucket named "(.*)" is in the list$/, async (name) => {
-   await bktTabSteps.verifyBucketInListByName(name);
+    await bktTabSteps.verifyBucketInListByName(name);
 });
 
 Then(/^the bucket card named "(.*)" is not in the list$/, async (name) => {
     await bktTabSteps.verifyBucktNotInListByName(name);
-})
+});
 
 
 Then(/^the bucket named "(.*)" has a Retention Policy of "(.*)"$/, async (name, rp) => {
@@ -133,7 +133,7 @@ Then(/^the bucket named "(.*)" has a Retention Policy of "(.*)"$/, async (name, 
 });
 
 When(/^click on the bucket named "(.*)"$/, async (name) => {
-   await bktTabSteps.clickOnBucketNamed(name);
+    await bktTabSteps.clickOnBucketNamed(name);
 });
 
 Then(/^the Edit Bucket popup is loaded$/, async () => {
@@ -149,7 +149,7 @@ Then(/^the form help text contains "(.*)"$/, async (text) => {
 });
 
 When(/^click Edit Bucket Popup Save Changes$/, async () => {
-     await bktTabSteps.clickSaveChanges();
+    await bktTabSteps.clickSaveChanges();
 });
 
 When(/^enter "(.*)" in the Buckets filter field$/, async (text) => {
@@ -161,7 +161,7 @@ When(/^clear the Buckets filter field$/, async () => {
 });
 
 Given(/^ensure buckets name sort order "(.*)"$/,{timeout: 2 * 5000}, async (order) => {
-   await bktTabSteps.ensureNameSortOrder(order);
+    await bktTabSteps.ensureNameSortOrder(order);
 });
 
 When(/^hover over bucket card named "(.*)"$/,{timeout: 2 * 5000}, async (name) => {
@@ -202,7 +202,7 @@ Then(/^the first page of the Line Protocol Wizard is loaded$/, async () => {
 });
 
 When(/^click radio button "(.*)"$/, async (name) => {
-   await bktTabSteps.clickRadioButton(name);
+    await bktTabSteps.clickRadioButton(name);
 });
 
 Then(/^the data point text area is visible$/, async () => {
@@ -211,16 +211,16 @@ Then(/^the data point text area is visible$/, async () => {
 
 When(/^enter "(.*)" datapoints with value named "(.*)" starting at "(.*)" with "(.*)" data of type "(.*)" and prec "(.*)"$/,
     async (count, value, start, mode, type, prec) => {
-    await bktTabSteps.enterLineProtocolDataPoints(count, value, start, mode, type, prec);
-    await bktTabSteps.driver.sleep(3000);
-});
+        await bktTabSteps.enterLineProtocolDataPoints(count, value, start, mode, type, prec);
+        await bktTabSteps.driver.sleep(3000);
+    });
 
 When(/^enter "(.*)" into the line protocol text area$/, async data => {
     await bktTabSteps.enterLineProtocolRawData(data);
-})
+});
 
 When(/^click the Line Protocol wizard precision dropdown$/, async () => {
-   await bktTabSteps.clickLineProtocolPrecisionDropdown();
+    await bktTabSteps.clickLineProtocolPrecisionDropdown();
 });
 
 When(/^click the Line Protocol wizard continue button$/, async () => {
@@ -232,7 +232,7 @@ When(/^click the line Protocol wizard precision "(.*)"$/, async (prec) => {
 });
 
 Then(/^the line Protocol wizard second step opens$/, async() => {
-   await bktTabSteps.verifyLineProtocolWizardSecondStep();
+    await bktTabSteps.verifyLineProtocolWizardSecondStep();
 });
 
 Then(/^the Line Protocol wizard step status message is "(.*)"$/, async msg => {
@@ -248,14 +248,14 @@ When(/^click the Line Protocol wizard finish button$/, async () => {
 });
 
 Then(/^the line Protocol wizard is not present$/, {timeout: 2 * 5000}, async () => {
-    await bktTabSteps.verifyLineProtocolWizardVisible(false)
+    await bktTabSteps.verifyLineProtocolWizardVisible(false);
 });
 
 Then(/^the bucket "(.*)" for user "(.*)" contains "(.*)" datapoints of "(.*)" data with value named "(.*)" starting at "(.*)"$/,
     async (bucket, user, count, mode, value, start) => {
 
-    await bktTabSteps.verifyBucketContains((bucket === 'DEFAULT') ? __defaultUser.bucket : bucket,
-        (user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(name),
-        count, mode, value, start);
-});
+        await bktTabSteps.verifyBucketContains((bucket === 'DEFAULT') ? __defaultUser.bucket : bucket,
+            (user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(user),
+            count, mode, value, start);
+    });
 
