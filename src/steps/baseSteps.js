@@ -308,6 +308,13 @@ class baseSteps{
         });
     }
 
+    async typeTextAndWait(input, text,
+        wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }) { //wait 1/10th implicit timeout)
+        await input.sendKeys(text).then(async() => {
+            await wait();
+        });
+    }
+
     async verifyElementText(element, text){
         await element.getText().then(async elText => {
             await expect(elText).to.equal(text);
@@ -375,6 +382,24 @@ class baseSteps{
                     await expect(elText).to.match(regex);
                 });
             });
+        });
+    }
+
+    async verifyInputEqualsValue(input, value){
+        await input.getAttribute('value').then( async elVal => {
+            await expect(elVal).to.equal(value);
+        });
+    }
+
+    async verifyInputContainsValue(input, value){
+        await input.getAttribute('value').then( async elVal => {
+            await expect(elVal).to.include(value);
+        });
+    }
+
+    async verifyInputDoesNotContainValue(input, value){
+        await input.getAttribute('value').then( async elVal => {
+            await expect(elVal).to.not.equal(value);
         });
     }
 
