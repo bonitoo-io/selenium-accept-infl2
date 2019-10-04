@@ -84,6 +84,47 @@ Scenario: Edit Label
   Then the label card "Briza" has a pill colored "#ECFC31"
   Then the label card "Briza" has description "Betula pendula"
 
+Scenario: Sort By Name
+  Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
+  When click sort label by name
+  Then the first labels are sorted as "Jilm,Javor,Habr,Buk,Briza"
+  When click sort label by name
+  Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
 # Scenario: Sort By Description - not working - waiting on issue #13950
 
+Scenario: Filter Labels
+  When clear the labels filter input
+  When enter the value "J" into the label filter
+  Then the first labels are sorted as "Javor,Jilm"
+  Then the labels "Briza,Buk,Habr" are not present
+  When enter the value "AV" into the label filter
+  Then the first labels are sorted as "Javor"
+  Then the labels "Briza,Buk,Habr,Jilm" are not present
+  When clear the labels filter input
+  When enter the value "betul" into the label filter
+  Then the first labels are sorted as "Briza,Habr"
+  Then the labels "Buk,Javor,Jilm" are not present
+  When click sort label by name
+  # There is a third neutral phase to the toggle
+  When click sort label by name
+  Then the first labels are sorted as "Habr,Briza"
+  When click sort label by name
+  Then the first labels are sorted as "Briza,Habr"
+  When clear the labels filter input
+  Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
+
+Scenario Outline: Delete Label
+  When hover over label card "<NAME>"
+  When click delete for the label card "<NAME>"
+  When click delete confirm for the label card "<NAME>"
+  Then the labels "<NAME>" are not present
+
+  Examples:
+  | NAME |
+  | Briza |
+  | Buk |
+  | Habr |
+  | Javor |
+  | Jilm |
+  

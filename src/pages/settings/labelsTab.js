@@ -4,12 +4,15 @@ const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
 const labelsFilter = '[data-testid=search-widget]';
 const createLabelHeader = '[data-testid=button-create]';
-const nameSort = '[data-testid=sorter--name]';
+const labelNameSort = '[data-testid=sorter--name]';
 const descSort = '[data-testid=sorter--desc]';
 const createLabelEmpty = '[data-testid=button-create-initial]';
 const labelCard = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]';
+const labelCardPills = '[data-testid^=label--pill]';
 const labelCardPill = '//*[@data-testid=\'label-card\']//div[./span[@data-testid=\'label--pill %NAME%\']]';
 const labelCardDescr = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'cf-resource-card--meta-item\'][contains(text(), \'Description\')]';
+const labelCardDelete = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//button[@data-testid=\'context-delete-menu\']';
+const labelCardDeleteConfirm = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//button[@data-testid=\'context-delete-label\']'
 
 const urlCtx = 'labels';
 
@@ -36,14 +39,14 @@ class labelsTab extends settingsPage{
             [
                 {type: 'css', selector: labelsFilter},
                 {type: 'css', selector: createLabelHeader},
-                {type: 'css', selector: nameSort},
+                {type: 'css', selector: labelNameSort},
                 {type: 'css', selector: descSort},
             ]
         );
     }
 
-    async getNameSort(){
-        return await this.driver.findElement(By.css(nameSort));
+    async getLabelNameSort(){
+        return await this.driver.findElement(By.css(labelNameSort));
     }
 
     async getDescSort(){
@@ -114,8 +117,20 @@ class labelsTab extends settingsPage{
         return await this.driver.findElement(By.xpath(labelCardPill.replace('%NAME%', name)));
     }
 
+    async getLabelCardPills(){
+        return await this.driver.findElements(By.css(labelCardPills));
+    }
+
     async getLabelCardDescr(name){
         return await this.driver.findElement(By.xpath(labelCardDescr.replace('%NAME%', name)));
+    }
+
+    async getLabelCardDelete(name){
+        return await this.driver.findElement(By.xpath(labelCardDelete.replace('%NAME%', name)));
+    }
+
+    async getLabelCardDeleteConfirm(name){
+        return await this.driver.findElement(By.xpath(labelCardDeleteConfirm.replace('%NAME%', name)));
     }
 
 }

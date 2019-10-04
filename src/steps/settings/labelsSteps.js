@@ -194,6 +194,46 @@ class labelsSteps extends baseSteps{
         await this.clickAndWait(await this.labTab.getLabelCardPill(name));
     }
 
+    async verifyLabelSortOrder(labels){
+        let lblArr = labels.split(',');
+        await this.labTab.getLabelCardPills().then(async pills => {
+            for(let i = 0; i < lblArr.length; i++){
+                await expect(await pills[i].getText()).to.equal(lblArr[i]);
+            }
+        });
+    }
+
+    async clickLabelSortByName(){
+        await this.clickAndWait(await this.labTab.getLabelNameSort());
+    }
+
+    async clearLabelFilterInput(){
+        await this.clearInputText(await this.labTab.getLabelsFilter());
+    }
+
+    async enterTextIntoLabelFilter(text){
+        await this.typeTextAndWait(await this.labTab.getLabelsFilter(), text);
+    }
+
+    async verifyLabelsNotPresent(labels){
+        let lblArr = labels.split(',');
+        for(let i = 0; i < lblArr.length; i++){
+            await this.assertNotPresent(labelsTab.getLabelCardSelector(lblArr[i]));
+        }
+    }
+
+    async hoverOverLabelCard(name){
+        await this.hoverOver(await this.labTab.getLabelCard(name));
+    }
+
+    async clickLabelCardDelete(name){
+        await this.clickAndWait(await this.labTab.getLabelCardDelete(name));
+    }
+
+    async clickLabelCardDeleteConfirm(name){
+        await this.clickAndWait(await this.labTab.getLabelCardDeleteConfirm(name));
+    }
+
 }
 
 module.exports = labelsSteps;

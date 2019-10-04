@@ -112,3 +112,35 @@ When(/^I click the Label Card Pill "(.*)"$/, async name => {
 Then(/^the edit label popup is loaded$/, async () => {
     await lblSteps.verifyEditLabelPopuLoaded();
 });
+
+Then(/^the first labels are sorted as "(.*)"$/, async labels => {
+   await lblSteps.verifyLabelSortOrder(labels);
+});
+
+When(/^click sort label by name$/, async () => {
+   await lblSteps.clickLabelSortByName();
+});
+
+When(/^clear the labels filter input$/, async () => {
+    await lblSteps.clearLabelFilterInput();
+});
+
+When(/^enter the value "(.*)" into the label filter$/, async text => {
+   await lblSteps.enterTextIntoLabelFilter(text);
+});
+
+Then(/^the labels "(.*)" are not present$/, {timeout: 15000}, async labels => {
+   await lblSteps.verifyLabelsNotPresent(labels);
+});
+
+When(/^hover over label card "(.*)"$/, async name => {
+    await lblSteps.hoverOverLabelCard(name);
+});
+
+When(/^click delete for the label card "(.*)"$/, async name => {
+    await lblSteps.clickLabelCardDelete(name);
+});
+
+When(/^click delete confirm for the label card "(.*)"$/, async name => {
+    await lblSteps.clickLabelCardDeleteConfirm(name);
+});
