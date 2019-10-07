@@ -8,8 +8,10 @@ const popupFormElementError  = '[data-testid=form--element-error]';
 const formInputError = '[data-testid=input-error]';
 const popupDismiss = '[data-testid=overlay--header] button[class*=dismiss]';
 const popupCancel = '[data-testid=overlay--container] button[data-testid=button--cancel]';
+const popupCancelSimple = '[data-testid=overlay--container] button[title=Cancel]';
 const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
 const popupSave = '[data-testid=overlay--container] button[data-testid=button--save] ';
+const popupCreate = '[data-testid=overlay--container] button[title=Create]';
 const popupCopyToClipboard = '[data-testid=button-copy][title=\'Copy to Clipboard\']';
 const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
@@ -167,6 +169,10 @@ class basePage{
         return await this.driver.findElement(By.css(popupCancel));
     }
 
+    async getPopupCancelSimple(){
+        return await this.driver.findElement(By.css(popupCancelSimple));
+    }
+
     async getPopupSave(){
         return await this.driver.findElement(By.css(popupSave));
     }
@@ -222,6 +228,10 @@ class basePage{
 
     async getPopupCopyToClipboard(){
         return await this.driver.findElement(By.css(popupCopyToClipboard));
+    }
+
+    async getPopupCreate(){
+        return await this.driver.findElement(By.css(popupCreate));
     }
 
 }

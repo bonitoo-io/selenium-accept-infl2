@@ -191,6 +191,29 @@ class baseSteps{
         }
     }
 
+    async assertPresent(selector){
+        switch(selector.type){
+            case 'css':
+                await this.driver.findElements(By.css(selector.selector)).then(async elems => {
+                    await expect(elems.length).to.be.above(0);
+                }).catch(async err => {
+                    err += ' expected ' + JSON.stringify(selector) + ' to not be present';
+                    throw err;
+                });
+                break;
+            case 'xpath':
+                await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
+                    await expect(elems.length).to.be.above(0);
+                }).catch(async err => {
+                    err.message += ' expected ' + selector + ' to not be present';
+                    throw err;
+                });
+                break;
+            default:
+                throw `Unknown selector type ${selector}`;
+        }
+    }
+
     static async genFibonacciValues(count){
         let result = [];
         for(let i = 0; i < count; i++){
