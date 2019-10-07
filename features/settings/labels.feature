@@ -127,4 +127,4 @@ Scenario Outline: Delete Label
   | Habr |
   | Javor |
   | Jilm |
-  
+
