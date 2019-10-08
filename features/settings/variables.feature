@@ -66,6 +66,58 @@ Feature: Settings - Variables
     Then the create variable popup textarea is not visible
     Then the create variable popup default value dropdown is not visible
     Then the create variable popup info line is not visible
-    Then dismiss the popup
+    Then click popup cancel simple button
     Then popup is not loaded
 
+  Scenario Outline: Import Variable
+    When click create variable dropdown in header
+    When click "import" variable dropdown item
+    When upload the import variable file "<FILE>"
+    Then the import variable drag and drop header contains success "<FILE>"
+    When click the import variable import button
+    Then popup is not loaded
+    Then the success notification contains "Successfully created new variable: <NAME>"
+    Then close all notifications
+    Then there is a variable card for "<NAME>"
+
+  Examples:
+    |NAME|FILE|
+    |Bucket|etc/test-data/variable-query-bucket.json|
+    |Ryby|etc/test-data/variable-map-ryby.json|
+    |Jehlicnany|etc/test-data/variable-map-jehlicnany.json|
+    |Slavia|etc/test-data/variable-csv-slavia.json|
+    |Arsenal|etc/test-data/variable-csv-arsenal.json|
+
+  Scenario: Create Map Variable
+    When click create variable dropdown in header
+    When click "new" variable dropdown item
+    When click the create variable popup type dropdown
+    When click the create variable popup type dropdown item "map"
+    When enter the create variable popup name "Primaty"
+    When enter the create variable popup values:
+    """
+    Human,homo sapiens
+    Orangutan,pongo
+    Chimpanzee,pan troglodytes
+    Gorilla,gorilla
+    Baboon,papio
+    """
+    When click the create variable popup title
+    Then the create variable popup info line contains "5" items
+    Then the selected default variable dropdown item is "Human"
+    When click the create variable popup default dropdown
+    When click the create variable popup default dropdown item "Chimpanzee"
+    Then the selected default variable dropdown item is "Chimpanzee"
+    When click the create variable popup create button
+    Then popup is not loaded
+    Then the success notification contains "Successfully created new variable: Primaty"
+    Then close all notifications
+    Then there is a variable card for "Primaty"
+
+
+#  Scenario: Create Query Variable
+#    When click create variable dropdown in header
+#    When click "new" variable dropdown item
+#    When click the create variable popup type dropdown
+#    When click the create variable popup type dropdown item "Query"
+#    When enter the create variable popup name "Kybl"

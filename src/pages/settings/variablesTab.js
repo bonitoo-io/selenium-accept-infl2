@@ -7,6 +7,7 @@ const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const typeSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
 const createVariableEmpty = '[data-testid=resource-list--body] [data-testid=add-resource-dropdown--button]';
 const createVariableItem = '[data-testid=add-resource-dropdown--%ITEM%]';
+const variableCardNamed = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]';
 
 const urlCtx = 'variables';
 
@@ -16,6 +17,7 @@ const pasteRadioButton = '[data-testid=radio--button][title=Paste]';
 const dragNDropFile = 'input[type=file]'; //N.B. has display:none
 const importButton = '[data-testid=overlay--footer] [data-testid=button]';
 const pasteJSONTextarea = '[data-testid=overlay--body] [data-testid=textarea]';
+const importVariableDragNDropHeader = '.drag-and-drop--header';
 
 // create variable popup
 const createVariableNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
@@ -25,6 +27,7 @@ const createVariableTextArea = '[data-testid=overlay--body] [data-testid=textare
 const createVariableTypeDropdownItem = '[data-testid=overlay--body] [data-testid=dropdown-item][id=\'%ITEM%\']';
 const createVariableDefaultValDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Select A Default\']]//*[@data-testid=\'dropdown--button\']';
 const createVariableInfoPara = '//*[@data-testid=\'grid--column\'][p[contains(text(), \'ontains\')]]';
+const createVariableDefaultValDropdownItem = '[data-testid=dropdown-item][id=\'%ITEM%\']';
 
 class variablesTab extends settingsPage{
 
@@ -126,6 +129,18 @@ class variablesTab extends settingsPage{
 
     static getCreateVariableInfoParaSelector(){
         return { type: 'xpath', selector: createVariableInfoPara};
+    }
+
+    async getImportVariableDragNDropHeader(){
+        return await this.driver.findElement(By.css(importVariableDragNDropHeader));
+    }
+
+    async getVariableCardNamed(name){
+        return await this.driver.findElement(By.xpath(variableCardNamed.replace('%NAME%', name)));
+    }
+
+    async getCreateVariableDefaultValDropdownItem(item){
+        return await this.driver.findElement(By.css(createVariableDefaultValDropdownItem.replace('%ITEM%', item)));
     }
 
 }

@@ -314,6 +314,15 @@ class baseSteps{
         await this.clickAndWait(await this.basePage.getPopupCancel()); // todo better wait
     }
 
+    async clickPopupCancelBtnSimple(){
+        await this.clickAndWait(await this.basePage.getPopupCancelSimple()); //todo better wait
+    }
+
+    //sometimes need to lose focus from a popup element to trigger change
+    async clickPopupTitle(){
+        await this.clickAndWait(await this.basePage.getPopupTitle());
+    }
+
     async verifyPopupNotPresent(){
         await this.assertNotPresent(await basePage.getPopupOverlayContainerSelector());
     }

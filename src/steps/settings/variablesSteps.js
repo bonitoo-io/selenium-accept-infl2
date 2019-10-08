@@ -1,5 +1,6 @@
 const { By } = require('selenium-webdriver');
 const { expect } = require('chai');
+const  path  = require('path');
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const variablesTab = require(__srcdir + '/pages/settings/variablesTab.js');
 
@@ -134,6 +135,59 @@ class variablesSteps extends baseSteps{
         }else{
             await this.assertNotPresent(variablesTab.getCreateVariableInfoParaSelector());
         }
+    }
+
+    async uploadImportVarPopupFile(path2file){
+        await this.varTab.getDragNDropFile().then(async elem => {
+            await elem.sendKeys(process.cwd() + '/' + path2file).then(async () => {
+                await this.delay(200); //debug wait - todo better wait
+            })
+        })
+    }
+
+    async verifyImportPopupUploadSuccess(){
+        await this.verifyElementContainsClass(await this.varTab.getImportVariableDragNDropHeader(), "selected");
+    }
+
+    async verifyImportPopupUploadFilename(path2file){
+        let fp = path.parse(path2file);
+        await this.verifyElementContainsText(await this.varTab.getImportVariableDragNDropHeader(), fp.base);
+    }
+
+    async clickImportPopupImportButton(){
+        await this.clickAndWait(await this.varTab.getImportButton());
+    }
+
+    async verifyVariableCardVisible(name){
+        await this.assertVisible(await this.varTab.getVariableCardNamed(name));
+    }
+
+    async enterCreateVarPopupName(name){
+        await this.typeTextAndWait(await this.varTab.getCreateVariableNameInput(), name);
+    }
+
+    async enterCreateVarPopupTextarea(values){
+        await this.typeTextAndWait(await this.varTab.getCreateVariableTextArea(), values);
+    }
+
+    async verifyCreatePopupDefaultValDropdownSelected(item){
+        await this.varTab.getCreateVariableDefaultValDropdown().then(async elem => {
+            await elem.findElement(By.css('[class*=\'selected\']')).then(async el2 => {
+                await this.verifyElementContainsText(el2, item);
+            })
+        })
+    }
+
+    async clickCreateVarPopupDefaultDropdown(){
+        await this.clickAndWait(await this.varTab.getCreateVariableDefaultValDropdown());
+    }
+
+    async clickCreateVarPopupDefaultDropdownItem(item){
+        await this.clickAndWait(await this.varTab.getCreateVariableDefaultValDropdownItem(item));
+    }
+
+    async clickCreateVarPopupCreateButton(){
+        await this.clickAndWait(await this.varTab.getPopupCreate());
     }
 }
 

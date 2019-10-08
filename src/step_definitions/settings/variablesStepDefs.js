@@ -99,3 +99,48 @@ When(/^click the create variable popup type dropdown item "(.*)"$/, async item =
 Then(/^the create variable popup info line is not visible$/, async () => {
     await vblSteps.verifyCreateVarPopupInfoVisible(false);
 });
+
+When(/^upload the import variable file "(.*)"$/, async path2file  => {
+   await vblSteps.uploadImportVarPopupFile(path2file);
+});
+
+Then(/^the import variable drag and drop header contains success "(.*)"$/, async path2file => {
+    await vblSteps.verifyImportPopupUploadSuccess();
+    await vblSteps.verifyImportPopupUploadFilename(path2file);
+});
+
+When(/^click the import variable import button$/, async () => {
+    await vblSteps.clickImportPopupImportButton();
+});
+
+Then(/^there is a variable card for "(.*)"$/, async name => {
+   await vblSteps.verifyVariableCardVisible(name);
+});
+
+When(/^enter the create variable popup name "(.*)"$/, async name => {
+   await vblSteps.enterCreateVarPopupName(name);
+});
+
+When(/^enter the create variable popup values:$/, async values => {
+    await vblSteps.enterCreateVarPopupTextarea(values);
+});
+
+When(/^click the create variable popup title$/, async () => {
+   await vblSteps.clickPopupTitle();
+});
+
+Then(/^the selected default variable dropdown item is "(.*)"$/, async item => {
+   await vblSteps.verifyCreatePopupDefaultValDropdownSelected(item);
+});
+
+When(/^click the create variable popup default dropdown$/, async () => {
+   await vblSteps.clickCreateVarPopupDefaultDropdown();
+});
+
+When(/^click the create variable popup default dropdown item "(.*)"$/, async item => {
+  await vblSteps.clickCreateVarPopupDefaultDropdownItem(item);
+});
+
+When(/^click the create variable popup create button$/, async () => {
+   await vblSteps.clickCreateVarPopupCreateButton();
+});

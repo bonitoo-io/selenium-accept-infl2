@@ -206,6 +206,11 @@ When(/^click popup cancel button$/, async () => {
     await bSteps.clickPopupCancelBtn();
 });
 
+When(/^click popup cancel simple button$/, async () => {
+    await bSteps.clickPopupCancelBtnSimple();
+});
+
+
 Then(/^popup is not loaded$/, async () => {
     await bSteps.verifyPopupNotPresent();
 });
