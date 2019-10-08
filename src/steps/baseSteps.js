@@ -368,6 +368,12 @@ class baseSteps{
         });
     }
 
+    async verifyElementEnabled(element){
+        await element.getAttribute('disabled').then(async elAttr => {
+            await expect(elAttr).to.be.null;
+        });
+    }
+
     async verifyWizardContinueButtonDisabled(){
         await this.verifyElementDisabled(await this.basePage.getPopupWizardContinue());
     }

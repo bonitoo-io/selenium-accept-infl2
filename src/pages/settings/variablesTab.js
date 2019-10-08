@@ -15,12 +15,16 @@ const uploadRadioButton = '[data-testid=radio--button][title=Upload]';
 const pasteRadioButton = '[data-testid=radio--button][title=Paste]';
 const dragNDropFile = 'input[type=file]'; //N.B. has display:none
 const importButton = '[data-testid=overlay--footer] [data-testid=button]';
+const pasteJSONTextarea = '[data-testid=overlay--body] [data-testid=textarea]';
 
 // create variable popup
 const createVariableNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
-const createVariableTypeDropdown = '[data-testid=overlay--body] [data-testid=dropdown--button]';
+const createVariableTypeDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Type\']]//*[@data-testid=\'dropdown--button\']';
 const createVariableQueryCodeMirror = '.CodeMirror';
 const createVariableTextArea = '[data-testid=overlay--body] [data-testid=textarea]';
+const createVariableTypeDropdownItem = '[data-testid=overlay--body] [data-testid=dropdown-item][id=\'%ITEM%\']';
+const createVariableDefaultValDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Select A Default\']]//*[@data-testid=\'dropdown--button\']';
+const createVariableInfoPara = '//*[@data-testid=\'grid--column\'][p[contains(text(), \'ontains\')]]';
 
 class variablesTab extends settingsPage{
 
@@ -76,19 +80,53 @@ class variablesTab extends settingsPage{
     }
 
     async getCreateVariableTypeDropdown(){
-        return await this.driver.findElement(By.css(createVariableTypeDropdown));
+        return await this.driver.findElement(By.xpath(createVariableTypeDropdown));
     }
 
     async getCreateVariableQueryCodeMirror(){
         return await this.driver.findElement(By.css(createVariableQueryCodeMirror));
     }
 
+    static getCreateVariableQueryCodeMirrorSelector(){
+        return {type: 'css', selector: createVariableQueryCodeMirror };
+    }
+
     async getCreateVariableTextArea(){
         return await this.driver.findElement(By.css(createVariableTextArea));
     }
 
+    static getCreateVariableTextAreaSelector(){
+        return {type: 'css', selector: createVariableTextArea}
+    }
 
+    async getPasteJSONTextarea(){
+        return await this.driver.findElement(By.css(pasteJSONTextarea));
+    }
 
+    static getPasteJSONTextareaSelector(){
+        return { type: 'css', selector: pasteJSONTextarea};
+    }
+
+    async getCreateVariableTypeDropdownItem(item){
+        return await this.driver.findElement(By.css(createVariableTypeDropdownItem
+            .replace('%ITEM%', item.toLowerCase())));
+    }
+
+    async getCreateVariableDefaultValDropdown(){
+        return await this.driver.findElement(By.xpath(createVariableDefaultValDropdown));
+    }
+
+    static getCreateVariableDefaultValDropdownSelector(){
+        return { type: 'xpath', selector: createVariableDefaultValDropdown};
+    }
+
+    async getCreateVariableInfoPara(){
+        return await this.driver.findElement(By.xpath(createVariableInfoPara));
+    }
+
+    static getCreateVariableInfoParaSelector(){
+        return { type: 'xpath', selector: createVariableInfoPara};
+    }
 
 }
 
