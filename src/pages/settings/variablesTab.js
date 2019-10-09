@@ -21,10 +21,10 @@ const importVariableDragNDropHeader = '.drag-and-drop--header';
 
 // create variable popup
 const createVariableNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
-const createVariableTypeDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Type\']]//*[@data-testid=\'dropdown--button\']';
+const createVariableTypeDropdown = '[data-testid=\'variable-form--dropdown-button\']';
 const createVariableQueryCodeMirror = '.CodeMirror';
 const createVariableTextArea = '[data-testid=overlay--body] [data-testid=textarea]';
-const createVariableTypeDropdownItem = '[data-testid=overlay--body] [data-testid=dropdown-item][id=\'%ITEM%\']';
+const createVariableTypeDropdownItem = '[data-testid=\'variable-form--dropdown-%ITEM%\']';
 const createVariableDefaultValDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Select A Default\']]//*[@data-testid=\'dropdown--button\']';
 const createVariableInfoPara = '//*[@data-testid=\'grid--column\'][p[contains(text(), \'ontains\')]]';
 const createVariableDefaultValDropdownItem = '[data-testid=dropdown-item][id=\'%ITEM%\']';
@@ -83,7 +83,7 @@ class variablesTab extends settingsPage{
     }
 
     async getCreateVariableTypeDropdown(){
-        return await this.driver.findElement(By.xpath(createVariableTypeDropdown));
+        return await this.driver.findElement(By.css(createVariableTypeDropdown));
     }
 
     async getCreateVariableQueryCodeMirror(){
