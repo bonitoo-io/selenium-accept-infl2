@@ -166,6 +166,10 @@ class variablesSteps extends baseSteps{
         await this.typeTextAndWait(await this.varTab.getCreateVariableNameInput(), name);
     }
 
+    async clearCreateVarPopupName(){
+        await this.clearInputText(await this.varTab.getCreateVariableNameInput());
+    }
+
     async enterCreateVarPopupTextarea(values){
         await this.typeTextAndWait(await this.varTab.getCreateVariableTextArea(), values);
     }
@@ -186,8 +190,16 @@ class variablesSteps extends baseSteps{
         await this.clickAndWait(await this.varTab.getCreateVariableDefaultValDropdownItem(item));
     }
 
+    async clickCreatVarPopupDefaultCSVDropdownItem(item){
+        await this.clickAndWait(await this.varTab.getCreateVariableDefaultValCSVDropdownItem(item));
+    }
+
     async clickCreateVarPopupCreateButton(){
         await this.clickAndWait(await this.varTab.getPopupCreate());
+    }
+
+    async setVariablePopupCodeMirrorText(text){
+        await this.setCodeMirrorText(await this.varTab.getCreateVariableQueryCodeMirror(), text);
     }
 }
 

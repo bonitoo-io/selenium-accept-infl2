@@ -121,8 +121,16 @@ When(/^enter the create variable popup name "(.*)"$/, async name => {
    await vblSteps.enterCreateVarPopupName(name);
 });
 
+When(/^clear the create variable popup name input$/, async () => {
+    await vblSteps.clearCreateVarPopupName();
+});
+
 When(/^enter the create variable popup values:$/, async values => {
     await vblSteps.enterCreateVarPopupTextarea(values);
+});
+
+When(/^enter the create variable popup CodeMirror text:$/, async text => {
+    await vblSteps.setVariablePopupCodeMirrorText(text);
 });
 
 When(/^click the create variable popup title$/, async () => {
@@ -139,6 +147,10 @@ When(/^click the create variable popup default dropdown$/, async () => {
 
 When(/^click the create variable popup default dropdown item "(.*)"$/, async item => {
   await vblSteps.clickCreateVarPopupDefaultDropdownItem(item);
+});
+
+When(/^click the create variable popup default csv dropdown item "(.*)"$/, async item => {
+    await vblSteps.clickCreatVarPopupDefaultCSVDropdownItem(item);
 });
 
 When(/^click the create variable popup create button$/, async () => {

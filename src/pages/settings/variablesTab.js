@@ -28,6 +28,7 @@ const createVariableTypeDropdownItem = '[data-testid=\'variable-form--dropdown-%
 const createVariableDefaultValDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Select A Default\']]//*[@data-testid=\'dropdown--button\']';
 const createVariableInfoPara = '//*[@data-testid=\'grid--column\'][p[contains(text(), \'ontains\')]]';
 const createVariableDefaultValDropdownItem = '[data-testid=dropdown-item][id=\'%ITEM%\']';
+const createVariableDefaultValCSVDropdownItem = '//*[@data-testid=\'dropdown-item\']//*[text() = \'%ITEM%\']';
 
 class variablesTab extends settingsPage{
 
@@ -141,6 +142,10 @@ class variablesTab extends settingsPage{
 
     async getCreateVariableDefaultValDropdownItem(item){
         return await this.driver.findElement(By.css(createVariableDefaultValDropdownItem.replace('%ITEM%', item)));
+    }
+
+    async getCreateVariableDefaultValCSVDropdownItem(item){
+        return await this.driver.findElement(By.xpath(createVariableDefaultValCSVDropdownItem.replace('%ITEM%', item)));
     }
 
 }

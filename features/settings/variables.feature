@@ -93,6 +93,7 @@ Feature: Settings - Variables
     When click "new" variable dropdown item
     When click the create variable popup type dropdown
     When click the create variable popup type dropdown item "map"
+    When clear the create variable popup name input
     When enter the create variable popup name "Primaty"
     When enter the create variable popup values:
     """
@@ -114,10 +115,45 @@ Feature: Settings - Variables
     Then close all notifications
     Then there is a variable card for "Primaty"
 
+  Scenario: Create CSV Variable
+    When click create variable dropdown in header
+    When click "new" variable dropdown item
+    When click the create variable popup type dropdown
+    When click the create variable popup type dropdown item "constant"
+    When clear the create variable popup name input
+    When enter the create variable popup name "Obdobi"
+    When enter the create variable popup values:
+    """
+    Antropocen,Holocen,Svrchni pleistocen,Stredni pleistocen,Spodni pleistocen
+    """
+    When click the create variable popup title
+    Then the create variable popup info line contains "5" items
+    Then the selected default variable dropdown item is "Antropocen"
+    When click the create variable popup default dropdown
+    When click the create variable popup default csv dropdown item "Holocen"
+    Then the selected default variable dropdown item is "Holocen"
+    When click the create variable popup create button
+    Then popup is not loaded
+    Then the success notification contains "Successfully created new variable: Obdobi"
+    Then close all notifications
+    Then there is a variable card for "Obdobi"
 
-#  Scenario: Create Query Variable
-#    When click create variable dropdown in header
-#    When click "new" variable dropdown item
-#    When click the create variable popup type dropdown
-#    When click the create variable popup type dropdown item "Query"
-#    When enter the create variable popup name "Kybl"
+  Scenario: Create Query Variable
+    When click create variable dropdown in header
+    When click "new" variable dropdown item
+    When click the create variable popup type dropdown
+    When click the create variable popup type dropdown item "Query"
+    When clear the create variable popup name input
+    When enter the create variable popup name "Kybl"
+    When enter the create variable popup CodeMirror text:
+    """
+    buckets()
+   |> filter(fn: (r) => r.name !~ /^_/)
+   |> rename(columns: {name: '_value'})
+   |> keep(columns: ['_value'])
+    """
+    When click the create variable popup create button
+    Then popup is not loaded
+    Then the success notification contains "Successfully created new variable: Kybl"
+    Then close all notifications
+    Then there is a variable card for "Kybl"

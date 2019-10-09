@@ -441,6 +441,13 @@ class baseSteps{
         });
     }
 
+    //cmElem will be element containing class .CodeMirror
+    async setCodeMirrorText(cmElem, text){
+        //need to escape new lines which break the js code
+        text = text.replace(/\n/g, '\\n');
+        await this.driver.executeScript(`arguments[0].CodeMirror.setValue("${text}");`, cmElem);
+    }
+
 }
 
 module.exports = baseSteps;
