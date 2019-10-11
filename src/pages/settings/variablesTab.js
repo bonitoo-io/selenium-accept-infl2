@@ -9,6 +9,9 @@ const createVariableEmpty = '[data-testid=resource-list--body] [data-testid=add-
 const createVariableItem = '[data-testid=add-resource-dropdown--%ITEM%]';
 const variableCardNamed = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]';
 const variableCardNames = '//*[@data-testid=\'resource-name\']/span/span';
+const variableCardName = '//*[@data-testid=\'resource-name\']//span[text()=\'%NAME%\']';
+const variableCardContextMenu = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
+const variableCardContextMenuItem = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[button[@data-testid=\'context-menu\']]//button[text()=\'%ITEM%\']';
 
 const urlCtx = 'variables';
 
@@ -30,6 +33,12 @@ const createVariableDefaultValDropdown = '//*[@data-testid=\'form--element\'][la
 const createVariableInfoPara = '//*[@data-testid=\'grid--column\'][p[contains(text(), \'ontains\')]]';
 const createVariableDefaultValDropdownItem = '[data-testid=dropdown-item][id=\'%ITEM%\']';
 const createVariableDefaultValCSVDropdownItem = '//*[@data-testid=\'dropdown-item\']//*[text() = \'%ITEM%\']';
+
+//Warning popup
+const updateNameNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
+
+//edit variable popup
+const editVariableTypeDropdown = '//*[@data-testid=\'form--element\'][.//span[text()=\'Type\']]//*[@data-testid=\'dropdown--button\']';
 
 class variablesTab extends settingsPage{
 
@@ -161,8 +170,30 @@ class variablesTab extends settingsPage{
         return await this.driver.findElements(By.xpath(variableCardNames));
     }
 
+    async getVariableCardName(name){
+        return await this.driver.findElement(By.xpath(variableCardName.replace('%NAME%', name)));
+    }
+
     async getNameSort(){
         return await this.driver.findElement(By.css(nameSort));
+    }
+
+    async getEditVariableTypeDropdown(){
+        return await this.driver.findElement(By.xpath(editVariableTypeDropdown));
+    }
+
+    async getVariableCardContextMenu(name){
+        return await this.driver.findElement(By.xpath(variableCardContextMenu.replace('%NAME%', name)));
+    }
+
+    async getVariableCardContextMenuItem(name, item){
+        return await this.driver.findElement(By.xpath(variableCardContextMenuItem
+            .replace('%NAME%', name)
+            .replace('%ITEM%', item)))
+    }
+
+    async getUpdateNameNameInput(){
+        return await this.driver.findElement(By.css(updateNameNameInput));
     }
 
 }

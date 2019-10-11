@@ -12,6 +12,7 @@ const popupCancelSimple = '[data-testid=overlay--container] button[title=Cancel]
 const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
 const popupSave = '[data-testid=overlay--container] button[data-testid=button--save] ';
 const popupCreate = '[data-testid=overlay--container] button[title=Create]';
+const popupSubmit = '[data-testid=button][type=submit]';
 const popupCopyToClipboard = '[data-testid=button-copy][title=\'Copy to Clipboard\']';
 const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
@@ -177,6 +178,9 @@ class basePage{
         return await this.driver.findElement(By.css(popupSave));
     }
 
+    async getPopupSubmit(){
+        return await this.driver.findElement(By.css(popupSubmit));
+    }
 
     async getPopupWizardContinue(){
         return await this.driver.findElement(By.css(popupWizardContinue));
@@ -233,6 +237,12 @@ class basePage{
     async getPopupCreate(){
         return await this.driver.findElement(By.css(popupCreate));
     }
+
+
+    async getPopupFormElementMessage(){
+        return await this.driver.findElement(By.css(popupFormElementError));
+    }
+
 
 }
 

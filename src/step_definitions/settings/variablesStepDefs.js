@@ -181,3 +181,50 @@ When(/^clear the variables filter$/, async () => {
    await vblSteps.clearVariablesFilter();
 });
 
+When(/^click the variable card name "(.*)"$/, async name => {
+    await vblSteps.clickVariableCardName(name);
+});
+
+Then(/^the edit variable popup is loaded$/, async () => {
+   await vblSteps.verifyEditVariablePopupLoaded();
+});
+
+When(/^hover over variable card named "(.*)"$/, async name => {
+   await vblSteps.hoverOverVariableCard(name);
+});
+
+When(/^click the context menu of the variable "(.*)"$/, async name => {
+   await vblSteps.clickVariableCardContextMenu(name);
+});
+
+When(/^click the context menu item "(.*)" of the variable "(.*)"$/, async (item, name) => {
+   await vblSteps.clickVariableCardContextMenuItem(name,item);
+});
+
+Then(/^the variable name warning popup is visible$/, async () => {
+   await vblSteps.verifyVariableNameChangeWarningPopupLoaded();
+});
+
+When(/^click the rename variable warning popup understand button$/, async () => {
+   await vblSteps.clickVariableNameChangeWarningUnderstand();
+});
+
+When(/^clear the rename variable popup name input$/, async () => {
+   await vblSteps.clearVariableNameChangeNameInput();
+});
+
+Then(/^the rename variable form warning states "(.*)"$/, async msg => {
+   await vblSteps.verifyFormErrorMessageContains(msg);
+});
+
+Then(/^the rename variable from warning icon is visible$/, async () => {
+   await vblSteps.verifyInputErrorIcon();
+});
+
+Then(/^the rename variable submit button is disabled$/, async () => {
+   await vblSteps.verifySubmitDisabled();
+});
+
+When(/^enter the new variable name "(.*)"$/, async name => {
+   await vblSteps.enterNewVariableName(name);
+});

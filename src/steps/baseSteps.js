@@ -448,6 +448,18 @@ class baseSteps{
         await this.driver.executeScript(`arguments[0].CodeMirror.setValue("${text}");`, cmElem);
     }
 
+    async verifyFormErrorMessageContains(msg){
+        await this.verifyElementContainsText(await this.basePage.getPopupFormElementMessage(), msg);
+    }
+
+    async verifySubmitDisabled(){
+        await this.verifyElementDisabled(await this.basePage.getPopupSubmit());
+    }
+
+    async clickPopupSubmitButton(){
+        await this.clickAndWait(await this.basePage.getPopupSubmit());
+    }
+
 }
 
 module.exports = baseSteps;

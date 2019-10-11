@@ -45,6 +45,25 @@ class variablesSteps extends baseSteps{
         await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Create Variable');
     }
 
+    async verifyEditVariablePopupLoaded(){
+        await this.assertVisible(await this.varTab.getPopupDismiss());
+        await this.assertVisible(await this.varTab.getPopupCancelSimple());
+        await this.assertVisible(await this.varTab.getPopupSubmit());
+        await this.assertVisible(await this.varTab.getCreateVariableNameInput());
+        await this.assertVisible(await this.varTab.getEditVariableTypeDropdown());
+        await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Edit Variable');
+    }
+
+    async verifyVariableNameChangeWarningPopupLoaded(){
+        await this.assertVisible(await this.varTab.getPopupDismiss());
+        await this.assertVisible(await this.varTab.getPopupSubmit());
+        await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Are you sure?');
+        await this.varTab.getPopupSubmit().then(async elem => {
+            await this.verifyElementContainsText(await elem.findElement(By.xpath('./span')),
+                'I understand, let\'s rename my Variable')
+        })
+    }
+
     async clickImportPopupPasteJSON(){
         await this.clickAndWait(await this.varTab.getPasteRadioButton());
     }
@@ -155,7 +174,9 @@ class variablesSteps extends baseSteps{
     }
 
     async clickImportPopupImportButton(){
-        await this.clickAndWait(await this.varTab.getImportButton());
+        await this.clickAndWait(await this.varTab.getImportButton(), async () => {
+            await this.delay(1500); //lengthen a bit - sometimes slow to import - todo better wait
+        });
     }
 
     async verifyVariableCardVisible(name){
@@ -235,6 +256,34 @@ class variablesSteps extends baseSteps{
 
     async clearVariablesFilter(){
         await this.clearInputText(await this.varTab.getVariablesFilter());
+    }
+
+    async clickVariableCardName(name){
+        await this.clickAndWait(await this.varTab.getVariableCardName(name));
+    }
+
+    async hoverOverVariableCard(name){
+        await this.hoverOver(await this.varTab.getVariableCardNamed(name));
+    }
+
+    async clickVariableCardContextMenu(name){
+        await this.clickAndWait(await this.varTab.getVariableCardContextMenu(name));
+    }
+
+    async clickVariableCardContextMenuItem(name,item){
+        await this.clickAndWait(await this.varTab.getVariableCardContextMenuItem(name, item));
+    }
+
+    async clickVariableNameChangeWarningUnderstand(){
+        await this.clickAndWait(await this.varTab.getPopupSubmit());
+    }
+
+    async clearVariableNameChangeNameInput(){
+        await this.clearInputText(await this.varTab.getUpdateNameNameInput());
+    }
+
+    async enterNewVariableName(name){
+        await this.typeTextAndWait(await this.varTab.getUpdateNameNameInput(), name);
     }
 }
 

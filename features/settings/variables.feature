@@ -171,6 +171,34 @@ Feature: Settings - Variables
 
   # Sort by type not working - TODO fix after Issue 15379 fixed
 
+  Scenario: Rename Variable
+    When hover over variable card named "Ryby"
+    When click the context menu of the variable "Ryby"
+    When click the context menu item "Rename" of the variable "Ryby"
+    Then the variable name warning popup is visible
+    Then dismiss the popup
+    Then popup is not loaded
+    When hover over variable card named "Ryby"
+    When click the context menu of the variable "Ryby"
+    When click the context menu item "Rename" of the variable "Ryby"
+    Then the variable name warning popup is visible
+    When click the rename variable warning popup understand button
+    When click popup cancel simple button
+    Then popup is not loaded
+    When hover over variable card named "Ryby"
+    When click the context menu of the variable "Ryby"
+    When click the context menu item "Rename" of the variable "Ryby"
+    When click the rename variable warning popup understand button
+    When clear the rename variable popup name input
+    Then the rename variable form warning states "Variable name cannot be empty"
+    Then the rename variable from warning icon is visible
+    Then the rename variable submit button is disabled
+    When enter the new variable name "Kocky"
+    When click popup submit button
+    Then the success notification contains "Successfully updated variable: Kocky."
+    Then close all notifications
+    Then there is a variable card for "Kocky"
+
   Scenario: Edit Map Variable
 
   # Scenario: Edit CSV Variable

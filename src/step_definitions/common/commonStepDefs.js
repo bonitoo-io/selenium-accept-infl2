@@ -220,6 +220,10 @@ Then(/^popup is not loaded$/, async () => {
     await bSteps.verifyPopupNotPresent();
 });
 
+When(/^click popup submit button$/, async () => {
+    await bSteps.clickPopupSubmitButton();
+});
+
 //For troubleshooting
 When(/^wait "(.*)" seconds$/, async secs => {
     await bSteps.driver.sleep(parseInt(secs));
