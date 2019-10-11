@@ -107,6 +107,11 @@ When(/^write sine data for org "(.*?)" to bucket "(.*?)"$/, async (org, bucket) 
         lines[i] = 'sinus point=' + Math.sin(i) + ' ' + (startTime + (i * intervalNano));
     }
 
+    console.log("DEBUG lines: ");
+    lines.forEach((line) => {
+       console.log(line);
+    });
+
     await influxUtils.writeData(org, bucket, lines);
 
 });

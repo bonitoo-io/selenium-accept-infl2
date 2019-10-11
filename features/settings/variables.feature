@@ -157,3 +157,25 @@ Feature: Settings - Variables
     Then the success notification contains "Successfully created new variable: Kybl"
     Then close all notifications
     Then there is a variable card for "Kybl"
+
+  Scenario: Filter Variables By Name
+    When enter the value "yb" into the variables filter
+    Then the variable cards "Kybl,Ryby" are visible
+    Then the variable cards "Arsenal,Bucket,Jehlicnany,Obdobi,Primaty,Slavia" are not present
+    Then the variable cards are sorted as "Kybl,Ryby"
+    When click the variable sort by name button
+    Then the variable cards are sorted as "Ryby,Kybl"
+    When click the variable sort by name button
+    When clear the variables filter
+    Then the variable cards "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia" are visible
+
+  # Sort by type not working - TODO fix after Issue 15379 fixed
+
+  Scenario: Edit Map Variable
+
+  # Scenario: Edit CSV Variable
+
+  # Scenario: Edit Query Variable
+
+
+

@@ -1,7 +1,7 @@
 const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
 const { By } = require('selenium-webdriver');
 
-const bucketCards = '[data-testid=bucket--card]';
+const bucketCards = '[data-testid^=\'bucket--card \']';
 const createBucketBtn = 'button[data-testid=\'Create Bucket\']';
 const filterInput = '[data-testid=search-widget]';
 const nameSorter = '[data-testid=\'resource-list--sorter\']:first-of-type';
@@ -176,7 +176,7 @@ class bucketsTab extends loadDataPage {
 
     //get just the name link
     async getBucketCardName(name){
-        return await this.driver.findElement(By.css(`[data-testid='bucket--card ${name}']`));
+        return await this.driver.findElement(By.css(`[data-testid='bucket--card--name ${name}']`));
     }
 
     //get the whole card
@@ -189,11 +189,13 @@ class bucketsTab extends loadDataPage {
     }
 
     async getBucketCardDeleteByName(name){
-        return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`));
+     //   return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`));
+        return await this.driver.findElement(By.css(`[data-testid='context-delete-menu ${name}']`));
     }
 
     async getBucketCardRetentionByName(name){
-        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
+//        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket--card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(),"Retention")]`));
     }
 
     async getBucketCardPopoverByName(name){
@@ -209,8 +211,9 @@ class bucketsTab extends loadDataPage {
     }
 
     async getBucketCardDeleteConfirmByName(name){
-        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`});
+        //return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`});
         //return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']/..//button[text() = 'Confirm']`));
+        return await this.driver.findElement(By.css(`[data-testid='context-delete-bucket ${name}'] `));
     }
 
     async getBucketCardAddDataByName(name){

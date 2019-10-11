@@ -201,6 +201,41 @@ class variablesSteps extends baseSteps{
     async setVariablePopupCodeMirrorText(text){
         await this.setCodeMirrorText(await this.varTab.getCreateVariableQueryCodeMirror(), text);
     }
+
+    async enterValueIntoVariablesFilter(value){
+        await this.typeTextAndWait(await this.varTab.getVariablesFilter(), value);
+    }
+
+    async verifyVariableCardsVisible(cards){
+        let cardsArr = cards.split(',');
+        for(let i = 0; i < cardsArr.length; i++){
+            await this.assertVisible(await this.varTab.getVariableCardNamed(cardsArr[i]));
+        }
+    }
+
+    async verifyVariablsCardsNotPresent(cards){
+        let cardsArr = cards.split(',');
+        for(let i = 0; i < cardsArr.length; i++){
+            await this.assertNotPresent(await variablesTab.getVariableCardSelectorByName(cardsArr[i]));
+        }
+    }
+
+    async verifyVariableCardsSort(cards){
+        let cardsArr = cards.split(',');
+        await this.varTab.getVariableCardNames().then(async cardNames => {
+            for(let i = 0; i < cardsArr.length; i++){
+                expect(await cardNames[i].getText()).to.equal(cardsArr[i]);
+            }
+        })
+    }
+
+    async clickVariableSortByName(){
+        await this.clickAndWait(await this.varTab.getNameSort());
+    }
+
+    async clearVariablesFilter(){
+        await this.clearInputText(await this.varTab.getVariablesFilter());
+    }
 }
 
 

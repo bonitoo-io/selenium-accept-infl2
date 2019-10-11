@@ -8,6 +8,7 @@ const typeSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
 const createVariableEmpty = '[data-testid=resource-list--body] [data-testid=add-resource-dropdown--button]';
 const createVariableItem = '[data-testid=add-resource-dropdown--%ITEM%]';
 const variableCardNamed = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]';
+const variableCardNames = '//*[@data-testid=\'resource-name\']/span/span';
 
 const urlCtx = 'variables';
 
@@ -45,6 +46,10 @@ class variablesTab extends settingsPage{
                 {type: 'css', selector: typeSort},
             ]
         );
+    }
+
+    async getVariablesFilter(){
+        return await this.driver.findElement(By.css(variablesFilter));
     }
 
     async getCreateVariableHeader(){
@@ -140,12 +145,24 @@ class variablesTab extends settingsPage{
         return await this.driver.findElement(By.xpath(variableCardNamed.replace('%NAME%', name)));
     }
 
+    static getVariableCardSelectorByName(name){
+        return { type: 'xpath', selector: variableCardNamed.replace('%NAME%', name)};
+    }
+
     async getCreateVariableDefaultValDropdownItem(item){
         return await this.driver.findElement(By.css(createVariableDefaultValDropdownItem.replace('%ITEM%', item)));
     }
 
     async getCreateVariableDefaultValCSVDropdownItem(item){
         return await this.driver.findElement(By.xpath(createVariableDefaultValCSVDropdownItem.replace('%ITEM%', item)));
+    }
+
+    async getVariableCardNames(){
+        return await this.driver.findElements(By.xpath(variableCardNames));
+    }
+
+    async getNameSort(){
+        return await this.driver.findElement(By.css(nameSort));
     }
 
 }

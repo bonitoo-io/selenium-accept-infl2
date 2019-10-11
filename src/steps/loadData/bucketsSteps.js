@@ -414,12 +414,12 @@ class bucketsSteps extends baseSteps {
 
     async verifyBucketCardDeleteNotPresent(name){
         //await this.driver.executeScript('arguments[0].blur()', await this.bucketsTab.getBucketCardDeleteByName(name));
-        await this.bucketsTab.getBucketCardByName('_tasks').then(async elem => {
-            await elem.click().then(async () => {  //remove focus from list
-                await this.driver.sleep(500); //fix later - losing patience
+        //await this.bucketsTab.getBucketCardByName('_tasks').then(async elem => {
+          //  await elem.click().then(async () => {  //remove focus from list
+            //    await this.driver.sleep(500); //fix later - losing patience
                 await this.assertNotVisible(await this.bucketsTab.getBucketCardDeleteByName(name));
-            });
-        });
+           // });
+        //});
     }
 
     async verifyBucketCardPopoverVisible(name, toBeVisible){
@@ -431,12 +431,13 @@ class bucketsSteps extends baseSteps {
     }
 
     async clickBucketCardDelete(name){
-        await this.bucketsTab.getBucketCardDeleteByName(name).then(async elem => {
+        await this.clickAndWait(await this.bucketsTab.getBucketCardDeleteByName(name)); //todo  better wait
+        /*await this.bucketsTab.getBucketCardDeleteByName(name).then(async elem => {
             await elem.click().then(async () => {
                 await this.driver.wait(until.elementIsVisible(
                     await this.bucketsTab.getBucketCardDeleteConfirmByName(name)));
             });
-        });
+        });*/
     }
 
     async clickBucketCardDeleteConfirm(name){

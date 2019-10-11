@@ -173,7 +173,7 @@ Then(/^the delete button of the card named "(.*)" is not present$/, {timeout: 2 
     await bktTabSteps.verifyBucketCardDeleteNotPresent(name);
 });
 
-When(/^click the delete button of the card named "(.*)"$/, async (name) => {
+When(/^click the delete button of the card named "(.*)"$/, {timeout: 10000}, async (name) => {
     await bktTabSteps.clickBucketCardDelete(name);
 });
 

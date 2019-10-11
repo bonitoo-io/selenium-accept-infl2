@@ -149,6 +149,14 @@ When(/^click the create variable popup default dropdown item "(.*)"$/, async ite
   await vblSteps.clickCreateVarPopupDefaultDropdownItem(item);
 });
 
+When(/^enter the value "(.*)" into the variables filter$/, async value => {
+   await vblSteps.enterValueIntoVariablesFilter(value);
+});
+
+Then(/^the variable cards "(.*)" are visible$/, async cards => {
+    await vblSteps.verifyVariableCardsVisible(cards);
+});
+
 When(/^click the create variable popup default csv dropdown item "(.*)"$/, async item => {
     await vblSteps.clickCreatVarPopupDefaultCSVDropdownItem(item);
 });
@@ -156,3 +164,20 @@ When(/^click the create variable popup default csv dropdown item "(.*)"$/, async
 When(/^click the create variable popup create button$/, async () => {
    await vblSteps.clickCreateVarPopupCreateButton();
 });
+
+Then(/^the variable cards "(.*)" are not present$/, {timeout: 20000}, async cards => {
+    await vblSteps.verifyVariablsCardsNotPresent(cards);
+});
+
+Then(/^the variable cards are sorted as "(.*)"$/, async cards => {
+    await vblSteps.verifyVariableCardsSort(cards);
+});
+
+When(/^click the variable sort by name button$/, async () => {
+    await vblSteps.clickVariableSortByName();
+});
+
+When(/^clear the variables filter$/, async () => {
+   await vblSteps.clearVariablesFilter();
+});
+
