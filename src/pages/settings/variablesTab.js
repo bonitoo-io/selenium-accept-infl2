@@ -12,6 +12,8 @@ const variableCardNames = '//*[@data-testid=\'resource-name\']/span/span';
 const variableCardName = '//*[@data-testid=\'resource-name\']//span[text()=\'%NAME%\']';
 const variableCardContextMenu = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
 const variableCardContextMenuItem = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[button[@data-testid=\'context-menu\']]//button[text()=\'%ITEM%\']';
+const variableCardContextDelete = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
+const variableCardContextDeleteConfirm = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-task\']'
 
 const urlCtx = 'variables';
 
@@ -209,6 +211,13 @@ class variablesTab extends settingsPage{
         return await this.driver.findElement(By.xpath(editVariableNameInput));
     }
 
+    async getVariableCardContextDelete(name){
+        return await this.driver.findElement(By.xpath(variableCardContextDelete.replace('%NAME%', name)));
+    }
+
+    async getVariableCardContextDeleteConfirm(name){
+        return await this.driver.findElement(By.xpath(variableCardContextDeleteConfirm.replace('%NAME%', name)));
+    }
 
 }
 

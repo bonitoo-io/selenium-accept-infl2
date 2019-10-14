@@ -276,3 +276,15 @@ Then(/^the edit variable name input is disabled$/, async () => {
 Then(/^the edit variable popup textarea is cleared$/, async () => {
    await vblSteps.verifyEditVariablePopupTextareaCleared();
 });
+
+When(/^click delete menu of variable card named "(.*)"$/, async name => {
+    await vblSteps.clickVariableCardDelete(name);
+});
+
+When(/^click delete confirm of variable card named "(.*)"$/, async name => {
+    await vblSteps.clickVariableCardDeleteConfirm(name);
+});
+
+Then(/^the variable card "(.*)" is not present$/, async name => {
+   await vblSteps.verifyVariableCardNotPresent(name);
+});

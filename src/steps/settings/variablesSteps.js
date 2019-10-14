@@ -304,7 +304,18 @@ class variablesSteps extends baseSteps{
 
     async verifyEditVariablePopupTextareaCleared(){
         await this.verifyElementContainsNoText(await this.varTab.getCreateVariableTextArea());
+    }
 
+    async clickVariableCardDelete(name){
+        await this.clickAndWait(await this.varTab.getVariableCardContextDelete(name));
+    }
+
+    async clickVariableCardDeleteConfirm(name){
+        await this.clickAndWait(await this.varTab.getVariableCardContextDeleteConfirm(name));
+    }
+
+    async verifyVariableCardNotPresent(name){
+        await this.assertNotPresent(await variablesTab.getVariableCardSelectorByName(name));
     }
 }
 

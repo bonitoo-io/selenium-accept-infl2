@@ -170,6 +170,8 @@ Feature: Settings - Variables
     Then the variable cards "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia" are visible
 
   # Sort by type not working - TODO fix after Issue 15379 fixed
+  
+  Scenario: Sort Variables by name
 
   Scenario: Rename Variable
     When hover over variable card named "Ryby"
@@ -244,7 +246,7 @@ Feature: Settings - Variables
 
 
   Scenario: Edit Query Variable to Map
-    When click the variable card name "Bucket"
+    When click the variable card name "Kybl"
     Then the edit variable popup is loaded
     When click the edit variable popup type dropdown
     When click the edit variable popup type dropdown item "map"
@@ -267,9 +269,25 @@ Feature: Settings - Variables
     Then the selected default variable dropdown item is "babovka"
     When click the edit variable popup submit button
     Then popup is not loaded
-    Then the success notification contains "Successfully updated variable: Bucket."
+    Then the success notification contains "Successfully updated variable: Kybl."
     Then close all notifications
-    Then there is a variable card for "Bucket"
+    Then there is a variable card for "Kybl"
+
+  Scenario Outline: Delete Variable
+    When hover over variable card named "<NAME>"
+    When click delete menu of variable card named "<NAME>"
+    When click delete confirm of variable card named "<NAME>"
+    Then the success notification contains "Successfully deleted the variable"
+    Then the variable card "<NAME>" is not present
+
+    Examples:
+      |NAME|
+      |Kybl|
+      |Kocky |
+      |Jehlicnany|
+      |Slavia    |
+      |Arsenal   |
+
 
 
 
