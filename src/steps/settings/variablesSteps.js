@@ -118,8 +118,16 @@ class variablesSteps extends baseSteps{
         await this.clickAndWait(await this.varTab.getCreateVariableTypeDropdown())
     }
 
+    async clickEditVariableTypeDropdown(){
+        await this.clickAndWait(await this.varTab.getEditVariableTypeDropdown());
+    }
+
     async clickCreateVarPopupTypeDropdownItem(item){
         await this.clickAndWait(await this.varTab.getCreateVariableTypeDropdownItem(item));
+    }
+
+    async clickEditVarPopupTypeDropdownItem(item){
+        await this.clickAndWait(await this.varTab.getEditVariableTypeDropdownItem(item));
     }
 
     async verifyCreateVarPopupTextareaVisible(visible){
@@ -219,6 +227,10 @@ class variablesSteps extends baseSteps{
         await this.clickAndWait(await this.varTab.getPopupCreate());
     }
 
+    async clickEditVarPopupSubmitButton(){
+        await this.clickAndWait(await this.varTab.getPopupSubmit());
+    }
+
     async setVariablePopupCodeMirrorText(text){
         await this.setCodeMirrorText(await this.varTab.getCreateVariableQueryCodeMirror(), text);
     }
@@ -284,6 +296,15 @@ class variablesSteps extends baseSteps{
 
     async enterNewVariableName(name){
         await this.typeTextAndWait(await this.varTab.getUpdateNameNameInput(), name);
+    }
+
+    async verifyEditVariablePopupNameDisabled(){
+        await this.verifyElementContainsAttribute(await this.varTab.getEditVariableNameInput(), 'disabled');
+    }
+
+    async verifyEditVariablePopupTextareaCleared(){
+        await this.verifyElementContainsNoText(await this.varTab.getCreateVariableTextArea());
+
     }
 }
 

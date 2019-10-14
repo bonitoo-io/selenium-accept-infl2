@@ -460,6 +460,18 @@ class baseSteps{
         await this.clickAndWait(await this.basePage.getPopupSubmit());
     }
 
+    async verifyElementContainsAttribute(elem, attrib){
+        await elem.getAttribute(attrib).then(async val => {
+            await expect(val).to.exist;
+        });
+    }
+
+    async verifyElementContainsNoText(elem){
+        await elem.getText().then(async text => {
+            await expect(text.length).to.equal(0);
+        })
+    }
+
 }
 
 module.exports = baseSteps;

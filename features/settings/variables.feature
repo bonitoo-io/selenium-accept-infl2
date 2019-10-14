@@ -199,11 +199,78 @@ Feature: Settings - Variables
     Then close all notifications
     Then there is a variable card for "Kocky"
 
-  Scenario: Edit Map Variable
+  Scenario: Edit Map Variable to CSV
+    When click the variable card name "Kocky"
+    Then the edit variable popup is loaded
+    When click the edit variable popup type dropdown
+    When click the edit variable popup type dropdown item "constant"
+    Then the edit variable name input is disabled
+    When enter the edit variable popup values:
+    """
+    Angora,Siamska,Barmska,Kartuzska,Ruska Modra
+    """
+    When click the edit variable popup title
+    Then the create variable popup info line contains "5" items
+    Then the selected default variable dropdown item is "Angora"
+    When click the edit variable popup default dropdown
+    When click the edit variable popup default csv dropdown item "Kartuzska"
+    Then the selected default variable dropdown item is "Kartuzska"
+    When click the edit variable popup submit button
+    Then popup is not loaded
+    Then the success notification contains "Successfully updated variable: Kocky."
+    Then close all notifications
+    Then there is a variable card for "Kocky"
 
-  # Scenario: Edit CSV Variable
 
-  # Scenario: Edit Query Variable
+  Scenario: Edit CSV Variable to Query
+    When click the variable card name "Slavia"
+    Then the edit variable popup is loaded
+    When click the edit variable popup type dropdown
+    When click the edit variable popup type dropdown item "query"
+    Then the edit variable name input is disabled
+    When enter the edit variable popup CodeMirror text:
+    """
+        buckets()
+   |> filter(fn: (r) => r.name !~ /^_/)
+   |> rename(columns: {name: '_value'})
+   |> keep(columns: ['_value'])
+    """
+    When click the edit variable popup title
+    When click the edit variable popup submit button
+    Then popup is not loaded
+    Then the success notification contains "Successfully updated variable: Slavia."
+    Then close all notifications
+    Then there is a variable card for "Slavia"
+
+
+  Scenario: Edit Query Variable to Map
+    When click the variable card name "Bucket"
+    Then the edit variable popup is loaded
+    When click the edit variable popup type dropdown
+    When click the edit variable popup type dropdown item "map"
+    Then the edit variable name input is disabled
+    Then the edit variable popup textarea is cleared
+    When enter the edit variable popup values:
+    """
+    kolac,tvarohovy
+    kobliha,jahodova
+    buchta,svestkova
+    babovka,vanilkova
+    loupak,cokoladovy
+    pernik,domaci
+    """
+    When click the edit variable popup title
+    Then the create variable popup info line contains "6" items
+    Then the selected default variable dropdown item is "kolac"
+    When click the edit variable popup default dropdown
+    When click the edit variable popup default csv dropdown item "babovka"
+    Then the selected default variable dropdown item is "babovka"
+    When click the edit variable popup submit button
+    Then popup is not loaded
+    Then the success notification contains "Successfully updated variable: Bucket."
+    Then close all notifications
+    Then there is a variable card for "Bucket"
+
 
 
 

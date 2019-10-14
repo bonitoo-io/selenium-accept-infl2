@@ -34,11 +34,14 @@ const createVariableInfoPara = '//*[@data-testid=\'grid--column\'][p[contains(te
 const createVariableDefaultValDropdownItem = '[data-testid=dropdown-item][id=\'%ITEM%\']';
 const createVariableDefaultValCSVDropdownItem = '//*[@data-testid=\'dropdown-item\']//*[text() = \'%ITEM%\']';
 
+// edit variable popup
+const editVariableTypeDropdown = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Type\']]//*[@data-testid=\'dropdown--button\']';
+const editVariableTypeDropdownItem = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Type\']]//*[@data-testid=\'dropdown-item\'][@id=\'%ITEM%\']';
+const editVariableNameInput = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Name\']]//input';
+
 //Warning popup
 const updateNameNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
 
-//edit variable popup
-const editVariableTypeDropdown = '//*[@data-testid=\'form--element\'][.//span[text()=\'Type\']]//*[@data-testid=\'dropdown--button\']';
 
 class variablesTab extends settingsPage{
 
@@ -178,9 +181,6 @@ class variablesTab extends settingsPage{
         return await this.driver.findElement(By.css(nameSort));
     }
 
-    async getEditVariableTypeDropdown(){
-        return await this.driver.findElement(By.xpath(editVariableTypeDropdown));
-    }
 
     async getVariableCardContextMenu(name){
         return await this.driver.findElement(By.xpath(variableCardContextMenu.replace('%NAME%', name)));
@@ -195,6 +195,20 @@ class variablesTab extends settingsPage{
     async getUpdateNameNameInput(){
         return await this.driver.findElement(By.css(updateNameNameInput));
     }
+
+    async getEditVariableTypeDropdown(){
+        return await this.driver.findElement(By.xpath(editVariableTypeDropdown));
+    }
+
+
+    async getEditVariableTypeDropdownItem(item){
+        return await this.driver.findElement(By.xpath(editVariableTypeDropdownItem.replace('%ITEM%', item)));
+    }
+
+    async getEditVariableNameInput(){
+        return await this.driver.findElement(By.xpath(editVariableNameInput));
+    }
+
 
 }
 

@@ -72,6 +72,10 @@ When(/^click the create variable popup type dropdown$/, async () => {
    await vblSteps.clickCreateVariableTypeDropdown();
 });
 
+When(/^click the edit variable popup type dropdown$/, async () => {
+    await vblSteps.clickEditVariableTypeDropdown();
+});
+
 Then(/^the create variable popup textarea is visible$/, async () => {
    await vblSteps.verifyCreateVarPopupTextareaVisible(true);
 });
@@ -94,6 +98,10 @@ Then(/^the create variable popup default value dropdown is not visible$/, async 
 
 When(/^click the create variable popup type dropdown item "(.*)"$/, async item => {
     await vblSteps.clickCreateVarPopupTypeDropdownItem(item);
+});
+
+When(/^click the edit variable popup type dropdown item "(.*)"$/, async item => {
+    await vblSteps.clickEditVarPopupTypeDropdownItem(item);
 });
 
 Then(/^the create variable popup info line is not visible$/, async () => {
@@ -121,7 +129,15 @@ When(/^enter the create variable popup name "(.*)"$/, async name => {
    await vblSteps.enterCreateVarPopupName(name);
 });
 
+When(/^enter the edit variable popup name "(.*)"$/, async name => {
+    await vblSteps.enterCreateVarPopupName(name);
+});
+
 When(/^clear the create variable popup name input$/, async () => {
+    await vblSteps.clearCreateVarPopupName();
+});
+
+When(/^clear the edit variable popup name input$/, async () => {
     await vblSteps.clearCreateVarPopupName();
 });
 
@@ -129,12 +145,24 @@ When(/^enter the create variable popup values:$/, async values => {
     await vblSteps.enterCreateVarPopupTextarea(values);
 });
 
+When(/^enter the edit variable popup values:$/, async values => {
+    await vblSteps.enterCreateVarPopupTextarea(values);
+});
+
 When(/^enter the create variable popup CodeMirror text:$/, async text => {
+    await vblSteps.setVariablePopupCodeMirrorText(text);
+});
+
+When(/^enter the edit variable popup CodeMirror text:$/, async text => {
     await vblSteps.setVariablePopupCodeMirrorText(text);
 });
 
 When(/^click the create variable popup title$/, async () => {
    await vblSteps.clickPopupTitle();
+});
+
+When(/^click the edit variable popup title$/, async () => {
+    await vblSteps.clickPopupTitle();
 });
 
 Then(/^the selected default variable dropdown item is "(.*)"$/, async item => {
@@ -143,6 +171,10 @@ Then(/^the selected default variable dropdown item is "(.*)"$/, async item => {
 
 When(/^click the create variable popup default dropdown$/, async () => {
    await vblSteps.clickCreateVarPopupDefaultDropdown();
+});
+
+When(/^click the edit variable popup default dropdown$/, async () => {
+    await vblSteps.clickCreateVarPopupDefaultDropdown();
 });
 
 When(/^click the create variable popup default dropdown item "(.*)"$/, async item => {
@@ -161,8 +193,16 @@ When(/^click the create variable popup default csv dropdown item "(.*)"$/, async
     await vblSteps.clickCreatVarPopupDefaultCSVDropdownItem(item);
 });
 
+When(/^click the edit variable popup default csv dropdown item "(.*)"$/, async item => {
+    await vblSteps.clickCreatVarPopupDefaultCSVDropdownItem(item);
+});
+
 When(/^click the create variable popup create button$/, async () => {
    await vblSteps.clickCreateVarPopupCreateButton();
+});
+
+When(/^click the edit variable popup submit button$/, async ()=> {
+    await vblSteps.clickEditVarPopupSubmitButton();
 });
 
 Then(/^the variable cards "(.*)" are not present$/, {timeout: 20000}, async cards => {
@@ -227,4 +267,12 @@ Then(/^the rename variable submit button is disabled$/, async () => {
 
 When(/^enter the new variable name "(.*)"$/, async name => {
    await vblSteps.enterNewVariableName(name);
+});
+
+Then(/^the edit variable name input is disabled$/, async () => {
+   await vblSteps.verifyEditVariablePopupNameDisabled();
+});
+
+Then(/^the edit variable popup textarea is cleared$/, async () => {
+   await vblSteps.verifyEditVariablePopupTextareaCleared();
 });
