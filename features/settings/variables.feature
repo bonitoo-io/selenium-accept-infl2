@@ -170,8 +170,15 @@ Feature: Settings - Variables
     Then the variable cards "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia" are visible
 
   # Sort by type not working - TODO fix after Issue 15379 fixed
-  
+
   Scenario: Sort Variables by name
+    Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia"
+    When click the variable sort by name button
+    # has third neutral state
+    When click the variable sort by name button
+    Then the variable cards are sorted as "Slavia,Ryby,Primaty,Obdobi,Kybl,Jehlicnany,Bucket,Arsenal"
+    When click the variable sort by name button
+    Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia"
 
   Scenario: Rename Variable
     When hover over variable card named "Ryby"
