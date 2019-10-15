@@ -3,6 +3,7 @@ const { By, until } = require('selenium-webdriver');
 
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const bucketsTab = require(__srcdir + '/pages/loadData/bucketsTab.js');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 let durationsMap = new Map();
 durationsMap.set('1h', '1 hour');
@@ -520,11 +521,11 @@ class bucketsSteps extends baseSteps {
         let dataPoints = [];
         let nowMillis = new Date().getTime();
         //line protocol i.e. myMeasurement,host=myHost testField="testData" 1556896326
-        let intervals = await baseSteps.getIntervalMillis(count, start);
+        let intervals = await influxUtils.getIntervalMillis(count, start);
         let startMillis = nowMillis - intervals.full;
         switch(mode.toLowerCase()){
         case 'fibonacci':
-            samples = await baseSteps.genFibonacciValues(count);
+            samples = await influxUtils.genFibonacciValues(count);
             break;
         default:
             throw `Unhandled mode ${mode}`;

@@ -215,6 +215,7 @@ When(/^enter "(.*)" datapoints with value named "(.*)" starting at "(.*)" with "
         await bktTabSteps.driver.sleep(3000);
     });
 
+
 When(/^enter "(.*)" into the line protocol text area$/, async data => {
     await bktTabSteps.enterLineProtocolRawData(data);
 });
@@ -258,4 +259,8 @@ Then(/^the bucket "(.*)" for user "(.*)" contains "(.*)" datapoints of "(.*)" da
             (user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(user),
             count, mode, value, start);
     });
+
+When(/^add the file "(.*)" to the Line Protocol Wizard file upload$/, async filePath => {
+    await bktTabSteps.setFileUpload(filePath);
+});
 

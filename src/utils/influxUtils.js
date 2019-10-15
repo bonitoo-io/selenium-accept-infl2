@@ -1,6 +1,7 @@
 // TBD - leverage influxdbv2 REST API
 const process = require('process');
 const axios = require('axios');
+const fs = require('fs');
 
 const active_config = require(__basedir + '/bonitoo.conf.json').active;
 const config = require(__basedir + '/bonitoo.conf.json')[active_config];
@@ -211,6 +212,121 @@ const createLabel = async(orgId,
     });
 };
 
+// sample def : { "points": 10, "measurement":"level", "start": "-60h", "algo": "hydro", "prec": "sec"}
+const genLineProtocolFile = async(filePath, def) => {
+    console.log("DEBUG filePath " + filePath);
+    console.log("DEBUG def " + def);
+    let define = JSON.parse(def);
+    console.log("DEBUG define " + define);
+    console.log("DEBUG define.measurment " + define.measurement);
+    console.log("DEBUG define.algo " + define.algo);
+    console.log("DEBUG define.start " + define.start);
+    console.log("DEBUG interval " + JSON.stringify(await getIntervalMillis(define.points, define.start)))
+
+    if(fs.existsSync(filePath)) {
+        console.log("Removing pre-existing file " + filePath);
+        await fs.unlink(filePath, async err => {
+            if (err) {
+                console.log("Failed to remove file " + filePath)
+            }
+        });
+    }
+
+    let samples = [];
+    let dataPoints = [];
+    let nowMillis = new Date().getTime();
+    //line protocol i.e. myMeasurement,host=myHost testField="testData" 1556896326
+    let intervals = await getIntervalMillis(define.points, define.start);
+    let startMillis = nowMillis - intervals.full;
+
+    switch(define.algo.toLowerCase()){
+        case 'fibonacci':
+            samples = await genFibonacciValues(count);
+            break;
+        case 'hydro':
+            samples = await genHydroValues(define.points);
+            break;
+        default:
+            throw `Unhandled mode ${define.algo}`;
+    }
+
+    for(let i = 0; i < samples.length; i++){
+        dataPoints.push(`${define.algo},test=generic ${define.measurement}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
+    }
+
+    await dataPoints.forEach(async point => {
+        await fs.appendFile(filePath, point, err => {
+            if(err){console.log('Error writing point ' + point + ' to file ' + filePath)}
+        });
+    });
+
+    /*await fs.writeFile(filePath, dataPoints.concat(), err => {
+        if(err){
+            console.log("Error writing to file " + filePath)
+        }else{
+            console.log("Success writing to file " + filePath)
+        }
+
+    } )*/
+};
+
+// 'start' should have time format e.g. -2h, 30m, 1d
+const getIntervalMillis = async(count, start) => {
+    let time = start.slice(0, -1);
+    let fullInterval  = 0;
+    let pointInterval = 0;
+    switch(start[start.length - 1]){
+        case 'd': //days
+            fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
+            break;
+        case 'h': //hours
+            fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
+            break;
+        case 'm': //minutes
+            fullInterval = Math.abs(parseInt(time)) * 60000;
+            break;
+        case 's': //seconds
+            fullInterval = Math.abs(parseInt(time)) * 1000;
+            break;
+        default:
+            throw new `unhandle time unit ${start}`;
+    }
+
+    pointInterval = fullInterval / count;
+    return {full: fullInterval, step: pointInterval};
+};
+
+const genFibonacciValues = async (count) => {
+    let result = [];
+    for(let i = 0; i < count; i++){
+        if(i === 0){
+            result.push(1);
+        }else if(i === 1){
+            result.push(2);
+        }else{
+            result.push(result[i-1] + result[i-2]);
+        }
+    }
+    return result;
+};
+
+const genHydroValues = async(count) => {
+    let current = Math.floor(Math.random() * 400) + 100;
+    let result = [];
+    let trend = (Math.floor(Math.random() * 10) - 5);
+    console.log("DEBUG current " + current + " trend " + trend);
+    for(let i = 0; i < count; i++){
+        current += (Math.floor(Math.random() * 10) + trend);
+        result.push(current/100.0);
+        if(current < trend){ //negative trend could lead to neg value so set new trend
+            trend = Math.floor(Math.random() * 5)
+        }else if(current > (500 - trend)){ // pushing ceiling set neg trend
+            trend = Math.floor(Math.random() * -5)
+        }
+    }
+    return result;
+};
+
 module.exports = { flush,
     config,
     defaultUser,
@@ -224,7 +340,10 @@ module.exports = { flush,
     query,
     createBucket,
     parseQueryResults,
-    createLabel
+    createLabel,
+    genLineProtocolFile,
+    getIntervalMillis,
+    genFibonacciValues
 };
 
 //flush()

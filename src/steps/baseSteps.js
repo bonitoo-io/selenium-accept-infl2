@@ -214,6 +214,7 @@ class baseSteps{
         }
     }
 
+/* refactored to influxUtils.js
     static async genFibonacciValues(count){
         let result = [];
         for(let i = 0; i < count; i++){
@@ -254,7 +255,7 @@ class baseSteps{
         return {full: fullInterval, step: pointInterval};
     }
 
-
+*/
     // 'start' should be in flux time format e.g. -2h, -1d, -30m
     async verifyBucketContains(bucket, user, count, mode, value, start){
         // NEED TO LOGIN FIRST OTHERWISE 401 - not using same cookies as browser
@@ -470,6 +471,26 @@ class baseSteps{
         await elem.getText().then(async text => {
             await expect(text.length).to.equal(0);
         })
+    }
+
+    async setFileUpload(filePath){
+        await this.basePage.getPopupFileUpload().then(async elem => {
+            await elem.sendKeys(process.cwd() + '/' + filePath).then(async () => {
+                await this.delay(200); //debug wait - todo better wait
+            })
+        })
+    }
+
+    async verifyPopupWizardStepStateText(text){
+        await this.verifyElementContainsText(await this.basePage.getPopupWizardStepStateText(), text);
+    }
+
+    async verifyPopupWizardStepState(state){
+        await this.verifyElementContainsClass(await this.basePage.getPopupWizardStepStateText(), state);
+    }
+
+    async verifyPopupFileUploadHeaderText(text){
+        await this.verifyElementContainsText(await this.basePage.getPopupFileUploadHeader(), text);
     }
 
 }

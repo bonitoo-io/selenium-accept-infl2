@@ -224,6 +224,22 @@ When(/^click popup submit button$/, async () => {
     await bSteps.clickPopupSubmitButton();
 });
 
+Then(/^the popup wizard step state text contains "(.*)"$/, async text => {
+   await bSteps.verifyPopupWizardStepStateText(text)
+});
+
+Then(/^the popup wizard step is in state "(.*)"$/, async state => {
+   await bSteps.verifyPopupWizardStepState(state);
+});
+
+Then(/^the popup wizard import file header contains "(.*)"$/, async text => {
+   await bSteps.verifyPopupFileUploadHeaderText(text)
+});
+
+When(/^generate a line protocol testdata file "(.*)" based on:$/, async (filePath, def) => {
+   await influxUtils.genLineProtocolFile(filePath, def);
+});
+
 //For troubleshooting
 When(/^wait "(.*)" seconds$/, async secs => {
     await bSteps.driver.sleep(parseInt(secs));

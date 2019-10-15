@@ -18,9 +18,12 @@ const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
 const popupWizardDocsLink = '[data-testid=overlay--body] [data-testid=docs-link]';
+const popupWizardStepStateText = '.wizard-step--footer .wizard-step--text-state';
 const popupTitle = '[data-testid=overlay--header] .cf-overlay--title';
 const codeMirror = 'div.CodeMirror';
 const popupAlert = '[data-testid=alert]';
+const popupFileUpload = 'input[type=file]';
+const popupFileUploadHeader = '.drag-and-drop--header';
 
 class basePage{
 
@@ -218,6 +221,10 @@ class basePage{
         return await this.driver.findElement(By.css(popupWizardDocsLink));
     }
 
+    async getPopupWizardStepStateText(){
+        return await this.driver.findElement(By.css(popupWizardStepStateText));
+    }
+
     async getPopupTitle(){
         return await this.driver.findElement(By.css(popupTitle));
     }
@@ -243,6 +250,13 @@ class basePage{
         return await this.driver.findElement(By.css(popupFormElementError));
     }
 
+    async getPopupFileUpload(){
+        return await this.driver.findElement(By.css(popupFileUpload));
+    }
+
+    async getPopupFileUploadHeader(){
+        return await this.driver.findElement(By.css(popupFileUploadHeader));
+    }
 
 }
 
