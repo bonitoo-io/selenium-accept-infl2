@@ -240,6 +240,11 @@ When(/^generate a line protocol testdata file "(.*)" based on:$/, async (filePat
    await influxUtils.genLineProtocolFile(filePath, def);
 });
 
+When(/^generate a line protocol testdata for user "(.*)" based on:$/, async (user, def) => {
+   await influxUtils.writeLineProtocolData((user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(user),
+       def);
+});
+
 //For troubleshooting
 When(/^wait "(.*)" seconds$/, async secs => {
     await bSteps.driver.sleep(parseInt(secs));

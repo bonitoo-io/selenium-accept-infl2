@@ -7,6 +7,8 @@ const active_config = require(__basedir + '/bonitoo.conf.json').active;
 const config = require(__basedir + '/bonitoo.conf.json')[active_config];
 const defaultUser = require(__basedir + '/bonitoo.conf.json').default_user;
 
+const mil2Nano = 1000000;
+
 axios.defaults.baseURL = `${config.protocol}://${config.host}:${config.port}`;
 
 global.__config = config;
@@ -212,6 +214,28 @@ const createLabel = async(orgId,
     });
 };
 
+const writeLineProtocolData = async (user, def) => {
+    console.log("DEBUG user " + JSON.stringify(user));
+    console.log("DEBUG def " + def);
+    console.log("METHOD NOT YET IMPLEMENTED writeLineProtocolData(def)")
+
+    let define = JSON.parse(def);
+
+    let dataPoints = [];
+    let nowMillis = new Date().getTime();
+    //line protocol i.e. myMeasurement,host=myHost testField="testData" 1556896326
+    let intervals = await getIntervalMillis(define.points, define.start);
+    let startMillis = nowMillis - intervals.full;
+
+    let samples = await genPoints(define.algo, define.points);
+
+    for(let i = 0; i < samples.length; i++){
+        dataPoints.push(`${define.algo},test=generic ${define.measurement}=${samples[i]} ${(startMillis + (intervals.step * i)) * mil2Nano}\n`);
+    }
+
+    await writeData(user.org, user.bucket, dataPoints);
+};
+
 // sample def : { "points": 10, "measurement":"level", "start": "-60h", "algo": "hydro", "prec": "sec"}
 const genLineProtocolFile = async(filePath, def) => {
     let define = JSON.parse(def);
@@ -225,23 +249,14 @@ const genLineProtocolFile = async(filePath, def) => {
         });
     }
 
-    let samples = [];
     let dataPoints = [];
     let nowMillis = new Date().getTime();
     //line protocol i.e. myMeasurement,host=myHost testField="testData" 1556896326
     let intervals = await getIntervalMillis(define.points, define.start);
     let startMillis = nowMillis - intervals.full;
 
-    switch(define.algo.toLowerCase()){
-        case 'fibonacci':
-            samples = await genFibonacciValues(count);
-            break;
-        case 'hydro':
-            samples = await genHydroValues(define.points);
-            break;
-        default:
-            throw `Unhandled mode ${define.algo}`;
-    }
+    let samples = await genPoints(define.algo, define.points);
+
 
     for(let i = 0; i < samples.length; i++){
         dataPoints.push(`${define.algo},test=generic ${define.measurement}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
@@ -253,6 +268,24 @@ const genLineProtocolFile = async(filePath, def) => {
         });
     });
 
+};
+
+const genPoints = async (algo, count) => {
+    let samples = [];
+    switch(algo.toLowerCase()){
+        case 'fibonacci':
+            samples = await genFibonacciValues(count);
+            break;
+        case 'hydro':
+            samples = await genHydroValues(count);
+            break;
+        case 'sine':
+            samples = await genSineValues(count);
+            break;
+        default:
+            throw `Unhandled mode ${algo}`;
+    }
+    return samples;
 };
 
 // 'start' should have time format e.g. -2h, 30m, 1d
@@ -312,6 +345,14 @@ const genHydroValues = async(count) => {
     return result;
 };
 
+const genSineValues = async(count) => {
+   let result = [];
+   for(let i = 0; i < count; i++){
+       result.push(Math.sin(i));
+    }
+    return result;
+};
+
 module.exports = { flush,
     config,
     defaultUser,
@@ -328,7 +369,8 @@ module.exports = { flush,
     createLabel,
     genLineProtocolFile,
     getIntervalMillis,
-    genFibonacciValues
+    genFibonacciValues,
+    writeLineProtocolData
 };
 
 //flush()
