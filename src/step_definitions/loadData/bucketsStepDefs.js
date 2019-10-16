@@ -260,6 +260,11 @@ Then(/^the bucket "(.*)" for user "(.*)" contains "(.*)" datapoints of "(.*)" da
             count, mode, value, start);
     });
 
+Then(/^the bucket "(.*)" for user "(.*)" contains:$/, async (bucket, user, def) => {
+    await bktTabSteps.verifyBucketContainsByDef((bucket === 'DEFAULT') ? __defaultUser.bucket : bucket,
+        (user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(user), def);
+});
+
 When(/^add the file "(.*)" to the Line Protocol Wizard file upload$/, async filePath => {
     await bktTabSteps.setFileUpload(filePath);
 });

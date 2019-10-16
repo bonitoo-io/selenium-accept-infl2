@@ -214,74 +214,48 @@ class baseSteps{
         }
     }
 
-/* refactored to influxUtils.js
-    static async genFibonacciValues(count){
-        let result = [];
-        for(let i = 0; i < count; i++){
-            if(i === 0){
-                result.push(1);
-            }else if(i === 1){
-                result.push(2);
-            }else{
-                result.push(result[i-1] + result[i-2]);
-            }
-        }
-        return result;
-    }
+    //Example def { "points": 20, "field": "level", "measurement": "hydro", "start": "-60h", "vals": "skip", "rows": ["1","-1"] }
+    async verifyBucketContainsByDef(bucket, user, def){
 
-    // 'start' should have time format e.g. -2h, 30m, 1d
-    static async getIntervalMillis(count, start){
-        let time = start.slice(0, -1);
-        let fullInterval  = 0;
-        let pointInterval = 0;
-        switch(start[start.length - 1]){
-        case 'd': //days
-            fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
-            break;
-        case 'h': //hours
-            fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
-            break;
-        case 'm': //minutes
-            fullInterval = Math.abs(parseInt(time)) * 60000;
-            break;
-        case 's': //seconds
-            fullInterval = Math.abs(parseInt(time)) * 1000;
-            break;
-        default:
-            throw new `unhandle time unit ${start}`;
-        }
+        let define = JSON.parse(def);
 
-        pointInterval = fullInterval / count;
-        return {full: fullInterval, step: pointInterval};
-    }
 
-*/
-    // 'start' should be in flux time format e.g. -2h, -1d, -30m
-    async verifyBucketContains(bucket, user, count, mode, value, start){
-        // NEED TO LOGIN FIRST OTHERWISE 401 - not using same cookies as browser
         let query = `from(bucket: "${bucket}")
-    |> range(start: ${start})
-    |> filter(fn: (r) => r._measurement == "${mode}")
-    |> filter(fn: (r) => r._field == "${value}")`;
+    |> range(start: ${define.start})
+    |> filter(fn: (r) => r._measurement == "${define.measurement}")
+    |> filter(fn: (r) => r._field == "${define.field}")`;
 
         let results = await influxUtils.query(user.orgid, query);
+
+
         let resTable = await (await results.split('\r\n')).filter((row) => {
             return row.split(',').length > 9;
         });
 
-        let firstRow = resTable[1].split(',');
-        let lastRow = resTable[resTable.length - 1].split(',');
+        let headers = resTable[0].split(',')
+        headers.shift();
+        let mesIn = headers.indexOf('_measurement');
+        let fieldIn = headers.indexOf('_field');
+        let valIn = headers.indexOf('_value');
 
-        firstRow.shift();
-        lastRow.shift();
+        for(let i = 0; i < define.rows.length; i++){
+            let recs;
+            if(parseInt(define.rows[i]) === -1){  // last record
+                recs = resTable[resTable.length - 1].split(',');
+            }else{ //by normal index {0,1,2...N}
+                recs = resTable[parseInt(define.rows[i])].split(',');
+            }
 
-        expect(parseInt(firstRow[5])).to.equal(1);
-        expect(firstRow[6]).to.equal(value);
-        expect(firstRow[7]).to.equal(mode);
-        expect(parseInt(lastRow[5])).to.equal(233);
-        expect(lastRow[6]).to.equal(value);
-        expect(lastRow[7]).to.equal(mode);
+            recs.shift();
 
+            expect(recs[fieldIn]).to.equal(define.field);
+            expect(recs[mesIn]).to.equal(define.measurement);
+
+            if(typeof(define.vals) !== 'string'){
+                expect(recs[valIn]).to.equal(define.vals[i]);
+            }
+
+        }
     }
 
     async clickPopupWizardContinue(){

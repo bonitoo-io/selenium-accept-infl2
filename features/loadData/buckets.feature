@@ -158,7 +158,10 @@ Scenario: Add Manual Line Protocol Data to Default
   When click the Line Protocol wizard finish button
   Then the line Protocol wizard is not present
   When API sign in user "DEFAULT"
-  Then the bucket "DEFAULT" for user "DEFAULT" contains "12" datapoints of "fibonacci" data with value named "foo" starting at "-3h"
+  Then the bucket "DEFAULT" for user "DEFAULT" contains:
+  """
+  { "points": 12, "field": "foo", "measurement": "fibonacci", "start": "-3h", "vals": ["1","233"], "rows": ["1","-1"] }
+  """
 
   Scenario: Add Manual Line Protocol Bad Data to Default
     Then the add data popover for the bucket "DEFAULT" is not visible
@@ -174,6 +177,37 @@ Scenario: Add Manual Line Protocol Data to Default
     Then the Line Protocol wizard step status message contains "Unable to Write Data"
     When click the Line Protocol wizard finish button
     Then the line Protocol wizard is not present
+
+  Scenario: Add Line Protocol Data from File to Default
+    When generate a line protocol testdata file "etc/test-data/line-protocol-hydro.txt" based on:
+    """
+    { "points": 20, "measurement":"level", "start": "-60h", "algo": "hydro", "prec": "sec"}
+    """
+    When click add data button for bucket "DEFAULT"
+    Then the add data popover for the bucket "DEFAULT" is visible
+    When click the popover item "Line Protocol" for the bucket "DEFAULT"
+    Then the first page of the Line Protocol Wizard is loaded
+    When click radio button "Upload File"
+    When add the file "etc/test-data/line-protocol-bogus.txt" to the Line Protocol Wizard file upload
+    Then the popup wizard import file header contains "line-protocol-bogus.txt"
+    When click the Line Protocol wizard continue button
+    Then the popup wizard step state text contains "Unable to Write Data"
+    Then the popup wizard step is in state "error"
+    When click the wizard previous button
+    When click the Line Protocol wizard precision dropdown
+    When click the line Protocol wizard precision "ms"
+    When add the file "etc/test-data/line-protocol-hydro.txt" to the Line Protocol Wizard file upload
+    Then the popup wizard import file header contains "line-protocol-hydro.txt"
+    When click the Line Protocol wizard continue button
+    Then the popup wizard step state text contains "Data Written Successfully!"
+    Then the popup wizard step is in state "success"
+    When click the Line Protocol wizard finish button
+    Then the line Protocol wizard is not present
+    #Then the bucket "DEFAULT" for user "DEFAULT" contains "20" datapoints of "hydro" data with value named "level" starting at "-60h"
+    Then the bucket "DEFAULT" for user "DEFAULT" contains:
+    """
+    { "points": 20, "field": "level", "measurement": "hydro", "start": "-60h", "vals": "skip", "rows": ["1","-1"] }
+    """
 
   Scenario: Add Scraper to Default
     When click add data button for bucket "DEFAULT"

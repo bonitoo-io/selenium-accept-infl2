@@ -214,14 +214,7 @@ const createLabel = async(orgId,
 
 // sample def : { "points": 10, "measurement":"level", "start": "-60h", "algo": "hydro", "prec": "sec"}
 const genLineProtocolFile = async(filePath, def) => {
-    console.log("DEBUG filePath " + filePath);
-    console.log("DEBUG def " + def);
     let define = JSON.parse(def);
-    console.log("DEBUG define " + define);
-    console.log("DEBUG define.measurment " + define.measurement);
-    console.log("DEBUG define.algo " + define.algo);
-    console.log("DEBUG define.start " + define.start);
-    console.log("DEBUG interval " + JSON.stringify(await getIntervalMillis(define.points, define.start)))
 
     if(fs.existsSync(filePath)) {
         console.log("Removing pre-existing file " + filePath);
@@ -260,14 +253,6 @@ const genLineProtocolFile = async(filePath, def) => {
         });
     });
 
-    /*await fs.writeFile(filePath, dataPoints.concat(), err => {
-        if(err){
-            console.log("Error writing to file " + filePath)
-        }else{
-            console.log("Success writing to file " + filePath)
-        }
-
-    } )*/
 };
 
 // 'start' should have time format e.g. -2h, 30m, 1d
@@ -314,7 +299,7 @@ const genHydroValues = async(count) => {
     let current = Math.floor(Math.random() * 400) + 100;
     let result = [];
     let trend = (Math.floor(Math.random() * 10) - 5);
-    console.log("DEBUG current " + current + " trend " + trend);
+
     for(let i = 0; i < count; i++){
         current += (Math.floor(Math.random() * 10) + trend);
         result.push(current/100.0);
