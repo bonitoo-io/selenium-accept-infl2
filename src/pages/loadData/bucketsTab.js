@@ -43,6 +43,8 @@ const wizardFinishButton = '[data-testid=next][title=\'Finish\']';
 const wizardStepStateText = '.wizard-step--text-state';
 const wizardSparkleSpinner = '[data-testid=sparkle-spinner]';
 
+const popoverItem = '//*[@data-testid=\'popover--contents\']//*[text() = \'%ITEM%\']';
+
 
 const urlCtx = 'buckets';
 
@@ -199,7 +201,12 @@ class bucketsTab extends loadDataPage {
     }
 
     async getBucketCardPopoverByName(name){
-        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[@data-testid='popover--contents']`));
+        //return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[@data-testid='popover--contents']`));
+        return await this.driver.findElement(By.css('[data-testid=popover--contents]'));
+    }
+
+    static async getPopoverSelector(){
+        return { type: 'css', selector: '[data-testid=popover--contents]'};
     }
 
     async getBucketCardPopoverItemByName(name, item){
@@ -284,6 +291,10 @@ class bucketsTab extends loadDataPage {
 
     async getWizardSparkleSpinner(){
         return await this.driver.findElement(By.css(wizardSparkleSpinner));
+    }
+
+    async getPopoverItem(item){
+        return await this.driver.findElement(By.xpath(popoverItem.replace('%ITEM%', item)));
     }
 
 }

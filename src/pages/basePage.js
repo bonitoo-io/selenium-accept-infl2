@@ -24,6 +24,7 @@ const codeMirror = 'div.CodeMirror';
 const popupAlert = '[data-testid=alert]';
 const popupFileUpload = 'input[type=file]';
 const popupFileUploadHeader = '.drag-and-drop--header';
+const pageTitle = '[data-testid=page-title] ';
 
 class basePage{
 
@@ -260,6 +261,10 @@ class basePage{
 
     async getPopupFileUploadHeader(){
         return await this.driver.findElement(By.css(popupFileUploadHeader));
+    }
+
+    async getPageTitle(){
+        return await this.driver.findElement(By.css(pageTitle));
     }
 
 }

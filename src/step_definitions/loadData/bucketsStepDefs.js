@@ -164,8 +164,17 @@ Given(/^ensure buckets name sort order "(.*)"$/,{timeout: 2 * 5000}, async (orde
     await bktTabSteps.ensureNameSortOrder(order);
 });
 
+When(/^click the buckets page title$/, async () => {
+   await bktTabSteps.clickPageTitle();
+});
+
+//need to move focus from list sometimes
+When(/^click buckets filter$/, async () => {
+   await bktTabSteps.clickBucketsFilter();
+});
+
 When(/^hover over bucket card named "(.*)"$/,{timeout: 2 * 5000}, async (name) => {
-    await bktTabSteps.hoverOverCardNamed(name);
+    await bktTabSteps.hoverOverCardNamed((name === 'DEFAULT') ? __defaultUser.bucket : name);
     await bktTabSteps.driver.sleep(5000);
 });
 
@@ -189,12 +198,21 @@ Then(/^the add data popover for the bucket "(.*)" is not visible$/, async (name)
     await bktTabSteps.verifyBucketCardPopoverVisible((name === 'DEFAULT') ? __defaultUser.bucket : name, false);
 });
 
+Then(/^the add data popover is not present$/, async () => {
+    await bktTabSteps.verifyBucketCardPopover(false);
+});
+
+
 Then(/^the add data popover for the bucket "(.*)" is visible$/, async (name) => {
     await bktTabSteps.verifyBucketCardPopoverVisible((name === 'DEFAULT') ? __defaultUser.bucket : name, true);
 });
 
 When(/^click the popover item "(.*)" for the bucket "(.*)"$/, async (item, name) => {
     await bktTabSteps.clickPopoverItemForBucketCard((name === 'DEFAULT') ? __defaultUser.bucket : name, item);
+});
+
+When(/^click bucket card popover item "(.*)"$/, async item => {
+    await bktTabSteps.clickPopoverItem(item);
 });
 
 Then(/^the first page of the Line Protocol Wizard is loaded$/, async () => {

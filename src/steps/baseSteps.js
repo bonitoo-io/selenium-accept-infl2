@@ -467,6 +467,10 @@ class baseSteps{
         await this.verifyElementContainsText(await this.basePage.getPopupFileUploadHeader(), text);
     }
 
+    async clickPageTitle(){
+        await this.clickAndWait(await this.basePage.getPageTitle());
+    }
+
 }
 
 module.exports = baseSteps;

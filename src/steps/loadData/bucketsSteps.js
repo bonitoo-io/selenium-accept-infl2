@@ -409,6 +409,10 @@ class bucketsSteps extends baseSteps {
         });
     }
 
+    async clickBucketsFilter(){
+        await this.clickAndWait(await this.bucketsTab.getFilterInput());
+    }
+
     async hoverOverCardNamed(name){
         await this.hoverOver(await this.bucketsTab.getBucketCardByName(name));
     }
@@ -428,6 +432,14 @@ class bucketsSteps extends baseSteps {
             await this.assertVisible(await this.bucketsTab.getBucketCardPopoverByName(name));
         }else{
             await this.assertNotVisible(await this.bucketsTab.getBucketCardPopoverByName(name));
+        }
+    }
+
+    async verifyBucketCardPopover(present){
+        if(present){
+            await this.assertPresent(await bucketsTab.getPopoverSelector());
+        }else{
+            await this.assertNotPresent(await bucketsTab.getPopoverSelector());
         }
     }
 
@@ -474,6 +486,10 @@ class bucketsSteps extends baseSteps {
                 }
             });
         });
+    }
+
+    async clickPopoverItem(item){
+        await this.clickAndWait(await this.bucketsTab.getPopoverItem(item));
     }
 
     async verifyLineProtocolWizardVisible(visibility){
