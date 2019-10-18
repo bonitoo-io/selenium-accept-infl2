@@ -254,6 +254,10 @@ class basePage{
         return await this.driver.findElement(By.css(popupFileUpload));
     }
 
+    async getPopupFileUploadSelector(){
+        return {type: 'css', selector: popupFileUpload};
+    }
+
     async getPopupFileUploadHeader(){
         return await this.driver.findElement(By.css(popupFileUploadHeader));
     }

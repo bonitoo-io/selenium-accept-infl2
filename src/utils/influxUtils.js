@@ -215,9 +215,6 @@ const createLabel = async(orgId,
 };
 
 const writeLineProtocolData = async (user, def) => {
-    console.log("DEBUG user " + JSON.stringify(user));
-    console.log("DEBUG def " + def);
-    console.log("METHOD NOT YET IMPLEMENTED writeLineProtocolData(def)")
 
     let define = JSON.parse(def);
 
