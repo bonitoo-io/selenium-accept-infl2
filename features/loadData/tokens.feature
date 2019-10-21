@@ -150,7 +150,7 @@ Feature: Load Data - Tokens
   Scenario Outline: Delete Token
     When hover over token card described as "<DESCR>"
     When click the delete button of the token card described as "<DESCR>"
-    When click delete confirm of the token card described as "<DESCR>"
+    #When click delete confirm of the token card described as "<DESCR>"
     When click token card popover delete confirm
     Then the success notification contains "Token was deleted successfully"
     Then the tokens list does not contain the token described as "<DESCR>"
