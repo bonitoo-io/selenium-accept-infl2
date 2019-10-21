@@ -16,7 +16,9 @@ const tokenDescription = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%
 const tokenDescriptionEditBtn = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]/div[@data-testid=\'editable-name--toggle\']';
 const tokenDescriptionEditInput = '//*[@data-testid=\'editable-name\'][.//span[text()=\'%DESCR%\']]//input';
 const tokenCardDeleteButton = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[@data-testid=\'delete-token--button\']';
+// next selector is deprecated - todo clean up
 const tokenCardDeleteConfirm = '//*[@data-testid=\'table-row\'][.//span[text()="%DESCR%"]]//*[text()=\'Confirm\']';
+const tokenCardPopoverDeletConfirm = '//*[@data-testid=\'delete-token--popover--dialog\']//*[text() = \'Confirm\']';
 
 // Generate Read/Write token popup
 const descrInput = '[data-testid=\'input-field--descr\']';
@@ -174,6 +176,10 @@ class tokensTab extends settingsPage{
 
     async getTokenCardDeleteConfirm(descr){
         return await this.driver.findElement(By.xpath(tokenCardDeleteConfirm.replace('%DESCR%', descr)));
+    }
+
+    async getTokenCardPopoverDeletConfirm(){
+        return await this.driver.findElement(By.xpath(tokenCardPopoverDeletConfirm));
     }
 }
 

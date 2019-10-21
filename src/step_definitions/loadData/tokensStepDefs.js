@@ -203,6 +203,11 @@ When(/^click the delete button of the token card described as "(.*)"$/, async de
     await tknSteps.clickTokenCardDeleteButton(descr);
 });
 
+//Deprecated - todo clean
 When(/^click delete confirm of the token card described as "(.*)"$/, async descr => {
     await tknSteps.clickTokenCardDeleteConfirm(descr);
+});
+
+When(/^click token card popover delete confirm$/, async () => {
+   await tknSteps.clickTokenCardPopoverDeleteConfirm();
 });

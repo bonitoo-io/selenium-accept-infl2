@@ -148,7 +148,9 @@ class tokensSteps extends baseSteps{
     }
 
     async clickAllAccessPopupCancel(){
-        await this.clickAndWait(await this.tknTab.getAllAccessCancelButton());
+        await this.clickAndWait(await this.tknTab.getAllAccessCancelButton(),
+            //popup seems slow to disappear
+            async () => { this.driver.sleep(1000)}); //todo better wait
     }
 
     async setAllAccessTokenDescription(descr){
@@ -297,8 +299,14 @@ class tokensSteps extends baseSteps{
         await this.clickAndWait(await this.tknTab.getTokenCardDeleteButton(descr));
     }
 
+    //Deprecated -- todo clean
     async clickTokenCardDeleteConfirm(descr){
+        console.log('This function is deprecated: tokensSteps.clickTokenCardDeleteConfirm(descr)');
         await this.clickAndWait(await this.tknTab.getTokenCardDeleteConfirm(descr));
+    }
+
+    async clickTokenCardPopoverDeleteConfirm(){
+        await this.clickAndWait(await this.tknTab.getTokenCardPopoverDeletConfirm());
     }
 }
 
