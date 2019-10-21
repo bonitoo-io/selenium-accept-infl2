@@ -66,7 +66,8 @@ Scenario Outline: Edit Plugin Values
   | PLUGIN     | FAKE_VALUES | FIELDS           | ERRMSGS               | TRUE_VALUES |
   | Docker     | SKIP        | endpoint         | SKIP                 | http://localhost:10080 |
   | Kubernetes | ASDF        | url              | Must be a valid URI. | http://localhost:10080 |
-  | NGINX      | ASDF        | urls             | NONE                 | http://localhost:10080 |
+# Skip NGINX due to issue 15500
+#  | NGINX      | ASDF        | urls             | NONE                 | http://localhost:10080 |
   | Redis      | SKIP,SKIP   | servers,password | SKIP                 | tcp://localhost:6379,wumpus |
 
 Scenario: Cleanup from Edit Plugin Values
