@@ -26,9 +26,9 @@ Scenario: Exercise Create Label Popup
   When enter the value "Etiketa" into the label popup name input
   Then the preview label pill contains "Etiketa"
   When clear the label popup color input
-  Then the form element error message is "Hexcodes must begin with #, and must be 7 characters"
+  Then the form element error message is "Please enter a hexcode"
   When enter the value "#" into the label popup color input
-  Then the form element error message is "Hexcodes must be 7 characters"
+  Then the form element error message is "Must be 7 characters"
   When clear the label popup color input
   When enter the value "#FFC0CB" into the label popup color input
   Then the color input color matches the preview color
