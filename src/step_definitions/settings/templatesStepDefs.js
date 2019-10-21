@@ -59,3 +59,11 @@ When(/^enter into the Impprt Template paste JSON text area:$/, async text => {
 When(/^click the import template upload button$/, async () => {
    await tpltSteps.clickImportTemplateUploadButton();
 });
+
+When(/^upload the template file "(.*)"$/, async filePath => {
+   await tpltSteps.uploadTemplateFile(filePath);
+});
+
+Then(/^there is a template card named "(.*)"$/, async name => {
+   await tpltSteps.verifyTemplateCardVisibility(name);
+});

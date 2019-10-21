@@ -14,6 +14,16 @@ Feature: Settings - Templates
     """
     Apache Data,Docker,Getting Started with Flux,GitHub Data,InfluxDB 2.0 OSS Metrics,JMeter,Kubernetes,Nginx,Redis,System
     """
+    When API sign in user "DEFAULT"
+    When generate a line protocol testdata for user "DEFAULT" based on:
+    """
+    { "points": 120, "measurement":"level", "start": "-30d", "algo": "hydro", "prec": "sec"}
+    """
+    When generate a line protocol testdata for user "DEFAULT" based on:
+    """
+    { "points": 120, "measurement":"level", "start": "-30d", "algo": "sine", "prec": "sec"}
+    """
+
 
   Scenario: Exercise Import Template Popup
     When click user templates
@@ -40,15 +50,18 @@ Feature: Settings - Templates
 
 
 
-  Scenario: Import User Template
-    When API sign in user "DEFAULT"
-    When generate a line protocol testdata for user "DEFAULT" based on:
-    """
-    { "points": 120, "measurement":"level", "start": "-30d", "algo": "hydro", "prec": "sec"}
-    """
-    When generate a line protocol testdata for user "DEFAULT" based on:
-    """
-    { "points": 120, "measurement":"level", "start": "-30d", "algo": "sine", "prec": "sec"}
-    """
+  Scenario Outline: Import User Template
     When click user templates
-    When click empty state import template button
+    When click header import template button
+    When upload the template file "<FILEPATH>"
+    When click popup submit button
+    Then popup is not loaded
+    Then the success notification contains "Successfully imported template."
+    # Following step is work around for issue 15514
+    When click user templates
+    Then there is a template card named "<TITLE>"
+
+    Examples:
+    |TITLE|FILEPATH|
+    |Hydro test dashboard-Template|etc/test-data/hydro-test-template.json|
+    |Note Dashboard-Template|etc/test-data/note-dboard-template.json|

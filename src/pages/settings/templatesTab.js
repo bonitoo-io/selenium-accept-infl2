@@ -10,6 +10,7 @@ const userTemplatesRadioButton = '[data-testid=radio--button][id=user-templates]
 const resourceList = '[data-testid=resource-list]';
 const templateCards = '[data-testid=template-card--name] span span';
 const importTemplateEmptyButton = '[data-testid=empty-state] [data-testid=button]';
+const templateCardByName = '//*[@data-testid=\'template-card\']//*[text() = \'%NAME%\']';
 
 const urlCtx = 'templates';
 
@@ -17,6 +18,7 @@ const urlCtx = 'templates';
 const importTemplateUploadButton = '[data-testid=overlay--body] [data-testid=radio--button][id=upload]';
 const importTemplatePasteButton = '[data-testid=overlay--body] [data-testid=radio--button][id=paste]';
 const importTemplateJSONTextArea = '[data-testid=overlay--body] [data-testid=textarea]';
+const importTemplateDragNDrop = '[data-testid=overlay--body] input[type=file]';
 
 class templatesTab extends settingsPage{
 
@@ -66,6 +68,14 @@ class templatesTab extends settingsPage{
 
     static getImportTemplateJSONTextAreaSelector(){
         return { type: 'css', selector: importTemplateJSONTextArea}
+    }
+
+    async getImportTemplateDragNDrop(){
+        return await this.driver.findElement(By.css(importTemplateDragNDrop));
+    }
+
+    async getTemplateCardByName(name){
+        return await this.driver.findElement(By.xpath(templateCardByName.replace('%NAME%', name)));
     }
 
 }

@@ -82,6 +82,19 @@ class templatesSteps extends baseSteps{
         await this.typeTextAndWait(await this.tmTab.getImportTemplateJSONTextArea(), text);
     }
 
+    //todo fix file separator in path below
+    async uploadTemplateFile(filePath){
+        await this.tmTab.getImportTemplateDragNDrop().then(async elem => {
+            await elem.sendKeys(process.cwd() + '/' + filePath).then(async () => {
+                await this.delay(200); //debug wait - todo better wait
+            });
+        });
+    }
+
+    async verifyTemplateCardVisibility(name){
+        await this.assertVisible(await this.tmTab.getTemplateCardByName(name));
+    }
+
 }
 
 module.exports = templatesSteps;
