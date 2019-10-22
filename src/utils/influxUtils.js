@@ -70,6 +70,10 @@ const putUser = (user) => {
 
 const getUser = (name) => {
 
+    if(name.toUpperCase() === 'DEFAULT'){
+        return __users[__defaultUser.username];
+    }
+
     if(name in __users){
         return __users[name];
     }
@@ -214,6 +218,19 @@ const createLabel = async(orgId,
     });
 };
 
+const getDocTemplates = async(orgId) => {
+
+    return await axios({
+        method: 'get',
+        url: `/api/v2/documents/templates?orgID=${orgId}`
+    }).then(resp => {
+        return resp.data
+    }).catch(err => {
+        throw(err);
+    })
+
+};
+
 const writeLineProtocolData = async (user, def) => {
 
     let define = JSON.parse(def);
@@ -350,6 +367,12 @@ const genSineValues = async(count) => {
     return result;
 };
 
+const readFileToBuffer = async function(filepath) {
+    return await fs.readFileSync(filepath, 'utf-8'); //, async (err) => {
+};
+
+
+
 module.exports = { flush,
     config,
     defaultUser,
@@ -366,8 +389,10 @@ module.exports = { flush,
     createLabel,
     genLineProtocolFile,
     getIntervalMillis,
+    getDocTemplates,
     genFibonacciValues,
-    writeLineProtocolData
+    writeLineProtocolData,
+    readFileToBuffer
 };
 
 //flush()

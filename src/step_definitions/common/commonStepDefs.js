@@ -245,8 +245,12 @@ When(/^generate a line protocol testdata for user "(.*)" based on:$/, async (use
        def);
 });
 
-//For troubleshooting
-When(/^wait "(.*)" seconds$/, async secs => {
-    await bSteps.driver.sleep(parseInt(secs));
+//For troubleshooting - up to 5 min
+When(/^wait "(.*)" seconds$/, {timeout: 5 * 60 * 1000}, async secs => {
+    await bSteps.driver.sleep(parseInt(secs) * 1000);
+});
+
+When(/^force page refresh$/, async ()=> {
+   await bSteps.driver.navigate().refresh();
 });
 

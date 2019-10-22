@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const templatesTab = require(__srcdir + '/pages/settings/templatesTab.js');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 class templatesSteps extends baseSteps{
 
@@ -95,6 +96,16 @@ class templatesSteps extends baseSteps{
         await this.assertVisible(await this.tmTab.getTemplateCardByName(name));
     }
 
+    async copyFileContentsToTemplateTextare(filepath){
+        await this.copyFileContentsToTextarea(filepath, await this.tmTab.getImportTemplateJSONTextArea());
+    }
+
+    async verifyRESTTemplateDocumentExists(user,title){
+        let uzzer = await influxUtils.getUser(user);
+        let resp = await influxUtils.getDocTemplates(uzzer.orgid);
+        let match = resp.documents.filter( doc => doc.meta.name === title);
+        expect(match.length).to.be.above(0);
+    }
 }
 
 module.exports = templatesSteps;

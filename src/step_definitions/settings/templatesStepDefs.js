@@ -67,3 +67,11 @@ When(/^upload the template file "(.*)"$/, async filePath => {
 Then(/^there is a template card named "(.*)"$/, async name => {
    await tpltSteps.verifyTemplateCardVisibility(name);
 });
+
+When(/^paste contents of "(.*)" to template textarea$/, {timeout: 30000 }, async filepath => {
+   await tpltSteps.copyFileContentsToTemplateTextare(filepath);
+});
+
+Then(/^a REST template document for user "(.*)" titled "(.*)" exists$/, async (user,title) => {
+   await tpltSteps.verifyRESTTemplateDocumentExists(user ,title);
+});

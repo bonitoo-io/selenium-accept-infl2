@@ -21,7 +21,7 @@ Feature: Settings - Templates
     """
     When generate a line protocol testdata for user "DEFAULT" based on:
     """
-    { "points": 120, "measurement":"level", "start": "-30d", "algo": "sine", "prec": "sec"}
+    { "points": 120, "measurement":"beat", "start": "-30d", "algo": "sine", "prec": "sec"}
     """
 
 
@@ -48,15 +48,20 @@ Feature: Settings - Templates
     When dismiss the popup
     Then popup is not loaded
 
+# TODO add variables to templates
 
-
-  Scenario Outline: Import User Template
+  Scenario Outline: Import User Template File Upload
     When click user templates
     When click header import template button
     When upload the template file "<FILEPATH>"
     When click popup submit button
     Then popup is not loaded
     Then the success notification contains "Successfully imported template."
+    When close all notifications
+    # sometimes page is stuck in cache
+    When force page refresh
+    When wait "10" seconds
+    Then a REST template document for user "DEFAULT" titled "<TITLE>" exists
     # Following step is work around for issue 15514
     When click user templates
     Then there is a template card named "<TITLE>"
@@ -65,3 +70,33 @@ Feature: Settings - Templates
     |TITLE|FILEPATH|
     |Hydro test dashboard-Template|etc/test-data/hydro-test-template.json|
     |Note Dashboard-Template|etc/test-data/note-dboard-template.json|
+
+  Scenario Outline: Import User Template as JSON
+    When click header import template button
+    Then click the import template paste button
+    When paste contents of "<FILEPATH>" to template textarea
+    When click popup submit button
+    Then popup is not loaded
+    Then the success notification contains "Successfully imported template."
+    When close all notifications
+    # sometimes page is stuck in cache
+    When force page refresh
+    When wait "10" seconds
+    Then a REST template document for user "DEFAULT" titled "<TITLE>" exists
+    # Following step is work around for issue 15514
+    When click user templates
+    Then there is a template card named "<TITLE>"
+
+    Examples:
+    |TITLE|FILEPATH|
+    |Sinusoid test data-Template|etc/test-data/sine-test-template.json|
+    |Notepad-Template|etc/test-data/notepad-test-template.json|
+
+  Scenario: Import Bad Template File
+    When click user templates
+    When click header import template button
+    When upload the template file "etc/test-data/bad-template.json"
+    When click popup submit button
+    Then popup is not loaded
+    Then the error notification contains "Failed to import template: Error: Request failed with status code 400"
+    When close all notifications

@@ -471,6 +471,12 @@ class baseSteps{
         await this.clickAndWait(await this.basePage.getPageTitle());
     }
 
+    async copyFileContentsToTextarea(filepath, textarea){
+        let buffer = await influxUtils.readFileToBuffer(process.cwd() + '/' + filepath);
+        await textarea.sendKeys(buffer);
+    }
+
+
 }
 
 module.exports = baseSteps;
