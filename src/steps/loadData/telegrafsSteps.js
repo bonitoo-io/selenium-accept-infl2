@@ -311,8 +311,20 @@ class telegrafsSteps extends loadDataSteps{
         await this.clickAndWait(await this.teleTab.getNameSort()); //todo better wait
     }
 
+    async clickTelegrafSortByBucket(){
+        await this.clickAndWait(await this.teleTab.getBucketSort()); //todo better wait
+    }
+
     async clickSetupInstructionsForCard(card){
         await this.clickAndWait(await this.teleTab.getTelegrafCardSetupInstructions(card)); //todo better wait
+    }
+
+    async enterTelegrafsFilterValue(value){
+        await this.typeTextAndWait(await this.teleTab.getTelegrafsFilter(), value);
+    }
+
+    async clearTelegrafsFilter(){
+        await this.clearInputText(await this.teleTab.getTelegrafsFilter());
     }
 
     async verifyTelegrafSetupPopup(){

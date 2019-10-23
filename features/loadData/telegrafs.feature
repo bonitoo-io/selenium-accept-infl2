@@ -100,9 +100,6 @@ Scenario Outline: Create Telegraf
     | NGINX      | Duchamp |Nymburk    | Lorem ipsum  | SKIP |
     | Redis      | DEFAULT |Rakovnik   | Lorem ipsum  | SKIP |
 
-
-# Scenario: Filter Telegrafs - seems buggy issue 15246 - all items removed
-
 Scenario: Sort Telegrafs by Name
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
   When click the telegraf sort by name button
@@ -110,7 +107,20 @@ Scenario: Sort Telegrafs by Name
   When click the telegraf sort by name button
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
-# Scenario: Sort Telegrafs by Bucket - seems buggy issue 15247 - not sorted by buckets
+Scenario: Sort By Buckets
+  When click the telegraf sort by bucket button
+  Then the telegraf sort order is "Decin,Nymburk,Strakonice,Kladno,Rakovnik"
+  When click the telegraf sort by bucket button
+  Then the telegraf sort order is "Strakonice,Kladno,Rakovnik,Decin,Nymburk"
+  When click the telegraf sort by name button
+  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
+
+Scenario: Filter Telegrafs
+  When enter the value "Rak" into the Telegrafs filter
+  Then the telegraf sort order is "Rakovnik,Strakonice"
+  Then the telegraf cards "Decin,Kldano,Nymburk" are no longer present
+  When clear the Telegrafs filter
+  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
 Scenario: Verify setup instructions
   When click on setup instructions for the telegraf card "Decin"

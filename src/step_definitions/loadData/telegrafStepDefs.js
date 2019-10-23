@@ -139,6 +139,18 @@ When(/^click the telegraf sort by name button$/, async () => {
     await teleTabSteps.clickTelegrafSortByName();
 });
 
+When(/^click the telegraf sort by bucket button$/, async () => {
+   await teleTabSteps.clickTelegrafSortByBucket();
+});
+
+When(/^enter the value "(.*)" into the Telegrafs filter$/, async value => {
+   await teleTabSteps.enterTelegrafsFilterValue(value);
+});
+
+When(/^clear the Telegrafs filter$/, async () => {
+   await teleTabSteps.clearTelegrafsFilter();
+});
+
 When(/^click on setup instructions for the telegraf card "(.*)"$/, async card => {
     await teleTabSteps.clickSetupInstructionsForCard(card);
 });
@@ -181,6 +193,13 @@ When(/^set the description input of the telegraf card "(.*)" to "(.*)"$/, async 
 
 Then(/^the Telegraf Card "(.*)" can no longer be found$/, async name => {
     await teleTabSteps.verifyTelegrafCardNotPresent(name);
+});
+
+Then(/^the telegraf cards "(.*)" are no longer present$/, {timeout: 20000}, async names => {
+    let nameArr = names.split(',');
+    for(let i = 0; i < nameArr.length; i++){
+        await teleTabSteps.verifyTelegrafCardNotPresent(nameArr[i]);
+    }
 });
 
 When(/^hover over the description of the telegraf Card "(.*)"$/, async card => {
