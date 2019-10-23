@@ -279,7 +279,7 @@ class telegrafsSteps extends loadDataSteps{
 
     async verifyBucketForTelegrafCard(name, bucket){
         await this.teleTab.getTelegrafCardByName(name).then(async card => {
-            await card.findElement(By.xpath('.//div[contains(text(), \'Bucket\')]')).then(async elem => {
+            await card.findElement(By.css('[data-testid=bucket-name]')).then(async elem => {
                 await elem.getText().then(async elText => {
                     expect(elText).to.include(bucket);
                 });
