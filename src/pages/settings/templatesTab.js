@@ -8,7 +8,7 @@ const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const templatesTypeFilterButton = '[data-testid=radio-button]';
 const userTemplatesRadioButton = '[data-testid=radio--button][id=user-templates]';
 const resourceList = '[data-testid=resource-list]';
-const templateCards = '[data-testid=template-card--name] span span';
+const templateCardNames = '[data-testid=template-card--name] span span';
 const importTemplateEmptyButton = '[data-testid=empty-state] [data-testid=button]';
 const templateCardByName = '//*[@data-testid=\'template-card\']//*[text() = \'%NAME%\']';
 
@@ -38,8 +38,8 @@ class templatesTab extends settingsPage{
         );
     }
 
-    async getTemplateCards(){
-        return await this.driver.findElements(By.css(templateCards));
+    async getTemplateCardNames(){
+        return await this.driver.findElements(By.css(templateCardNames));
     }
 
     async getUserTemplatesRadioButton(){
@@ -76,6 +76,18 @@ class templatesTab extends settingsPage{
 
     async getTemplateCardByName(name){
         return await this.driver.findElement(By.xpath(templateCardByName.replace('%NAME%', name)));
+    }
+
+    static getTemplateCardSelectorByName(name){
+        return { type: 'xpath', selector: templateCardByName.replace('%NAME%', name) };
+    }
+
+    async getTemplatesFilter(){
+        return await this.driver.findElement(By.css(templatesFilter));
+    }
+
+    async getNameSort(){
+        return await this.driver.findElement(By.css(nameSort));
     }
 
 }

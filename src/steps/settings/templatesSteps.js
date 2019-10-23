@@ -16,7 +16,7 @@ class templatesSteps extends baseSteps{
 
     async verifyTemplateCardsSort(templates){
         let tempArray = templates.split(',');
-        await this.tmTab.getTemplateCards().then(async cards => {
+        await this.tmTab.getTemplateCardNames().then(async cards => {
             for(let i = 0; i < tempArray.length; i++){
                 expect(await cards[i].getText()).to.equal(tempArray[i]);
             }
@@ -105,6 +105,22 @@ class templatesSteps extends baseSteps{
         let resp = await influxUtils.getDocTemplates(uzzer.orgid);
         let match = resp.documents.filter( doc => doc.meta.name === title);
         expect(match.length).to.be.above(0);
+    }
+
+    async enterTemplatesFilterValue(value){
+        await this.typeTextAndWait(await this.tmTab.getTemplatesFilter(), value);
+    }
+
+    async verifyTemplateNotPresent(name){
+        await this.assertNotPresent(await templatesTab.getTemplateCardSelectorByName(name));
+    }
+
+    async clearTemplatesFilter(){
+        await this.clearInputText(await this.tmTab.getTemplatesFilter());
+    }
+
+    async clickSortTemplatesByName(){
+        await this.clickAndWait(await this.tmTab.getNameSort());
     }
 }
 

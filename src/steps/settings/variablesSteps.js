@@ -24,7 +24,9 @@ class variablesSteps extends baseSteps{
     }
 
     async clickCreateVariableDropdownItem(item){
-        await this.clickAndWait(await this.varTab.getCreateVariableItem(item));
+        await this.clickAndWait(await this.varTab.getCreateVariableItem(item),
+            //over running this step?
+            async () => { await this.driver.sleep(1000) }); // todo better wait
     }
 
     async verifyImportVariablePopupLoaded(){
@@ -115,7 +117,9 @@ class variablesSteps extends baseSteps{
     }
 
     async clickCreateVariableTypeDropdown(){
-        await this.clickAndWait(await this.varTab.getCreateVariableTypeDropdown())
+        await this.clickAndWait(await this.varTab.getCreateVariableTypeDropdown(),
+            //seems to be slow
+            async () => { this.driver.sleep(1000) }); //todo better wait
     }
 
     async clickEditVariableTypeDropdown(){
@@ -287,7 +291,9 @@ class variablesSteps extends baseSteps{
     }
 
     async clickVariableNameChangeWarningUnderstand(){
-        await this.clickAndWait(await this.varTab.getPopupSubmit());
+        await this.clickAndWait(await this.varTab.getPopupSubmit(),
+            //occasional overrun at this point
+            async () => { this.driver.sleep(1000) }); //todo better wait
     }
 
     async clearVariableNameChangeNameInput(){

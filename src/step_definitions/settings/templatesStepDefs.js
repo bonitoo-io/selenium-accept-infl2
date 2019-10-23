@@ -75,3 +75,22 @@ When(/^paste contents of "(.*)" to template textarea$/, {timeout: 30000 }, async
 Then(/^a REST template document for user "(.*)" titled "(.*)" exists$/, async (user,title) => {
    await tpltSteps.verifyRESTTemplateDocumentExists(user ,title);
 });
+
+When(/^enter the value "(.*)" into the templates filter field$/, async value => {
+   await tpltSteps.enterTemplatesFilterValue(value)
+});
+
+Then(/^the template cards "(.*)" are not present$/, {timeout: 30000}, async templates => {
+   let tempArr = templates.split(',');
+   for(let i = 0; i < tempArr.length; i++){
+      await tpltSteps.verifyTemplateNotPresent(tempArr[i]);
+   }
+});
+
+When(/^clear the templates filter$/, async () => {
+   await tpltSteps.clearTemplatesFilter();
+});
+
+When(/^click templates sort by Name$/, async () => {
+   await tpltSteps.clickSortTemplatesByName();
+});

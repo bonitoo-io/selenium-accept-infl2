@@ -100,3 +100,29 @@ Feature: Settings - Templates
     Then popup is not loaded
     Then the error notification contains "Failed to import template: Error: Request failed with status code 400"
     When close all notifications
+
+  Scenario: Filter Templates
+    When click user templates
+    When enter the value "Note" into the templates filter field
+    Then the templates are sorted as:
+    """
+    Note Dashboard-Template,Notepad-Template
+    """
+    Then the template cards "Hydro test dashboard-Template,Sinusoid test data-Template" are not present
+    When clear the templates filter
+    Then the templates are sorted as:
+    """
+    Hydro test dashboard-Template,Note Dashboard-Template,Notepad-Template,Sinusoid test data-Template
+    """
+
+  Scenario: Sort Templates by Name
+    When click templates sort by Name
+    Then the templates are sorted as:
+    """
+    Sinusoid test data-Template,Notepad-Template,Note Dashboard-Template,Hydro test dashboard-Template
+    """
+    When click templates sort by Name
+    Then the templates are sorted as:
+    """
+    Hydro test dashboard-Template,Note Dashboard-Template,Notepad-Template,Sinusoid test data-Template
+    """
