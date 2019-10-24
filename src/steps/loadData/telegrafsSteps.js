@@ -39,7 +39,7 @@ class telegrafsSteps extends loadDataSteps{
     async clickCreateTelegrafButtonInHeader(){
         await this.clickAndWait(await this.teleTab.getCreateConfigInHeader(),
             //sometimes default wait overruns full load
-            async() => { this.driver.sleep(1000)}); // todo pass in better wait
+            async() => { this.driver.sleep(1000);}); // todo pass in better wait
     }
 
     async verifyWizardLoadedP1(){
@@ -61,7 +61,7 @@ class telegrafsSteps extends loadDataSteps{
     async clickCreateConfigBucketDropdown(){
         await this.clickAndWait(await this.teleTab.getBucketDropdownBtn(),
             //some kind of slow animation?
-            async () => {await this.driver.sleep(2000)}); // todo pass in better wait method
+            async () => {await this.driver.sleep(2000);}); // todo pass in better wait method
     }
 
     async clickCreateConfigBucketDropdownItem(item){

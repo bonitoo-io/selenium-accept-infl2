@@ -209,5 +209,5 @@ When(/^click delete confirm of the token card described as "(.*)"$/, async descr
 });
 
 When(/^click token card popover delete confirm$/, async () => {
-   await tknSteps.clickTokenCardPopoverDeleteConfirm();
+    await tknSteps.clickTokenCardPopoverDeleteConfirm();
 });

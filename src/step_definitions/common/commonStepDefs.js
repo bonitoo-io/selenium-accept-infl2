@@ -107,9 +107,9 @@ When(/^write sine data for org "(.*?)" to bucket "(.*?)"$/, async (org, bucket) 
         lines[i] = 'sinus point=' + Math.sin(i) + ' ' + (startTime + (i * intervalNano));
     }
 
-    console.log("DEBUG lines: ");
+    console.log('DEBUG lines: ');
     lines.forEach((line) => {
-       console.log(line);
+        console.log(line);
     });
 
     await influxUtils.writeData(org, bucket, lines);
@@ -225,24 +225,24 @@ When(/^click popup submit button$/, async () => {
 });
 
 Then(/^the popup wizard step state text contains "(.*)"$/, async text => {
-   await bSteps.verifyPopupWizardStepStateText(text)
+    await bSteps.verifyPopupWizardStepStateText(text);
 });
 
 Then(/^the popup wizard step is in state "(.*)"$/, async state => {
-   await bSteps.verifyPopupWizardStepState(state);
+    await bSteps.verifyPopupWizardStepState(state);
 });
 
 Then(/^the popup wizard import file header contains "(.*)"$/, async text => {
-   await bSteps.verifyPopupFileUploadHeaderText(text)
+    await bSteps.verifyPopupFileUploadHeaderText(text);
 });
 
 When(/^generate a line protocol testdata file "(.*)" based on:$/, async (filePath, def) => {
-   await influxUtils.genLineProtocolFile(filePath, def);
+    await influxUtils.genLineProtocolFile(filePath, def);
 });
 
 When(/^generate a line protocol testdata for user "(.*)" based on:$/, async (user, def) => {
-   await influxUtils.writeLineProtocolData((user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(user),
-       def);
+    await influxUtils.writeLineProtocolData((user === 'DEFAULT')? __defaultUser: await influxUtils.getUser(user),
+        def);
 });
 
 //For troubleshooting - up to 5 min
@@ -251,6 +251,6 @@ When(/^wait "(.*)" seconds$/, {timeout: 5 * 60 * 1000}, async secs => {
 });
 
 When(/^force page refresh$/, async ()=> {
-   await bSteps.driver.navigate().refresh();
+    await bSteps.driver.navigate().refresh();
 });
 

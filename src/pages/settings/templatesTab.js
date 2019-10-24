@@ -69,7 +69,7 @@ class templatesTab extends settingsPage{
     }
 
     static getImportTemplateJSONTextAreaSelector(){
-        return { type: 'css', selector: importTemplateJSONTextArea}
+        return { type: 'css', selector: importTemplateJSONTextArea};
     }
 
     async getImportTemplateDragNDrop(){

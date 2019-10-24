@@ -13,7 +13,7 @@ const variableCardName = '//*[@data-testid=\'resource-name\']//span[text()=\'%NA
 const variableCardContextMenu = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
 const variableCardContextMenuItem = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[button[@data-testid=\'context-menu\']]//button[text()=\'%ITEM%\']';
 const variableCardContextDelete = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
-const variableCardContextDeleteConfirm = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-task\']'
+const variableCardContextDeleteConfirm = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-task\']';
 
 const urlCtx = 'variables';
 
@@ -75,7 +75,7 @@ class variablesTab extends settingsPage{
     }
 
     async getCreateVariableItem(item){
-        return await this.driver.findElement(By.css(createVariableItem.replace('%ITEM%', item)))
+        return await this.driver.findElement(By.css(createVariableItem.replace('%ITEM%', item)));
     }
 
     async getPasteRadioButton(){
@@ -119,7 +119,7 @@ class variablesTab extends settingsPage{
     }
 
     static getCreateVariableTextAreaSelector(){
-        return {type: 'css', selector: createVariableTextArea}
+        return {type: 'css', selector: createVariableTextArea};
     }
 
     async getPasteJSONTextarea(){
@@ -191,7 +191,7 @@ class variablesTab extends settingsPage{
     async getVariableCardContextMenuItem(name, item){
         return await this.driver.findElement(By.xpath(variableCardContextMenuItem
             .replace('%NAME%', name)
-            .replace('%ITEM%', item)))
+            .replace('%ITEM%', item)));
     }
 
     async getUpdateNameNameInput(){

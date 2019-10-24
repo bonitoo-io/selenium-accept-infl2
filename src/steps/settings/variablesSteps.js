@@ -26,7 +26,7 @@ class variablesSteps extends baseSteps{
     async clickCreateVariableDropdownItem(item){
         await this.clickAndWait(await this.varTab.getCreateVariableItem(item),
             //over running this step?
-            async () => { await this.driver.sleep(1000) }); // todo better wait
+            async () => { await this.driver.sleep(1000); }); // todo better wait
     }
 
     async verifyImportVariablePopupLoaded(){
@@ -35,7 +35,7 @@ class variablesSteps extends baseSteps{
         await this.assertVisible(await this.varTab.getPasteRadioButton());
         await this.assertPresent(await variablesTab.getDragNDropFileSelector()); //N.B. display: none
         await this.assertVisible(await this.varTab.getImportButton());
-        await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Import Variable')
+        await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Import Variable');
     }
 
     async verifyCreateVariablePopupLoaded(){
@@ -62,8 +62,8 @@ class variablesSteps extends baseSteps{
         await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Are you sure?');
         await this.varTab.getPopupSubmit().then(async elem => {
             await this.verifyElementContainsText(await elem.findElement(By.xpath('./span')),
-                'I understand, let\'s rename my Variable')
-        })
+                'I understand, let\'s rename my Variable');
+        });
     }
 
     async clickImportPopupPasteJSON(){
@@ -97,7 +97,7 @@ class variablesSteps extends baseSteps{
     async verifyCreateVarPopupSelectedType(type){
         await this.varTab.getCreateVariableTypeDropdown().then(async elem => {
             await this.verifyElementText(await elem.findElement(By.css('[class*=selected]')), type);
-        })
+        });
     }
 
     async verifyCreatePopupCreateEnabled(enabled){
@@ -119,7 +119,7 @@ class variablesSteps extends baseSteps{
     async clickCreateVariableTypeDropdown(){
         await this.clickAndWait(await this.varTab.getCreateVariableTypeDropdown(),
             //seems to be slow
-            async () => { this.driver.sleep(1000) }); //todo better wait
+            async () => { this.driver.sleep(1000); }); //todo better wait
     }
 
     async clickEditVariableTypeDropdown(){
@@ -156,7 +156,7 @@ class variablesSteps extends baseSteps{
                 // e.g. "Mapping Contains 0 key-value pairs"
                 let tokens = elText.split(' ');
                 expect(parseInt(tokens[2])).to.equal(parseInt(count));
-            })
+            });
         });
     }
 
@@ -172,12 +172,12 @@ class variablesSteps extends baseSteps{
         await this.varTab.getDragNDropFile().then(async elem => {
             await elem.sendKeys(process.cwd() + '/' + path2file).then(async () => {
                 await this.delay(200); //debug wait - todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyImportPopupUploadSuccess(){
-        await this.verifyElementContainsClass(await this.varTab.getImportVariableDragNDropHeader(), "selected");
+        await this.verifyElementContainsClass(await this.varTab.getImportVariableDragNDropHeader(), 'selected');
     }
 
     async verifyImportPopupUploadFilename(path2file){
@@ -211,8 +211,8 @@ class variablesSteps extends baseSteps{
         await this.varTab.getCreateVariableDefaultValDropdown().then(async elem => {
             await elem.findElement(By.css('[class*=\'selected\']')).then(async el2 => {
                 await this.verifyElementContainsText(el2, item);
-            })
-        })
+            });
+        });
     }
 
     async clickCreateVarPopupDefaultDropdown(){
@@ -263,7 +263,7 @@ class variablesSteps extends baseSteps{
             for(let i = 0; i < cardsArr.length; i++){
                 expect(await cardNames[i].getText()).to.equal(cardsArr[i]);
             }
-        })
+        });
     }
 
     async clickVariableSortByName(){
@@ -293,7 +293,7 @@ class variablesSteps extends baseSteps{
     async clickVariableNameChangeWarningUnderstand(){
         await this.clickAndWait(await this.varTab.getPopupSubmit(),
             //occasional overrun at this point
-            async () => { this.driver.sleep(1000) }); //todo better wait
+            async () => { this.driver.sleep(1000); }); //todo better wait
     }
 
     async clearVariableNameChangeNameInput(){

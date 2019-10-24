@@ -20,7 +20,7 @@ class templatesSteps extends baseSteps{
             for(let i = 0; i < tempArray.length; i++){
                 expect(await cards[i].getText()).to.equal(tempArray[i]);
             }
-        })
+        });
     }
 
     async verifyImportTemplatePopupLoaded(){
@@ -44,7 +44,7 @@ class templatesSteps extends baseSteps{
         if(present){
             await this.assertPresent(await templatesTab.getImportTemplateJSONTextAreaSelector());
         }else{
-            await this.assertNotPresent(await templatesTab.getImportTemplateJSONTextAreaSelector())
+            await this.assertNotPresent(await templatesTab.getImportTemplateJSONTextAreaSelector());
         }
     }
 
@@ -67,12 +67,12 @@ class templatesSteps extends baseSteps{
     async clickImportTemplateHeaderButton(){
         await this.clickAndWait(await this.tmTab.getImportTemplateHeaderButton(),
             //seems to be overrunning ui response
-            async () => { this.driver.sleep(1000)}); //todo better wait
+            async () => { this.driver.sleep(1000);}); //todo better wait
     }
 
     async clickImportTemplatePasteButton(){
         await this.clickAndWait(await this.tmTab.getImportTemplatePasteButton(),
-            async () => {  this.driver.sleep(1000)}); //todo better wait
+            async () => {  this.driver.sleep(1000);}); //todo better wait
     }
 
     async clickImportTemplateUploadButton(){

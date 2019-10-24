@@ -193,24 +193,24 @@ class baseSteps{
 
     async assertPresent(selector){
         switch(selector.type){
-            case 'css':
-                await this.driver.findElements(By.css(selector.selector)).then(async elems => {
-                    await expect(elems.length).to.be.above(0);
-                }).catch(async err => {
-                    err += ' expected ' + JSON.stringify(selector) + ' to not be present';
-                    throw err;
-                });
-                break;
-            case 'xpath':
-                await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
-                    await expect(elems.length).to.be.above(0);
-                }).catch(async err => {
-                    err.message += ' expected ' + selector + ' to not be present';
-                    throw err;
-                });
-                break;
-            default:
-                throw `Unknown selector type ${selector}`;
+        case 'css':
+            await this.driver.findElements(By.css(selector.selector)).then(async elems => {
+                await expect(elems.length).to.be.above(0);
+            }).catch(async err => {
+                err += ' expected ' + JSON.stringify(selector) + ' to not be present';
+                throw err;
+            });
+            break;
+        case 'xpath':
+            await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
+                await expect(elems.length).to.be.above(0);
+            }).catch(async err => {
+                err.message += ' expected ' + selector + ' to not be present';
+                throw err;
+            });
+            break;
+        default:
+            throw `Unknown selector type ${selector}`;
         }
     }
 
@@ -232,7 +232,7 @@ class baseSteps{
             return row.split(',').length > 9;
         });
 
-        let headers = resTable[0].split(',')
+        let headers = resTable[0].split(',');
         headers.shift();
         let mesIn = headers.indexOf('_measurement');
         let fieldIn = headers.indexOf('_field');
@@ -444,15 +444,15 @@ class baseSteps{
     async verifyElementContainsNoText(elem){
         await elem.getText().then(async text => {
             await expect(text.length).to.equal(0);
-        })
+        });
     }
 
     async setFileUpload(filePath){
         await this.basePage.getPopupFileUpload().then(async elem => {
             await elem.sendKeys(process.cwd() + '/' + filePath).then(async () => {
                 await this.delay(200); //debug wait - todo better wait
-            })
-        })
+            });
+        });
     }
 
     async verifyPopupWizardStepStateText(text){

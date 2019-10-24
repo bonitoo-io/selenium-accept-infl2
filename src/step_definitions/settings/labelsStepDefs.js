@@ -114,11 +114,11 @@ Then(/^the edit label popup is loaded$/, async () => {
 });
 
 Then(/^the first labels are sorted as "(.*)"$/, async labels => {
-   await lblSteps.verifyLabelSortOrder(labels);
+    await lblSteps.verifyLabelSortOrder(labels);
 });
 
 When(/^click sort label by name$/, async () => {
-   await lblSteps.clickLabelSortByName();
+    await lblSteps.clickLabelSortByName();
 });
 
 When(/^clear the labels filter input$/, async () => {
@@ -126,11 +126,11 @@ When(/^clear the labels filter input$/, async () => {
 });
 
 When(/^enter the value "(.*)" into the label filter$/, async text => {
-   await lblSteps.enterTextIntoLabelFilter(text);
+    await lblSteps.enterTextIntoLabelFilter(text);
 });
 
 Then(/^the labels "(.*)" are not present$/, {timeout: 15000}, async labels => {
-   await lblSteps.verifyLabelsNotPresent(labels);
+    await lblSteps.verifyLabelsNotPresent(labels);
 });
 
 When(/^hover over label card "(.*)"$/, async name => {

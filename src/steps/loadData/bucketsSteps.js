@@ -366,7 +366,7 @@ class bucketsSteps extends baseSteps {
     async clickOnBucketNamed(name){
         await this.clickAndWait(await this.bucketsTab.getBucketCardName(name),
             //N.B. popup sometimes slow to load
-            async () => { await this.driver.sleep(1000)}); // todo better wait
+            async () => { await this.driver.sleep(1000);}); // todo better wait
     }
 
     async clickSaveChanges(){
@@ -420,18 +420,18 @@ class bucketsSteps extends baseSteps {
     async verifyBucketCardDeleteNotPresent(name){
         //await this.driver.executeScript('arguments[0].blur()', await this.bucketsTab.getBucketCardDeleteByName(name));
         //await this.bucketsTab.getBucketCardByName('_tasks').then(async elem => {
-          //  await elem.click().then(async () => {  //remove focus from list
-            //    await this.driver.sleep(500); //fix later - losing patience
-                await this.assertNotVisible(await this.bucketsTab.getBucketCardDeleteByName(name));
-           // });
+        //  await elem.click().then(async () => {  //remove focus from list
+        //    await this.driver.sleep(500); //fix later - losing patience
+        await this.assertNotVisible(await this.bucketsTab.getBucketCardDeleteByName(name));
+        // });
         //});
     }
 
     async verifyBucketCardPopoverVisible(name, toBeVisible){
         if(toBeVisible){
-            await this.assertVisible(await this.bucketsTab.getBucketCardPopoverByName(name));
+            await this.assertVisible(await this.bucketsTab.getBucketCardPopover());
         }else{
-            await this.assertNotVisible(await this.bucketsTab.getBucketCardPopoverByName(name));
+            await this.assertNotVisible(await this.bucketsTab.getBucketCardPopover());
         }
     }
 
@@ -467,7 +467,7 @@ class bucketsSteps extends baseSteps {
     async clickAddDataButtonOfCard(name){
         await this.bucketsTab.getBucketCardAddDataByName(name).then(async elem => {
             await elem.click().then(async () => {
-                await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getBucketCardPopoverByName(name)));
+                await this.driver.wait(until.elementIsVisible(await this.bucketsTab.getBucketCardPopover()));
             });
         });
     }

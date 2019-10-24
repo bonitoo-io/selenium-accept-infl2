@@ -39,7 +39,7 @@ class tokensSteps extends baseSteps{
 
     async clickGenerateTokenItem(item){
         await this.clickAndWait(await this.tknTab.getGenerateTokenItem(item),
-            async () => {await this.driver.sleep(1000)}); //todo better wait
+            async () => {await this.driver.sleep(1000);}); //todo better wait
     }
 
     async verifyGenReadWriteTokenPopup(){
@@ -151,7 +151,7 @@ class tokensSteps extends baseSteps{
     async clickAllAccessPopupCancel(){
         await this.clickAndWait(await this.tknTab.getAllAccessCancelButton(),
             //popup seems slow to disappear
-            async () => { this.driver.sleep(2000)}); //todo better wait
+            async () => { this.driver.sleep(2000);}); //todo better wait
     }
 
     async setAllAccessTokenDescription(descr){

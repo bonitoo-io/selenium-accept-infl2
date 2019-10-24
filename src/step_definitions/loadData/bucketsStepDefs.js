@@ -165,12 +165,12 @@ Given(/^ensure buckets name sort order "(.*)"$/,{timeout: 2 * 5000}, async (orde
 });
 
 When(/^click the buckets page title$/, async () => {
-   await bktTabSteps.clickPageTitle();
+    await bktTabSteps.clickPageTitle();
 });
 
 //need to move focus from list sometimes
 When(/^click buckets filter$/, async () => {
-   await bktTabSteps.clickBucketsFilter();
+    await bktTabSteps.clickBucketsFilter();
 });
 
 When(/^hover over bucket card named "(.*)"$/,{timeout: 2 * 5000}, async (name) => {

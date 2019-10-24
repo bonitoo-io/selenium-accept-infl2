@@ -9,7 +9,7 @@ When(/^click create variable dropdown in header$/, async () => {
 });
 
 When(/^click create variable dropdown empty$/, async () => {
-   await vblSteps.clickCreateVariableDropdownEmpty();
+    await vblSteps.clickCreateVariableDropdownEmpty();
 });
 
 Then(/^the import variable popup is loaded$/, async () => {
@@ -17,31 +17,31 @@ Then(/^the import variable popup is loaded$/, async () => {
 });
 
 When(/^click "(.*)" variable dropdown item$/, async item => {
-   await vblSteps.clickCreateVariableDropdownItem(item);
+    await vblSteps.clickCreateVariableDropdownItem(item);
 });
 
 Then(/^the create variable popup is loaded$/, async () => {
-   await vblSteps.verifyCreateVariablePopupLoaded();
+    await vblSteps.verifyCreateVariablePopupLoaded();
 });
 
 Then(/^the Import Variable JSON textarea is visible$/, async () => {
-   await vblSteps.verifyImportPopupJSONTextareaVisible(true);
+    await vblSteps.verifyImportPopupJSONTextareaVisible(true);
 });
 
 When(/^click the Import Variable popup paste JSON button$/, async () => {
-   await vblSteps.clickImportPopupPasteJSON();
+    await vblSteps.clickImportPopupPasteJSON();
 });
 
 Then(/^the Import JSON as variable button is enabled$/, async () => {
-   await vblSteps.verifyImportPopupImportJSONButtonEnabled(true);
+    await vblSteps.verifyImportPopupImportJSONButtonEnabled(true);
 });
 
 When(/^click the Import Variable popup Upload File button$/, async() => {
-   await vblSteps.clickImportPopupUploadFile();
+    await vblSteps.clickImportPopupUploadFile();
 });
 
 Then(/^the Import Variable JSON textarea is not visible$/, async() => {
-   await vblSteps.verifyImportPopupJSONTextareaVisible(false)
+    await vblSteps.verifyImportPopupJSONTextareaVisible(false);
 });
 
 Then(/^the Import JSON as variable button is not enabled$/, async() => {
@@ -53,15 +53,15 @@ Then(/^the Import JSON file upload area is present$/, async () => {
 });
 
 Then(/^the create variable popup selected type is "(.*)"$/, async type => {
-   await vblSteps.verifyCreateVarPopupSelectedType(type);
+    await vblSteps.verifyCreateVarPopupSelectedType(type);
 });
 
 Then(/^the create variable popup create button is disabled$/, async () => {
-   await vblSteps.verifyCreatePopupCreateEnabled(false);
+    await vblSteps.verifyCreatePopupCreateEnabled(false);
 });
 
 Then(/^the create variable popup script editor is visible$/, async () => {
-   await vblSteps.verifyCreateVarPopupQueryEditorVisible(true);
+    await vblSteps.verifyCreateVarPopupQueryEditorVisible(true);
 });
 
 Then(/^the create variable popup script editor is not visible$/, async () => {
@@ -69,7 +69,7 @@ Then(/^the create variable popup script editor is not visible$/, async () => {
 });
 
 When(/^click the create variable popup type dropdown$/, async () => {
-   await vblSteps.clickCreateVariableTypeDropdown();
+    await vblSteps.clickCreateVariableTypeDropdown();
 });
 
 When(/^click the edit variable popup type dropdown$/, async () => {
@@ -77,11 +77,11 @@ When(/^click the edit variable popup type dropdown$/, async () => {
 });
 
 Then(/^the create variable popup textarea is visible$/, async () => {
-   await vblSteps.verifyCreateVarPopupTextareaVisible(true);
+    await vblSteps.verifyCreateVarPopupTextareaVisible(true);
 });
 
 Then(/^the create variable popup default value dropdown is visible$/, async () => {
-   await vblSteps.verifyCreateVarPopupDefaultValDropdownVisible(true);
+    await vblSteps.verifyCreateVarPopupDefaultValDropdownVisible(true);
 });
 
 Then(/^the create variable popup info line contains "(.*)" items$/, async count => {
@@ -109,7 +109,7 @@ Then(/^the create variable popup info line is not visible$/, async () => {
 });
 
 When(/^upload the import variable file "(.*)"$/, async path2file  => {
-   await vblSteps.uploadImportVarPopupFile(path2file);
+    await vblSteps.uploadImportVarPopupFile(path2file);
 });
 
 Then(/^the import variable drag and drop header contains success "(.*)"$/, async path2file => {
@@ -122,11 +122,11 @@ When(/^click the import variable import button$/, async () => {
 });
 
 Then(/^there is a variable card for "(.*)"$/, async name => {
-   await vblSteps.verifyVariableCardVisible(name);
+    await vblSteps.verifyVariableCardVisible(name);
 });
 
 When(/^enter the create variable popup name "(.*)"$/, async name => {
-   await vblSteps.enterCreateVarPopupName(name);
+    await vblSteps.enterCreateVarPopupName(name);
 });
 
 When(/^enter the edit variable popup name "(.*)"$/, async name => {
@@ -158,7 +158,7 @@ When(/^enter the edit variable popup CodeMirror text:$/, async text => {
 });
 
 When(/^click the create variable popup title$/, async () => {
-   await vblSteps.clickPopupTitle();
+    await vblSteps.clickPopupTitle();
 });
 
 When(/^click the edit variable popup title$/, async () => {
@@ -166,11 +166,11 @@ When(/^click the edit variable popup title$/, async () => {
 });
 
 Then(/^the selected default variable dropdown item is "(.*)"$/, async item => {
-   await vblSteps.verifyCreatePopupDefaultValDropdownSelected(item);
+    await vblSteps.verifyCreatePopupDefaultValDropdownSelected(item);
 });
 
 When(/^click the create variable popup default dropdown$/, async () => {
-   await vblSteps.clickCreateVarPopupDefaultDropdown();
+    await vblSteps.clickCreateVarPopupDefaultDropdown();
 });
 
 When(/^click the edit variable popup default dropdown$/, async () => {
@@ -178,11 +178,11 @@ When(/^click the edit variable popup default dropdown$/, async () => {
 });
 
 When(/^click the create variable popup default dropdown item "(.*)"$/, async item => {
-  await vblSteps.clickCreateVarPopupDefaultDropdownItem(item);
+    await vblSteps.clickCreateVarPopupDefaultDropdownItem(item);
 });
 
 When(/^enter the value "(.*)" into the variables filter$/, async value => {
-   await vblSteps.enterValueIntoVariablesFilter(value);
+    await vblSteps.enterValueIntoVariablesFilter(value);
 });
 
 Then(/^the variable cards "(.*)" are visible$/, async cards => {
@@ -198,7 +198,7 @@ When(/^click the edit variable popup default csv dropdown item "(.*)"$/, async i
 });
 
 When(/^click the create variable popup create button$/, async () => {
-   await vblSteps.clickCreateVarPopupCreateButton();
+    await vblSteps.clickCreateVarPopupCreateButton();
 });
 
 When(/^click the edit variable popup submit button$/, async ()=> {
@@ -218,7 +218,7 @@ When(/^click the variable sort by name button$/, async () => {
 });
 
 When(/^clear the variables filter$/, async () => {
-   await vblSteps.clearVariablesFilter();
+    await vblSteps.clearVariablesFilter();
 });
 
 When(/^click the variable card name "(.*)"$/, async name => {
@@ -226,55 +226,55 @@ When(/^click the variable card name "(.*)"$/, async name => {
 });
 
 Then(/^the edit variable popup is loaded$/, async () => {
-   await vblSteps.verifyEditVariablePopupLoaded();
+    await vblSteps.verifyEditVariablePopupLoaded();
 });
 
 When(/^hover over variable card named "(.*)"$/, async name => {
-   await vblSteps.hoverOverVariableCard(name);
+    await vblSteps.hoverOverVariableCard(name);
 });
 
 When(/^click the context menu of the variable "(.*)"$/, async name => {
-   await vblSteps.clickVariableCardContextMenu(name);
+    await vblSteps.clickVariableCardContextMenu(name);
 });
 
 When(/^click the context menu item "(.*)" of the variable "(.*)"$/, async (item, name) => {
-   await vblSteps.clickVariableCardContextMenuItem(name,item);
+    await vblSteps.clickVariableCardContextMenuItem(name,item);
 });
 
 Then(/^the variable name warning popup is visible$/, async () => {
-   await vblSteps.verifyVariableNameChangeWarningPopupLoaded();
+    await vblSteps.verifyVariableNameChangeWarningPopupLoaded();
 });
 
 When(/^click the rename variable warning popup understand button$/, async () => {
-   await vblSteps.clickVariableNameChangeWarningUnderstand();
+    await vblSteps.clickVariableNameChangeWarningUnderstand();
 });
 
 When(/^clear the rename variable popup name input$/, async () => {
-   await vblSteps.clearVariableNameChangeNameInput();
+    await vblSteps.clearVariableNameChangeNameInput();
 });
 
 Then(/^the rename variable form warning states "(.*)"$/, async msg => {
-   await vblSteps.verifyFormErrorMessageContains(msg);
+    await vblSteps.verifyFormErrorMessageContains(msg);
 });
 
 Then(/^the rename variable from warning icon is visible$/, async () => {
-   await vblSteps.verifyInputErrorIcon();
+    await vblSteps.verifyInputErrorIcon();
 });
 
 Then(/^the rename variable submit button is disabled$/, async () => {
-   await vblSteps.verifySubmitDisabled();
+    await vblSteps.verifySubmitDisabled();
 });
 
 When(/^enter the new variable name "(.*)"$/, async name => {
-   await vblSteps.enterNewVariableName(name);
+    await vblSteps.enterNewVariableName(name);
 });
 
 Then(/^the edit variable name input is disabled$/, async () => {
-   await vblSteps.verifyEditVariablePopupNameDisabled();
+    await vblSteps.verifyEditVariablePopupNameDisabled();
 });
 
 Then(/^the edit variable popup textarea is cleared$/, async () => {
-   await vblSteps.verifyEditVariablePopupTextareaCleared();
+    await vblSteps.verifyEditVariablePopupTextareaCleared();
 });
 
 When(/^click delete menu of variable card named "(.*)"$/, async name => {
@@ -286,5 +286,5 @@ When(/^click delete confirm of variable card named "(.*)"$/, async name => {
 });
 
 Then(/^the variable card "(.*)" is not present$/, async name => {
-   await vblSteps.verifyVariableCardNotPresent(name);
+    await vblSteps.verifyVariableCardNotPresent(name);
 });

@@ -140,15 +140,15 @@ When(/^click the telegraf sort by name button$/, async () => {
 });
 
 When(/^click the telegraf sort by bucket button$/, async () => {
-   await teleTabSteps.clickTelegrafSortByBucket();
+    await teleTabSteps.clickTelegrafSortByBucket();
 });
 
 When(/^enter the value "(.*)" into the Telegrafs filter$/, async value => {
-   await teleTabSteps.enterTelegrafsFilterValue(value);
+    await teleTabSteps.enterTelegrafsFilterValue(value);
 });
 
 When(/^clear the Telegrafs filter$/, async () => {
-   await teleTabSteps.clearTelegrafsFilter();
+    await teleTabSteps.clearTelegrafsFilter();
 });
 
 When(/^click on setup instructions for the telegraf card "(.*)"$/, async card => {

@@ -191,16 +191,16 @@ class bucketsTab extends loadDataPage {
     }
 
     async getBucketCardDeleteByName(name){
-     //   return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`));
+        //   return await this.driver.findElement(By.xpath(`//div[div/div/div[@data-testid='bucket--card ${name}'] ]//*[@data-testid='context-delete-menu']`));
         return await this.driver.findElement(By.css(`[data-testid='context-delete-menu ${name}']`));
     }
 
     async getBucketCardRetentionByName(name){
-//        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
+        //        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
         return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket--card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(),"Retention")]`));
     }
 
-    async getBucketCardPopoverByName(name){
+    async getBucketCardPopover(){
         //return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[@data-testid='popover--contents']`));
         return await this.driver.findElement(By.css('[data-testid=popover--contents]'));
     }

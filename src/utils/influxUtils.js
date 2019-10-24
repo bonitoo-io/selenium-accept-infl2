@@ -224,10 +224,10 @@ const getDocTemplates = async(orgId) => {
         method: 'get',
         url: `/api/v2/documents/templates?orgID=${orgId}`
     }).then(resp => {
-        return resp.data
+        return resp.data;
     }).catch(err => {
         throw(err);
-    })
+    });
 
 };
 
@@ -255,10 +255,10 @@ const genLineProtocolFile = async(filePath, def) => {
     let define = JSON.parse(def);
 
     if(fs.existsSync(filePath)) {
-        console.log("Removing pre-existing file " + filePath);
+        console.log('Removing pre-existing file ' + filePath);
         await fs.unlink(filePath, async err => {
             if (err) {
-                console.log("Failed to remove file " + filePath)
+                console.log('Failed to remove file ' + filePath);
             }
         });
     }
@@ -278,7 +278,7 @@ const genLineProtocolFile = async(filePath, def) => {
 
     await dataPoints.forEach(async point => {
         await fs.appendFile(filePath, point, err => {
-            if(err){console.log('Error writing point ' + point + ' to file ' + filePath)}
+            if(err){console.log('Error writing point ' + point + ' to file ' + filePath);}
         });
     });
 
@@ -287,17 +287,17 @@ const genLineProtocolFile = async(filePath, def) => {
 const genPoints = async (algo, count) => {
     let samples = [];
     switch(algo.toLowerCase()){
-        case 'fibonacci':
-            samples = await genFibonacciValues(count);
-            break;
-        case 'hydro':
-            samples = await genHydroValues(count);
-            break;
-        case 'sine':
-            samples = await genSineValues(count);
-            break;
-        default:
-            throw `Unhandled mode ${algo}`;
+    case 'fibonacci':
+        samples = await genFibonacciValues(count);
+        break;
+    case 'hydro':
+        samples = await genHydroValues(count);
+        break;
+    case 'sine':
+        samples = await genSineValues(count);
+        break;
+    default:
+        throw `Unhandled mode ${algo}`;
     }
     return samples;
 };
@@ -308,20 +308,20 @@ const getIntervalMillis = async(count, start) => {
     let fullInterval  = 0;
     let pointInterval = 0;
     switch(start[start.length - 1]){
-        case 'd': //days
-            fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
-            break;
-        case 'h': //hours
-            fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
-            break;
-        case 'm': //minutes
-            fullInterval = Math.abs(parseInt(time)) * 60000;
-            break;
-        case 's': //seconds
-            fullInterval = Math.abs(parseInt(time)) * 1000;
-            break;
-        default:
-            throw new `unhandle time unit ${start}`;
+    case 'd': //days
+        fullInterval = Math.abs(parseInt(time)) * 24 * 60000 * 60;
+        break;
+    case 'h': //hours
+        fullInterval = Math.abs(parseInt(time)) * 60000 * 60;
+        break;
+    case 'm': //minutes
+        fullInterval = Math.abs(parseInt(time)) * 60000;
+        break;
+    case 's': //seconds
+        fullInterval = Math.abs(parseInt(time)) * 1000;
+        break;
+    default:
+        throw new `unhandle time unit ${start}`;
     }
 
     pointInterval = fullInterval / count;
@@ -351,18 +351,18 @@ const genHydroValues = async(count) => {
         current += (Math.floor(Math.random() * 10) + trend);
         result.push(current/100.0);
         if(current < trend){ //negative trend could lead to neg value so set new trend
-            trend = Math.floor(Math.random() * 5)
+            trend = Math.floor(Math.random() * 5);
         }else if(current > (500 - trend)){ // pushing ceiling set neg trend
-            trend = Math.floor(Math.random() * -5)
+            trend = Math.floor(Math.random() * -5);
         }
     }
     return result;
 };
 
 const genSineValues = async(count) => {
-   let result = [];
-   for(let i = 0; i < count; i++){
-       result.push(Math.sin(i));
+    let result = [];
+    for(let i = 0; i < count; i++){
+        result.push(Math.sin(i));
     }
     return result;
 };
