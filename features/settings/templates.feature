@@ -126,3 +126,27 @@ Feature: Settings - Templates
     """
     Hydro test dashboard-Template,Note Dashboard-Template,Notepad-Template,Sinusoid test data-Template
     """
+
+  Scenario: Exercise View Template Popup
+
+  Scenario: Clone Template
+
+  Scenario: Rename Template
+
+  # N.B. generate some labels above - to be used in this test
+  # Scenario: Add Labels to Template
+  # Issue #15547 - create new label through templates runs into this minor issue
+
+  Scenario: Create Dashboard from Template
+
+  Scenario Outline: Delete template
+    When hover over template card named "<NAME>"
+    When click the context delete button of template "<NAME>"
+    When click the delete confirm button of template "<NAME>"
+    Then the template cards "<NAME>" are not present
+    Examples:
+    |NAME|
+    |Hydro test dashboard-Template|
+    |Note Dashboard-Template      |
+    |Notepad-Template             |
+    |Sinusoid test data-Template  |

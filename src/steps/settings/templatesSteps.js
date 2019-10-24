@@ -122,6 +122,18 @@ class templatesSteps extends baseSteps{
     async clickSortTemplatesByName(){
         await this.clickAndWait(await this.tmTab.getNameSort());
     }
+
+    async hoverOverTemplateCard(name){
+        await this.hoverOver(await this.tmTab.getTemplateCardByName(name));
+    }
+
+    async clickTemplateContextDelete(name){
+        await this.clickAndWait(await this.tmTab.getTemplateCardCtxDelete(name));
+    }
+
+    async clickTemplateDeleteConfirm(name){
+        await this.clickAndWait(await this.tmTab.getTemplateCardDeleteConfirm(name));
+    }
 }
 
 module.exports = templatesSteps;

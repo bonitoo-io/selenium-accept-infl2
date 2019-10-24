@@ -10,7 +10,9 @@ const userTemplatesRadioButton = '[data-testid=radio--button][id=user-templates]
 const resourceList = '[data-testid=resource-list]';
 const templateCardNames = '[data-testid=template-card--name] span span';
 const importTemplateEmptyButton = '[data-testid=empty-state] [data-testid=button]';
-const templateCardByName = '//*[@data-testid=\'template-card\']//*[text() = \'%NAME%\']';
+const templateCardByName = '//*[@data-testid=\'template-card\'][.//*[text() = \'%NAME%\']]';
+const templateCardCtxDelete = '//*[@data-testid=\'template-card\'][.//*[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
+const templateCardDeleteConfirm = '//*[@data-testid=\'template-card\'][.//*[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-task\']';
 
 const urlCtx = 'templates';
 
@@ -88,6 +90,14 @@ class templatesTab extends settingsPage{
 
     async getNameSort(){
         return await this.driver.findElement(By.css(nameSort));
+    }
+
+    async getTemplateCardCtxDelete(name){
+        return await this.driver.findElement(By.xpath(templateCardCtxDelete.replace('%NAME%', name)));
+    }
+
+    async getTemplateCardDeleteConfirm(name){
+        return await this.driver.findElement(By.xpath(templateCardDeleteConfirm.replace('%NAME%', name)));
     }
 
 }

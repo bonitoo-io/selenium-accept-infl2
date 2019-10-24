@@ -94,3 +94,15 @@ When(/^clear the templates filter$/, async () => {
 When(/^click templates sort by Name$/, async () => {
    await tpltSteps.clickSortTemplatesByName();
 });
+
+When(/^hover over template card named "(.*)"$/, async name => {
+   await tpltSteps.hoverOverTemplateCard(name);
+});
+
+When(/^click the context delete button of template "(.*)"$/, async name => {
+   await tpltSteps.clickTemplateContextDelete(name);
+});
+
+When(/^click the delete confirm button of template "(.*)"$/, async name => {
+   await tpltSteps.clickTemplateDeleteConfirm(name);
+});
