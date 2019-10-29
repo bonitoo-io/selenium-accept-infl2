@@ -22,7 +22,7 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.2.0",
     "chai-match": "^1.1.1",
-    "chromedriver": "^76.0.0",
+    "chromedriver": "^77.0.0",
     "cucumber": "^5.1.0",
     "cucumber-html-reporter": "^5.0.0",
     "cucumber-junit-convert": "^1.0.2",
