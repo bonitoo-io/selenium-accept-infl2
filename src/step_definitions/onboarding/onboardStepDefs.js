@@ -5,7 +5,7 @@ const onboardingSteps = require(__srcdir + '/steps/onboarding/onboardingSteps.js
 let driver = __wdriver;
 let onbSteps = new onboardingSteps(driver);
 
-Given(/^I open the Influx onboarding page$/, async () => {
+Given(/^I open the Influx onboarding page$/, {timeout: 15000}, async () => {
 
     //await driver.get("http://" + __config.host + ":" + __config.port + "/" )
     await onbSteps.openBase();
