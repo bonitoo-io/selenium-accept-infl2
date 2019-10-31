@@ -14,7 +14,7 @@
     "def_ctx": "/",
     "headless": false,
     "browser": "chrome",
-    "screenshot_dir": "screenshots",
+    "screenshot_dir": "./screenshots",
     "influxdb": {
       "version" : "2.0.0"
     }
