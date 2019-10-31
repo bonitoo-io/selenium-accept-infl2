@@ -18,7 +18,7 @@ const { flush, config, defaultUser } = require(__srcdir + '/utils/influxUtils');
 
 global.__screenShotDir = process.cwd() + "/" + __config.screenshot_dir + "/" + __runtimeStr;
 
-fs.mkdir(__screenShotDir, () => {})
+fs.mkdirSync(__screenShotDir)
 /*
 mkdirp(__screenShotDir, function (err) {
     if (err) console.error(err)
