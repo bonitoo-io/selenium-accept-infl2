@@ -24,9 +24,8 @@ echo "Saving Test Results"
 
 mkdir -p ~/test-results/cucumber
 mkdir -p ~/test-results/html
-mkdir -p ~/test-results/macabre
 pwd
-#cp ~/project/selenium-accept-infl2/report/cucumber_junit.xml ~/test-results/macabre/junit.xml
+cp ~/project/selenium-accept-infl2/report/cucumber_junit.xml ~/test-results/cucumber/junit.xml
 cp ~/project/selenium-accept-infl2/report/cucumber_report.html ~/test-results/html/cucumber_report.html
 cp ~/project/selenium-accept-infl2/report/cucumber_report.json ~/test-results/cucumber/report.cucumber
 cp -r ~/project/selenium-accept-infl2/screenshots ~/test-results
