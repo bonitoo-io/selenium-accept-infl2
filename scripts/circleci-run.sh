@@ -11,7 +11,7 @@ cd ~/project/selenium-accept-infl2/
 
 npm install 
 
-npm test 
+npm test -- features/loadData/telegrafs.feature  
 
 TEST_RESULT=$?
 
