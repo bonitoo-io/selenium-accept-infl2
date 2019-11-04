@@ -1,8 +1,16 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/node:7.10
+    machine: true
     steps:
-      - checkout
       - run: echo "Hello Zaphrod Beeblebrox!"
+      - run: ls -al
+      - run: pwd
+      - run: docker-compose --version
+      - run: sudo curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash
+      - run: sudo apt-get install nodejs
+      - run: node -v
+      - run: npm -v
+      - run: sudo npm run influx:setup
+      - run: sleep 60
+      - run: curl --connect-timeout 60 --max-time 60 http://localhost:9999
