@@ -4,8 +4,9 @@ const { By } = require('selenium-webdriver');
 const bucketCards = '[data-testid^=\'bucket--card \']';
 const createBucketBtn = 'button[data-testid=\'Create Bucket\']';
 const filterInput = '[data-testid=search-widget]';
-const nameSorter = '[data-testid=\'resource-list--sorter\']:first-of-type';
-const policySorter = '[data-testid=\'resource-list--sorter\']:last-of-type';
+const nameSorter = '[data-testid=\'name-sorter\']';
+const policySorter = '[data-testid=\'retention-sorter\']';
+const bucketCardByName = '[data-testid=\'bucket--card--name %NAME%\']';
 
 // Create Bucket Popup
 const popupContainer = '[data-testid=overlay--container]';
@@ -183,7 +184,8 @@ class bucketsTab extends loadDataPage {
 
     //get the whole card
     async getBucketCardByName(name){
-        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]`));
+        return await this.driver.findElement(By.css(bucketCardByName.replace('%NAME%', name)));
+        //return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]`));
     }
 
     static async getBucketCardDeleteSelectorByName(name){
@@ -197,7 +199,8 @@ class bucketsTab extends loadDataPage {
 
     async getBucketCardRetentionByName(name){
         //        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket--card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(),"Retention")]`));
+        //return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket--card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(),"Retention")]`));
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//*[@data-testid='cf-resource-card--meta-item'][contains(text(), 'Retention')]`))
     }
 
     async getBucketCardPopover(){
@@ -224,7 +227,9 @@ class bucketsTab extends loadDataPage {
     }
 
     async getBucketCardAddDataByName(name){
-        return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}']]//button[@title = 'Add Data']`});
+
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//button[@title='Add Data']`));
+        //return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}']]//button[@title = 'Add Data']`});
     }
 
     async getPopupSaveChanges(){

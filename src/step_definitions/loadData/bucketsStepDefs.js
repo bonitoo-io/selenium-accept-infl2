@@ -152,7 +152,7 @@ When(/^click Edit Bucket Popup Save Changes$/, async () => {
     await bktTabSteps.clickSaveChanges();
 });
 
-When(/^enter "(.*)" in the Buckets filter field$/, async (text) => {
+When(/^enter "(.*)" in the Buckets filter field$/, {timeout: 10000},  async (text) => {
     await bktTabSteps.setFilterValue(text);
 });
 

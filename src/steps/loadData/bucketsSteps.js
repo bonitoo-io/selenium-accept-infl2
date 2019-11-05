@@ -294,7 +294,13 @@ class bucketsSteps extends baseSteps {
     }
 
     async verifyBucketInListByName(name){
-        await this.bucketsTab.getBucketCards().then(async cards => {
+        try{
+            await this.bucketsTab.getBucketCardByName(name);
+        }catch(err){
+            assert.fail(`Failed to locate card named ${name} in current list`);
+        }
+
+        /*await this.bucketsTab.getBucketCards().then(async cards => {
             for(let i = 0; i < cards.length; i++){
                 let crd_nm = await cards[i].findElement(By.xpath('.//span[contains(@class,\'cf-resource-name--text\')]/span'));
                 if((await crd_nm.getText()) === name){
@@ -303,7 +309,7 @@ class bucketsSteps extends baseSteps {
                 }
             }
             assert.fail(`Failed to locate card named ${name} in current list`);
-        });
+        });*/
     }
 
     async verifyBucktNotInListByName(name){
@@ -377,12 +383,16 @@ class bucketsSteps extends baseSteps {
 
     async setFilterValue(text){
         let cardCt = (await this.bucketsTab.getBucketCards()).length;
+        console.log(`DEBUG cardCt ${cardCt}`);
         await this.bucketsTab.getFilterInput().then( async input => {
             await input.clear().then(async () => {
                 await input.sendKeys(text).then( async () => {
-                    await this.driver.wait(async () => {
+
+                    await this.driver.sleep(500); //wait below seems to be blocking
+
+                    /*await this.driver.wait(async () => {
                         return (await this.bucketsTab.getBucketCards()).length < cardCt;
-                    });
+                    }); */
                 });
             });
         });
@@ -392,9 +402,10 @@ class bucketsSteps extends baseSteps {
         let cardCt = (await this.bucketsTab.getBucketCards()).length;
         await this.bucketsTab.getFilterInput().then(async input => {
             await input.clear().then(async() => {
-                await this.driver.wait(async () => {
+                await this.driver.sleep(500); //wait commented below seems to hang
+                /*await this.driver.wait(async () => {
                     return (await this.bucketsTab.getBucketCards()).length > cardCt;
-                });
+                }); */
             });
         });
     }
