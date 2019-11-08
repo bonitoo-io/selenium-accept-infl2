@@ -34,6 +34,30 @@ class clientLibsSteps extends baseSteps {
         await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'C# Client Library');
     }
 
+    async verifyGoPopupLoaded(){
+        await this.assertVisible(await this.clibTab.getPopupDismiss());
+        await this.assertVisible(await this.clibTab.getPopupBody());
+        await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'GO Client Library');
+    }
+
+    async verifyJavaPopupLoaded(){
+        await this.assertVisible(await this.clibTab.getPopupDismiss());
+        await this.assertVisible(await this.clibTab.getPopupBody());
+        await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'Java Client Library');
+    }
+
+    async verifyNodePopupLoaded(){
+        await this.assertVisible(await this.clibTab.getPopupDismiss());
+        await this.assertVisible(await this.clibTab.getPopupBody());
+        await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'JavaScript/Node.js Client Library');
+    }
+
+    async verifyPythonPopupLoaded(){
+        await this.assertVisible(await this.clibTab.getPopupDismiss());
+        await this.assertVisible(await this.clibTab.getPopupBody());
+        await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'Python Client Library');
+    }
+
 }
 
 module.exports = clientLibsSteps;

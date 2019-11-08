@@ -16,3 +16,24 @@ Feature: Load Data - Client Libs
   Scenario: Open C# Popup
     When click the "csharp" client library tile
     Then the csharp info popup is loaded
+    Then dismiss the popup
+
+  Scenario: Open Go Popup
+    When click the "go" client library tile
+    Then the go info popup is loaded
+    Then dismiss the popup
+
+  Scenario: Open Java Popup
+    When click the "java" client library tile
+    Then the java info popup is loaded
+    Then dismiss the popup
+
+  Scenario: Open Node Popup
+    When click the "javascript-node" client library tile
+    Then the node info popup is loaded
+    Then dismiss the popup
+
+  Scenario: Open Python Popup
+    When click the "python" client library tile
+    Then the python info popup is loaded
+    Then dismiss the popup
