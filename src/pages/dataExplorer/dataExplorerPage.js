@@ -3,7 +3,7 @@ const { By } = require('selenium-webdriver');
 
 const timeLocaleDropdown = '[data-testid=select-dropdown]';
 const graphTimeDropdodwn = '.cf-page-header--right [data-testid=dropdown]';
-const customizeGraphButton = '.cf-page-header--right [data-testid=square-button] .cog-thick';
+const customizeGraphButton = '.cf-page-header--right [data-testid=cog-cell--button]';
 const saveAsButton = '//button[./span[text() = \'Save As\']]';
 const viewArea = '.time-machine--view';
 const viewRawToggle = '.time-machine-queries--controls [data-testid=slide-toggle--label]';
