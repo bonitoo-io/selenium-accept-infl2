@@ -2,7 +2,7 @@ const { By } = require('selenium-webdriver');
 const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
 
 const telegrafsFilter = '[data-testid=search-widget]';
-const createConfigInHeader = '//div[@data-testid=\'tabs--tab-contents\']/div[@data-testid=\'flex-box\']/button';
+const createConfigInHeader = '//div[@data-testid=\'tabs--tab-contents\']/div[@data-testid=\'flex-box\']//*[contains(@title, \'Create\')]';
 const nameSort = '[data-testid=name-sorter]';
 const bucketSort = '[data-testid=bucket-sorter]';
 const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
