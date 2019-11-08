@@ -12,3 +12,7 @@ Feature: Load Data - Client Libs
     When hover over the "loadData" menu item
     When click nav sub menu "Client Libraries"
     Then the Client Libraries tab is loaded
+
+  Scenario: Open C# Popup
+    When click the "csharp" client library tile
+    Then the csharp info popup is loaded

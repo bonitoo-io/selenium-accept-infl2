@@ -25,6 +25,7 @@ const popupAlert = '[data-testid=alert]';
 const popupFileUpload = 'input[type=file]';
 const popupFileUploadHeader = '.drag-and-drop--header';
 const pageTitle = '[data-testid=page-title] ';
+const popupBody = '[data-testid=overlay--body]';
 
 class basePage{
 
@@ -265,6 +266,10 @@ class basePage{
 
     async getPageTitle(){
         return await this.driver.findElement(By.css(pageTitle));
+    }
+
+    async getPopupBody(){
+        return await this.driver.findElement(By.css(popupBody));
     }
 
 }

@@ -23,6 +23,17 @@ class clientLibsSteps extends baseSteps {
         await this.assertVisible(await this.clibTab.getLibTileByName('python'));
     }
 
+    async clickLibTileByName(name){
+        await this.clickAndWait(await this.clibTab.getLibTileByName(name));
+    }
+
+    async verifyCSharpPopupLoaded(){
+        //await this.clickAndWait(await this.clibTab.getCopy2ClipByLabel('Package Manager'));
+        await this.assertVisible(await this.clibTab.getPopupDismiss());
+        await this.assertVisible(await this.clibTab.getPopupBody());
+        await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'C# Client Library');
+    }
+
 }
 
 module.exports = clientLibsSteps;
