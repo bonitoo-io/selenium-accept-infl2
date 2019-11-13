@@ -33,13 +33,13 @@ class homeSteps extends influxSteps {
     async clickQuickStartPanel(title){
         switch(title.toLowerCase()){
         case 'data collector':
-            await (await this.homePage.getGetStartedDataCollect()).click();
+            await (await this.homePage.getDataCollectButton()).click();
             break;
         case 'dashboard':
-            await (await this.homePage.getGetStartedDashboard()).click();
+            await (await this.homePage.getDashboardButton()).click();
             break;
         case 'alerting':
-            await (await this.homePage.getGetStartedAlerting()).click();
+            await (await this.homePage.getAlertingButton()).click();
             break;
         default:
             throw `Unknown Quick Start Panel: ${title}`;

@@ -1,10 +1,13 @@
 const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
-const logoutButton = '[data-testid=button]';
-const getStartedDataCollect = 'div.getting-started--container:nth-of-type(1)';
-const getStartedDashboard = 'div.getting-started--container:nth-of-type(2)';
-const getStartedAlerting = 'div.getting-started--container:nth-of-type(3)';
+const logoutButton = '[data-testid=panel--header] [data-testid=button]';
+const getStartedDataCollect = '//*[@data-testid=\'panel\'][./div[contains(@class, \'getting-started\')]][.//span[text()=\'Load your data\']]';
+const getStartedDashboard = '//*[@data-testid=\'panel\'][./div[contains(@class, \'getting-started\')]][.//span[text()=\'Build a dashboard\']]';
+const getStartedAlerting = '//*[@data-testid=\'panel\'][./div[contains(@class, \'getting-started\')]][.//span[text()=\'Set up alerting\']]';
+const dataCollectButton = '[data-testid=button][title=\'Load your data\']';
+const dashboardButton = '[data-testid=button][title=\'Build a dashboard\']';
+const alertingButton = '[data-testid=button][title=\'Set up alerting\']';
 const tutorialsList = '//ul[contains(@class, \'tutorials\')]';
 const dashboardsList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][2]//ul';
 const usefulLinkList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][3]//ul';
@@ -19,10 +22,10 @@ class homePage extends influxPage {
     }
 
     async isLoaded(){
-        await super.isLoaded([{type: 'css', selector: logoutButton},
-            {type: 'css', selector: getStartedDataCollect},
-            {type: 'css', selector: getStartedDashboard},
-            {type: 'css', selector: getStartedAlerting},
+        await super.isLoaded([//{type: 'css', selector: logoutButton},
+            {type: 'xpath', selector: getStartedDataCollect},
+            {type: 'xpath', selector: getStartedDashboard},
+            {type: 'xpath', selector: getStartedAlerting},
             {type: 'xpath', selector: tutorialsList},
             {type: 'xpath', selector: usefulLinkList},
         ]);
@@ -33,15 +36,15 @@ class homePage extends influxPage {
     }
 
     async getGetStartedDataCollect(){
-        return await this.driver.findElement(By.css(getStartedDataCollect));
+        return await this.driver.findElement(By.xpath(getStartedDataCollect));
     }
 
     async getGetStartedDashboard(){
-        return await this.driver.findElement(By.css(getStartedDashboard));
+        return await this.driver.findElement(By.xpath(getStartedDashboard));
     }
 
     async getGetStartedAlerting(){
-        return await this.driver.findElement(By.css(getStartedAlerting));
+        return await this.driver.findElement(By.xpath(getStartedAlerting));
     }
 
     async getTutorialsList(){
@@ -62,6 +65,18 @@ class homePage extends influxPage {
 
     async getDashboardsList(){
         return await this.driver.findElement(By.xpath(dashboardsList));
+    }
+
+    async getDataCollectButton(){
+        return await this.driver.findElement(By.css(dataCollectButton));
+    }
+
+    async getDashboardButton(){
+        return await this.driver.findElement(By.css(dashboardButton));
+    }
+
+    async getAlertingButton(){
+        return await this.driver.findElement(By.css(alertingButton));
     }
 }
 
