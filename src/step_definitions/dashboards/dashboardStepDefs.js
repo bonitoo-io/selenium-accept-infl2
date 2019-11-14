@@ -10,3 +10,7 @@ When(/^name dashboard "(.*)"$/, async name => {
 Then(/^the dashboard named "(.*)" is loaded$/, async name => {
     await dbdSteps.verifyDashboardLoaded(name);
 });
+
+Then(/^the new dashboard page is loaded$/, async () => {
+    await dbdSteps.verifyDashboardLoaded('Name this Dashboard');
+});

@@ -5,6 +5,15 @@ const createDashboardDropdown = '[data-testid=add-resource-dropdown--button]';
 const filterDashboards =  '[data-testid=search-widget]';
 const nameSortButton = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const modifiedSortButton = '[data-testid=resource-list--sorter]:nth-of-type(2)';
+const createDashboardDropdownEmpty = '[data-testid=\'resource-list\'] [data-testid=\'add-resource-dropdown--button\']';
+const createDashboardItems = '[data-testid^=add-resource-dropdown--][id]';
+const dashboardCardByName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]';
+const dashboardCardExportButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Export\']]';
+const dashboardCardCloneButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Clone\']]'
+const dashboardCardDeleteButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Delete\']]'
+const dashboardCardName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name\']';
+const dashboardCardNameButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name-button\']';
+
 
 const urlCtx = 'dashboards';
 
@@ -41,6 +50,56 @@ class dashboardsPage extends influxPage {
     async getCreateDashboardItem(item){
         return await this.driver.findElement(By.css(`[data-testid^=add-resource-dropdown--][id='${item}']`));
     }
+
+    async getCreateDashboardDropdownEmpty(){
+        return await this.driver.findElement(By.css(createDashboardDropdownEmpty));
+    }
+
+    static getCreateDashboardDropdownEmptySelector(){
+        return { type: 'css', selector: createDashboardDropdownEmpty}
+    }
+
+    async getCreateDashboardItems(){
+        return await this.driver.findElements(By.css(createDashboardItems));
+    }
+
+    async getDashboardCardByName(name){
+        return await this.driver.findElement(By.xpath(dashboardCardByName.replace('%NAME%', name)))
+    }
+
+    async getDashboardCardExportButton(name){
+        return await this.driver.findElement(By.xpath(dashboardCardExportButton.replace('%NAME%', name)));
+    }
+
+    static getDashboardCardExportButtonSelector(name){
+        return { type: 'xpath', selector: dashboardCardExportButton.replace('%NAME%', name)};
+    }
+
+    async getDashboardCardCloneButton(name){
+        return await this.driver.findElement(By.xpath(dashboardCardCloneButton.replace('%NAME%', name)));
+    }
+
+    static getDashboardCardCloneButtonSelector(name){
+        return { type: 'xpath', selector: dashboardCardCloneButton.replace('%NAME%', name)};
+    }
+
+
+    async getDashboardCardDeleteButton(name){
+        return await this.driver.findElement(By.xpath(dashboardCardDeleteButton.replace('%NAME%', name)));
+    }
+
+    static getDashboardCardDeleteButtonSelector(name){
+        return { type: 'xpath', selector: dashboardCardDeleteButton.replace('%NAME%', name)};
+    }
+
+    async getDashboardCardName(name){
+        return await this.driver.findElement(By.xpath(dashboardCardName.replace('%NAME%', name)));
+    }
+
+    async getDashboardCardNameButton(name){
+        return await this.driver.findElement(By.xpath(dashboardCardNameButton.replace('%NAME%', name)));
+    }
+
 
 }
 
