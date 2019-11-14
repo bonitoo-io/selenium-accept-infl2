@@ -1,5 +1,6 @@
 const { By, Key } = require('selenium-webdriver');
 const { expect } = require('chai');
+var ncp = require("copy-paste");
 
 const baseSteps = require(__srcdir + '/steps/baseSteps.js');
 const clientLibsTab = require(__srcdir + '/pages/loadData/clientLibsTab.js');
@@ -58,6 +59,26 @@ class clientLibsSteps extends baseSteps {
         await this.verifyElementContainsText(await this.clibTab.getPopupTitle(), 'Python Client Library');
     }
 
+    async clickCopyToClipboardText(label){
+        await this.clickAndWait(await this.driver.findElement(By.xpath(`//p[text() = \'${label}\']/following-sibling::div[1]//button`)));//can be slow to perform copy
+    }
+
+    async verifyClipboardTextFrom(label){
+        let text = await  (await this.driver.findElement(By.xpath(`//p[text() = \'${label}\']/following-sibling::div[1]//code`))).getText();
+        console.log("DEBUG text " + text);
+        let clipboard = ncp.paste();
+        console.log ("DEBUG clipboard " + clipboard);
+    }
+
+    async verifyPopupGithubLink(token){
+
+        await this.clibTab.getPopupGithubLink().then(async link => {
+            await link.getAttribute('href').then( async href => {
+                expect(href).to.include(token);
+            })
+        })
+
+    }
 }
 
 module.exports = clientLibsSteps;

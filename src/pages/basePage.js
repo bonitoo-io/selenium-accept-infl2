@@ -26,6 +26,7 @@ const popupFileUpload = 'input[type=file]';
 const popupFileUploadHeader = '.drag-and-drop--header';
 const pageTitle = '[data-testid=page-title] ';
 const popupBody = '[data-testid=overlay--body]';
+const popupGithubLink = '//a[contains(text(), \'GitHub Repository\')]';
 
 class basePage{
 
@@ -270,6 +271,10 @@ class basePage{
 
     async getPopupBody(){
         return await this.driver.findElement(By.css(popupBody));
+    }
+
+    async getPopupGithubLink(){
+        return await this.driver.findElement(By.xpath(popupGithubLink));
     }
 
 }
