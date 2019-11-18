@@ -92,7 +92,8 @@ class loadDataSteps extends influxSteps{
 
     async enterCreateScraperName(name){
         await this.ldPage.getCreateScraperNameInput().then(async elem => {
-            await elem.clear().then(async () => {
+            await this.clearInputText(elem).then(async () => {
+            //await elem.clear().then(async () => {
                 await elem.sendKeys(name).then(async () => {
                     await this.driver.sleep(200); // todo better wait
                 });
@@ -176,7 +177,7 @@ class loadDataSteps extends influxSteps{
 
     async enterTelegrafWizardName(name){
         await this.ldPage.getTelegrafNameInput().then(async elem => {
-            await elem.clear().then(async () => {
+            await this.clearInputText(elem).then(async () => {
                 await elem.sendKeys(name).then(async () => {
                     await this.driver.sleep(100); //todo better wait
                 });
