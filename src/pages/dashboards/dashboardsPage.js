@@ -13,7 +13,10 @@ const dashboardCardCloneButton = '//*[@data-testid=\'dashboard-card\'][.//span[t
 const dashboardCardDeleteButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Delete\']]'
 const dashboardCardName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name\']';
 const dashboardCardNameButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name-button\']';
-
+const dashboardCardNameInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--input\']';
+const dashboardCardDescription = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
+const dashboardCardDescriptionEdit = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']'
+const dashboardCardDescriptionInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'input-field\']';
 
 const urlCtx = 'dashboards';
 
@@ -67,6 +70,10 @@ class dashboardsPage extends influxPage {
         return await this.driver.findElement(By.xpath(dashboardCardByName.replace('%NAME%', name)))
     }
 
+    static getDashboardCardSelectorByName(name){
+        return {  type: 'xpath', selector: dashboardCardByName.replace('%NAME%', name) }
+    }
+
     async getDashboardCardExportButton(name){
         return await this.driver.findElement(By.xpath(dashboardCardExportButton.replace('%NAME%', name)));
     }
@@ -100,6 +107,21 @@ class dashboardsPage extends influxPage {
         return await this.driver.findElement(By.xpath(dashboardCardNameButton.replace('%NAME%', name)));
     }
 
+    async getDashboardCardNameInput(name){
+        return await this.driver.findElement(By.xpath(dashboardCardNameInput.replace('%NAME%', name)));
+    }
+
+    async getDashboardCardDescription(name){
+        return await this.driver.findElement(By.xpath(dashboardCardDescription.replace('%NAME%', name)));
+    }
+
+    async getDashboardCardDescriptionEdit(name){
+        return await this.driver.findElement(By.xpath(dashboardCardDescriptionEdit.replace('%NAME%', name)));
+    }
+
+    async getDashboardCardDescriptionInput(name){
+        return await this.driver.findElement(By.xpath(dashboardCardDescriptionInput.replace('%NAME%', name)));
+    }
 
 }
 

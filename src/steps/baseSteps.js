@@ -8,9 +8,13 @@ const assert = require('chai').assert;
 const { By, Key } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
-
-
 const basePage = require (__srcdir + '/pages/basePage.js');
+
+const keyMap = {'enter': Key.ENTER,
+    'tab': Key.TAB,
+    'backspace': Key.BACK_SPACE,
+    'space': Key.SPACE};
+
 
 class baseSteps{
     constructor(driver){
@@ -474,6 +478,12 @@ class baseSteps{
     async copyFileContentsToTextarea(filepath, textarea){
         let buffer = await influxUtils.readFileToBuffer(process.cwd() + '/' + filepath);
         await textarea.sendKeys(buffer);
+    }
+
+    async pressKey(key){
+        await this.driver.switchTo().activeElement().then(async elem => {
+                await elem.sendKeys(keyMap[key.toLowerCase()]);
+        })
     }
 
 

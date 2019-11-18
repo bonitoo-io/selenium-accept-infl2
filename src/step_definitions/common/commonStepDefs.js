@@ -254,3 +254,7 @@ When(/^force page refresh$/, async ()=> {
     await bSteps.driver.navigate().refresh();
 });
 
+When(/^press the "(.*)" key$/, async key => {
+   await bSteps.pressKey(key);
+});
+

@@ -37,6 +37,11 @@ Then(/^there is a dashboard card named "(.*)"$/, async name =>{
    await dbdsSteps.verifyDashboardCardVisible(name);
 });
 
+Then(/^there is no dashboard card named "(.*)"$/, async name => {
+   await dbdsSteps.verifyDashboardCardNotPresent(name);
+});
+
+
 When(/^hover over dashboard card named "(.*)"$/, async name => {
    await dbdsSteps.hoverOVerDashboardCard(name);
 });
@@ -59,5 +64,29 @@ When(/^hover over dashboard card name "(.*)"$/, async name => {
 
 When(/^click the edit dashboard card name button for "(.*)"$/, async name => {
     await dbdsSteps.clickDashboardCardName(name);
+});
+
+When(/^clear the name input of the dashboard card "(.*)"$/, async name => {
+   await dbdsSteps.clearDashboardCardName(name);
+});
+
+When(/^enter the new name "(.*)" in the name input of the dashboard card "(.*)"$/, async (newName, oldName) => {
+   await dbdsSteps.renameDashboardCard(newName, oldName);
+});
+
+Then(/^the description for card "(.*)" contains "(.*)"$/, async (name, descr) => {
+   await dbdsSteps.verifyDashboardCardContainsDescription(name,descr);
+});
+
+When(/^hover over description of the dashboard card "(.*)"$/, async name => {
+   await dbdsSteps.hoverOverDashboardCardDescription(name);
+});
+
+When(/^click the edit description button for the dashboard card "(.*)"$/, async name => {
+    await dbdsSteps.clickDashboardCardEditDescriptionButton(name);
+});
+
+When(/^enter into the dashboard card "(.*)" the description:$/, async (name, descr) => {
+   await dbdsSteps.enterDashboardCardDescription(name,descr);
 });
 

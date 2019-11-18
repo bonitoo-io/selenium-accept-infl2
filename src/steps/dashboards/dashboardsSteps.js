@@ -50,6 +50,10 @@ class dashboardsSteps extends influxSteps {
         await this.assertVisible(await this.dbdsPage.getDashboardCardByName(name));
     }
 
+    async verifyDashboardCardNotPresent(name){
+        await this.assertNotPresent(await dashboardsPage.getDashboardCardSelectorByName(name));
+    }
+
     async hoverOVerDashboardCard(name){
         await this.hoverOver(await this.dbdsPage.getDashboardCardByName(name));
     }
@@ -72,6 +76,31 @@ class dashboardsSteps extends influxSteps {
 
     async clickDashboardCardName(name){
         await this.clickAndWait(await this.dbdsPage.getDashboardCardNameButton(name));
+    }
+
+    async clearDashboardCardName(name){
+        await this.clearInputText(await this.dbdsPage.getDashboardCardNameInput(name));
+    }
+
+    async renameDashboardCard(newName, oldName){
+        await this.typeTextAndWait(await this.dbdsPage.getDashboardCardNameInput(oldName), newName)
+    }
+
+    async verifyDashboardCardContainsDescription(name,descr){
+        await this.verifyElementContainsText(await this.dbdsPage.getDashboardCardDescription(name),
+            descr);
+    }
+
+    async hoverOverDashboardCardDescription(name){
+        await this.hoverOver(await this.dbdsPage.getDashboardCardDescription(name));
+    }
+
+    async clickDashboardCardEditDescriptionButton(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardDescriptionEdit(name));
+    }
+
+    async enterDashboardCardDescription(name,descr){
+        await this.typeTextAndWait(await this.dbdsPage.getDashboardCardDescriptionInput(name), descr);
     }
 
 }

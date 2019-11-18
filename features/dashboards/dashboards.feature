@@ -11,6 +11,8 @@ Feature: Dashboards - Base
     When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When API sign in user "DEFAULT"
+    When API create a label "Cesko" described as "Pravda vitezi" with color "#AAFFAA" for user "DEFAULT"
+    When API create a label "Mesto" described as "Matka mest" with color "#FFAAAA" for user "DEFAULT"
     When generate a line protocol testdata for user "DEFAULT" based on:
     """
     { "points": 120, "measurement":"level", "start": "-30d", "algo": "hydro", "prec": "sec"}
@@ -41,5 +43,22 @@ Feature: Dashboards - Base
     Then the delete button for the dashboard card "Name this Dashboard" is visible
     When hover over dashboard card name "Name this Dashboard"
     When click the edit dashboard card name button for "Name this Dashboard"
+    When clear the name input of the dashboard card "Name this Dashboard"
+    When enter the new name "Mercure" in the name input of the dashboard card "Name this Dashboard"
+    When press the "ENTER" key
+    Then there is a dashboard card named "Mercure"
+    Then there is no dashboard card named "Name this Dashboard"
 
+  Scenario: Add description to dashboard
+    Then the description for card "Mercure" contains "No description"
+    When hover over description of the dashboard card "Mercure"
+    When click the edit description button for the dashboard card "Mercure"
+    When enter into the dashboard card "Mercure" the description:
+    """
+    le dieu du commerce dans la mythologie romaine
+    """
+    When press the "ENTER" key
+    Then the description for card "Mercure" contains "le dieu du commerce dans la mythologie romaine"
+
+  Scenario: Add Labels to dashboard
 
