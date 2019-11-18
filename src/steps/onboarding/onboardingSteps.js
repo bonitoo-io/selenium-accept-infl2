@@ -71,7 +71,8 @@ class onboardingSteps extends baseSteps {
 
     async setInputFieldValue(field, value){
         await this.initialSetupPage.getInputField(field).then( async elem => {
-            await elem.clear();
+            await this.clearInputText(elem);
+            //await elem.clear();
             await elem.sendKeys(value);
             //   await this.delay(3000)
         });
