@@ -103,6 +103,32 @@ class dashboardsSteps extends influxSteps {
         await this.typeTextAndWait(await this.dbdsPage.getDashboardCardDescriptionInput(name), descr);
     }
 
+    async clickEmptyLabelOfDashboardCard(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardLabelsEmpty(name));
+    }
+
+    async clickAddLabelOfDashboardCard(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardAddLabels(name));
+    }
+
+    async verifyLabelInDashboardsPopoverIsVisible(label){
+        await this.assertVisible(await this.dbdsPage.getAddLabelsPopoverLabel(label));
+    }
+
+    async enterDashboardLabelsFilter(text){
+        await this.typeTextAndWait(await this.dbdsPage.getAddLabelsPopoverFilter(), text);
+    }
+
+    async verifyDasboardAddLabelsPillCount(count){
+        await this.dbdsPage.getAddLabelsLabelPills().then(async pills => {
+           expect(pills.length).to.equal(parseInt(count));
+        });
+    }
+
+    async clearDashboardLabelsFilter(){
+        await this.clearInputText(await this.dbdsPage.getAddLabelsPopoverFilter());
+    }
+
 }
 
 module.exports = dashboardsSteps;

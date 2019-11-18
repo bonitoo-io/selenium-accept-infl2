@@ -17,6 +17,12 @@ const dashboardCardNameInput = '//*[@data-testid=\'dashboard-card\'][.//span[tex
 const dashboardCardDescription = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
 const dashboardCardDescriptionEdit = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']'
 const dashboardCardDescriptionInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'input-field\']';
+const dashboardCardLabelsEmpty = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
+const dashboardCardAddLabels = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
+
+const addLabelsPopoverLabel = '//*[@data-testid=\'inline-labels--popover\']//*[contains(@data-testid,\'label--pill\')][text()=\'%LABEL%\']';
+const addLabelsPopoverFilter = '[data-testid=\'inline-labels--popover-field\']';
+const addLabelsLabelPills = '[data-testid^=\'label--pill\']';
 
 const urlCtx = 'dashboards';
 
@@ -121,6 +127,26 @@ class dashboardsPage extends influxPage {
 
     async getDashboardCardDescriptionInput(name){
         return await this.driver.findElement(By.xpath(dashboardCardDescriptionInput.replace('%NAME%', name)));
+    }
+
+    async getDashboardCardLabelsEmpty(name){
+        return await this.driver.findElement(By.xpath(dashboardCardLabelsEmpty.replace('%NAME%', name)));
+    }
+
+    async getDashboardCardAddLabels(name){
+        return await this.driver.findElement(By.xpath(dashboardCardAddLabels.replace('%NAME%', name)));
+    }
+
+    async getAddLabelsPopoverLabel(label){
+        return await this.driver.findElement(By.xpath(addLabelsPopoverLabel.replace('%LABEL%', label)));
+    }
+
+    async getAddLabelsPopoverFilter(){
+        return await this.driver.findElement(By.css(addLabelsPopoverFilter));
+    }
+
+    async getAddLabelsLabelPills(){
+        return await this.driver.findElements(By.css(addLabelsLabelPills));
     }
 
 }

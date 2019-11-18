@@ -480,9 +480,11 @@ class baseSteps{
         await textarea.sendKeys(buffer);
     }
 
-    async pressKey(key){
+    async pressKeyAndWait(key, wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){
         await this.driver.switchTo().activeElement().then(async elem => {
-                await elem.sendKeys(keyMap[key.toLowerCase()]);
+                await elem.sendKeys(keyMap[key.toLowerCase()]).then(async () => {
+                    await wait()
+                });
         })
     }
 

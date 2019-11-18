@@ -90,3 +90,28 @@ When(/^enter into the dashboard card "(.*)" the description:$/, async (name, des
    await dbdsSteps.enterDashboardCardDescription(name,descr);
 });
 
+When(/^click empty label for the dashboard card "(.*)"$/, async name => {
+    await dbdsSteps.clickEmptyLabelOfDashboardCard(name);
+});
+
+When(/^click add label for the dashboard card "(.*)"$/, async name => {
+   await dbdsSteps.clickAddLabelOfDashboardCard(name);
+});
+
+Then(/^the label "(.*)" in the popover selector is visible$/, async label => {
+    await dbdsSteps.verifyLabelInDashboardsPopoverIsVisible(label);
+});
+
+When(/^enter "(.*)" in the popover label selector filter$/, async text => {
+   await dbdsSteps.enterDashboardLabelsFilter(text);
+});
+
+Then(/^there are "(.*)" label pills in the select label popover$/, async count => {
+   await dbdsSteps.verifyDasboardAddLabelsPillCount(count);
+});
+
+When(/^clear the popover label selector filter$/, async () => {
+   await dbdsSteps.clearDashboardLabelsFilter();
+});
+
+

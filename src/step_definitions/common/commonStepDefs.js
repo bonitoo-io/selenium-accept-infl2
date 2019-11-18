@@ -255,6 +255,6 @@ When(/^force page refresh$/, async ()=> {
 });
 
 When(/^press the "(.*)" key$/, async key => {
-   await bSteps.pressKey(key);
+   await bSteps.pressKeyAndWait(key);
 });
 

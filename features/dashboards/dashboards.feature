@@ -61,4 +61,11 @@ Feature: Dashboards - Base
     Then the description for card "Mercure" contains "le dieu du commerce dans la mythologie romaine"
 
   Scenario: Add Labels to dashboard
+    When click empty label for the dashboard card "Mercure"
+    Then the label "Cesko" in the popover selector is visible
+    Then the label "Mesto" in the popover selector is visible
+    When enter "Slovensko" in the popover label selector filter
+    Then there are "0" label pills in the select label popover
+    When clear the popover label selector filter
+    Then there are "2" label pills in the select label popover
 
