@@ -11,6 +11,7 @@ const alertingButton = '[data-testid=button][title=\'Set up alerting\']';
 const tutorialsList = '//ul[contains(@class, \'tutorials\')]';
 const dashboardsList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][2]//ul';
 const usefulLinkList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][3]//ul';
+const dashboardLink = '//*[@data-testid=\'panel\'][.//*[text()=\'Dashboards\']]//ul/li/a[text()=\'%TEXT%\']';
 
 
 // TODO - add selectors - especially for isLoaded below
@@ -77,6 +78,10 @@ class homePage extends influxPage {
 
     async getAlertingButton(){
         return await this.driver.findElement(By.css(alertingButton));
+    }
+
+    async getDashboardLink(text){
+        return await this.driver.findElement(By.xpath(dashboardLink.replace('%TEXT%', text)));
     }
 }
 

@@ -94,3 +94,55 @@ Feature: Dashboards - Base
     When press the "ESCAPE" key
     Then the add label popover is not present
 
+  Scenario Outline: Create new Dashboard
+    When click create dashboard control
+    When click the create dashboard item "New Dashboard"
+    When name dashboard "<NAME>"
+    When hover over the "Dashboards" menu item
+    When click nav sub menu "Dashboards"
+    Then there is a dashboard card named "<NAME>"
+
+    Examples:
+    |NAME|
+    |Venus|
+    |Terre|
+    |Mars |
+    |Jupiter|
+
+  Scenario: Access Dashboard from home page
+    When hover over the "home" menu item
+    When click nav menu item "home"
+    Then the dashboards panel contains links:
+    """
+    Mercure,Venus,Terre,Mars,Jupiter
+    """
+    When click the dashboards panel link 'Mercure'
+    Then the dashboard named "Mercure" is loaded
+
+  Scenario: Filter Dashboard Cards
+    When hover over the "Dashboards" menu item
+    When click nav sub menu "Dashboards"
+    Then the dashboards page contains the cards:
+    """
+    Mercure,Venus,Terre,Mars,Jupiter
+    """
+    When enter the term "ter" in the dashboards filter
+    Then the dashboards page contains the cards:
+    """
+    Terre,Jupiter
+    """
+    Then the dashboards page does not contain the cards:
+    """
+    Mercure,Venus,Mars
+    """
+    When clear the dashboards filter
+    Then the dashboards page contains the cards:
+    """
+    Mercure,Venus,Terre,Mars,Jupiter
+    """
+
+  Scenario: Import Dashboard
+
+  Scenario: Create Dashboard from template
+
+

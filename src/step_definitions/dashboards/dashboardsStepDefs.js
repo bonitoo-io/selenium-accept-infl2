@@ -158,4 +158,22 @@ Then(/^the label "(.*)" is not present in the popover selector$/, async label =>
    await dbdsSteps.verifyLabelInDashboardsPopoverIsNotPresent(label);
 });
 
+Then(/^the dashboards page contains the cards:$/, async cards => {
+    await dbdsSteps.verifyDashboardCardsVisible(cards);
+});
+
+When(/^enter the term "(.*)" in the dashboards filter$/, async term => {
+   await dbdsSteps.enterDashboardsCardFilter(term);
+});
+
+When(/^clear the dashboards filter$/, async () => {
+   await dbdsSteps.clearDashboardsCardFilter();
+});
+
+Then(/^the dashboards page does not contain the cards:$/, {timeout: 15000}, async cards => {
+   await dbdsSteps.verifyDashboardCardsNotPresent(cards);
+});
+
+
+
 

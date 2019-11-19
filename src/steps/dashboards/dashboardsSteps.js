@@ -173,6 +173,28 @@ class dashboardsSteps extends influxSteps {
         await this.assertNotPresent(await dashboardsPage.getDashboardCardLabelPillSelector(name, label));
     }
 
+    async verifyDashboardCardsVisible(cards){
+        let cardsArr = cards.split(',');
+        cardsArr.forEach(async cardName => {
+            await this.assertVisible(await this.dbdsPage.getDashboardCardByName(cardName));
+        } )
+    }
+
+    async verifyDashboardCardsNotPresent(cards){
+        let cardsArr = cards.split(',');
+        for(let i = 0; i < cardsArr.length; i++){
+            await this.assertNotPresent(await dashboardsPage.getDashboardCardSelectorByName(cardsArr[i].trim()));
+        }
+    }
+
+    async enterDashboardsCardFilter(term){
+        await this.typeTextAndWait(await this.dbdsPage.getFilterDashboards(), term);
+    }
+
+    async clearDashboardsCardFilter(){
+        await this.clearInputText(await this.dbdsPage.getFilterDashboards());
+    }
+
 }
 
 module.exports = dashboardsSteps;
