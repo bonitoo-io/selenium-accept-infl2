@@ -80,4 +80,17 @@ Feature: Dashboards - Base
     When click the label popup Create Label button
     Then popup is not loaded
     Then the dashboard card "Mercure" has the label "Slovensko"
+    When hover over the label "Slovensko" of the dashboard card "Mercure"
+    When click remove label "Slovensko" from the dashboard card "Mercure"
+    Then the dashboard card "Mercure" labels empty message is visible
+    Then the label "Slovenkso" of the dashboard card "Mercure" is not present
+    When click the add label button for the dashboard card "Mercure"
+    Then there are "3" label pills in the select label popover
+    When enter "sko" in the popover label selector filter
+    Then there are "2" label pills in the select label popover
+    Then the label "Mesto" is not present in the popover selector
+    When clear the popover label selector filter
+    Then there are "3" label pills in the select label popover
+    When press the "ESCAPE" key
+    Then the add label popover is not present
 

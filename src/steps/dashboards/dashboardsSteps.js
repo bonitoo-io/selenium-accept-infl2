@@ -115,6 +115,10 @@ class dashboardsSteps extends influxSteps {
         await this.assertVisible(await this.dbdsPage.getAddLabelsPopoverLabel(label));
     }
 
+    async verifyLabelInDashboardsPopoverIsNotPresent(label){
+        await this.assertNotPresent(await dashboardsPage.getAddLabelsPopoverLabelSelector(label));
+    }
+
     async enterDashboardLabelsFilter(text){
         await this.typeTextAndWait(await this.dbdsPage.getAddLabelsPopoverFilter(), text);
     }
@@ -151,6 +155,22 @@ class dashboardsSteps extends influxSteps {
 
     async clickDasboardCardAddLabel(name){
         await this.clickAndWait(await this.dbdsPage.getDashboardCardAddLabels(name));
+    }
+
+    async hoverDashboardCardLabel(name, label){
+        await this.hoverOver(await this.dbdsPage.getDashboardCardLabelPill(name, label))
+    }
+
+    async clickDashboardCardRemoveLabel(name,label){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardLabelPillDelete(name, label));
+    }
+
+    async verifyDashboardCardLabelsEmptyVisible(name){
+        await this.assertVisible(await this.dbdsPage.getDashboardCardLabelsEmpty(name));
+    }
+
+    async verifyDashboardCardLabelNotPresent(name, label){
+        await this.assertNotPresent(await dashboardsPage.getDashboardCardLabelPillSelector(name, label));
     }
 
 }

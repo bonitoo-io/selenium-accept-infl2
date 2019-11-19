@@ -138,4 +138,24 @@ When(/^click the add label button for the dashboard card "(.*)"$/, async name =>
    await dbdsSteps.clickDasboardCardAddLabel(name);
 });
 
+When(/^hover over the label "(.*)" of the dashboard card "(.*)"$/, async (label,name) => {
+   await dbdsSteps.hoverDashboardCardLabel(name, label);
+});
+
+When(/^click remove label "(.*)" from the dashboard card "(.*)"$/, async (label,name) => {
+   await dbdsSteps.clickDashboardCardRemoveLabel(name,label);
+});
+
+Then(/^the dashboard card "(.*)" labels empty message is visible$/, async name => {
+   await dbdsSteps.verifyDashboardCardLabelsEmptyVisible(name);
+});
+
+Then(/^the label "(.*)" of the dashboard card "(.*)" is not present$/, async (label,name) => {
+   await dbdsSteps.verifyDashboardCardLabelNotPresent(name, label);
+});
+
+Then(/^the label "(.*)" is not present in the popover selector$/, async label => {
+   await dbdsSteps.verifyLabelInDashboardsPopoverIsNotPresent(label);
+});
+
 

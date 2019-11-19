@@ -20,6 +20,7 @@ const dashboardCardDescriptionInput = '//*[@data-testid=\'dashboard-card\'][.//s
 const dashboardCardLabelsEmpty = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
 const dashboardCardAddLabels = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
 const dashboardCardLabelPill = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'label--pill %LABEL%\']';
+const dashboardCardLabelPillDelete = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'label--pill--delete %LABEL%\']';
 
 const addLabelsPopover = '[data-testid=\'inline-labels--popover\']';
 const addLabelsPopoverLabel = '//*[@data-testid=\'inline-labels--popover\']//*[contains(@data-testid,\'label--pill\')][text()=\'%LABEL%\']';
@@ -145,6 +146,10 @@ class dashboardsPage extends influxPage {
         return await this.driver.findElement(By.xpath(addLabelsPopoverLabel.replace('%LABEL%', label)));
     }
 
+    static getAddLabelsPopoverLabelSelector(label){
+        return { type: 'xpath', selector: addLabelsPopoverLabel.replace('%LABEL%', label)}
+    }
+
     async getAddLabelsPopoverFilter(){
         return await this.driver.findElement(By.css(addLabelsPopoverFilter));
     }
@@ -170,12 +175,22 @@ class dashboardsPage extends influxPage {
             .replace('%NAME%', name).replace('%LABEL%', label)));
     }
 
+    static getDashboardCardLabelPillSelector(name, label){
+        return { type: 'xpath', selector: dashboardCardLabelPill
+                .replace('%NAME%', name).replace('%LABEL%', label) }
+    }
+
     async getAddLabelsPopover(){
         return await this.driver.findElement(By.css(addLabelsPopover));
     }
 
     static getAddLabelsPopoverSelector(){
         return { type: 'css', selector: addLabelsPopover};
+    }
+
+    async getDashboardCardLabelPillDelete(name, label){
+        return await this.driver.findElement(By.xpath(dashboardCardLabelPillDelete
+            .replace("%NAME%", name).replace('%LABEL%', label)));
     }
 
 }

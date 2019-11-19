@@ -13,7 +13,9 @@ const basePage = require (__srcdir + '/pages/basePage.js');
 const keyMap = {'enter': Key.ENTER,
     'tab': Key.TAB,
     'backspace': Key.BACK_SPACE,
-    'space': Key.SPACE};
+    'space': Key.SPACE,
+    'escape': Key.ESCAPE
+    };
 
 
 class baseSteps{
