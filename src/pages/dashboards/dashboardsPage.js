@@ -19,10 +19,14 @@ const dashboardCardDescriptionEdit = '//*[@data-testid=\'dashboard-card\'][.//sp
 const dashboardCardDescriptionInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'input-field\']';
 const dashboardCardLabelsEmpty = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
 const dashboardCardAddLabels = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
+const dashboardCardLabelPill = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'label--pill %LABEL%\']';
 
+const addLabelsPopover = '[data-testid=\'inline-labels--popover\']';
 const addLabelsPopoverLabel = '//*[@data-testid=\'inline-labels--popover\']//*[contains(@data-testid,\'label--pill\')][text()=\'%LABEL%\']';
 const addLabelsPopoverFilter = '[data-testid=\'inline-labels--popover-field\']';
 const addLabelsLabelPills = '[data-testid^=\'label--pill\']';
+const addLabelsPopoverListItem = '[data-testid^=\'label-list--item %ITEM%\']';
+const addLabelsPopoverNewItem = '[data-testid^=\'inline-labels--create-new\']';
 
 const urlCtx = 'dashboards';
 
@@ -147,6 +151,31 @@ class dashboardsPage extends influxPage {
 
     async getAddLabelsLabelPills(){
         return await this.driver.findElements(By.css(addLabelsLabelPills));
+    }
+
+    async getAddLabelsPopoverListItem(item){
+        return await this.driver.findElement(By.css(addLabelsPopoverListItem.replace('%ITEM%', item)));
+    }
+
+    async getAddLabelsPopoverNewItem(){
+        return await this.driver.findElement(By.css(addLabelsPopoverNewItem));
+    }
+
+    static getAddLabelsPopoverNewItemSelector(){
+        return { type: 'css', selector: addLabelsPopoverNewItem }
+    }
+
+    async getDashboardCardLabelPill(name, label){
+        return await this.driver.findElement(By.xpath(dashboardCardLabelPill
+            .replace('%NAME%', name).replace('%LABEL%', label)));
+    }
+
+    async getAddLabelsPopover(){
+        return await this.driver.findElement(By.css(addLabelsPopover));
+    }
+
+    static getAddLabelsPopoverSelector(){
+        return { type: 'css', selector: addLabelsPopover};
     }
 
 }

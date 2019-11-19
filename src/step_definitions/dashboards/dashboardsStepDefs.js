@@ -114,4 +114,28 @@ When(/^clear the popover label selector filter$/, async () => {
    await dbdsSteps.clearDashboardLabelsFilter();
 });
 
+Then(/^the  create new label item is not visible in the popover$/, async () => {
+   await dbdsSteps.verifyLabelPopoverCreateNewNotPresent();
+});
+
+Then(/^the create new label item is visible in the popover$/, async () => {
+   await dbdsSteps.verifyLabelPopoverCreateNewIsVisible();
+});
+
+When(/^click the new label item in the add labels popover$/, async () => {
+   await dbdsSteps.clickLabelPopoverCreateNewLabel();
+});
+
+Then(/^the dashboard card "(.*)" has the label "(.*)"$/, async (name, label) => {
+   await dbdsSteps.verifyDashboardCardHasLabel(name, label);
+});
+
+Then(/^the add label popover is not present$/, async () => {
+   await dbdsSteps.verifyAddLabelsPopopverNotPresent();
+});
+
+When(/^click the add label button for the dashboard card "(.*)"$/, async name => {
+   await dbdsSteps.clickDasboardCardAddLabel(name);
+});
+
 

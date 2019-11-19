@@ -157,7 +157,8 @@ class labelsSteps extends baseSteps{
     }
 
     async clickLabelPopupCreateButton(){
-        await this.clickAndWait(await this.labTab.getLabelPopupCreateBtn());
+        await this.clickAndWait(await this.labTab.getLabelPopupCreateBtn(),
+            async () => { await this.delay(1000); }); //popup can be slow to close
     }
 
     async verifyLabelCardInList(name){
