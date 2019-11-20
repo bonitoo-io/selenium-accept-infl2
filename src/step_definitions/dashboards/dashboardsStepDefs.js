@@ -174,6 +174,22 @@ Then(/^the dashboards page does not contain the cards:$/, {timeout: 15000}, asyn
    await dbdsSteps.verifyDashboardCardsNotPresent(cards);
 });
 
+Then(/^the Import Dashboard popup is loaded$/, async () => {
+   await dbdsSteps.verifyImportDashboardPopupVisible();
+});
+
+When(/^upload the import dashboard file "(.*)"$/, async path2file  => {
+    await dbdsSteps.uploadImportDashboardPopupFile(path2file);
+});
+
+Then(/^the import dashboard drag and drop header contains success "(.*)"$/, async path2file => {
+    await dbdsSteps.verifyImportPopupUploadSuccess();
+    await dbdsSteps.verifyImportPopupUploadFilename(path2file);
+});
+
+When(/^click the Import Dashboard button$/, async () => {
+   await dbdsSteps.clickImportDashboardButton();
+});
 
 
 

@@ -1,4 +1,5 @@
 const { expect, assert } = require('chai');
+const  path  = require('path');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardsPage = require(__srcdir + '/pages/dashboards/dashboardsPage.js');
@@ -193,6 +194,41 @@ class dashboardsSteps extends influxSteps {
 
     async clearDashboardsCardFilter(){
         await this.clearInputText(await this.dbdsPage.getFilterDashboards());
+    }
+
+    async verifyImportDashboardPopupVisible(){
+        await this.verifyElementContainsText(await this.dbdsPage.getPopupTitle(), 'Import Dashboard')
+        //and upload file
+        await this.assertVisible(await this.dbdsPage.getImportPopupUploadFileRadio());
+        //and paste json
+        await this.assertVisible(await this.dbdsPage.getImportPopupPasteJSONRadio());
+        //and dismiss button
+        await this.assertVisible(await this.dbdsPage.getImportPopupDismiss());
+        //and Import json button
+        await this.assertVisible(await this.dbdsPage.getImportPopupImportJSONButton());
+        //and drag and drop form
+        await this.assertVisible(await this.dbdsPage.getImportPopupFileInput());
+    }
+
+    async uploadImportDashboardPopupFile(path2file){
+        await this.dbdsPage.getImportPopupDragNDropFile().then(async elem => {
+            await elem.sendKeys(process.cwd() + '/' + path2file).then(async () => {
+                await this.delay(200); //debug wait - todo better wait
+            });
+        });
+    }
+
+    async verifyImportPopupUploadSuccess(){
+        await this.verifyElementContainsClass(await this.dbdsPage.getImportPopupFileInputHeader(), 'selected');
+    }
+
+    async verifyImportPopupUploadFilename(filepath){
+        let fp = path.parse(filepath);
+        await this.verifyElementContainsText(await this.dbdsPage.getImportPopupFileInputHeader(), fp.base);
+    }
+
+    async clickImportDashboardButton(){
+        await this.clickAndWait(await this.dbdsPage.getImportPopupImportJSONButton());
     }
 
 }

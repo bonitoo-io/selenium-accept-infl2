@@ -29,6 +29,14 @@ const addLabelsLabelPills = '[data-testid^=\'label--pill\']';
 const addLabelsPopoverListItem = '[data-testid^=\'label-list--item %ITEM%\']';
 const addLabelsPopoverNewItem = '[data-testid^=\'inline-labels--create-new\']';
 
+const importPopupUploadFileRadio = '[data-testid=\'overlay--body\'] [data-testid=\'radio--button\'][title=\'Upload\']';
+const importPopupPasteJSONRadio = '[data-testid=\'overlay--body\'] [data-testid=\'radio--button\'][title=\'Paste\']';
+const importPopupImportJSONButton = '[data-testid=\'overlay--footer\'] [title^=\'Import JSON\']';
+const importPopupDismiss = '[data-testid=\'overlay--header\'] button';
+const importPopupFileInput = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--form\'] ';
+const importPopupFileInputHeader = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--header\']';
+const importPopupDragNDropFile = 'input[type=file]'; //N.B. has display:none
+
 const urlCtx = 'dashboards';
 
 class dashboardsPage extends influxPage {
@@ -191,6 +199,34 @@ class dashboardsPage extends influxPage {
     async getDashboardCardLabelPillDelete(name, label){
         return await this.driver.findElement(By.xpath(dashboardCardLabelPillDelete
             .replace("%NAME%", name).replace('%LABEL%', label)));
+    }
+
+    async getImportPopupUploadFileRadio(){
+        return await this.driver.findElement(By.css(importPopupUploadFileRadio));
+    }
+
+    async getImportPopupPasteJSONRadio(){
+        return await this.driver.findElement(By.css(importPopupPasteJSONRadio));
+    }
+
+    async getImportPopupImportJSONButton(){
+        return await this.driver.findElement(By.css(importPopupImportJSONButton));
+    }
+
+    async getImportPopupDismiss(){
+        return await this.driver.findElement(By.css(importPopupDismiss));
+    }
+
+    async getImportPopupFileInput(){
+        return await this.driver.findElement(By.css(importPopupFileInput));
+    }
+
+    async getImportPopupFileInputHeader(){
+       return await this.driver.findElement(By.css(importPopupFileInputHeader));
+    }
+
+    async getImportPopupDragNDropFile(){
+        return await this.driver.findElement(By.css(importPopupDragNDropFile));
     }
 
 }

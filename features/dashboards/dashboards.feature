@@ -141,7 +141,19 @@ Feature: Dashboards - Base
     Mercure,Venus,Terre,Mars,Jupiter
     """
 
-  Scenario: Import Dashboard
+  Scenario: Import Dashboard from file
+    When click create dashboard control
+    When click the create dashboard item "Import Dashboard"
+    Then the Import Dashboard popup is loaded
+    When upload the import dashboard file "etc/test-data/alpha_dashboard.json"
+    Then the import dashboard drag and drop header contains success "etc/test-data/alpha_dashboard.json"
+    When click the Import Dashboard button
+    Then popup is not loaded
+    Then the success notification contains "Successfully imported dashboard."
+    Then close all notifications
+    Then there is a dashboard card named "Alpha Centauri"
+
+  Scenario: Import Dashboard paste json
 
   Scenario: Create Dashboard from template
 
