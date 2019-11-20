@@ -3,6 +3,7 @@ const  path  = require('path');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardsPage = require(__srcdir + '/pages/dashboards/dashboardsPage.js');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 class dashboardsSteps extends influxSteps {
 
@@ -229,6 +230,20 @@ class dashboardsSteps extends influxSteps {
 
     async clickImportDashboardButton(){
         await this.clickAndWait(await this.dbdsPage.getImportPopupImportJSONButton());
+    }
+
+    async clickImportDashboardPasteJSON(){
+        await this.clickAndWait(await this.dbdsPage.getImportPopupPasteJSONRadio());
+    }
+
+    async verifyImportDashboardFileUploadNotPresent(){
+         await this.assertNotPresent(await dashboardsPage.getImportPopupFileInputSelector());
+    }
+
+    async pasteFileContentsImportDashboardTextarea(filepath){
+        let contents = await influxUtils.readFileToBuffer(filepath);
+        //console.log("DEBUG file contents:\n " + contents );
+        await this.typeTextAndWait(await this.dbdsPage.getImportPopupJSONTextarea(), contents)
     }
 
 }

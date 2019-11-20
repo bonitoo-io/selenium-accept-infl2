@@ -36,6 +36,7 @@ const importPopupDismiss = '[data-testid=\'overlay--header\'] button';
 const importPopupFileInput = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--form\'] ';
 const importPopupFileInputHeader = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--header\']';
 const importPopupDragNDropFile = 'input[type=file]'; //N.B. has display:none
+const importPopupJSONTextarea = '[data-testid=\'overlay--body\'] [data-testid=\'textarea\'] ';
 
 const urlCtx = 'dashboards';
 
@@ -221,12 +222,20 @@ class dashboardsPage extends influxPage {
         return await this.driver.findElement(By.css(importPopupFileInput));
     }
 
+    static getImportPopupFileInputSelector(){
+        return { type: 'css', selector: importPopupFileInput };
+    }
+
     async getImportPopupFileInputHeader(){
        return await this.driver.findElement(By.css(importPopupFileInputHeader));
     }
 
     async getImportPopupDragNDropFile(){
         return await this.driver.findElement(By.css(importPopupDragNDropFile));
+    }
+
+    async getImportPopupJSONTextarea(){
+        return await this.driver.findElement(By.css(importPopupJSONTextarea));
     }
 
 }

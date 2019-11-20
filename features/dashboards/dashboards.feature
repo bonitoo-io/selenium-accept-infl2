@@ -154,6 +154,17 @@ Feature: Dashboards - Base
     Then there is a dashboard card named "Alpha Centauri"
 
   Scenario: Import Dashboard paste json
+    When click create dashboard control
+    When click the create dashboard item "Import Dashboard"
+    Then the Import Dashboard popup is loaded
+    When click the Import Dashboard popup radio button Paste Json
+    Then the Import Dashboard file upload control is not present
+    When paste contents of file "etc/test-data/tau_ceti_dashboard.json" into the JSON textarea
+    When click the Import Dashboard button
+    Then popup is not loaded
+    Then the success notification contains "Successfully imported dashboard."
+    Then close all notifications
+    Then there is a dashboard card named "Tau Ceti"
 
   Scenario: Create Dashboard from template
 

@@ -191,5 +191,17 @@ When(/^click the Import Dashboard button$/, async () => {
    await dbdsSteps.clickImportDashboardButton();
 });
 
+When(/^click the Import Dashboard popup radio button Paste Json$/, async () => {
+   await dbdsSteps.clickImportDashboardPasteJSON();
+});
+
+Then(/^the Import Dashboard file upload control is not present$/, async () => {
+   await dbdsSteps.verifyImportDashboardFileUploadNotPresent();
+});
+
+When(/^paste contents of file "(.*)" into the JSON textarea$/, {timeout: 20000}, async filepath => {
+   await dbdsSteps.pasteFileContentsImportDashboardTextarea(filepath);
+});
+
 
 
