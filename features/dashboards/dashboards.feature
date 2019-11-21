@@ -104,10 +104,10 @@ Feature: Dashboards - Base
 
     Examples:
     |NAME|
-    |Venus|
     |Terre|
-    |Mars |
+    |Venus|
     |Jupiter|
+    |Mars |
 
   Scenario: Access Dashboard from home page
     When hover over the "home" menu item
@@ -167,5 +167,11 @@ Feature: Dashboards - Base
     Then there is a dashboard card named "Tau Ceti"
 
   Scenario: Create Dashboard from template
+
+  Scenario: Sort Dashboards by Name
+
+  Scenario: Sort Dashboards by Modified time
+
+  Scenario: Delete dashboards
 
 
