@@ -14,7 +14,7 @@ class dataExplorerSteps extends influxSteps{
 
     async verifyIsLoaded(){
         this.assertVisible(await this.dePage.getTimeLocaleDropdown());
-        this.assertVisible(await this.dePage.getGraphTimeDropdown());
+        this.assertVisible(await this.dePage.getGraphTypeDropdown());
         this.assertVisible(await this.dePage.getCustomizeGraphButton());
         this.assertVisible(await this.dePage.getSaveAsButton());
         this.assertVisible(await this.dePage.getViewArea());
