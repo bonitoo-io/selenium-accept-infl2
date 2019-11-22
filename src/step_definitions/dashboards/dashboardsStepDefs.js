@@ -178,6 +178,10 @@ Then(/^the Import Dashboard popup is loaded$/, async () => {
    await dbdsSteps.verifyImportDashboardPopupVisible();
 });
 
+Then(/^the Create Dashboard from Template popup is loaded$/, async () => {
+   await dbdsSteps.verifyCreateDashboardFromTemplatePopupVisible();
+});
+
 When(/^upload the import dashboard file "(.*)"$/, async path2file  => {
     await dbdsSteps.uploadImportDashboardPopupFile(path2file);
 });
@@ -201,6 +205,28 @@ Then(/^the Import Dashboard file upload control is not present$/, async () => {
 
 When(/^paste contents of file "(.*)" into the JSON textarea$/, {timeout: 30000}, async filepath => {
    await dbdsSteps.pasteFileContentsImportDashboardTextarea(filepath);
+});
+
+When(/^click Dashboard from Template popup cancel button$/, async () => {
+   await dbdsSteps.clickFromTemplatePopupCancel();
+});
+
+When(/^click the template item "(.*)"$/, async item => {
+   await dbdsSteps.clickFromTemplatePopupTemplateItem(item, async () => {
+       await this.driver.sleep(1000); //slow to load? 
+   });
+});
+
+Then(/^the template preview cell "(.*)" is visible$/, async name => {
+   await dbdsSteps.verifyFromTemplatePreviewCellVisible(name);
+});
+
+Then(/^the Dashboard from Template create button is disabled$/, async () => {
+   await dbdsSteps.verifyFromTemplatePopupCreateDisabled();
+});
+
+When(/^click Dashboard from Template create button$/, async () => {
+   await dbdsSteps.clickDashboardFromTemplateCreate();
 });
 
 

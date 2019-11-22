@@ -28,7 +28,8 @@ class dashboardsSteps extends influxSteps {
     }
 
     async clickCreateDashboardItem(item){
-        await this.clickAndWait(await this.dbdsPage.getCreateDashboardItem(item)); // todo better wait
+        await this.clickAndWait(await this.dbdsPage.getCreateDashboardItem(item),
+            async () => { await this.driver.sleep(1000)}); // todo better wait - slow to load?
     }
 
     async clickCreateDashboardEmpty(){
@@ -211,6 +212,22 @@ class dashboardsSteps extends influxSteps {
         await this.assertVisible(await this.dbdsPage.getImportPopupFileInput());
     }
 
+    async verifyCreateDashboardFromTemplatePopupVisible(){
+        await this.verifyElementContainsText(await this.dbdsPage.getPopupTitle(), 'Create Dashboard from a Template');
+        //dismiss
+        await this.assertVisible(await this.dbdsPage.getFromTemplatePopupDismiss());
+        //cancel
+        await this.assertVisible(await this.dbdsPage.getFromTemplatePopupCancel());
+        //create Dashboard button
+        await this.assertVisible(await this.dbdsPage.getFromTemplatePopupCreateDBoard());
+        //templates list
+        await this.assertVisible(await this.dbdsPage.getFromTemplatePopupTemplateList());
+        //templates list item
+        await this.assertVisible(await this.dbdsPage.getFromTemplatePopupTemplateItem('System'));
+        //template panel - preview
+        await this.assertVisible(await this.dbdsPage.getFromTemplatePopupTemplatePanel());
+    }
+
     async uploadImportDashboardPopupFile(path2file){
         await this.dbdsPage.getImportPopupDragNDropFile().then(async elem => {
             await elem.sendKeys(process.cwd() + '/' + path2file).then(async () => {
@@ -244,6 +261,26 @@ class dashboardsSteps extends influxSteps {
         let contents = await influxUtils.readFileToBuffer(filepath);
         //console.log("DEBUG file contents:\n " + contents );
         await this.typeTextAndWait(await this.dbdsPage.getImportPopupJSONTextarea(), contents)
+    }
+
+    async clickFromTemplatePopupCancel(){
+        await this.clickAndWait(await this.dbdsPage.getFromTemplatePopupCancel());
+    }
+
+    async clickFromTemplatePopupTemplateItem(item){
+        await this.clickAndWait(await this.dbdsPage.getFromTemplatePopupTemplateItem(item));
+    }
+
+    async verifyFromTemplatePreviewCellVisible(name){
+        await this.assertVisible(await this.dbdsPage.getfromTemplatePopupPreviewCell(name));
+    }
+
+    async verifyFromTemplatePopupCreateDisabled(){
+        await this.verifyElementDisabled(await this.dbdsPage.getFromTemplatePopupCreateDBoard());
+    }
+
+    async clickDashboardFromTemplateCreate(){
+        await this.clickAndWait(await this.dbdsPage.getFromTemplatePopupCreateDBoard());
     }
 
 }

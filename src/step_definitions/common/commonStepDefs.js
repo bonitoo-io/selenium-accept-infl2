@@ -258,3 +258,8 @@ When(/^press the "(.*)" key$/, async key => {
    await bSteps.pressKeyAndWait(key);
 });
 
+When(/^create a new template from the file "(.*)" for user "(.*)"$/, async (filepath, user) => {
+   let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
+   await influxUtils.createTemplateFromFile(filepath, orgID);
+});
+

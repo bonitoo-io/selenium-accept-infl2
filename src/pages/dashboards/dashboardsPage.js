@@ -38,6 +38,14 @@ const importPopupFileInputHeader = '[data-testid=\'overlay--body\'] [class*=\'dr
 const importPopupDragNDropFile = 'input[type=file]'; //N.B. has display:none
 const importPopupJSONTextarea = '[data-testid=\'overlay--body\'] [data-testid=\'textarea\'] ';
 
+const fromTemplatePopupDismiss = '[data-testid=\'overlay--header\'] button';
+const fromTemplatePopupCancel = '[data-testid=\'overlay--footer\'] [data-testid=\'button\'][title=\'Cancel\']';
+const fromTemplatePopupCreateDBoard = '[data-testid=\'create-dashboard-button\']';
+const fromTemplatePopupTemplateList = '//*[@data-testid=\'dapper-scrollbars\'][.//*[contains(@data-testid, \'template--\')]]';
+const fromTemplatePopupTemplateItem = '[data-testid=\'template--%ITEM%\']';
+const fromTemplatePopupTemplatePanel = '[data-testid=\'template-panel\']';
+const fromTemplatePopupPreviewCell = '//*[@data-testid=\'template-panel\']//div[h5[text()=\'Cells\']]/p[text()=\'%NAME%\']';
+
 const urlCtx = 'dashboards';
 
 class dashboardsPage extends influxPage {
@@ -236,6 +244,34 @@ class dashboardsPage extends influxPage {
 
     async getImportPopupJSONTextarea(){
         return await this.driver.findElement(By.css(importPopupJSONTextarea));
+    }
+
+    async getFromTemplatePopupDismiss(){
+        return await this.driver.findElement(By.css(fromTemplatePopupDismiss));
+    }
+
+    async getFromTemplatePopupCancel(){
+        return await this.driver.findElement(By.css(fromTemplatePopupCancel));
+    }
+
+    async getFromTemplatePopupCreateDBoard(){
+        return await this.driver.findElement(By.css(fromTemplatePopupCreateDBoard));
+    }
+
+    async getFromTemplatePopupTemplateList(){
+        return await this.driver.findElement(By.xpath(fromTemplatePopupTemplateList));
+    }
+
+    async getFromTemplatePopupTemplateItem(item){
+        return await this.driver.findElement(By.css(fromTemplatePopupTemplateItem.replace('%ITEM%', item)));
+    }
+
+    async getFromTemplatePopupTemplatePanel(){
+        return await this.driver.findElement(By.css(fromTemplatePopupTemplatePanel));
+    }
+
+    async getfromTemplatePopupPreviewCell(name){
+        return await this.driver.findElement(By.xpath(fromTemplatePopupPreviewCell.replace('%NAME%', name)));
     }
 
 }

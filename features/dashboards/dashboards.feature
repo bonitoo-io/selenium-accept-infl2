@@ -167,6 +167,26 @@ Feature: Dashboards - Base
     Then there is a dashboard card named "Tau Ceti"
 
   Scenario: Create Dashboard from template
+    When create a new template from the file "etc/test-data/sine-test-template.json" for user "DEFAULT"
+    When hover over the "Dashboards" menu item
+    When click nav sub menu "Dashboards"
+    Then the Dashboards page is loaded
+    When click create dashboard control
+    When click the create dashboard item "From a Template"
+    Then the Create Dashboard from Template popup is loaded
+    Then the Dashboard from Template create button is disabled
+    When click Dashboard from Template popup cancel button
+    Then popup is not loaded
+    When click create dashboard control
+    When click the create dashboard item "From a Template"
+    Then dismiss the popup
+    Then popup is not loaded
+    When click create dashboard control
+    When click the create dashboard item "From a Template"
+    When click the template item "Sinusoid test data-Template"
+    Then the template preview cell "Beat goes on" is visible
+    When click Dashboard from Template create button
+    Then there is a dashboard card named "Sinusoid test data"
 
   Scenario: Sort Dashboards by Name
 
