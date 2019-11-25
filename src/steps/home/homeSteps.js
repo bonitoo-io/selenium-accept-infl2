@@ -62,7 +62,16 @@ class homeSteps extends influxSteps {
         });
     }
 
+    async verifyDashboardLinksInPanel(links){
+        let linksArr = links.split(',');
+        for(let i = 0; i < linksArr.length; i++){
+            await this.assertVisible(await this.homePage.getDashboardLink(linksArr[i].trim()));
+        }
+    }
 
+    async clickDashboardLinkFromPanel(link){
+        await this.clickAndWait(await this.homePage.getDashboardLink(link));
+    }
 
 }
 

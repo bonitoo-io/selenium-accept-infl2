@@ -34,12 +34,12 @@ const popupHelpText = '[data-testid=form--help-text]';
 //reuse dismiss above
 const wizardStepTitle = '.wizard-step--title';
 const wizardStepSubTitle = '[data-testid=form-container] [class*=sub-title]';
-const wizardRadioUploadFile = '[data-testid=radio--button][title=\'Upload File\']';
-const wizardRadioManual = '[data-testid=radio--button][title=\'Enter Manually\']';
-const wizardPrecisionDropdown = '[class*=precision][data-testid=dropdown]';
+const wizardRadioUploadFile = '[data-testid=\'Upload File\']';
+const wizardRadioManual = '[data-testid=\'Enter Manually\']';
+const wizardPrecisionDropdown = '[data-testid=\'wizard-step--lp-precision--dropdown\']';
 const wizardDragAndDrop = 'div.drag-and-drop';
 const wizardContinueButton = '[data-testid=next]';
-const wizardTextArea = '[data-testid=textarea]';
+const wizardTextArea = '[data-testid=\'line-protocol--text-area\']';
 const wizardFinishButton = '[data-testid=next][title=\'Finish\']';
 const wizardStepStateText = '.wizard-step--text-state';
 const wizardSparkleSpinner = '[data-testid=sparkle-spinner]';
@@ -283,7 +283,7 @@ class bucketsTab extends loadDataPage {
     }
 
     async getWizardDropdownPrecisionItem(prec){
-        return await this.driver.findElement(By.css(`[data-testid='dropdown-item'][id='${prec}']`));
+        return await this.driver.findElement(By.css(`[data-testid='wizard-step--lp-precision-${prec}']`));
     }
 
     async getWizardFinishButton(){

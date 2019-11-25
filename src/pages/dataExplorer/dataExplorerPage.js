@@ -2,7 +2,7 @@ const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
 const timeLocaleDropdown = '[data-testid=select-dropdown]';
-const graphTimeDropdodwn = '.cf-page-header--right [data-testid=dropdown]';
+const graphTypeDropdodwn = '.cf-page-header--right [data-testid=view-type--dropdown]';
 const customizeGraphButton = '.cf-page-header--right [data-testid=cog-cell--button]';
 const saveAsButton = '//button[./span[text() = \'Save As\']]';
 const viewArea = '.time-machine--view';
@@ -27,7 +27,7 @@ class dataExplorerPage extends influxPage {
 
     async isLoaded(){
         await super.isLoaded([{type: 'css', selector: timeLocaleDropdown},
-            {type: 'css', selector: graphTimeDropdodwn},
+            {type: 'css', selector: graphTypeDropdodwn},
             {type: 'css', selector: customizeGraphButton},
             {type: 'xpath', selector: saveAsButton},
             {type: 'css', selector: viewArea},
@@ -42,8 +42,8 @@ class dataExplorerPage extends influxPage {
         return await this.driver.findElement(By.css(timeLocaleDropdown));
     }
 
-    async getGraphTimeDropdown(){
-        return await this.driver.findElement(By.css(graphTimeDropdodwn));
+    async getGraphTypeDropdown(){
+        return await this.driver.findElement(By.css(graphTypeDropdodwn));
     }
 
     async getCustomizeGraphButton(){

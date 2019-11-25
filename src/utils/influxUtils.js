@@ -231,6 +231,23 @@ const getDocTemplates = async(orgId) => {
 
 };
 
+const createTemplateFromFile = async(filepath, orgID) => {
+    let content = await readFileToBuffer(process.cwd() + '/' + filepath);
+    let newTemplate = JSON.parse(content);
+    newTemplate.orgID = orgID;
+
+    return await axios({
+        method: 'POST',
+        url: '/api/v2/documents/templates',
+        data: newTemplate
+    }).then(resp => {
+        return resp.data;
+    }).catch(err => {
+        throw(err);
+    })
+
+};
+
 const writeLineProtocolData = async (user, def) => {
 
     let define = JSON.parse(def);
@@ -392,7 +409,8 @@ module.exports = { flush,
     getDocTemplates,
     genFibonacciValues,
     writeLineProtocolData,
-    readFileToBuffer
+    readFileToBuffer,
+    createTemplateFromFile
 };
 
 //flush()

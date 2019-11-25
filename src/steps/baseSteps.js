@@ -8,9 +8,15 @@ const assert = require('chai').assert;
 const { By, Key } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
-
-
 const basePage = require (__srcdir + '/pages/basePage.js');
+
+const keyMap = {'enter': Key.ENTER,
+    'tab': Key.TAB,
+    'backspace': Key.BACK_SPACE,
+    'space': Key.SPACE,
+    'escape': Key.ESCAPE
+    };
+
 
 class baseSteps{
     constructor(driver){
@@ -280,7 +286,7 @@ class baseSteps{
     async dismissPopup(){
         await this.basePage.getPopupDismiss().then(async button => {
             await button.click().then(async () => {
-                await this.driver.sleep(1000); // todo better wait
+                await this.driver.sleep(1000); // todo better wait - sometimes can be slow to unload
             });
         });
     }
@@ -474,6 +480,14 @@ class baseSteps{
     async copyFileContentsToTextarea(filepath, textarea){
         let buffer = await influxUtils.readFileToBuffer(process.cwd() + '/' + filepath);
         await textarea.sendKeys(buffer);
+    }
+
+    async pressKeyAndWait(key, wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){
+        await this.driver.switchTo().activeElement().then(async elem => {
+                await elem.sendKeys(keyMap[key.toLowerCase()]).then(async () => {
+                    await wait()
+                });
+        })
     }
 
 
