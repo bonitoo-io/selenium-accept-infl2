@@ -208,6 +208,18 @@ Feature: Dashboards - Base
   # Scenario: Sort Dashboards by Modified time
   # TODO - implement after issue #15610 is resolved
 
+  Scenario: Clone Dashboard
+    When hover over dashboard card named "Tau Ceti"
+    When click clone of the dashboard card named "Tau Ceti"
+    When click the clone confirm of dashboard card "Tau Ceti"
+    Then the dashboard named "Tau Ceti (clone 1)" is loaded
+    Then the dashboard contains a cell named "Hydro derivative"
+    Then the dashboard contains a cell named "Sinusoid sum - missed points"
+    Then the dashboard contains a cell named "Note"
+    When hover over the "Dashboards" menu item
+    When click nav sub menu "Dashboards"
+    Then there is a dashboard card named "Tau Ceti (clone 1)"
+
   Scenario Outline: Delete dashboards
     When hover over dashboard card named "<NAME>"
     When click delete of dashboard card "<NAME>"
@@ -225,4 +237,7 @@ Feature: Dashboards - Base
       |Mars|
       |Alpha Centauri|
       |Tau Ceti|
+      |Tau Ceti (clone 1)|
       |Sinusoid test data|
+
+  Scenario: Clone Dashboard

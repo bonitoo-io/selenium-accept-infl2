@@ -34,6 +34,10 @@ class dashboardSteps extends influxSteps {
 
     }
 
+    async verifyDashboardCellVisible(name){
+        await this.assertVisible(await this.dbdPage.getCellByName(name));
+    }
+
 }
 
 module.exports = dashboardSteps;

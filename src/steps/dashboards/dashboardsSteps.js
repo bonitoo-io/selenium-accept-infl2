@@ -304,6 +304,14 @@ class dashboardsSteps extends influxSteps {
         await this.clickAndWait(await this.dbdsPage.getDashboardCardDeleteConfirm(name));
     }
 
+    async clickDashboardCardClone(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardCloneButton(name));
+    }
+
+    async clickDashboardCardCloneConfirm(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardCloneConfirm(name));
+    }
+
 }
 
 module.exports = dashboardsSteps;

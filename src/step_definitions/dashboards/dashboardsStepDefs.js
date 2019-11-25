@@ -245,6 +245,12 @@ When(/^click delete confirm of dashboard card "(.*)"$/, async name => {
    await dbdsSteps.clickDashboardCardDeleteConfirm(name);
 });
 
+When(/^click clone of the dashboard card named "(.*)"$/, async name => {
+   await dbdsSteps.clickDashboardCardClone(name);
+});
 
+When(/^click the clone confirm of dashboard card "(.*)"$/, async name => {
+  await dbdsSteps.clickDashboardCardCloneConfirm(name);
+});
 
 
