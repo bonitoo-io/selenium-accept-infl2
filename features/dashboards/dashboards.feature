@@ -189,9 +189,40 @@ Feature: Dashboards - Base
     Then there is a dashboard card named "Sinusoid test data"
 
   Scenario: Sort Dashboards by Name
+    When close all notifications
+    Then the dashboards are sorted as:
+    """
+    Alpha Centauri,Jupiter,Mars,Mercure,Sinusoid test data,Tau Ceti,Terre,Venus
+    """
+    When click dashboards sort by name
+    #When click dashboards sort by name
+    Then the dashboards are sorted as:
+    """
+    Venus,Terre,Tau Ceti,Sinusoid test data,Mercure,Mars,Jupiter,Alpha Centauri
+    """
+    When click dashboards sort by name
+    Then the dashboards are sorted as:
+    """
+    Alpha Centauri,Jupiter,Mars,Mercure,Sinusoid test data,Tau Ceti,Terre,Venus
+    """
+  # Scenario: Sort Dashboards by Modified time
+  # TODO - implement after issue #15610 is resolved
 
-  Scenario: Sort Dashboards by Modified time
+  Scenario Outline: Delete dashboards
+    When hover over dashboard card named "<NAME>"
+    When click delete of dashboard card "<NAME>"
+    When click delete confirm of dashboard card "<NAME>"
+    Then the success notification contains "Dashboard <NAME> deleted successfully"
+    When close all notifications
+    Then there is no dashboard card named "<NAME>"
 
-  Scenario: Delete dashboards
-
-
+    Examples:
+      |NAME|
+      |Mercure|
+      |Terre|
+      |Venus|
+      |Jupiter|
+      |Mars|
+      |Alpha Centauri|
+      |Tau Ceti|
+      |Sinusoid test data|

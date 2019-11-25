@@ -213,7 +213,7 @@ When(/^click Dashboard from Template popup cancel button$/, async () => {
 
 When(/^click the template item "(.*)"$/, async item => {
    await dbdsSteps.clickFromTemplatePopupTemplateItem(item, async () => {
-       await this.driver.sleep(1000); //slow to load? 
+       await this.driver.sleep(1000); //slow to load?
    });
 });
 
@@ -228,6 +228,23 @@ Then(/^the Dashboard from Template create button is disabled$/, async () => {
 When(/^click Dashboard from Template create button$/, async () => {
    await dbdsSteps.clickDashboardFromTemplateCreate();
 });
+
+Then(/^the dashboards are sorted as:$/, async dBoards => {
+   await dbdsSteps.verifyDashboardSortOrder(dBoards);
+});
+
+When(/^click dashboards sort by name$/, async () => {
+   await dbdsSteps.clickSortDashboardsByName();
+});
+
+When(/^click delete of dashboard card "(.*)"$/, async name => {
+   await dbdsSteps.clickDashboardCardDelete(name);
+});
+
+When(/^click delete confirm of dashboard card "(.*)"$/, async name => {
+   await dbdsSteps.clickDashboardCardDeleteConfirm(name);
+});
+
 
 
 

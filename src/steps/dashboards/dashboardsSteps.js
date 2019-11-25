@@ -283,6 +283,27 @@ class dashboardsSteps extends influxSteps {
         await this.clickAndWait(await this.dbdsPage.getFromTemplatePopupCreateDBoard());
     }
 
+    async verifyDashboardSortOrder(dBoards){
+        let dbArray = dBoards.split(',');
+        await this.dbdsPage.getDashboardCardNames().then(async names => {
+           for(let i = 0; i < names.length; i++){
+               expect(await names[i].getText()).to.equal(dbArray[i]);
+           }
+        });
+    }
+
+    async clickSortDashboardsByName(){
+        await this.clickAndWait(await this.dbdsPage.getNameSortButton());
+    }
+
+    async clickDashboardCardDelete(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardDeleteButton(name));
+    }
+
+    async clickDashboardCardDeleteConfirm(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardDeleteConfirm(name));
+    }
+
 }
 
 module.exports = dashboardsSteps;
