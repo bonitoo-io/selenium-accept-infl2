@@ -19,6 +19,7 @@ const { flush, config, defaultUser } = require(__srcdir + '/utils/influxUtils');
 global.__screenShotDir = process.cwd() + "/" + __config.screenshot_dir + "/" + __runtimeStr;
 
 fs.mkdirSync(__screenShotDir,  { recursive: true });
+
 /*
 mkdirp(__screenShotDir, function (err) {
     if (err) console.error(err)
@@ -29,7 +30,26 @@ mkdirp(__screenShotDir, function (err) {
 
 var common = '--require "src/step_definitions/**/*.js" --require hooks.js --require-module babel-core/register ';
 
+// "download": {
+//         "default_directory": "/home/karl/bonitoo/prjs/github.com/bonitoo-io/selenium-accept-infl2/temp",
+//         "directory_upgrade": true,
+//         "prompt_for_download": false
+//     },
+
 let caps = new Capabilities();
+
+//global.__downloadsDir = __basedir + "/downloads/";
+
+//console.log("DEBUG __downloadsDir " + __downloadsDir);
+
+let chromeUserPreferences = { 'download.prompt_for_download': false, "download.default_directory": __basedir };
+
+/*
+try {
+    fs.statSync(__downloadsDir);
+}catch(e){
+    fs.mkdirSync(__downloadsDir);
+}*/
 
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
@@ -38,7 +58,9 @@ if(__config.headless) {
         global.__wdriver = new Builder()
             .withCapabilities(caps)
             .forBrowser(__config.browser)
-            .setChromeOptions(new chrome.Options().headless().windowSize({width: 1024, height: 768}))
+            .setChromeOptions(new chrome.Options().headless()
+                .setUserPreferences(chromeUserPreferences)
+                .windowSize({width: 1024, height: 768}))
             .build();
             break;
         case "firefox":
@@ -56,6 +78,7 @@ if(__config.headless) {
                 .withCapabilities(caps)
                 .forBrowser(__config.browser)
                 .setChromeOptions(new chrome.Options().addArguments("--incognito"))
+                .setUserPreferences(chromeUserPreferences)
                 .build()
             break;
         case "firefox":

@@ -388,7 +388,29 @@ const readFileToBuffer = async function(filepath) {
     return await fs.readFileSync(filepath, 'utf-8'); //, async (err) => {
 };
 
+const removeFileIfExists = async function(filepath){
+    if(fs.existsSync(filepath)) {
+        fs.unlinkSync(filepath);
+    }
+};
 
+const fileExists = async function(filePath){
+   return fs.existsSync(filePath);
+};
+
+const waitForFileToExist = async function(filePath, timeout = 10000){
+  let sleepTime = 3000;
+  let totalSleep = 0;
+  while (totalSleep < timeout){
+      if(fs.existsSync(filePath)){
+          return true;
+      }
+      totalSleep += sleepTime;
+  }
+
+  throw `Timed out ${timeout}ms waiting for file ${filePath}`;
+
+};
 
 module.exports = { flush,
     config,
@@ -410,7 +432,10 @@ module.exports = { flush,
     genFibonacciValues,
     writeLineProtocolData,
     readFileToBuffer,
-    createTemplateFromFile
+    createTemplateFromFile,
+    removeFileIfExists,
+    fileExists,
+    waitForFileToExist
 };
 
 //flush()

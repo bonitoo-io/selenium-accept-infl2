@@ -263,3 +263,11 @@ When(/^create a new template from the file "(.*)" for user "(.*)"$/, async (file
    await influxUtils.createTemplateFromFile(filepath, orgID);
 });
 
+When(/^remove file "(.*)" if exists$/, async filePath => {
+   await influxUtils.removeFileIfExists(filePath);
+});
+
+Then(/^the file "(.*)" has been downloaded$/, async filePath => {
+    await bSteps.verifyFileExists(filePath)
+});
+

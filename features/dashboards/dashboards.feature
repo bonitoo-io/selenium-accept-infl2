@@ -208,6 +208,21 @@ Feature: Dashboards - Base
   # Scenario: Sort Dashboards by Modified time
   # TODO - implement after issue #15610 is resolved
 
+  Scenario: Export Dashboard to file
+    When remove file "tau_ceti.json" if exists
+    When hover over dashboard card named "Tau Ceti"
+    When click export of the dashboard card named "Tau Ceti"
+    When click confirm export of the dashboard card "Tau Ceti"
+    Then the Export Dashboard popup is loaded
+    When click the Export Dashboard dismiss button
+    Then popup is not loaded
+    When hover over dashboard card named "Tau Ceti"
+    When click export of the dashboard card named "Tau Ceti"
+    When click confirm export of the dashboard card "Tau Ceti"
+    When click Export Dashboard popup Download JSON for "tau_ceti.json"
+    Then popup is not loaded
+    Then the file "tau_ceti.json" has been downloaded
+
   Scenario: Clone Dashboard
     When hover over dashboard card named "Tau Ceti"
     When click clone of the dashboard card named "Tau Ceti"

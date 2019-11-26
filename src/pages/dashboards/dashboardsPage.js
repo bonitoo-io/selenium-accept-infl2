@@ -9,6 +9,7 @@ const createDashboardDropdownEmpty = '[data-testid=\'resource-list\'] [data-test
 const createDashboardItems = '[data-testid^=add-resource-dropdown--][id]';
 const dashboardCardByName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]';
 const dashboardCardExportButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Export\']]';
+const dashboardCardExportConfirm = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[text()=\'Export\']';
 const dashboardCardCloneButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Clone\']]'
 const dashboardCardCloneConfirm = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\']//*[text() = \'Clone\']';
 const dashboardCardDeleteButton = '//*[@data-testid=\'dashboard-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
@@ -49,6 +50,12 @@ const fromTemplatePopupTemplateList = '//*[@data-testid=\'dapper-scrollbars\'][.
 const fromTemplatePopupTemplateItem = '[data-testid=\'template--%ITEM%\']';
 const fromTemplatePopupTemplatePanel = '[data-testid=\'template-panel\']';
 const fromTemplatePopupPreviewCell = '//*[@data-testid=\'template-panel\']//div[h5[text()=\'Cells\']]/p[text()=\'%NAME%\']';
+
+const exportPopupDismiss = '[data-testid=\'overlay--header\'] [type=\'button\'][class*=dismiss]';
+const exportPopupCodeMirror = '.CodeMirror';
+const exportPopupDownloadJSON = '[data-testid=\'overlay--footer\'] [data-testid=\'button\'][title=\'Download JSON\']';
+const exportPopupSaveAsTemplate = '[data-testid=\'overlay--footer\'] [data-testid=\'button\'][title=\'Save as template\']';
+const exportPopupCopyToClipboard = '[data-testid=\'overlay--footer\'] [data-testid=\'button-copy\']';
 
 const urlCtx = 'dashboards';
 
@@ -112,6 +119,10 @@ class dashboardsPage extends influxPage {
 
     static getDashboardCardExportButtonSelector(name){
         return { type: 'xpath', selector: dashboardCardExportButton.replace('%NAME%', name)};
+    }
+
+    async getDashboardCardExportConfirm(name){
+        return await this.driver.findElement(By.xpath(dashboardCardExportConfirm.replace('%NAME%', name)));
     }
 
     async getDashboardCardCloneButton(name){
@@ -288,6 +299,26 @@ class dashboardsPage extends influxPage {
 
     async getDashboardCardCloneConfirm(name){
         return await this.driver.findElement(By.xpath(dashboardCardCloneConfirm.replace('%NAME%', name)));
+    }
+
+    async getExportPopupDismiss(){
+        return await this.driver.findElement(By.css(exportPopupDismiss));
+    }
+
+    async getExportPopupCodeMirror(){
+        return await this.driver.findElement(By.css(exportPopupCodeMirror));
+    }
+
+    async getExportPopupDownloadJSON(){
+        return await this.driver.findElement(By.css(exportPopupDownloadJSON));
+    }
+
+    async getExportPopupSaveAsTemplate(){
+        return await this.driver.findElement(By.css(exportPopupSaveAsTemplate));
+    }
+
+    async getexportPopupCopyToClipboard(){
+        return await this.driver.findElement(By.css(exportPopupCopyToClipboard));
     }
 
 }

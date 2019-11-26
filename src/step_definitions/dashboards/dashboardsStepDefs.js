@@ -253,4 +253,24 @@ When(/^click the clone confirm of dashboard card "(.*)"$/, async name => {
   await dbdsSteps.clickDashboardCardCloneConfirm(name);
 });
 
+When(/^click export of the dashboard card named "(.*)"$/, async name => {
+    await dbdsSteps.clickDashboardCardExport(name);
+});
+
+When(/^click confirm export of the dashboard card "(.*)"$/, async name => {
+    await dbdsSteps.clickDashboardCardExportConfirm(name);
+});
+
+Then(/^the Export Dashboard popup is loaded$/, async () => {
+   await dbdsSteps.verifyExportDashboardPopupLoaded();
+});
+
+When(/^click the Export Dashboard dismiss button$/, async () => {
+   await dbdsSteps.clickExportDashboardPopupDismiss();
+});
+
+When(/^click Export Dashboard popup Download JSON for "(.*)"$/, {timeout: 15000}, async filePath => {
+   await dbdsSteps.clickExportDashboardDownloadJSON(filePath);
+});
+
 

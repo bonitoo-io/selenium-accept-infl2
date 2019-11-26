@@ -312,6 +312,38 @@ class dashboardsSteps extends influxSteps {
         await this.clickAndWait(await this.dbdsPage.getDashboardCardCloneConfirm(name));
     }
 
+    async clickDashboardCardExport(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardExportButton(name));
+    }
+
+    async clickDashboardCardExportConfirm(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardExportConfirm(name),
+            async () => { await this.driver.sleep(1000); }) //slow to load?
+    }
+
+    async verifyExportDashboardPopupLoaded(){
+        await this.verifyElementContainsText(await this.dbdsPage.getPopupTitle(), 'Export Dashboard');
+        //dismiss
+        await this.assertVisible(await this.dbdsPage.getExportPopupDismiss());
+        //codeMirror
+        await this.assertVisible(await this.dbdsPage.getExportPopupCodeMirror());
+        //DownloadJSON
+        await this.assertVisible(await this.dbdsPage.getExportPopupDownloadJSON());
+        //AsTemplate
+        await this.assertVisible(await this.dbdsPage.getExportPopupSaveAsTemplate());
+        //Copy2Clipboard
+        await this.assertVisible(await this.dbdsPage.getexportPopupCopyToClipboard());
+    }
+
+    async clickExportDashboardPopupDismiss(){
+        await this.clickAndWait(await this.dbdsPage.getExportPopupDismiss());
+    }
+
+    async clickExportDashboardDownloadJSON(filePath){
+        await this.clickAndWait(await this.dbdsPage.getExportPopupDownloadJSON(),
+            async () => {await influxUtils.waitForFileToExist(filePath) }); //wait for download to complete
+    }
+
 }
 
 module.exports = dashboardsSteps;

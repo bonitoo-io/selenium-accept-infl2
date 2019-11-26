@@ -490,6 +490,10 @@ class baseSteps{
         })
     }
 
+    async verifyFileExists(filePath){
+        await expect(await influxUtils.fileExists(filePath)).to.be.true;
+    }
+
 
 }
 
