@@ -208,6 +208,25 @@ Feature: Dashboards - Base
   # Scenario: Sort Dashboards by Modified time
   # TODO - implement after issue #15610 is resolved
 
+  Scenario: Export Dashboard as Template
+    When hover over dashboard card named "Alpha Centauri"
+    When click export of the dashboard card named "Alpha Centauri"
+    When click confirm export of the dashboard card "Alpha Centauri"
+    When click Export Dashboard popup Save as Template
+    Then the success notification contains "Successfully saved dashboard as template"
+    Then a REST template document for user "DEFAULT" titled "Alpha Centauri-Template" exists
+
+  Scenario: Export Dashboard copy to clipboard
+    When hover over dashboard card named "Jupiter"
+    When click export of the dashboard card named "Jupiter"
+    When click confirm export of the dashboard card "Jupiter"
+    When click Export Dashboard popup Copy to Clipboard
+#N.B. fix notification after issue #16054 has been addressed
+    Then the success notification contains "has been copied to clipboard"
+#N.B. clipboard not accessible for comparison in headless mode
+    When click the Export Dashboard dismiss button
+    Then popup is not loaded
+
   Scenario: Export Dashboard to file
     When remove file "tau_ceti.json" if exists
     When hover over dashboard card named "Tau Ceti"
@@ -254,5 +273,3 @@ Feature: Dashboards - Base
       |Tau Ceti|
       |Tau Ceti (clone 1)|
       |Sinusoid test data|
-
-  Scenario: Clone Dashboard

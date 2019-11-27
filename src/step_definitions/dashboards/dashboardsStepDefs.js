@@ -273,4 +273,12 @@ When(/^click Export Dashboard popup Download JSON for "(.*)"$/, {timeout: 15000}
    await dbdsSteps.clickExportDashboardDownloadJSON(filePath);
 });
 
+When(/^click Export Dashboard popup Save as Template$/, async () => {
+   await dbdsSteps.clickExportDashboardSaveAsTemplate();
+});
+
+When(/^click Export Dashboard popup Copy to Clipboard$/, async () => {
+   await dbdsSteps.clickExportDashboardCopyToClipboard();
+});
+
 

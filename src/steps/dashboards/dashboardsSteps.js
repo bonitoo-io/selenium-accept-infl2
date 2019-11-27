@@ -345,6 +345,14 @@ class dashboardsSteps extends influxSteps {
             async () => {await influxUtils.waitForFileToExist(filePath) }); //wait for download to complete
     }
 
+    async clickExportDashboardSaveAsTemplate(){
+        await this.clickAndWait(await this.dbdsPage.getExportPopupSaveAsTemplate());
+    }
+
+    async clickExportDashboardCopyToClipboard(){
+        await this.clickAndWait(await this.dbdsPage.getexportPopupCopyToClipboard());
+    }
+
 }
 
 module.exports = dashboardsSteps;
