@@ -145,7 +145,8 @@ class dashboardsSteps extends influxSteps {
     }
 
     async clickLabelPopoverCreateNewLabel(){
-        await this.clickAndWait(await this.dbdsPage.getAddLabelsPopoverNewItem());
+        await this.clickAndWait(await this.dbdsPage.getAddLabelsPopoverNewItem(),
+            async () => { await this.driver.sleep(1000) }); //popup slow to load? todo better wait
     }
 
     async verifyDashboardCardHasLabel(name, label){
