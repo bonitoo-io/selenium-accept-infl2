@@ -17,11 +17,11 @@ Feature: Settings - Templates
     When API sign in user "DEFAULT"
     When generate a line protocol testdata for user "DEFAULT" based on:
     """
-    { "points": 120, "measurement":"level", "start": "-30d", "algo": "hydro", "prec": "sec"}
+    { "points": 120, "measurement":"level", "start": "-30d", "algo": "hydro", "prec": "sec", "name": "hydro"}
     """
     When generate a line protocol testdata for user "DEFAULT" based on:
     """
-    { "points": 120, "measurement":"beat", "start": "-30d", "algo": "sine", "prec": "sec"}
+    { "points": 120, "measurement":"beat", "start": "-30d", "algo": "sine", "prec": "sec", "name": "sine"}
     """
 
 

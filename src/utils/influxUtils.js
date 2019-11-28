@@ -261,7 +261,7 @@ const writeLineProtocolData = async (user, def) => {
     let samples = await genPoints(define.algo, define.points);
 
     for(let i = 0; i < samples.length; i++){
-        dataPoints.push(`${define.algo},test=generic ${define.measurement}=${samples[i]} ${(startMillis + (intervals.step * i)) * mil2Nano}\n`);
+        dataPoints.push(`${define.name},test=generic ${define.measurement}=${samples[i]} ${(startMillis + (intervals.step * i)) * mil2Nano}\n`);
     }
 
     await writeData(user.org, user.bucket, dataPoints);

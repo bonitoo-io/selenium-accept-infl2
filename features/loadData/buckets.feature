@@ -183,7 +183,7 @@ Scenario: Add Manual Line Protocol Data to Default
   Scenario: Add Line Protocol Data from File to Default
     When generate a line protocol testdata file "etc/test-data/line-protocol-hydro.txt" based on:
     """
-    { "points": 20, "measurement":"level", "start": "-60h", "algo": "hydro", "prec": "sec"}
+    { "points": 20, "measurement":"level", "start": "-60h", "algo": "hydro", "prec": "sec", "name": "hydro"}
     """
     When click add data button for bucket "DEFAULT"
     Then the add data popover for the bucket "DEFAULT" is visible
@@ -208,7 +208,7 @@ Scenario: Add Manual Line Protocol Data to Default
     #Then the bucket "DEFAULT" for user "DEFAULT" contains "20" datapoints of "hydro" data with value named "level" starting at "-60h"
     Then the bucket "DEFAULT" for user "DEFAULT" contains:
     """
-    { "points": 20, "field": "level", "measurement": "hydro", "start": "-60h", "vals": "skip", "rows": ["1","-1"] }
+    { "points": 20, "field": "level", "measurement": "hydro", "start": "-60h", "vals": "skip", "rows": ["1","-1"], "name": "hydro" }
     """
 
   Scenario: Add Scraper to Default
