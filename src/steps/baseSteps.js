@@ -447,6 +447,12 @@ class baseSteps{
         });
     }
 
+    async verifyElementAttributeContainsText(elem,attrib,text){
+        await elem.getAttribute(attrib).then(async at => {
+                await expect(at).to.include(text);
+        })
+    }
+
     async verifyElementContainsNoText(elem){
         await elem.getText().then(async text => {
             await expect(text.length).to.equal(0);

@@ -290,7 +290,7 @@ const genLineProtocolFile = async(filePath, def) => {
 
 
     for(let i = 0; i < samples.length; i++){
-        dataPoints.push(`${define.algo},test=generic ${define.measurement}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
+        dataPoints.push(`${define.name},test=generic ${define.measurement}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
     }
 
     await dataPoints.forEach(async point => {
