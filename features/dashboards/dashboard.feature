@@ -52,23 +52,23 @@ Feature: Dashboards - Dashboard - Base
     Custom Time Range,Past 5m,Past 15m,Past 1h,Past 6h,Past 12h,Past 24h,Past 2d,Past 7d,Past 30d
     """
 
-  Scenario: Create Cell
-    When PENDING
+  #Scenario: Create Cell
+  #  When PENDING
 
-  Scenario: Add Note to Cell
-    When PENDING
+  #Scenario: Add Note to Cell
+  #  When PENDING
 
-  Scenario: Resize Cell
-    When PENDING
+  #Scenario: Resize Cell
+  #  When PENDING
 
-  Scenario: Clone Cell
-    When PENDING
+  #Scenario: Clone Cell
+  #  When PENDING
 
-  Scenario: Rename Cell
-    When PENDING
+  #Scenario: Rename Cell
+  #  When PENDING
 
-  Scenario: Delete Cell
-    When PENDING
+  #Scenario: Delete Cell
+  #  When PENDING
 
 
 
