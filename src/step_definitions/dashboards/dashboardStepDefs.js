@@ -47,3 +47,31 @@ Then(/^the active dashboard dropdown contains dividers:$/, async labels => {
 When(/^click dashboard time range dropdown$/, async () => {
    await dbdSteps.clickDashboardTimeRangeDropdown();
 });
+
+When(/^click the empty create cell button$/, async () => {
+  await dbdSteps.clickCreateCellEmpty();
+});
+
+Then(/^there is no dashboard cell named "(.*)"$/, async name => {
+  await dbdSteps.verifyCellNotPresent(name);
+});
+
+When(/^get metrics of cell named "(.*)"$/, async name => {
+  await dbdSteps.getCellMetrics(name);
+});
+
+When(/^toggle context menu of dashboard cell named "(.*)"$/, async name => {
+  await dbdSteps.toggleDashboardCellContextMenu(name);
+});
+
+When(/^click cell content popover add note$/, async () => {
+  await dbdSteps.clickDashboardPopOverlayAddNote();
+});
+
+Then(/^the edit note popup is loaded$/, async () => {
+  await dbdSteps.verifyEditNotePopupLoaded();
+});
+
+When(/^enter the cell note popup CodeMirror text:$/, async text =>{
+  await dbdSteps.setCellNotePopupCodeMirrorText(text);
+});

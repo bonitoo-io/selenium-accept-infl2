@@ -1,15 +1,17 @@
 const expect = require('chai').expect;
 const assert = require('chai').assert;
-const Key = require('selenium-webdriver').Key;
+const { Key, until, By } = require('selenium-webdriver');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardPage = require(__srcdir + '/pages/dashboards/dashboardPage.js');
+const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
 
 class dashboardSteps extends influxSteps {
 
     constructor(driver) {
         super(driver);
         this.dbdPage = new dashboardPage(driver);
+        this.cedOverlay = new cellEditOverlay(driver);
     }
 
     async nameDashboard(name){
@@ -84,6 +86,54 @@ class dashboardSteps extends influxSteps {
 
     async clickDashboardTimeRangeDropdown(){
         await this.clickAndWait(await this.dbdPage.getTimeRangeDropdown());
+    }
+
+    async clickCreateCellEmpty(){
+        //todo wait for buckets to be loaded ---
+        await this.clickAndWait(await this.dbdPage.getEmptyStateAddCellButton(), async() => {
+            await this.driver.wait(
+                until.elementLocated(By.css(cellEditOverlay.getBucketSelectSearchSelector().selector))
+            );
+        });
+    }
+
+    async verifyCellNotPresent(name){
+        await this.assertNotPresent(await dashboardPage.getCellSelectorByName(name))
+    }
+
+    async getCellMetrics(name){
+        await this.dbdPage.getCellByName(name).then(async cell => {
+            await cell.getRect().then(async rect => {
+                console.log("DEBUG rect " + JSON.stringify(rect));
+            })
+        })
+    }
+
+    async toggleDashboardCellContextMenu(name){
+        await this.clickAndWait(await this.dbdPage.getCellContextToggleByName(name), async () => {
+            await this.driver.wait(
+                until.elementLocated(By.css(dashboardPage.getCellPopoverContentsSelector().selector))
+            )
+        })
+    }
+
+    async clickDashboardPopOverlayAddNote(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsAddNote());
+    }
+
+    async verifyEditNotePopupLoaded(){
+        await this.assertVisible(await this.dbdPage.getPopupBody());
+        await this.verifyElementContainsText(await this.dbdPage.getPopupTitle(), 'Edit Note');
+        await this.assertVisible(await this.dbdPage.getNotePopupCodeMirror());
+        await this.assertVisible(await this.dbdPage.getPopupDismiss());
+        await this.assertVisible(await this.dbdPage.getPopupCancelSimple());
+        await this.assertVisible(await this.dbdPage.getPopupSaveSimple());
+        await this.assertVisible(await this.dbdPage.getNotePopupNoDataToggle());
+        await this.assertVisible(await this.dbdPage.getNotePopupEditorPreview());
+    }
+
+    async setCellNotePopupCodeMirrorText(text){
+        await this.setCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror(), text);
     }
 
 }

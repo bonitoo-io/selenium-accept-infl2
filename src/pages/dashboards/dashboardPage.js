@@ -21,6 +21,19 @@ const emptyStateTextLink = '[data-testid=\'empty-state--text\'] a';
 const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'add-cell--button\']';
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
+const cellHandleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--draggable\']';
+const cellResizerByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'react-resizable-handle\']';
+const cellContextToggleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'cell-context--toggle\']';
+const cellPopoverContents = '[data-testid=popover--contents]';
+const cellPopoverContentsConfigure = '[data-testid=popover--contents] [data-testid=\'cell-context--configure\']';
+const cellPopoverContentsAddNote = '[data-testid=popover--contents] [data-testid=\'cell-context--note\']';
+const cellPopoverContentsClone = '[data-testid=popover--contents] [data-testid=\'cell-context--clone\']';
+const cellPopoverContentsDelete = '[data-testid=popover--contents] [data-testid=\'cell-context--delete\']';
+const cellPopoverContentsDeleteConfirm = '[data-testid=popover--contents] [data-testid=\'cell-context--delete-confirm\']';
+
+const notePopupCodeMirror = '[data-testid=overlay--body] .CodeMirror';
+const notePopupNoDataToggle = '[data-testid=overlay--body] [data-testid=slide-toggle]';
+const notePopupEditorPreview = '[data-testid=overlay--body] .note-editor--preview';
 
 const urlCtx = 'dashboards';
 
@@ -54,6 +67,10 @@ class dashboardPage extends influxPage {
 
     async getCellByName(name){
         return await this.driver.findElement(By.xpath(cellByName.replace('%NAME%', name)));
+    }
+
+    static getCellSelectorByName(name){
+        return {type: 'xpath', selector: cellByName.replace('%NAME%', name) }
     }
 
     async getGraphToolTips(){
@@ -106,6 +123,54 @@ class dashboardPage extends influxPage {
 
     async getdropdownMenuDivider(label){
         return await this.driver.findElement(By.xpath(dropdownMenuDivider.replace('%LABEL%', label)));
+    }
+
+    async getCellHandleByName(name){
+        return await this.driver.findElement(By.xpath(cellHandleByName.replace('%NAME%', name)));
+    }
+
+    async getCellResizerByName(name){
+        return await this.driver.findElement(By.xpath(cellResizerByName.replace('%NAME%', name)));
+    }
+
+    static getCellPopoverContentsSelector(){
+        return { type: "css", selector: cellPopoverContents}
+    }
+
+    async getCellContextToggleByName(name){
+        return await this.driver.findElement(By.xpath(cellContextToggleByName.replace('%NAME%', name)));
+    }
+
+    async getCellPopoverContentsConfigure(){
+        return await this.driver.findElement(By.css(cellPopoverContentsConfigure));
+    }
+
+    async getCellPopoverContentsAddNote(){
+        return await this.driver.findElement(By.css(cellPopoverContentsAddNote));
+    }
+
+    async getCellPopoverContentsClone(){
+        return await this.driver.findElement(By.css(cellPopoverContentsClone));
+    }
+    
+    async getCellPopoverContentsDelete(){
+        return await this.driver.findElement(By.css(cellPopoverContentsDelete));
+    }
+
+    async getCellPopoverContentsDeleteConfirm(){
+        return await this.driver.findElement(By.css(cellPopoverContentsDeleteConfirm));
+    }
+
+    async getNotePopupCodeMirror(){
+        return await this.driver.findElement(By.css(notePopupCodeMirror));
+    }
+
+    async getNotePopupNoDataToggle(){
+        return await this.driver.findElement(By.css(notePopupNoDataToggle));
+    }
+
+    async getNotePopupEditorPreview(){
+        return await this.driver.findElement(By.css(notePopupEditorPreview));
     }
 }
 
