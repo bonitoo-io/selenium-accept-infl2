@@ -4,6 +4,7 @@ const { Key, until, By } = require('selenium-webdriver');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardPage = require(__srcdir + '/pages/dashboards/dashboardPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
 
 class dashboardSteps extends influxSteps {
@@ -113,12 +114,16 @@ class dashboardSteps extends influxSteps {
         await this.clickAndWait(await this.dbdPage.getCellContextToggleByName(name), async () => {
             await this.driver.wait(
                 until.elementLocated(By.css(dashboardPage.getCellPopoverContentsSelector().selector))
-            )
+            );
         })
     }
 
     async clickDashboardPopOverlayAddNote(){
-        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsAddNote());
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsAddNote(), async () => {
+            await this.driver.wait(
+                until.elementLocated(By.css(basePage.getPopupBodySelector().selector))
+            );
+        });
     }
 
     async verifyEditNotePopupLoaded(){
@@ -136,6 +141,45 @@ class dashboardSteps extends influxSteps {
         await this.setCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror(), text);
     }
 
+    async verifyCellNotPopupPreviewContains(text){
+        await this.dbdPage.getNotePopupEditorPreviewText().then(async elem => {
+           await expect(await elem.getText()).to.include(text);
+        });
+    }
+
+    async clickCellNotePopupSave(){
+        await this.clickAndWait(await this.dbdPage.getPopupSaveSimple());
+    }
+
+    async verifyCellHasNoteIndicator(name){
+        await this.assertVisible(await this.dbdPage.getCellNoteByName(name));
+    }
+
+    async clickCellNoteIndicator(name){
+        await this.clickAndWait(await this.dbdPage.getCellNoteByName(name));
+    }
+
+    async verifyContentsOfCellNote(text){
+        await this.dbdPage.getNotePopoverContents().then(async contents => {
+            await expect(await contents.getText()).to.include(text);
+        })
+    }
+
+    async clickCellTitle(name){
+        await this.clickAndWait(await this.dbdPage.getCellTitle(name));
+    }
+
+    async verifyCellNotePopoverNotPresent(){
+        await this.assertNotPresent(dashboardPage.getNotePopoverSelector());
+    }
+
+    async verifyCellContentPopoverItemEditNote(){
+        await this.verifyElementContainsText(await this.dbdPage.getCellPopoverContentsAddNote(), 'Edit Note');
+    }
+
+    async verifyCellContentPopoverNotPresent(){
+        await this.assertNotPresent(dashboardPage.getCellPopoverContentsSelector());
+    }
 }
 
 module.exports = dashboardSteps;

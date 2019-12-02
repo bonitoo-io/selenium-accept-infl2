@@ -75,3 +75,39 @@ Then(/^the edit note popup is loaded$/, async () => {
 When(/^enter the cell note popup CodeMirror text:$/, async text =>{
   await dbdSteps.setCellNotePopupCodeMirrorText(text);
 });
+
+Then(/^the cell note popup Markdown preview panel contains$/, async text=> {
+  await dbdSteps.verifyCellNotPopupPreviewContains(text);
+});
+
+When(/^click the cell note popup save button$/, async () => {
+  await dbdSteps.clickCellNotePopupSave();
+});
+
+Then(/^the cell named "(.*)" has a note indicator$/, async name => {
+  await dbdSteps.verifyCellHasNoteIndicator(name);
+});
+
+When(/^click the note indicator of the "(.*)" cell$/, async name => {
+  await dbdSteps.clickCellNoteIndicator(name);
+});
+
+Then(/^the cell note popover contains:$/, async text => {
+ await dbdSteps.verifyContentsOfCellNote(text);
+});
+
+When(/^click the cell title "(.*)"$/, async name => {
+  await dbdSteps.clickCellTitle(name);
+});
+
+Then(/^the cell note popover is not loaded$/, async () => {
+  await dbdSteps.verifyCellNotePopoverNotPresent();
+});
+
+Then(/^the cell content popover has item edit note$/, async () => {
+  await dbdSteps.verifyCellContentPopoverItemEditNote();
+});
+
+Then(/^the cell content popover is not loaded$/, async () => {
+  await dbdSteps.verifyCellContentPopoverNotPresent();
+});

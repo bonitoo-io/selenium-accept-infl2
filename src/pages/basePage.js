@@ -278,6 +278,10 @@ class basePage{
         return await this.driver.findElement(By.css(popupBody));
     }
 
+    static getPopupBodySelector(){
+        return { type: 'css', selector: popupBody }
+    }
+
     async getPopupGithubLink(){
         return await this.driver.findElement(By.xpath(popupGithubLink));
     }

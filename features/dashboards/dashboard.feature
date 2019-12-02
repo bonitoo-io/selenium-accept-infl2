@@ -82,9 +82,30 @@ Feature: Dashboards - Dashboard - Base
     When click cell content popover add note
     When enter the cell note popup CodeMirror text:
   """
-В департаменте… но лучше не называть в каком департаменте.
+  __Шинель__\n
+  _Гоголь_\n
+В департаменте… но лучше не называть в каком департаменте...
   """
-    #TODO - code mirror gymnastics
+    Then the cell note popup Markdown preview panel contains
+  """
+В департаменте… но лучше не называть в каком департаменте...
+  """
+    When click the cell note popup save button
+    Then popup is not loaded
+    Then the cell named "вре́менный" has a note indicator
+    When click the note indicator of the "вре́менный" cell
+    Then the cell note popover contains:
+  """
+В департаменте… но лучше не называть в каком департаменте...
+  """
+    When click the cell title "вре́менный"
+    Then the cell note popover is not loaded
+    When toggle context menu of dashboard cell named "вре́менный"
+    Then the cell content popover has item edit note
+    When click the cell title "вре́менный"
+    Then the cell content popover is not loaded
+
+
 
 
   #Scenario: Move cell

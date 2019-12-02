@@ -21,9 +21,11 @@ const emptyStateTextLink = '[data-testid=\'empty-state--text\'] a';
 const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'add-cell--button\']';
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
+const cellTitle = '//*[@class=\'cell--header\'][./*[text()=\'%NAME%\']]';
 const cellHandleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--draggable\']';
 const cellResizerByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'react-resizable-handle\']';
 const cellContextToggleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'cell-context--toggle\']';
+const cellNoteByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--note-indicator\']'
 const cellPopoverContents = '[data-testid=popover--contents]';
 const cellPopoverContentsConfigure = '[data-testid=popover--contents] [data-testid=\'cell-context--configure\']';
 const cellPopoverContentsAddNote = '[data-testid=popover--contents] [data-testid=\'cell-context--note\']';
@@ -34,6 +36,10 @@ const cellPopoverContentsDeleteConfirm = '[data-testid=popover--contents] [data-
 const notePopupCodeMirror = '[data-testid=overlay--body] .CodeMirror';
 const notePopupNoDataToggle = '[data-testid=overlay--body] [data-testid=slide-toggle]';
 const notePopupEditorPreview = '[data-testid=overlay--body] .note-editor--preview';
+const notePopupEditorPreviewText = '[data-testid=overlay--body] .note-editor--preview .markdown-format';
+
+const notePopover = '[data-testid=popover--dialog]';
+const notePopoverContents = '[data-testid=popover--dialog] .markdown-format';
 
 const urlCtx = 'dashboards';
 
@@ -125,6 +131,10 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(dropdownMenuDivider.replace('%LABEL%', label)));
     }
 
+    async getCellTitle(name){
+        return await this.driver.findElement(By.xpath(cellTitle.replace('%NAME%', name)));
+    }
+
     async getCellHandleByName(name){
         return await this.driver.findElement(By.xpath(cellHandleByName.replace('%NAME%', name)));
     }
@@ -171,6 +181,26 @@ class dashboardPage extends influxPage {
 
     async getNotePopupEditorPreview(){
         return await this.driver.findElement(By.css(notePopupEditorPreview));
+    }
+
+    async getNotePopupEditorPreviewText(){
+        return await this.driver.findElement(By.css(notePopupEditorPreviewText));
+    }
+
+    async getCellNoteByName(name){
+        return await this.driver.findElement(By.xpath(cellNoteByName.replace('%NAME%', name)));
+    }
+
+    async getNotePopoverContents(){
+        return await this.driver.findElement(By.css(notePopoverContents));
+    }
+
+    async getNotePopover(){
+        return await this.driver.findElement(By.css(notePopover));
+    }
+
+    static getNotePopoverSelector(){
+        return { type: 'css', selector: notePopover};
     }
 }
 
