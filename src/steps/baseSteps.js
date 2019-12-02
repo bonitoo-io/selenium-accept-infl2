@@ -429,6 +429,10 @@ class baseSteps{
         await this.driver.executeScript(`arguments[0].CodeMirror.setValue("${text}");`, cmElem);
     }
 
+    async getCodeMirrorText(cmElem, text){
+        return await this.driver.executeScript('return arguments[0].CodeMirror.getValue()', cmElem);
+    }
+
     async verifyFormErrorMessageContains(msg){
         await this.verifyElementContainsText(await this.basePage.getPopupFormElementMessage(), msg);
     }

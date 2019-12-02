@@ -180,6 +180,22 @@ class dashboardSteps extends influxSteps {
     async verifyCellContentPopoverNotPresent(){
         await this.assertNotPresent(dashboardPage.getCellPopoverContentsSelector());
     }
+
+    async verifyCodeMirrorContainsText(text){
+        expect(await this.getCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror()))
+            .to.include(text);
+    }
+
+    async clearCellNotePopupCodeMirror(){
+        await this.setCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror(), '');
+    }
+
+    async verifyCellNotePopupMarkupPreviewNoText(){
+        await this.dbdPage.getNotePopupEditorPreviewText().then(async text => {
+            let strText = await text.getText();
+             expect(strText.length).to.equal(0);
+        });
+    }
 }
 
 module.exports = dashboardSteps;

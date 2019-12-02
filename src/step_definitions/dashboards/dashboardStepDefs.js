@@ -111,3 +111,15 @@ Then(/^the cell content popover has item edit note$/, async () => {
 Then(/^the cell content popover is not loaded$/, async () => {
   await dbdSteps.verifyCellContentPopoverNotPresent();
 });
+
+Then(/^the cell note popup Code Mirror text contains:$/, async text => {
+  await dbdSteps.verifyCodeMirrorContainsText(text);
+});
+
+When(/^clear the cell note popup Code Mirror text$/, async () => {
+  await dbdSteps.clearCellNotePopupCodeMirror();
+});
+
+Then(/^the cell note popup markup preview panel has no text$/, async () => {
+  await dbdSteps.verifyCellNotePopupMarkupPreviewNoText();
+});

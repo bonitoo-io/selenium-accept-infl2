@@ -105,6 +105,48 @@ Feature: Dashboards - Dashboard - Base
     When click the cell title "вре́менный"
     Then the cell content popover is not loaded
 
+  Scenario: Edit Cell Note
+    When toggle context menu of dashboard cell named "вре́менный"
+    When click cell content popover add note
+    Then the edit note popup is loaded
+    Then the cell note popup Code Mirror text contains:
+  """
+  В департаменте… но лучше не называть в каком департаменте...
+  """
+    Then the cell note popup Code Mirror text contains:
+  """
+  _Гоголь_
+  """
+    Then the cell note popup Code Mirror text contains:
+  """
+  __Шинель__
+  """
+    Then the cell note popup Markdown preview panel contains
+  """
+В департаменте… но лучше не называть в каком департаменте...
+  """
+    When clear the cell note popup Code Mirror text
+    Then the cell note popup markup preview panel has no text
+    When enter the cell note popup CodeMirror text:
+  """
+  __LE MANTEAU__\n
+  _Nikolaï Gogol_\n
+Dans une administration russe... mieux vaut ne pas dire le nom de cette administration ...
+  """
+    Then the cell note popup Markdown preview panel contains
+  """
+Dans une administration russe... mieux vaut ne pas dire le nom de cette administration ...
+  """
+    When click the cell note popup save button
+    Then popup is not loaded
+    When click the note indicator of the "вре́менный" cell
+    Then the cell note popover contains:
+  """
+Dans une administration russe... mieux vaut ne pas dire le nom de cette administration ...
+  """
+    When click the cell title "вре́менный"
+    Then the cell content popover is not loaded
+
 
 
 
