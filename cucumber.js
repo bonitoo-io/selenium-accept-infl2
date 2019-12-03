@@ -77,9 +77,10 @@ if(__config.headless) {
             global.__wdriver = new Builder()
                 .withCapabilities(caps)
                 .forBrowser(__config.browser)
-                .setChromeOptions(new chrome.Options().addArguments("--incognito"))
-                .setUserPreferences(chromeUserPreferences)
-                .build()
+                .setChromeOptions(new chrome.Options().addArguments("--incognito")
+                    .setUserPreferences(chromeUserPreferences)
+                    .windowSize({width: 1024, height: 768}))
+                .build();
             break;
         case "firefox":
             global.__wdriver = new Builder()
