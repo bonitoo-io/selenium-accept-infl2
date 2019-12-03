@@ -127,17 +127,21 @@ Feature: Settings - Templates
     Hydro test dashboard-Template,Note Dashboard-Template,Notepad-Template,Sinusoid test data-Template
     """
 
-  Scenario: Exercise View Template Popup
+  #Scenario: Exercise View Template Popup
+  # TODO - this part of UI was being rewritten
 
-  Scenario: Clone Template
+  #Scenario: Clone Template
+  # TODO - this part of UI was being rewritten
 
-  Scenario: Rename Template
+  #Scenario: Rename Template
+  # TODO - this part of UI was being rewritten
 
   # N.B. generate some labels above - to be used in this test
   # Scenario: Add Labels to Template
   # Issue #15547 - create new label through templates runs into this minor issue
 
-  Scenario: Create Dashboard from Template
+  # Scenario: Create Dashboard from Template
+  # Covered in Dashboard tests
 
   Scenario Outline: Delete template
     When hover over template card named "<NAME>"

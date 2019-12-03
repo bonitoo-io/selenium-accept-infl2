@@ -11,7 +11,7 @@ const popupCancel = '[data-testid=overlay--container] button[data-testid=button-
 const popupCancelSimple = '[data-testid=overlay--container] button[title=Cancel]';
 const popupWizardContinue = '[data-testid=overlay--body] [data-testid=next]';
 const popupSave = '[data-testid=overlay--container] button[data-testid=button--save] ';
-const popupSaveSimple = '[data-testid=overlay--container] button[title=\'Save\']';
+const popupSaveSimple = '[data-testid=overlay--footer] button[title=\'Save\']';
 const popupCreate = '[data-testid=overlay--container] button[title=Create]';
 const popupSubmit = '[data-testid=button][type=submit]';
 const popupCopyToClipboard = '[data-testid=button-copy][title=\'Copy to Clipboard\']';
