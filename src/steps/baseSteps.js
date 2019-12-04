@@ -5,7 +5,7 @@ chai.use(require('chai-match'));
 const expect = require('chai').expect;
 const assert = require('chai').assert;
 
-const { By, Key } = require('selenium-webdriver');
+const { By, Key, NoSuchElementError, until } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -296,7 +296,16 @@ class baseSteps{
     }
 
     async clickPopupCancelBtnSimple(){
-        await this.clickAndWait(await this.basePage.getPopupCancelSimple()); //todo better wait
+        await this.clickAndWait(await this.basePage.getPopupCancelSimple(), async () => {
+            try {
+                await this.driver.wait(until.stalenessOf(await this.basePage.getPopupOverlay()));
+            }catch(err){
+                console.log("DEBUG err " + JSON.stringify(err));
+                if(err.name !== 'NoSuchElementError'){ // O.K. if not found - DOM already updated
+                    throw err;
+                }
+            }
+        }); //todo better wait - try until overlay disappear
     }
 
     //sometimes need to lose focus from a popup element to trigger change

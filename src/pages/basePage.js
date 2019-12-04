@@ -6,6 +6,7 @@ const notificationCloseButton = '[data-testid^=notification-] button.notificatio
 const popupOverlayContainer = '[data-testid=overlay--container]';
 const popupFormElementError  = '[data-testid=form--element-error]';
 const formInputError = '[data-testid=input-error]';
+const popupOverlay = '[data-testid=overlay]';
 const popupDismiss = '[data-testid=overlay--header] button[class*=dismiss]';
 const popupCancel = '[data-testid=overlay--container] button[data-testid=button--cancel]';
 const popupCancelSimple = '[data-testid=overlay--container] button[title=Cancel]';
@@ -72,6 +73,14 @@ class basePage{
             // TODO - implement other selector types
         }
         //});
+    }
+
+    async getPopupOverlay(){
+        return await this.driver.findElement(By.css(popupOverlay));
+    }
+
+    static getPopupOverlaySelector(){
+        return { type: 'css', selector: popupOverlay}
     }
 
     async getNoficicationSuccessMsgs(){
