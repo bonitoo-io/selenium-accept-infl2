@@ -56,6 +56,14 @@ Then(/^there is no dashboard cell named "(.*)"$/, async name => {
   await dbdSteps.verifyCellNotPresent(name);
 });
 
+Then(/^the cell named "(.*)" contains the empty graph message$/, async name => {
+   await dbdSteps.verifyEmptyGraphMessage(name);
+});
+
+Then(/^the cell named "(.*)" contains a graph$/, async name => {
+   await dbdSteps.verifyCellContainsGraph(name);
+});
+
 When(/^get metrics of cell named "(.*)"$/, async name => {
   await dbdSteps.getCellMetrics(name);
 });
@@ -66,6 +74,10 @@ When(/^toggle context menu of dashboard cell named "(.*)"$/, async name => {
 
 When(/^click cell content popover add note$/, async () => {
   await dbdSteps.clickDashboardPopOverlayAddNote();
+});
+
+When(/^click cell content popover configure$/, async () => {
+  await dbdSteps.clickDashboardPopOverlayConfigure();
 });
 
 Then(/^the edit note popup is loaded$/, async () => {
@@ -122,4 +134,22 @@ When(/^clear the cell note popup Code Mirror text$/, async () => {
 
 Then(/^the cell note popup markup preview panel has no text$/, async () => {
   await dbdSteps.verifyCellNotePopupMarkupPreviewNoText();
+});
+
+When(/^move the cell named "(.*)" by "(.*)"$/, {timeout: 15000}, async (name, vector) => {
+  let deltaCoords = JSON.parse(vector);
+  await dbdSteps.moveDashboardCell(name, deltaCoords);
+});
+
+Then(/^the location of the cell named "(.*)" is changed by "(.*)"$/, async (name, vector) => {
+    let deltaCoords = JSON.parse(vector);
+    await dbdSteps.verifyCellPositionChange(name, deltaCoords);
+});
+
+When(/^click the dashboard Time Range Dropdown$/, async () => {
+    await dbdSteps.clickDashboardTimeRangeDropdown();
+});
+
+When(/^select dashboard Time Range "(.*)"$/, async item => {
+   await dbdSteps.selectDashboardTimeRange(item);
 });

@@ -17,6 +17,7 @@ global.__runtimeStr = __runtime.getFullYear().toString() +
 const { flush, config, defaultUser } = require(__srcdir + '/utils/influxUtils');
 
 global.__screenShotDir = process.cwd() + "/" + __config.screenshot_dir + "/" + __runtimeStr;
+global.__dataBuffer = {};
 
 fs.mkdirSync(__screenShotDir,  { recursive: true });
 

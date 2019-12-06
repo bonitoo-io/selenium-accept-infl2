@@ -12,6 +12,7 @@ const autorefresh = '//*[@data-testid=\'page-header--right\']/*[contains(@class,
 const refreshRateDropdown = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
 const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
 const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
 const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
 
 const dropdownMenuItem = '//*[@data-testid=\'dropdown-menu\']//*[contains(@data-testid,\'dropdown-item\')]/*[text()=\'%ITEM%\']';
@@ -21,6 +22,7 @@ const emptyStateTextLink = '[data-testid=\'empty-state--text\'] a';
 const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'add-cell--button\']';
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
+const cellEmptyGraphMessage = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-queries\']';
 const cellTitle = '//*[@class=\'cell--header\'][./*[text()=\'%NAME%\']]';
 const cellHandleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--draggable\']';
 const cellResizerByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'react-resizable-handle\']';
@@ -32,6 +34,9 @@ const cellPopoverContentsAddNote = '[data-testid=popover--contents] [data-testid
 const cellPopoverContentsClone = '[data-testid=popover--contents] [data-testid=\'cell-context--clone\']';
 const cellPopoverContentsDelete = '[data-testid=popover--contents] [data-testid=\'cell-context--delete\']';
 const cellPopoverContentsDeleteConfirm = '[data-testid=popover--contents] [data-testid=\'cell-context--delete-confirm\']';
+const cellCanvasLine = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-layer-line\']';
+const cellCanvasAxes = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-axes\']';
+
 
 const notePopupCodeMirror = '[data-testid=overlay--body] .CodeMirror';
 const notePopupNoDataToggle = '[data-testid=overlay--body] [data-testid=slide-toggle]';
@@ -111,6 +116,10 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(timeRangeDropdown));
     }
 
+    async getTimeRangeDropdownItem(item){
+        return await this.driver.findElement(By.css(timeRangeDropdownItem.replace('%ITEM%', item)));
+    }
+
     async getPresentationModeButton(){
         return await this.driver.findElement(By.xpath(presentationModeButton));
     }
@@ -129,6 +138,10 @@ class dashboardPage extends influxPage {
 
     async getdropdownMenuDivider(label){
         return await this.driver.findElement(By.xpath(dropdownMenuDivider.replace('%LABEL%', label)));
+    }
+
+    async getCellEmptyGraphMessage(name){
+        return await this.driver.findElement(By.xpath(cellEmptyGraphMessage.replace('%NAME%', name)));
     }
 
     async getCellTitle(name){
@@ -201,6 +214,14 @@ class dashboardPage extends influxPage {
 
     static getNotePopoverSelector(){
         return { type: 'css', selector: notePopover};
+    }
+
+    async getCellCanvasLine(name){
+        return await this.driver.findElement(By.xpath(cellCanvasLine.replace('%NAME%', name)));
+    }
+
+    async getCellCanvasAxes(name){
+        return await this.driver.findElement(By.xpath(cellCanvasAxes.replace('%NAME%', name)));
     }
 }
 

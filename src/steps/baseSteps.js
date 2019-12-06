@@ -1,4 +1,4 @@
-//const fs = require('fs')
+const fs = require('fs')
 const chai = require('chai');
 chai.use(require('chai-match'));
 
@@ -217,6 +217,27 @@ class baseSteps{
             break;
         default:
             throw `Unknown selector type ${selector}`;
+        }
+    }
+
+    async isPresent(selector){
+        switch(selector.type){
+            case 'css':
+                return await this.driver.findElements(By.css(selector.selector)).then(async elems => {
+                    return elems.length > 0;
+                }).catch(async err => {
+                    err += ' expected ' + JSON.stringify(selector) + ' to not be present';
+                    throw err;
+                });
+            case 'xpath':
+                return await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
+                    return elems.length > 0;
+                }).catch(async err => {
+                    err.message += ' expected ' + selector + ' to not be present';
+                    throw err;
+                });
+            default:
+                throw `Unknown selector type ${selector}`;
         }
     }
 
@@ -511,6 +532,24 @@ class baseSteps{
 
     async verifyFileExists(filePath){
         await expect(await influxUtils.fileExists(filePath)).to.be.true;
+    }
+
+    async scrollElementIntoView(elem){
+        await this.driver.executeScript("arguments[0].scrollIntoView(true);", elem).then(async () => {
+            await this.driver.sleep(150);
+        });
+    }
+
+    async writeBase64ToPNG(filePath, base64String){
+        let base64Data = base64String.replace(/^data:image\/png;base64,/,"")
+        fs.writeFile(filePath,
+            base64Data,
+            'base64',
+            async err => {
+            if(err) {
+                console.log(err)
+            }
+        })
     }
 
 
