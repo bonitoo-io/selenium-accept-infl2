@@ -1,11 +1,11 @@
-//const fs = require('fs')
+const fs = require('fs')
 const chai = require('chai');
 chai.use(require('chai-match'));
 
 const expect = require('chai').expect;
 const assert = require('chai').assert;
 
-const { By, Key } = require('selenium-webdriver');
+const { By, Key, NoSuchElementError, until } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -220,6 +220,27 @@ class baseSteps{
         }
     }
 
+    async isPresent(selector){
+        switch(selector.type){
+            case 'css':
+                return await this.driver.findElements(By.css(selector.selector)).then(async elems => {
+                    return elems.length > 0;
+                }).catch(async err => {
+                    err += ' expected ' + JSON.stringify(selector) + ' to not be present';
+                    throw err;
+                });
+            case 'xpath':
+                return await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
+                    return elems.length > 0;
+                }).catch(async err => {
+                    err.message += ' expected ' + selector + ' to not be present';
+                    throw err;
+                });
+            default:
+                throw `Unknown selector type ${selector}`;
+        }
+    }
+
     //Example def { "points": 20, "field": "level", "measurement": "hydro", "start": "-60h", "vals": "skip", "rows": ["1","-1"] }
     async verifyBucketContainsByDef(bucket, user, def){
 
@@ -296,7 +317,16 @@ class baseSteps{
     }
 
     async clickPopupCancelBtnSimple(){
-        await this.clickAndWait(await this.basePage.getPopupCancelSimple()); //todo better wait
+        await this.clickAndWait(await this.basePage.getPopupCancelSimple(), async () => {
+            try {
+                await this.driver.wait(until.stalenessOf(await this.basePage.getPopupOverlay()));
+            }catch(err){
+                console.log("DEBUG err " + JSON.stringify(err));
+                if(err.name !== 'NoSuchElementError'){ // O.K. if not found - DOM already updated
+                    throw err;
+                }
+            }
+        }); //todo better wait - try until overlay disappear
     }
 
     //sometimes need to lose focus from a popup element to trigger change
@@ -429,6 +459,10 @@ class baseSteps{
         await this.driver.executeScript(`arguments[0].CodeMirror.setValue("${text}");`, cmElem);
     }
 
+    async getCodeMirrorText(cmElem, text){
+        return await this.driver.executeScript('return arguments[0].CodeMirror.getValue()', cmElem);
+    }
+
     async verifyFormErrorMessageContains(msg){
         await this.verifyElementContainsText(await this.basePage.getPopupFormElementMessage(), msg);
     }
@@ -498,6 +532,24 @@ class baseSteps{
 
     async verifyFileExists(filePath){
         await expect(await influxUtils.fileExists(filePath)).to.be.true;
+    }
+
+    async scrollElementIntoView(elem){
+        await this.driver.executeScript("arguments[0].scrollIntoView(true);", elem).then(async () => {
+            await this.driver.sleep(150);
+        });
+    }
+
+    async writeBase64ToPNG(filePath, base64String){
+        let base64Data = base64String.replace(/^data:image\/png;base64,/,"")
+        fs.writeFile(filePath,
+            base64Data,
+            'base64',
+            async err => {
+            if(err) {
+                console.log(err)
+            }
+        })
     }
 
 

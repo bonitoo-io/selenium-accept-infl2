@@ -1,9 +1,10 @@
 const expect = require('chai').expect;
 const assert = require('chai').assert;
-const { Key, until, By } = require('selenium-webdriver');
+const { Key, until, By, Origin } = require('selenium-webdriver');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardPage = require(__srcdir + '/pages/dashboards/dashboardPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
 
 class dashboardSteps extends influxSteps {
@@ -88,6 +89,16 @@ class dashboardSteps extends influxSteps {
         await this.clickAndWait(await this.dbdPage.getTimeRangeDropdown());
     }
 
+    async selectDashboardTimeRange(item){
+        await this.dbdPage.getTimeRangeDropdownItem(item).then(async elem => {
+            await this.scrollElementIntoView(elem).then(async () => {
+                await this.clickAndWait(elem, async () => {
+                    await this.driver.sleep(1500); //give cells chance to reload - TODO better wait
+                });
+            })
+        })
+    }
+
     async clickCreateCellEmpty(){
         //todo wait for buckets to be loaded ---
         await this.clickAndWait(await this.dbdPage.getEmptyStateAddCellButton(), async() => {
@@ -101,10 +112,19 @@ class dashboardSteps extends influxSteps {
         await this.assertNotPresent(await dashboardPage.getCellSelectorByName(name))
     }
 
+    async verifyEmptyGraphMessage(name){
+        await this.assertVisible(await this.dbdPage.getCellEmptyGraphMessage(name));
+    }
+
+    async verifyCellContainsGraph(name){
+        await this.assertVisible(await this.dbdPage.getCellCanvasAxes(name));
+        await this.assertVisible(await this.dbdPage.getCellCanvasLine(name));
+    }
+
     async getCellMetrics(name){
         await this.dbdPage.getCellByName(name).then(async cell => {
             await cell.getRect().then(async rect => {
-                console.log("DEBUG rect " + JSON.stringify(rect));
+                __dataBuffer.rect = rect;
             })
         })
     }
@@ -113,12 +133,24 @@ class dashboardSteps extends influxSteps {
         await this.clickAndWait(await this.dbdPage.getCellContextToggleByName(name), async () => {
             await this.driver.wait(
                 until.elementLocated(By.css(dashboardPage.getCellPopoverContentsSelector().selector))
-            )
+            );
         })
     }
 
     async clickDashboardPopOverlayAddNote(){
-        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsAddNote());
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsAddNote(), async () => {
+            await this.driver.wait(
+                until.elementLocated(By.css(basePage.getPopupBodySelector().selector))
+            );
+        });
+    }
+
+    async clickDashboardPopOverlayConfigure(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsConfigure(), async () => {
+            await this.driver.wait(
+                until.elementLocated(By.css(cellEditOverlay.getTimeMachineOverlay().selector))
+            );
+        });
     }
 
     async verifyEditNotePopupLoaded(){
@@ -136,6 +168,98 @@ class dashboardSteps extends influxSteps {
         await this.setCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror(), text);
     }
 
+    async verifyCellNotPopupPreviewContains(text){
+        await this.dbdPage.getNotePopupEditorPreviewText().then(async elem => {
+           await expect(await elem.getText()).to.include(text);
+        });
+    }
+
+    async clickCellNotePopupSave(){
+        await this.clickAndWait(await this.dbdPage.getPopupSaveSimple());
+    }
+
+    async verifyCellHasNoteIndicator(name){
+        await this.assertVisible(await this.dbdPage.getCellNoteByName(name));
+    }
+
+    async clickCellNoteIndicator(name){
+        await this.clickAndWait(await this.dbdPage.getCellNoteByName(name));
+    }
+
+    async verifyContentsOfCellNote(text){
+        await this.dbdPage.getNotePopoverContents().then(async contents => {
+            await expect(await contents.getText()).to.include(text);
+        })
+    }
+
+    async clickCellTitle(name){
+        await this.clickAndWait(await this.dbdPage.getCellTitle(name));
+    }
+
+    async verifyCellNotePopoverNotPresent(){
+        await this.assertNotPresent(dashboardPage.getNotePopoverSelector());
+    }
+
+    async verifyCellContentPopoverItemEditNote(){
+        await this.verifyElementContainsText(await this.dbdPage.getCellPopoverContentsAddNote(), 'Edit Note');
+    }
+
+    async verifyCellContentPopoverNotPresent(){
+        await this.assertNotPresent(dashboardPage.getCellPopoverContentsSelector());
+    }
+
+    async verifyCodeMirrorContainsText(text){
+        expect(await this.getCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror()))
+            .to.include(text);
+    }
+
+    async clearCellNotePopupCodeMirror(){
+        await this.setCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror(), '');
+    }
+
+    async verifyCellNotePopupMarkupPreviewNoText(){
+        await this.dbdPage.getNotePopupEditorPreviewText().then(async text => {
+            let strText = await text.getText();
+             expect(strText.length).to.equal(0);
+        });
+    }
+
+    async moveDashboardCell(name, deltaCoords){
+         //await this.clickAndWait(await this.dbdPage.getCellHandleByName(name));
+        await this.dbdPage.getCellHandleByName(name).then( async cell => {
+            let action = await this.driver.actions();
+            let rect = await cell.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let dx = parseInt(deltaCoords.dx);
+            let dy = parseInt(deltaCoords.dy);
+            await action
+                .move({x: x, y: y, duration: 1000})
+                .press()
+                .move({x:x + dx , y: y + dy, duration: 1000})
+                .release()
+                .perform();
+
+            await this.driver.sleep(1000);
+
+        });
+    }
+
+    async verifyCellPositionChange(name, deltaCoords){
+        // Use tolerance because of snap to grid feature
+        let tolerance = 10; //can be +/- 10 px
+        await this.dbdPage.getCellByName(name).then(async cell => {
+            let rect = await cell.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let dx = parseInt(deltaCoords.dx);
+            let dy = parseInt(deltaCoords.dy);
+            let expx = parseInt(__dataBuffer.rect.x) + dx;
+            let expy = parseInt(__dataBuffer.rect.y) + dy;
+            expect(Math.abs(expx - x )).to.be.below(tolerance);
+            expect(Math.abs(expy - y )).to.be.below(tolerance);
+        })
+    }
 }
 
 module.exports = dashboardSteps;

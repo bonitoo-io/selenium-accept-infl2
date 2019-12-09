@@ -22,7 +22,7 @@ const tokenCardPopoverDeletConfirm = '//*[@data-testid=\'delete-token--popover--
 
 // Generate Read/Write token popup
 const descrInput = '[data-testid=\'input-field--descr\']';
-const typeRadioButton = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//button[@data-testid=\'radio--button\'][@id=\'%SET%\']';
+const typeRadioButton = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//*[@data-testid=\'select-group--option\'][@title=\'%SET%\']';
 const searchBuckets = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//input[@data-testid=\'input-field\'][contains(@placeholder,\'Search buckets\')]';
 const emptyStateText = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//*[@data-testid=\'empty-state--text\']';
 const searchBucketsListItem = '//*[@data-testid=\'flex-box\'][div[text()=\'%MODE%\']]//*[@data-testid=\'selector-list %NAME%\']';

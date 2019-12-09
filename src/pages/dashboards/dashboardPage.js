@@ -12,6 +12,7 @@ const autorefresh = '//*[@data-testid=\'page-header--right\']/*[contains(@class,
 const refreshRateDropdown = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
 const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
 const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
 const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
 
 const dropdownMenuItem = '//*[@data-testid=\'dropdown-menu\']//*[contains(@data-testid,\'dropdown-item\')]/*[text()=\'%ITEM%\']';
@@ -21,19 +22,29 @@ const emptyStateTextLink = '[data-testid=\'empty-state--text\'] a';
 const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'add-cell--button\']';
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
+const cellEmptyGraphMessage = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-queries\']';
+const cellTitle = '//*[@class=\'cell--header\'][./*[text()=\'%NAME%\']]';
 const cellHandleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--draggable\']';
 const cellResizerByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'react-resizable-handle\']';
 const cellContextToggleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'cell-context--toggle\']';
+const cellNoteByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--note-indicator\']'
 const cellPopoverContents = '[data-testid=popover--contents]';
 const cellPopoverContentsConfigure = '[data-testid=popover--contents] [data-testid=\'cell-context--configure\']';
 const cellPopoverContentsAddNote = '[data-testid=popover--contents] [data-testid=\'cell-context--note\']';
 const cellPopoverContentsClone = '[data-testid=popover--contents] [data-testid=\'cell-context--clone\']';
 const cellPopoverContentsDelete = '[data-testid=popover--contents] [data-testid=\'cell-context--delete\']';
 const cellPopoverContentsDeleteConfirm = '[data-testid=popover--contents] [data-testid=\'cell-context--delete-confirm\']';
+const cellCanvasLine = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-layer-line\']';
+const cellCanvasAxes = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-axes\']';
+
 
 const notePopupCodeMirror = '[data-testid=overlay--body] .CodeMirror';
 const notePopupNoDataToggle = '[data-testid=overlay--body] [data-testid=slide-toggle]';
 const notePopupEditorPreview = '[data-testid=overlay--body] .note-editor--preview';
+const notePopupEditorPreviewText = '[data-testid=overlay--body] .note-editor--preview .markdown-format';
+
+const notePopover = '[data-testid=popover--dialog]';
+const notePopoverContents = '[data-testid=popover--dialog] .markdown-format';
 
 const urlCtx = 'dashboards';
 
@@ -105,6 +116,10 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(timeRangeDropdown));
     }
 
+    async getTimeRangeDropdownItem(item){
+        return await this.driver.findElement(By.css(timeRangeDropdownItem.replace('%ITEM%', item)));
+    }
+
     async getPresentationModeButton(){
         return await this.driver.findElement(By.xpath(presentationModeButton));
     }
@@ -123,6 +138,14 @@ class dashboardPage extends influxPage {
 
     async getdropdownMenuDivider(label){
         return await this.driver.findElement(By.xpath(dropdownMenuDivider.replace('%LABEL%', label)));
+    }
+
+    async getCellEmptyGraphMessage(name){
+        return await this.driver.findElement(By.xpath(cellEmptyGraphMessage.replace('%NAME%', name)));
+    }
+
+    async getCellTitle(name){
+        return await this.driver.findElement(By.xpath(cellTitle.replace('%NAME%', name)));
     }
 
     async getCellHandleByName(name){
@@ -171,6 +194,34 @@ class dashboardPage extends influxPage {
 
     async getNotePopupEditorPreview(){
         return await this.driver.findElement(By.css(notePopupEditorPreview));
+    }
+
+    async getNotePopupEditorPreviewText(){
+        return await this.driver.findElement(By.css(notePopupEditorPreviewText));
+    }
+
+    async getCellNoteByName(name){
+        return await this.driver.findElement(By.xpath(cellNoteByName.replace('%NAME%', name)));
+    }
+
+    async getNotePopoverContents(){
+        return await this.driver.findElement(By.css(notePopoverContents));
+    }
+
+    async getNotePopover(){
+        return await this.driver.findElement(By.css(notePopover));
+    }
+
+    static getNotePopoverSelector(){
+        return { type: 'css', selector: notePopover};
+    }
+
+    async getCellCanvasLine(name){
+        return await this.driver.findElement(By.xpath(cellCanvasLine.replace('%NAME%', name)));
+    }
+
+    async getCellCanvasAxes(name){
+        return await this.driver.findElement(By.xpath(cellCanvasAxes.replace('%NAME%', name)));
     }
 }
 

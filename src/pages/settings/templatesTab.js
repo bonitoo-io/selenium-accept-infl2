@@ -5,8 +5,8 @@ const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 const templatesFilter = '[data-testid=search-widget]';
 const importTemplateHeaderButton = '[data-testid=flex-box] [data-testid=flex-box] [data-testid=button]';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
-const templatesTypeFilterButton = '[data-testid=radio-button]';
-const userTemplatesRadioButton = '[data-testid=radio--button][id=user-templates]';
+const templatesTypeFilterButton = '[data-testid=select-group--option][title=\'Static Templates\']';
+const userTemplatesRadioButton = '[data-testid=select-group--option][title=\'User Templates\']';
 const resourceList = '[data-testid=resource-list]';
 const templateCardNames = '[data-testid=template-card--name] span span';
 const importTemplateEmptyButton = '[data-testid=empty-state] [data-testid=button]';
@@ -17,8 +17,8 @@ const templateCardDeleteConfirm = '//*[@data-testid=\'template-card\'][.//*[text
 const urlCtx = 'templates';
 
 //import template popup
-const importTemplateUploadButton = '[data-testid=overlay--body] [data-testid=radio--button][id=upload]';
-const importTemplatePasteButton = '[data-testid=overlay--body] [data-testid=radio--button][id=paste]';
+const importTemplateUploadButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Upload]';
+const importTemplatePasteButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Paste]';
 const importTemplateJSONTextArea = '[data-testid=overlay--body] [data-testid=textarea]';
 const importTemplateDragNDrop = '[data-testid=overlay--body] input[type=file]';
 

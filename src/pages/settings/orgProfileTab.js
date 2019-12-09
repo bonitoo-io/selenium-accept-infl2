@@ -1,7 +1,7 @@
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
-const tabHeader = '//*[@data-testid=\'panel--title\' and contains(text(),\'Profile\')]';
-const warningHeader = '//form//div[@data-testid=\'panel--header\']';
+const tabHeader = '//*[@data-testid=\'flex-box\'][./h4]';
+const warningHeader = '//*[@data-testid=\'flex-box\'][./form]';
 const renameButton = '[data-testid=button][title=\'Rename\']';
 
 const urlCtx = 'profile';
