@@ -34,8 +34,8 @@ const addLabelsLabelPills = '[data-testid^=\'label--pill\']';
 const addLabelsPopoverListItem = '[data-testid^=\'label-list--item %ITEM%\']';
 const addLabelsPopoverNewItem = '[data-testid^=\'inline-labels--create-new\']';
 
-const importPopupUploadFileRadio = '[data-testid=\'overlay--body\'] [data-testid=\'radio--button\'][title=\'Upload\']';
-const importPopupPasteJSONRadio = '[data-testid=\'overlay--body\'] [data-testid=\'radio--button\'][title=\'Paste\']';
+const importPopupUploadFileRadio = '[data-testid=overlay--body] [data-testid=select-group--option][title=\'Upload\']';
+const importPopupPasteJSONRadio = '[data-testid=overlay--body] [data-testid=select-group--option][title=\'Paste\']';
 const importPopupImportJSONButton = '[data-testid=\'overlay--footer\'] [title^=\'Import JSON\']';
 const importPopupDismiss = '[data-testid=\'overlay--header\'] button';
 const importPopupFileInput = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--form\'] ';
