@@ -6,7 +6,7 @@ const graphTypeDropdodwn = '.cf-page-header--right [data-testid=view-type--dropd
 const customizeGraphButton = '.cf-page-header--right [data-testid=cog-cell--button]';
 const saveAsButton = '//button[./span[text() = \'Save As\']]';
 const viewArea = '.time-machine--view';
-const viewRawToggle = '.time-machine-queries--controls [data-testid=slide-toggle--label]';
+const viewRawToggle = '[data-testid=raw-data--toggle]';
 const autorefreshDropdown = 'div.autorefresh-dropdown';
 //const pausedAutorefreshButton = 'button.autorefresh-dropdown--pause'; //Present only when autorefresh is paused - not good candidate for page loade check
 const timeRangeDropdown = '//*[@data-testid=\'flex-box\']/div[3]';

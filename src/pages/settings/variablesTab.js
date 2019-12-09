@@ -18,8 +18,8 @@ const variableCardContextDeleteConfirm = '//*[@data-testid=\'resource-card\'][./
 const urlCtx = 'variables';
 
 // import variable popup
-const uploadRadioButton = '[data-testid=radio--button][title=Upload]';
-const pasteRadioButton = '[data-testid=radio--button][title=Paste]';
+const uploadRadioButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Upload]';
+const pasteRadioButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Paste]';
 const dragNDropFile = 'input[type=file]'; //N.B. has display:none
 const importButton = '[data-testid=overlay--footer] [data-testid=button]';
 const pasteJSONTextarea = '[data-testid=overlay--body] [data-testid=textarea]';
