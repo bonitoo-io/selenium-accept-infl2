@@ -198,6 +198,15 @@ const createDashboard = async(name, orgId) => {
     });
 };
 
+const getDashboards = async() => {
+    return await axios.get('/api/v2/dashboards').then(resp => {
+        return resp.data;
+    }).catch(err => {
+       console.log('ERROR: ' + err);
+       throw(err);
+    });
+}
+
 // http://localhost:9999/api/v2/labels
 // {"orgID":"8576cb897e0b4ce9","name":"MyLabel","properties":{"description":"","color":"#7CE490"}}
 const createLabel = async(orgId,
@@ -422,6 +431,7 @@ module.exports = { flush,
     endSession,
     writeData,
     createDashboard,
+    getDashboards,
     query,
     createBucket,
     parseQueryResults,

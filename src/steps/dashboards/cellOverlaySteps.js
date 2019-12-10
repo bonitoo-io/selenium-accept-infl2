@@ -69,11 +69,11 @@ class cellOverlaySteps extends influxSteps {
         if(await this.isPresent(cellEditOverlay.getGraphCanvasSelector())) {
             await this.cellOverlay.getGraphCanvas().then(async canvas => {
                 __dataBuffer.graphEditCanvas = await this.driver
-                    .executeScript('return arguments[0].toDataURL(\'image/png\').substring(21);', canvas);
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas);
                 console.log("DEBUG __dataBuffer.graphEditCanvas " + __dataBuffer.graphEditCanvas);
                 await this.cellOverlay.getGraphCanvasAxes().then(async axes => {
                     __dataBuffer.graphEditCanvasAxes = await this.driver
-                        .executeScript('return arguments[0].toDataURL(\'image/png\').substring(21);', axes);
+                        .executeScript('return arguments[0].toDataURL(\'image/png\');', axes);
                 })
             });
         }else{

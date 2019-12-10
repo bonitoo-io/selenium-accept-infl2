@@ -155,6 +155,16 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When get metrics of cell named "вре́менный"
     When move the cell named "вре́менный" by "{ "dx": "0", "dy": "+200" }"
     Then the location of the cell named "вре́менный" is changed by "{ "dx": "0", "dy": "0" }"
+    When move the cell named "вре́менный" by "{ "dx": "+400", "dy": "+200" }"
+    When get metrics of cell named "вре́менный"
+    When hover over the "Dashboards" menu item
+    When click nav menu item "home"
+    When hover over the "Dashboards" menu item
+    When click nav sub menu "Dashboards"
+    When click the dashboard name "про́бный прибо́ров"
+    Then the dashboard named "про́бный прибо́ров" is loaded
+    Then the location of the cell named "вре́менный" is unchanged
+    When move the cell named "вре́менный" by "{ "dx": "-400", "dy": "0" }"
 
   Scenario: Edit Cell - Simple
     Then the cell named "вре́менный" contains the empty graph message
@@ -180,11 +190,22 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When select dashboard Time Range "30d"
     Then the cell named "вре́менный" contains a graph
 
-  #Scenario: Edit Cell
-  # Add cell data
-
-  #Scenario: Resize Cell
-  #  When PENDING
+  Scenario: Resize Cell
+    When get the current graph of the cell "вре́менный"
+    When get metrics of cell named "вре́менный"
+    When resize the cell name "вре́менный" by "{ "dw": "+300", "dh": "+100" }"
+    Then the graph of the cell "вре́менный" has changed
+    Then size of the cell named "вре́менный" has changed by "{ "dw": "+300", "dh": "+100" }"
+    # Leave then return check TODO after issue 16180 fixed
+    # When get the current graph of the cell "вре́менный"
+    # When get metrics of cell named "вре́менный"
+    # When hover over the "Dashboards" menu item
+    # When click nav menu item "home"
+    # When hover over the "Dashboards" menu item
+    # When click nav sub menu "Dashboards"
+    # When click the dashboard name "про́бный прибо́ров"
+    # Then the dashboard named "про́бный прибо́ров" is loaded
+    # Then the size of the of the cell named "вре́менный" is unchangd
 
   #Scenario: Zoom Cell horizontal
   # When PENDING

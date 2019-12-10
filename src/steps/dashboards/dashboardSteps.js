@@ -6,6 +6,7 @@ const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardPage = require(__srcdir + '/pages/dashboards/dashboardPage.js');
 const basePage = require(__srcdir + '/pages/basePage.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 class dashboardSteps extends influxSteps {
 
@@ -125,6 +126,50 @@ class dashboardSteps extends influxSteps {
         await this.dbdPage.getCellByName(name).then(async cell => {
             await cell.getRect().then(async rect => {
                 __dataBuffer.rect = rect;
+                //debug why resize not saved
+                //await influxUtils.signIn('admin');
+                //let dashboards = await influxUtils.getDashboards();
+                //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
+
+            })
+        })
+    }
+
+    async getCurrentGraphOfCell(name){
+        await this.dbdPage.getCellCanvasAxes(name).then(async canvasAxes => {
+            if(typeof __dataBuffer.graphCellAxes === 'undefined') {
+                __dataBuffer.graphCellAxes = [];
+            }
+            __dataBuffer.graphCellAxes[name] = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
+
+          //  console.log('DEBUG __dataBuffer.graphCellAxes[' + name + "] " +
+          //      __dataBuffer.graphCellAxes[name]);
+
+            await this.dbdPage.getCellCanvasLine(name).then(async canvasLine => {
+                if(typeof __dataBuffer.graphCellLine === 'undefined') {
+                    __dataBuffer.graphCellLine = [];
+                }
+                __dataBuffer.graphCellLine[name] = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
+
+            //    console.log('DEBUG __dataBuffer.graphCellLine[' + name + "] " +
+            //        __dataBuffer.graphCellLine[name]);
+            })
+        })
+    }
+
+    async verifyCellGraphChange(name){
+        await this.dbdPage.getCellCanvasAxes(name).then(async canvasAxes => {
+            let currentAxes = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
+
+            await expect(currentAxes).to.not.equal(__dataBuffer.graphCellAxes[name]);
+
+            await this.dbdPage.getCellCanvasLine(name).then(async canvasLine => {
+                let currentLine = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
+                await expect(currentLine).to.not.equal(__dataBuffer.graphCellLine[name]);
             })
         })
     }
@@ -175,7 +220,11 @@ class dashboardSteps extends influxSteps {
     }
 
     async clickCellNotePopupSave(){
-        await this.clickAndWait(await this.dbdPage.getPopupSaveSimple());
+        await this.clickAndWait(await this.dbdPage.getPopupSaveSimple(), async () => {
+            await this.driver.wait(
+                until.stalenessOf(await this.dbdPage.getPopupOverlay())
+            )
+        });
     }
 
     async verifyCellHasNoteIndicator(name){
@@ -259,6 +308,59 @@ class dashboardSteps extends influxSteps {
             expect(Math.abs(expx - x )).to.be.below(tolerance);
             expect(Math.abs(expy - y )).to.be.below(tolerance);
         })
+    }
+
+    async resizeDashboardCell(name, deltaSize){
+
+        await this.dbdPage.getCellResizerByName(name).then(async resizer => {
+            let action = this.driver.actions();
+            let rect = await resizer.getRect();
+            //console.log("DEBUG rect " + JSON.stringify(rect));
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            //console.log("DEBUG x:" + x + " y:" + y);
+            let dw = parseInt(deltaSize.dw);
+            let dh = parseInt(deltaSize.dh);
+            await action
+                .move({x: x, y: y, duration: 1000})
+                .press()
+                .move({x:x + dw , y: y + dh, duration: 1000})
+                .release()
+                .perform();
+            await this.driver.sleep(200); //slight wait for animation
+            await resizer.click();
+
+            //debug why resize not saved
+            //await influxUtils.signIn('admin');
+            //let dashboards = await influxUtils.getDashboards();
+            //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
+
+
+        });
+    }
+
+    async verifyDashboardCellSizeChange(name, deltaSize){
+        // Use tolerance because of snap to grid feature
+        let tolerance = 50; //can be +/- 50 px
+        await this.dbdPage.getCellByName(name).then(async cell => {
+
+            //debug why resize not saved
+            //await influxUtils.signIn('admin');
+            //let dashboards = await influxUtils.getDashboards();
+            //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
+
+            let rect = await cell.getRect();
+            //console.log("DEBUG rect " + JSON.stringify(rect))
+            let width = parseInt(rect.width);
+            let height = parseInt(rect.height);
+            let dw = parseInt(deltaSize.dw);
+            let dh = parseInt(deltaSize.dh);
+            let exph = parseInt(__dataBuffer.rect.height) + dh;
+            let expw = parseInt(__dataBuffer.rect.width) + dw;
+            expect(Math.abs(exph - height )).to.be.below(tolerance);
+            expect(Math.abs(expw - width )).to.be.below(tolerance);
+        })
+
     }
 }
 

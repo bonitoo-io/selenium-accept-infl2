@@ -64,6 +64,10 @@ Then(/^the cell named "(.*)" contains a graph$/, async name => {
    await dbdSteps.verifyCellContainsGraph(name);
 });
 
+When(/^get the current graph of the cell "(.*)"$/, async name => {
+    await dbdSteps.getCurrentGraphOfCell(name);
+});
+
 When(/^get metrics of cell named "(.*)"$/, async name => {
   await dbdSteps.getCellMetrics(name);
 });
@@ -141,9 +145,28 @@ When(/^move the cell named "(.*)" by "(.*)"$/, {timeout: 15000}, async (name, ve
   await dbdSteps.moveDashboardCell(name, deltaCoords);
 });
 
+When(/^resize the cell name "(.*)" by "(.*)"$/, {timeout: 15000},  async (name, vector) => {
+  let deltaSize = JSON.parse(vector);
+  await dbdSteps.resizeDashboardCell(name, deltaSize);
+});
+
+Then(/^size of the cell named "(.*)" has changed by "(.*)"$/, async (name, change) => {
+  let deltaSize = JSON.parse(change);
+  await dbdSteps.verifyDashboardCellSizeChange(name, deltaSize);
+
+});
+
+Then(/^the size of the of the cell named "(.*)" is unchangd$/, async name => {
+  await dbdSteps.verifyDashboardCellSizeChange(name, {dw: 0, dh: 0});
+});
+
 Then(/^the location of the cell named "(.*)" is changed by "(.*)"$/, async (name, vector) => {
     let deltaCoords = JSON.parse(vector);
     await dbdSteps.verifyCellPositionChange(name, deltaCoords);
+});
+
+Then(/^the location of the cell named "(.*)" is unchanged$/, async name => {
+    await dbdSteps.verifyCellPositionChange(name, {dx: 0, dy: 0});
 });
 
 When(/^click the dashboard Time Range Dropdown$/, async () => {
@@ -152,4 +175,8 @@ When(/^click the dashboard Time Range Dropdown$/, async () => {
 
 When(/^select dashboard Time Range "(.*)"$/, async item => {
    await dbdSteps.selectDashboardTimeRange(item);
+});
+
+Then(/^the graph of the cell "(.*)" has changed$/, async name => {
+   await dbdSteps.verifyCellGraphChange(name);
 });

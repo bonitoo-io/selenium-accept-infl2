@@ -78,6 +78,10 @@ class dashboardsSteps extends influxSteps {
     }
 
     async clickDashboardCardName(name){
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardName(name));
+    }
+
+    async clickDashboardCardNameButton(name){
         await this.clickAndWait(await this.dbdsPage.getDashboardCardNameButton(name));
     }
 
