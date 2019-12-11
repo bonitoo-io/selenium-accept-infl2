@@ -67,7 +67,7 @@ class telegrafsTab extends loadDataPage{
                 {type: 'css', selector: telegrafsFilter},
                 {type: 'xpath', selector: createConfigInHeader},
                 {type: 'css', selector: nameSort},
-                {type: 'css', selector: bucketSort},
+                //{type: 'css', selector: bucketSort},
             ]
         );
     }
