@@ -207,13 +207,32 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     # Then the dashboard named "про́бный прибо́ров" is loaded
     # Then the size of the of the cell named "вре́менный" is unchangd
 
-  #Scenario: Zoom Cell horizontal
-  # When PENDING
+  Scenario: Hover Cell Graph
+    When hover over the graph of the cell named "вре́менный"
+    Then the cell graph data point infobox is visible
 
-  #Scenario: Unzoom Cell
-  # When PENDING
+  Scenario: Zoom Cell horizontal
+    When get the current graph of the cell "вре́менный"
+    When move horizontally to "2/5" of graph cell named "вре́менный"
+    When drag horizontally to "3/5" of graph cell named "вре́менный"
+    Then the graph of the cell "вре́менный" has changed
 
-  # Scenario: Zoom Cell vertical
+  Scenario: Unzoom Cell
+    When get the current graph of the cell "вре́менный"
+    When Click at the point "{"x": "1/2", "y": "1/2"}" of graph cell named "вре́менный"
+    Then the graph of the cell "вре́менный" has changed
+
+  Scenario: Zoom Cell vertical
+    When get the current graph of the cell "вре́менный"
+    When move vertically to "2/5" of graph cell named "вре́менный"
+    When drag vertically to "3/5" of graph cell named "вре́менный"
+    Then the graph of the cell "вре́менный" has changed
+
+  Scenario: Unzoom Cell 2
+    When get the current graph of the cell "вре́менный"
+    When Click at the point "{"x": "1/2", "y": "1/2"}" of graph cell named "вре́менный"
+    Then the graph of the cell "вре́менный" has changed
+
   # When PENDING
 
   #Scenario: Clone Cell

@@ -180,3 +180,32 @@ When(/^select dashboard Time Range "(.*)"$/, async item => {
 Then(/^the graph of the cell "(.*)" has changed$/, async name => {
    await dbdSteps.verifyCellGraphChange(name);
 });
+
+When(/^hover over the graph of the cell named "(.*)"$/, async name => {
+   await dbdSteps.hoverGraphOfCell(name);
+});
+
+Then(/^the cell graph data point infobox is visible$/, async () => {
+   await dbdSteps.verifyCellGraphDataPointInfoBox();
+});
+
+When(/^move horizontally to "(.*)" of graph cell named "(.*)"$/, async (fraction,name) => {
+   await dbdSteps.moveToHorizontalFractionOfGraphCell(fraction, name);
+});
+
+When(/^drag horizontally to "(.*)" of graph cell named "(.*)"$/, async (fraction, name) => {
+    await dbdSteps.dragToHorizonatlFractionOfGraphCell(fraction, name);
+});
+
+When(/^move vertically to "(.*)" of graph cell named "(.*)"$/, async (fraction, name) => {
+    await dbdSteps.moveToVerticalFractionOfGraphCell(fraction, name);
+});
+
+When(/^drag vertically to "(.*)" of graph cell named "(.*)"$/, async (fraction, name) => {
+    await dbdSteps.dragToVerticalFractionOfGraphCell(fraction, name);
+});
+
+When(/^Click at the point "(.*)" of graph cell named "(.*)"$/, async (target, name) => {
+    let fracs = JSON.parse(target);
+   await dbdSteps.clickPointWithinCellByFractions(fracs, name);
+});

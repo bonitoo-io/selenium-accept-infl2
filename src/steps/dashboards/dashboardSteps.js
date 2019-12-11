@@ -360,8 +360,130 @@ class dashboardSteps extends influxSteps {
             expect(Math.abs(exph - height )).to.be.below(tolerance);
             expect(Math.abs(expw - width )).to.be.below(tolerance);
         })
-
     }
+
+    async hoverGraphOfCell(name){
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+           let action = await this.driver.actions()
+           let rect = await canvas.getRect();
+           let x = parseInt(rect.x);
+           let y = parseInt(rect.y);
+           let centX = parseInt((rect.width / 2) + x);
+           let centY = parseInt((rect.height / 2) + y);
+           await action.move({x : centX, y: centY, duration: 1000})
+               .perform();
+           await this.driver.sleep(200); // todo better wait - let graph update
+            //await this.dbdPage.getCellHoverBox().then(async box => {
+            //    await this.assertVisible(box);
+            //    console.log("DEBUG got cell hover box");
+            //})
+        });
+    }
+
+    async verifyCellGraphDataPointInfoBox(){
+        await this.assertVisible(await this.dbdPage.getCellHoverBox());
+    }
+
+    async moveToHorizontalFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+           let action = await this.driver.actions();
+           let rect = await canvas.getRect();
+           let x = parseInt(rect.x);
+           let y = parseInt(rect.y);
+           let targetX = parseInt(((rect.width/denom) * numer) + x);
+           let targetY = parseInt((rect.height / 2) + y);
+           await action.move({x: targetX, y: targetY, duration: 1000})
+               .perform();
+
+           await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async dragToHorizonatlFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt(((rect.width/denom) * numer) + x);
+            let targetY = parseInt((rect.height / 2) + y);
+            await action.press()
+                .move({x: targetX, y: targetY, duration: 1000})
+                .release()
+                .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async moveToVerticalFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt((rect.width/2) + x);
+            let targetY = parseInt(((rect.height/denom) * numer) + y);
+            await action.move({x: targetX, y: targetY, duration: 1000})
+                .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async dragToVerticalFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt((rect.width/2) + x);
+            let targetY = parseInt(((rect.height/denom) * numer) + y);
+            await action.press()
+                .move({x: targetX, y: targetY, duration: 1000})
+                .release()
+                .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async clickPointWithinCellByFractions(fracs, name) {
+        let xfract = {};
+        let yfract = {};
+        xfract.raw = fracs.x.split('/');
+        yfract.raw = fracs.y.split('/');
+        xfract.denom = xfract.raw[1];
+        xfract.numer = xfract.raw[0];
+        yfract.denom = yfract.raw[1];
+        yfract.numer = yfract.raw[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+           let action = await this.driver.actions();
+           let rect = await canvas.getRect();
+           let x = parseInt(rect.x);
+           let y = parseInt(rect.y);
+           let targetX = parseInt(((rect.width/xfract.denom) * xfract.numer) + x);
+           let targetY = parseInt(((rect.height/yfract.denom) * yfract.numer) + y);
+           await action.move({x: targetX, y: targetY, duration: 1000})
+               .doubleClick()
+               .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
 }
 
 module.exports = dashboardSteps;
