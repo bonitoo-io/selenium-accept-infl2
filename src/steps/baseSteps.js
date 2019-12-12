@@ -457,6 +457,7 @@ class baseSteps{
         //need to escape new lines which break the js code
         text = text.replace(/\n/g, '\\n');
         await this.driver.executeScript(`arguments[0].CodeMirror.setValue("${text}");`, cmElem);
+        await this.driver.sleep(1000); //todo better wait - troubleshoot flakey consequences of this step
     }
 
     async getCodeMirrorText(cmElem, text){
