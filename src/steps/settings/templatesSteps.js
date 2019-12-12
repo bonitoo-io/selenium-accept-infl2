@@ -72,7 +72,7 @@ class templatesSteps extends baseSteps{
 
     async clickImportTemplatePasteButton(){
         await this.clickAndWait(await this.tmTab.getImportTemplatePasteButton(),
-            async () => {  this.driver.sleep(1000);}); //todo better wait
+            async () => {  this.driver.sleep(1500);}); //todo better wait
     }
 
     async clickImportTemplateUploadButton(){
@@ -132,7 +132,9 @@ class templatesSteps extends baseSteps{
     }
 
     async clickTemplateDeleteConfirm(name){
-        await this.clickAndWait(await this.tmTab.getTemplateCardDeleteConfirm(name));
+        await this.clickAndWait(await this.tmTab.getTemplateCardDeleteConfirm(name), async () => {
+            await this.driver.sleep(1000); // todo better wait - occasional overrun
+        });
     }
 }
 
