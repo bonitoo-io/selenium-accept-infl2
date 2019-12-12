@@ -43,11 +43,11 @@ class cellEditOverlay extends influxPage {
             {type: 'css', selector: viewRawDataToggle},
             {type: 'css', selector: autorefreshDropdown},
             {type: 'css', selector: timeRangeDropdown},
-            {type: 'css', selector: switchToScriptEditor},
+           // {type: 'css', selector: switchToScriptEditor},
             {type: 'css', selector: timemachineSubmit},
-            {type: 'css', selector: queryBuilder},
-            {type: 'css', selector: functionSelect},
-            {type: 'css', selector: bucketSelect}
+            //{type: 'css', selector: queryBuilder},
+           // {type: 'css', selector: functionSelect},
+            //{type: 'css', selector: bucketSelect}
         ], urlCtx);
     }
 

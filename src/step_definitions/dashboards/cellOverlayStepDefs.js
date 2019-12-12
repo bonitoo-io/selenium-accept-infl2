@@ -3,7 +3,7 @@ const cellOverlaySteps = require(__srcdir + '/steps/dashboards/cellOverlaySteps.
 
 let celOvSteps = new cellOverlaySteps(__wdriver);
 
-Then(/^the cell edit overlay is loaded as "(.*)"$/, async name => {
+Then(/^the cell edit overlay is loaded as "(.*)"$/, {timeout: 10000}, async name => {
    await celOvSteps.verifyCellOverlayIsLoaded(name);
 });
 
@@ -39,6 +39,10 @@ When(/^paste into cell edit Script Editor$/, async text => {
    await celOvSteps.pasteIntoCellEditScriptEditor(text);
 });
 
+When(/^clear the cell edit Script Editor$/, async () => {
+   await celOvSteps.clearCellEditScriptEditor();
+});
+
 When(/^click the cell edit submit button$/, async () => {
    await celOvSteps.clickCellEditSubmitButton();
 });
@@ -53,4 +57,12 @@ Then(/^the cell edit preview graph is changed$/, async() => {
 
 When(/^click the cell edit save button$/, async () => {
    await celOvSteps.clickCellEditSaveButton();
+});
+
+When(/^click on the cell edit name$/, async () => {
+   await celOvSteps.clickCellEditName();
+});
+
+When(/^change the cell edit name to "(.*)"$/, async name => {
+   await celOvSteps.updateCellName(name);
 });

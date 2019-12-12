@@ -197,15 +197,15 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the graph of the cell "вре́менный" has changed
     Then size of the cell named "вре́менный" has changed by "{ "dw": "+300", "dh": "+100" }"
     # Leave then return check TODO after issue 16180 fixed
-    # When get the current graph of the cell "вре́менный"
-    # When get metrics of cell named "вре́менный"
-    # When hover over the "Dashboards" menu item
-    # When click nav menu item "home"
-    # When hover over the "Dashboards" menu item
-    # When click nav sub menu "Dashboards"
-    # When click the dashboard name "про́бный прибо́ров"
-    # Then the dashboard named "про́бный прибо́ров" is loaded
-    # Then the size of the of the cell named "вре́менный" is unchangd
+    #When get the current graph of the cell "вре́менный"
+    #When get metrics of cell named "вре́менный"
+    #When hover over the "Dashboards" menu item
+    #When click nav menu item "home"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
+    #When click the dashboard name "про́бный прибо́ров"
+    #Then the dashboard named "про́бный прибо́ров" is loaded
+    #Then the size of the of the cell named "вре́менный" is unchangd
 
   Scenario: Hover Cell Graph
     When hover over the graph of the cell named "вре́менный"
@@ -233,13 +233,35 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When Click at the point "{"x": "1/2", "y": "1/2"}" of graph cell named "вре́менный"
     Then the graph of the cell "вре́менный" has changed
 
-  # When PENDING
+  Scenario: Rename Cell
+    When toggle context menu of dashboard cell named "вре́менный"
+    When click cell content popover configure
+    Then the cell edit overlay is loaded as "вре́менный"
+    When click on the cell edit name
+    When change the cell edit name to "dočasný"
+    When click the cell edit save button
+    Then the cell named "dočasný" is visible in the dashboard
 
-  #Scenario: Clone Cell
-  #  When PENDING
-
-  #Scenario: Rename Cell
-  #  When PENDING
+  Scenario: Clone Cell
+    When toggle context menu of dashboard cell named "dočasný"
+    When click cell edit content popover clone
+    Then there is a second dashboard cell named "dočasný"
+    When toggle context menu of 2nd dashboard cell named "dočasný"
+    When click cell content popover configure
+    When clear the cell edit Script Editor
+    When paste into cell edit Script Editor
+  """
+  from(bucket: "qa")
+|> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+|> filter(fn: (r) => r._measurement == "foo")
+|> filter(fn: (r) => r._field == "level")
+|> movingAverage(n: 5)
+  """
+    When click the cell edit submit button
+    When click on the cell edit name
+    When change the cell edit name to "klouzavý průměr"
+    When click the cell edit save button
+    Then the graph of the cell "dočasný" differs from "klouzavý průměr"
 
   #Scenario: Delete Cell
   #  When PENDING

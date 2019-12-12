@@ -86,6 +86,10 @@ class dashboardPage extends influxPage {
         return {type: 'xpath', selector: cellByName.replace('%NAME%', name) }
     }
 
+    async getCellsByName(name){
+        return await this.driver.findElements(By.xpath(cellByName.replace('%NAME%', name)));
+    }
+
     async getGraphToolTips(){
         return await this.driver.findElement(By.css(graphToolTips));
     }

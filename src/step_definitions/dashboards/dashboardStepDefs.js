@@ -76,12 +76,20 @@ When(/^toggle context menu of dashboard cell named "(.*)"$/, async name => {
   await dbdSteps.toggleDashboardCellContextMenu(name);
 });
 
+When(/^toggle context menu of 2nd dashboard cell named "(.*)"$/, async name => {
+  await dbdSteps.toggle2ndDashboardCellContextMenu(name);
+});
+
 When(/^click cell content popover add note$/, async () => {
   await dbdSteps.clickDashboardPopOverlayAddNote();
 });
 
 When(/^click cell content popover configure$/, async () => {
   await dbdSteps.clickDashboardPopOverlayConfigure();
+});
+
+When(/^click cell edit content popover clone$/, async () => {
+  await dbdSteps.clickDashboardPopOverlayClone();
 });
 
 Then(/^the edit note popup is loaded$/, async () => {
@@ -181,6 +189,10 @@ Then(/^the graph of the cell "(.*)" has changed$/, async name => {
    await dbdSteps.verifyCellGraphChange(name);
 });
 
+Then(/^the graph of the cell "(.*)" differs from "(.*)"$/, async (name1, name2) => {
+    await dbdSteps.compareCellGraphs(name1, name2, false);
+});
+
 When(/^hover over the graph of the cell named "(.*)"$/, async name => {
    await dbdSteps.hoverGraphOfCell(name);
 });
@@ -208,4 +220,12 @@ When(/^drag vertically to "(.*)" of graph cell named "(.*)"$/, async (fraction, 
 When(/^Click at the point "(.*)" of graph cell named "(.*)"$/, async (target, name) => {
     let fracs = JSON.parse(target);
    await dbdSteps.clickPointWithinCellByFractions(fracs, name);
+});
+
+Then(/^the cell named "(.*)" is visible in the dashboard$/, async name => {
+    await dbdSteps.verifyDashboardCellVisible(name);
+});
+
+Then(/^there is a second dashboard cell named "(.*)"$/, async name => {
+   await dbdSteps.verifyCountCellsNamed(name, 2);
 });

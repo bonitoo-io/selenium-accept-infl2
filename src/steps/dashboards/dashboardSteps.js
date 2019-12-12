@@ -174,12 +174,38 @@ class dashboardSteps extends influxSteps {
         })
     }
 
+    async compareCellGraphs(name1, name2, equal = true){
+        await this.dbdPage.getCellCanvasLine(name1).then(async canvas1 => {
+            let line1 = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas1);
+            await this.dbdPage.getCellCanvasLine(name2).then(async canvas2 => {
+                let line2 = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas2);
+
+                if(equal) {
+                    await expect(line1).to.equal(line2);
+                }else{
+                    await expect(line1).to.not.equal(line2);
+                }
+            })
+        })
+    }
+
     async toggleDashboardCellContextMenu(name){
         await this.clickAndWait(await this.dbdPage.getCellContextToggleByName(name), async () => {
             await this.driver.wait(
                 until.elementLocated(By.css(dashboardPage.getCellPopoverContentsSelector().selector))
             );
         })
+    }
+
+    async toggle2ndDashboardCellContextMenu(name){
+        await this.dbdPage.getCellsByName(name).then( async cells => {
+            await this.clickAndWait(await cells[1]
+                .findElement(By.xpath('.//*[@data-testid=\'cell-context--toggle\']')), async () => {
+                await this.driver.sleep(1000);
+            });
+        });
     }
 
     async clickDashboardPopOverlayAddNote(){
@@ -196,6 +222,10 @@ class dashboardSteps extends influxSteps {
                 until.elementLocated(By.css(cellEditOverlay.getTimeMachineOverlay().selector))
             );
         });
+    }
+
+    async clickDashboardPopOverlayClone(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsClone());
     }
 
     async verifyEditNotePopupLoaded(){
@@ -481,6 +511,13 @@ class dashboardSteps extends influxSteps {
                .perform();
 
             await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async verifyCountCellsNamed(name, ct){
+        await this.dbdPage.getCellsByName(name).then(async cells => {
+            expect(cells.length).to.equal(ct);
+
         });
     }
 

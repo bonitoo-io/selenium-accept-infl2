@@ -58,6 +58,10 @@ class cellOverlaySteps extends influxSteps {
         await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), escapedTxt);
     }
 
+    async clearCellEditScriptEditor(){
+        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), "");
+    }
+
     async clickCellEditSubmitButton(){
         await this.clickAndWait(await this.cellOverlay.getTimemachineSubmit(), async () => {
             await this.driver.sleep(1500); //todo better wait - sec and half to load for now
@@ -110,6 +114,15 @@ class cellOverlaySteps extends influxSteps {
 
     async clickCellEditSaveButton(){
         await this.clickAndWait(await this.cellOverlay.getSaveCell());
+    }
+
+    async clickCellEditName(){
+        await this.clickAndWait(await this.cellOverlay.getCellTitle());
+    }
+
+    async updateCellName(name){
+        await this.clearInputText(await this.cellOverlay.getCellNameInput());
+        await this.typeTextAndWait(await this.cellOverlay.getCellNameInput(), name);
     }
 
 }
