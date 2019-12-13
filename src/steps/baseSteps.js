@@ -92,6 +92,21 @@ class baseSteps{
         });
     }
 
+    async containsPrimaryNotificationText(text){
+        await this.basePage.getNotificationPrimaryMsgs().then(async elems => {
+            let match = false;
+
+            for(var i = 0; i < elems.length; i++){
+                if((await elems[i].getText()).includes(text)){
+                    match = true;
+                    break;
+                }
+            }
+
+            assert(match, `Failed to find notification containing "${text}"`);
+        });
+    }
+
     async containsErrorNotificationText(text){
         await this.basePage.getNotificationErrorMsgs().then(async elems => {
             let match = false;

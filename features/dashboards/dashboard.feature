@@ -311,6 +311,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click cell content popover delet confirm
     # following should be notification-primary [data-testid=notification-primary]
     #Then the success notification contains "Cell deleted from dashboard"
+    Then the primary notification contains "Cell deleted from dashboard"
     Then close all notifications
     Then the cell named "<NAME>" is no longer present
   Examples:
