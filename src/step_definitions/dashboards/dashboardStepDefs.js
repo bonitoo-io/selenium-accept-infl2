@@ -88,6 +88,14 @@ When(/^click cell content popover configure$/, async () => {
   await dbdSteps.clickDashboardPopOverlayConfigure();
 });
 
+When(/^click cell content popover delete$/, async () => {
+   await dbdSteps.clickDashboardPopOverlayDelete();
+});
+
+When(/^click cell content popover delet confirm$/, async () => {
+   await dbdSteps.clickDashboardPopOverlayDeleteConfirm();
+});
+
 When(/^click cell edit content popover clone$/, async () => {
   await dbdSteps.clickDashboardPopOverlayClone();
 });
@@ -228,4 +236,8 @@ Then(/^the cell named "(.*)" is visible in the dashboard$/, async name => {
 
 Then(/^there is a second dashboard cell named "(.*)"$/, async name => {
    await dbdSteps.verifyCountCellsNamed(name, 2);
+});
+
+Then(/^the cell named "(.*)" is no longer present$/, async name => {
+   await dbdSteps.verifyCellNotPresent(name);
 });

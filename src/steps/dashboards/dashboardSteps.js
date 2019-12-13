@@ -103,9 +103,9 @@ class dashboardSteps extends influxSteps {
     async clickCreateCellEmpty(){
         //todo wait for buckets to be loaded ---
         await this.clickAndWait(await this.dbdPage.getEmptyStateAddCellButton(), async() => {
-            await this.driver.wait(
+            await this.driver.sleep(1000) /*this.driver.wait(
                 until.elementLocated(By.css(cellEditOverlay.getBucketSelectSearchSelector().selector))
-            );
+            );*/  //for some reason wait with until still sometimes overruns subsequent steps
         });
     }
 
@@ -125,7 +125,11 @@ class dashboardSteps extends influxSteps {
     async getCellMetrics(name){
         await this.dbdPage.getCellByName(name).then(async cell => {
             await cell.getRect().then(async rect => {
-                __dataBuffer.rect = rect;
+                // console.log("DEBUG rect for " + name + " " + JSON.stringify(rect))
+                if(typeof __dataBuffer.rect === 'undefined'){
+                    __dataBuffer.rect = [];
+                }
+                __dataBuffer.rect[name] = rect;
                 //debug why resize not saved
                 //await influxUtils.signIn('admin');
                 //let dashboards = await influxUtils.getDashboards();
@@ -222,6 +226,14 @@ class dashboardSteps extends influxSteps {
                 until.elementLocated(By.css(cellEditOverlay.getTimeMachineOverlay().selector))
             );
         });
+    }
+
+    async clickDashboardPopOverlayDelete(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsDelete());
+    }
+
+    async clickDashboardPopOverlayDeleteConfirm(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsDeleteConfirm());
     }
 
     async clickDashboardPopOverlayClone(){
@@ -326,15 +338,16 @@ class dashboardSteps extends influxSteps {
 
     async verifyCellPositionChange(name, deltaCoords){
         // Use tolerance because of snap to grid feature
-        let tolerance = 10; //can be +/- 10 px
+        let tolerance = 50; //can be +/- 50 px
         await this.dbdPage.getCellByName(name).then(async cell => {
             let rect = await cell.getRect();
+            //console.log("DEBUG rect for " + name + " " + JSON.stringify(rect))
             let x = parseInt(rect.x);
             let y = parseInt(rect.y);
             let dx = parseInt(deltaCoords.dx);
             let dy = parseInt(deltaCoords.dy);
-            let expx = parseInt(__dataBuffer.rect.x) + dx;
-            let expy = parseInt(__dataBuffer.rect.y) + dy;
+            let expx = parseInt(__dataBuffer.rect[name].x) + dx;
+            let expy = parseInt(__dataBuffer.rect[name].y) + dy;
             expect(Math.abs(expx - x )).to.be.below(tolerance);
             expect(Math.abs(expy - y )).to.be.below(tolerance);
         })
@@ -385,8 +398,8 @@ class dashboardSteps extends influxSteps {
             let height = parseInt(rect.height);
             let dw = parseInt(deltaSize.dw);
             let dh = parseInt(deltaSize.dh);
-            let exph = parseInt(__dataBuffer.rect.height) + dh;
-            let expw = parseInt(__dataBuffer.rect.width) + dw;
+            let exph = parseInt(__dataBuffer.rect[name].height) + dh;
+            let expw = parseInt(__dataBuffer.rect[name].width) + dw;
             expect(Math.abs(exph - height )).to.be.below(tolerance);
             expect(Math.abs(expw - width )).to.be.below(tolerance);
         })

@@ -262,14 +262,62 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When change the cell edit name to "klouzavý průměr"
     When click the cell edit save button
     Then the graph of the cell "dočasný" differs from "klouzavý průměr"
+    When click the note indicator of the "klouzavý průměr" cell
+    Then the cell note popover contains:
+  """
+Dans une administration russe... mieux vaut ne pas dire le nom de cette administration ...
+  """
+    When click the cell title "klouzavý průměr"
+    Then the cell content popover is not loaded
 
-  #Scenario: Delete Cell
-  #  When PENDING
+  Scenario: Two cells column to row
+    When get metrics of cell named "dočasný"
+    When get metrics of cell named "klouzavý průměr"
+    When move the cell named "dočasný" by "{ "dx": "+300", "dy": "0" }"
+    Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "-380" }"
 
-  #Scenario: Arrange cells (4)
-     # Include note
-     # All in Row
-     # Slide top Right and lower jumps up to top row
+  Scenario: Two cells row to column
+    When get metrics of cell named "dočasný"
+    When get metrics of cell named "klouzavý průměr"
+    When move the cell named "dočasný" by "{ "dx": "-300", "dy": "0" }"
+    Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "+380" }"
+
+  Scenario: Two cells enlarge first into second
+    When get metrics of cell named "klouzavý průměr"
+    When move the cell named "dočasný" by "{ "dx": "+300", "dy": "0" }"
+    Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "-380" }"
+    When get metrics of cell named "dočasný"
+    When get metrics of cell named "klouzavý průměr"
+    When resize the cell name "klouzavý průměr" by "{ "dw": "+300", "dh": "0" }"
+    Then the location of the cell named "dočasný" is changed by "{ "dx": "0", "dy": "+380" }"
+    Then size of the cell named "klouzavý průměr" has changed by "{ "dw": "+300", "dh": "0" }"
+
+  Scenario: Two cells reduce first when above second
+    When get metrics of cell named "dočasný"
+    When get metrics of cell named "klouzavý průměr"
+    When resize the cell name "klouzavý průměr" by "{ "dw": "-300", "dh": "0" }"
+    Then the location of the cell named "dočasný" is changed by "{ "dx": "0", "dy": "-380" }"
+    Then size of the cell named "klouzavý průměr" has changed by "{ "dw": "-300", "dh": "0" }"
+
+  Scenario: Two cells column to row - Moved cell drops down
+    When get metrics of cell named "dočasný"
+    When get metrics of cell named "klouzavý průměr"
+    When move the cell named "dočasný" by "{ "dx": "-150", "dy": "150" }"
+    Then the location of the cell named "dočasný" is changed by "{ "dx": "-150", "dy": "+380" }"
+
+  Scenario Outline: Delete Cell
+    When toggle context menu of dashboard cell named "<NAME>"
+    When click cell content popover delete
+    When click cell content popover delet confirm
+    # following should be notification-primary [data-testid=notification-primary]
+    #Then the success notification contains "Cell deleted from dashboard"
+    Then close all notifications
+    Then the cell named "<NAME>" is no longer present
+  Examples:
+    |NAME|
+    |klouzavý průměr|
+    |dočasný        |
+
 
 
 
