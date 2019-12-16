@@ -37,6 +37,8 @@ const cellPopoverContentsDeleteConfirm = '[data-testid=popover--contents] [data-
 const cellCanvasLine = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-layer-line\']';
 const cellCanvasAxes = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-axes\']';
 
+const cellHoverBox = '[data-testid=giraffe-layer-hover-line]';
+
 
 const notePopupCodeMirror = '[data-testid=overlay--body] .CodeMirror';
 const notePopupNoDataToggle = '[data-testid=overlay--body] [data-testid=slide-toggle]';
@@ -82,6 +84,10 @@ class dashboardPage extends influxPage {
 
     static getCellSelectorByName(name){
         return {type: 'xpath', selector: cellByName.replace('%NAME%', name) }
+    }
+
+    async getCellsByName(name){
+        return await this.driver.findElements(By.xpath(cellByName.replace('%NAME%', name)));
     }
 
     async getGraphToolTips(){
@@ -222,6 +228,10 @@ class dashboardPage extends influxPage {
 
     async getCellCanvasAxes(name){
         return await this.driver.findElement(By.xpath(cellCanvasAxes.replace('%NAME%', name)));
+    }
+
+    async getCellHoverBox(){
+        return await this.driver.findElement(By.css(cellHoverBox));
     }
 }
 

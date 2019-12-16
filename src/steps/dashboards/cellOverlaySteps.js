@@ -58,6 +58,10 @@ class cellOverlaySteps extends influxSteps {
         await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), escapedTxt);
     }
 
+    async clearCellEditScriptEditor(){
+        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), "");
+    }
+
     async clickCellEditSubmitButton(){
         await this.clickAndWait(await this.cellOverlay.getTimemachineSubmit(), async () => {
             await this.driver.sleep(1500); //todo better wait - sec and half to load for now
@@ -69,11 +73,11 @@ class cellOverlaySteps extends influxSteps {
         if(await this.isPresent(cellEditOverlay.getGraphCanvasSelector())) {
             await this.cellOverlay.getGraphCanvas().then(async canvas => {
                 __dataBuffer.graphEditCanvas = await this.driver
-                    .executeScript('return arguments[0].toDataURL(\'image/png\').substring(21);', canvas);
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas);
                 console.log("DEBUG __dataBuffer.graphEditCanvas " + __dataBuffer.graphEditCanvas);
                 await this.cellOverlay.getGraphCanvasAxes().then(async axes => {
                     __dataBuffer.graphEditCanvasAxes = await this.driver
-                        .executeScript('return arguments[0].toDataURL(\'image/png\').substring(21);', axes);
+                        .executeScript('return arguments[0].toDataURL(\'image/png\');', axes);
                 })
             });
         }else{
@@ -110,6 +114,15 @@ class cellOverlaySteps extends influxSteps {
 
     async clickCellEditSaveButton(){
         await this.clickAndWait(await this.cellOverlay.getSaveCell());
+    }
+
+    async clickCellEditName(){
+        await this.clickAndWait(await this.cellOverlay.getCellTitle());
+    }
+
+    async updateCellName(name){
+        await this.clearInputText(await this.cellOverlay.getCellNameInput());
+        await this.typeTextAndWait(await this.cellOverlay.getCellNameInput(), name);
     }
 
 }

@@ -63,7 +63,7 @@ When(/^hover over dashboard card name "(.*)"$/, async name => {
 });
 
 When(/^click the edit dashboard card name button for "(.*)"$/, async name => {
-    await dbdsSteps.clickDashboardCardName(name);
+    await dbdsSteps.clickDashboardCardNameButton(name);
 });
 
 When(/^clear the name input of the dashboard card "(.*)"$/, async name => {
@@ -279,6 +279,10 @@ When(/^click Export Dashboard popup Save as Template$/, async () => {
 
 When(/^click Export Dashboard popup Copy to Clipboard$/, async () => {
    await dbdsSteps.clickExportDashboardCopyToClipboard();
+});
+
+When(/^click the dashboard name "(.*)"$/, async name => {
+    await dbdsSteps.clickDashboardCardName(name);
 });
 
 

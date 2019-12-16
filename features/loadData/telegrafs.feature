@@ -46,9 +46,9 @@ Scenario Outline: Edit Plugin Values
   Then the create Telegraf plugin sidebar "<PLUGIN>" item is in state "neutral"
   When click the create Telegraf plugin sidebar "<PLUGIN>" item
   Then the create Telegraf edit plugin "<PLUGIN>" step is loaded
-  When click the Popup Wizard done button
-  Then the create Telegraf plugin sidebar "<PLUGIN>" item is in state "error"
-  When click the create Telegraf plugin sidebar "<PLUGIN>" item
+ # When click the Popup Wizard done button
+ # Then the create Telegraf plugin sidebar "<PLUGIN>" item is in state "error"
+ # When click the create Telegraf plugin sidebar "<PLUGIN>" item
   When enter the values <FAKE_VALUES> into the fields <FIELDS>
   Then verify the edit plugin error notification with message "<ERRMSGS>"
   When clear the create Telegraf edit plugin fields <FIELDS>
@@ -107,13 +107,13 @@ Scenario: Sort Telegrafs by Name
   When click the telegraf sort by name button
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
-Scenario: Sort By Buckets
-  When click the telegraf sort by bucket button
-  Then the telegraf sort order is "Decin,Nymburk,Strakonice,Kladno,Rakovnik"
-  When click the telegraf sort by bucket button
-  Then the telegraf sort order is "Strakonice,Kladno,Rakovnik,Decin,Nymburk"
-  When click the telegraf sort by name button
-  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
+#Scenario: Sort By Buckets - bucket sort is no longer present
+#  When click the telegraf sort by bucket button
+#  Then the telegraf sort order is "Decin,Nymburk,Strakonice,Kladno,Rakovnik"
+#  When click the telegraf sort by bucket button
+#  Then the telegraf sort order is "Strakonice,Kladno,Rakovnik,Decin,Nymburk"
+#  When click the telegraf sort by name button
+#  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
 Scenario: Filter Telegrafs
   When enter the value "Rak" into the Telegrafs filter

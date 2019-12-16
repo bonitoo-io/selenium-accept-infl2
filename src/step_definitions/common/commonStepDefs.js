@@ -42,6 +42,12 @@ Then(/^the success notification contains "(.*?)"$/, async text => {
     }
 });
 
+Then(/^the primary notification contains "(.*)"$/, async text => {
+    if(text.toLowerCase() !== 'skip') {
+        await bSteps.containsPrimaryNotificationText(text);
+    }
+});
+
 Then(/^the error notification contains "(.*?)"$/, async text => {
     await bSteps.containsErrorNotificationText(text);
 });

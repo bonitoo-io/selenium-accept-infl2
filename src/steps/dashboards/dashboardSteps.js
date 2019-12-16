@@ -6,6 +6,7 @@ const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardPage = require(__srcdir + '/pages/dashboards/dashboardPage.js');
 const basePage = require(__srcdir + '/pages/basePage.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
+const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 class dashboardSteps extends influxSteps {
 
@@ -102,9 +103,9 @@ class dashboardSteps extends influxSteps {
     async clickCreateCellEmpty(){
         //todo wait for buckets to be loaded ---
         await this.clickAndWait(await this.dbdPage.getEmptyStateAddCellButton(), async() => {
-            await this.driver.wait(
+            await this.driver.sleep(1000) /*this.driver.wait(
                 until.elementLocated(By.css(cellEditOverlay.getBucketSelectSearchSelector().selector))
-            );
+            );*/  //for some reason wait with until still sometimes overruns subsequent steps
         });
     }
 
@@ -124,7 +125,72 @@ class dashboardSteps extends influxSteps {
     async getCellMetrics(name){
         await this.dbdPage.getCellByName(name).then(async cell => {
             await cell.getRect().then(async rect => {
-                __dataBuffer.rect = rect;
+                // console.log("DEBUG rect for " + name + " " + JSON.stringify(rect))
+                if(typeof __dataBuffer.rect === 'undefined'){
+                    __dataBuffer.rect = [];
+                }
+                __dataBuffer.rect[name] = rect;
+                //debug why resize not saved
+                //await influxUtils.signIn('admin');
+                //let dashboards = await influxUtils.getDashboards();
+                //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
+
+            })
+        })
+    }
+
+    async getCurrentGraphOfCell(name){
+        await this.dbdPage.getCellCanvasAxes(name).then(async canvasAxes => {
+            if(typeof __dataBuffer.graphCellAxes === 'undefined') {
+                __dataBuffer.graphCellAxes = [];
+            }
+            __dataBuffer.graphCellAxes[name] = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
+
+          //  console.log('DEBUG __dataBuffer.graphCellAxes[' + name + "] " +
+          //      __dataBuffer.graphCellAxes[name]);
+
+            await this.dbdPage.getCellCanvasLine(name).then(async canvasLine => {
+                if(typeof __dataBuffer.graphCellLine === 'undefined') {
+                    __dataBuffer.graphCellLine = [];
+                }
+                __dataBuffer.graphCellLine[name] = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
+
+            //    console.log('DEBUG __dataBuffer.graphCellLine[' + name + "] " +
+            //        __dataBuffer.graphCellLine[name]);
+            })
+        })
+    }
+
+    async verifyCellGraphChange(name){
+        await this.dbdPage.getCellCanvasAxes(name).then(async canvasAxes => {
+            let currentAxes = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
+
+            await expect(currentAxes).to.not.equal(__dataBuffer.graphCellAxes[name]);
+
+            await this.dbdPage.getCellCanvasLine(name).then(async canvasLine => {
+                let currentLine = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
+                await expect(currentLine).to.not.equal(__dataBuffer.graphCellLine[name]);
+            })
+        })
+    }
+
+    async compareCellGraphs(name1, name2, equal = true){
+        await this.dbdPage.getCellCanvasLine(name1).then(async canvas1 => {
+            let line1 = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas1);
+            await this.dbdPage.getCellCanvasLine(name2).then(async canvas2 => {
+                let line2 = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas2);
+
+                if(equal) {
+                    await expect(line1).to.equal(line2);
+                }else{
+                    await expect(line1).to.not.equal(line2);
+                }
             })
         })
     }
@@ -135,6 +201,15 @@ class dashboardSteps extends influxSteps {
                 until.elementLocated(By.css(dashboardPage.getCellPopoverContentsSelector().selector))
             );
         })
+    }
+
+    async toggle2ndDashboardCellContextMenu(name){
+        await this.dbdPage.getCellsByName(name).then( async cells => {
+            await this.clickAndWait(await cells[1]
+                .findElement(By.xpath('.//*[@data-testid=\'cell-context--toggle\']')), async () => {
+                await this.driver.sleep(1000);
+            });
+        });
     }
 
     async clickDashboardPopOverlayAddNote(){
@@ -151,6 +226,18 @@ class dashboardSteps extends influxSteps {
                 until.elementLocated(By.css(cellEditOverlay.getTimeMachineOverlay().selector))
             );
         });
+    }
+
+    async clickDashboardPopOverlayDelete(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsDelete());
+    }
+
+    async clickDashboardPopOverlayDeleteConfirm(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsDeleteConfirm());
+    }
+
+    async clickDashboardPopOverlayClone(){
+        await this.clickAndWait(await this.dbdPage.getCellPopoverContentsClone());
     }
 
     async verifyEditNotePopupLoaded(){
@@ -175,7 +262,11 @@ class dashboardSteps extends influxSteps {
     }
 
     async clickCellNotePopupSave(){
-        await this.clickAndWait(await this.dbdPage.getPopupSaveSimple());
+        await this.clickAndWait(await this.dbdPage.getPopupSaveSimple(), async () => {
+            await this.driver.wait(
+                until.stalenessOf(await this.dbdPage.getPopupOverlay())
+            )
+        });
     }
 
     async verifyCellHasNoteIndicator(name){
@@ -247,19 +338,202 @@ class dashboardSteps extends influxSteps {
 
     async verifyCellPositionChange(name, deltaCoords){
         // Use tolerance because of snap to grid feature
-        let tolerance = 10; //can be +/- 10 px
+        let tolerance = 50; //can be +/- 50 px
         await this.dbdPage.getCellByName(name).then(async cell => {
             let rect = await cell.getRect();
+            //console.log("DEBUG rect for " + name + " " + JSON.stringify(rect))
             let x = parseInt(rect.x);
             let y = parseInt(rect.y);
             let dx = parseInt(deltaCoords.dx);
             let dy = parseInt(deltaCoords.dy);
-            let expx = parseInt(__dataBuffer.rect.x) + dx;
-            let expy = parseInt(__dataBuffer.rect.y) + dy;
+            let expx = parseInt(__dataBuffer.rect[name].x) + dx;
+            let expy = parseInt(__dataBuffer.rect[name].y) + dy;
             expect(Math.abs(expx - x )).to.be.below(tolerance);
             expect(Math.abs(expy - y )).to.be.below(tolerance);
         })
     }
+
+    async resizeDashboardCell(name, deltaSize){
+
+        await this.dbdPage.getCellResizerByName(name).then(async resizer => {
+            let action = this.driver.actions();
+            let rect = await resizer.getRect();
+            //console.log("DEBUG rect " + JSON.stringify(rect));
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            //console.log("DEBUG x:" + x + " y:" + y);
+            let dw = parseInt(deltaSize.dw);
+            let dh = parseInt(deltaSize.dh);
+            await action
+                .move({x: x, y: y, duration: 1000})
+                .press()
+                .move({x:x + dw , y: y + dh, duration: 1000})
+                .release()
+                .perform();
+            await this.driver.sleep(200); //slight wait for animation
+            await resizer.click();
+
+            //debug why resize not saved
+            //await influxUtils.signIn('admin');
+            //let dashboards = await influxUtils.getDashboards();
+            //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
+
+
+        });
+    }
+
+    async verifyDashboardCellSizeChange(name, deltaSize){
+        // Use tolerance because of snap to grid feature
+        let tolerance = 50; //can be +/- 50 px
+        await this.dbdPage.getCellByName(name).then(async cell => {
+
+            //debug why resize not saved
+            //await influxUtils.signIn('admin');
+            //let dashboards = await influxUtils.getDashboards();
+            //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
+
+            let rect = await cell.getRect();
+            //console.log("DEBUG rect " + JSON.stringify(rect))
+            let width = parseInt(rect.width);
+            let height = parseInt(rect.height);
+            let dw = parseInt(deltaSize.dw);
+            let dh = parseInt(deltaSize.dh);
+            let exph = parseInt(__dataBuffer.rect[name].height) + dh;
+            let expw = parseInt(__dataBuffer.rect[name].width) + dw;
+            expect(Math.abs(exph - height )).to.be.below(tolerance);
+            expect(Math.abs(expw - width )).to.be.below(tolerance);
+        })
+    }
+
+    async hoverGraphOfCell(name){
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+           let action = await this.driver.actions()
+           let rect = await canvas.getRect();
+           let x = parseInt(rect.x);
+           let y = parseInt(rect.y);
+           let centX = parseInt((rect.width / 2) + x);
+           let centY = parseInt((rect.height / 2) + y);
+           await action.move({x : centX, y: centY, duration: 1000})
+               .perform();
+           await this.driver.sleep(200); // todo better wait - let graph update
+            //await this.dbdPage.getCellHoverBox().then(async box => {
+            //    await this.assertVisible(box);
+            //    console.log("DEBUG got cell hover box");
+            //})
+        });
+    }
+
+    async verifyCellGraphDataPointInfoBox(){
+        await this.assertVisible(await this.dbdPage.getCellHoverBox());
+    }
+
+    async moveToHorizontalFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+           let action = await this.driver.actions();
+           let rect = await canvas.getRect();
+           let x = parseInt(rect.x);
+           let y = parseInt(rect.y);
+           let targetX = parseInt(((rect.width/denom) * numer) + x);
+           let targetY = parseInt((rect.height / 2) + y);
+           await action.move({x: targetX, y: targetY, duration: 1000})
+               .perform();
+
+           await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async dragToHorizonatlFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt(((rect.width/denom) * numer) + x);
+            let targetY = parseInt((rect.height / 2) + y);
+            await action.press()
+                .move({x: targetX, y: targetY, duration: 1000})
+                .release()
+                .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async moveToVerticalFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt((rect.width/2) + x);
+            let targetY = parseInt(((rect.height/denom) * numer) + y);
+            await action.move({x: targetX, y: targetY, duration: 1000})
+                .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async dragToVerticalFractionOfGraphCell(fraction, name){
+        let fract = fraction.split('/');
+        let denom = fract[1];
+        let numer = fract[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt((rect.width/2) + x);
+            let targetY = parseInt(((rect.height/denom) * numer) + y);
+            await action.press()
+                .move({x: targetX, y: targetY, duration: 1000})
+                .release()
+                .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async clickPointWithinCellByFractions(fracs, name) {
+        let xfract = {};
+        let yfract = {};
+        xfract.raw = fracs.x.split('/');
+        yfract.raw = fracs.y.split('/');
+        xfract.denom = xfract.raw[1];
+        xfract.numer = xfract.raw[0];
+        yfract.denom = yfract.raw[1];
+        yfract.numer = yfract.raw[0];
+        await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
+           let action = await this.driver.actions();
+           let rect = await canvas.getRect();
+           let x = parseInt(rect.x);
+           let y = parseInt(rect.y);
+           let targetX = parseInt(((rect.width/xfract.denom) * xfract.numer) + x);
+           let targetY = parseInt(((rect.height/yfract.denom) * yfract.numer) + y);
+           await action.move({x: targetX, y: targetY, duration: 1000})
+               .doubleClick()
+               .perform();
+
+            await this.driver.sleep(200); // todo better wait - let graph update
+        });
+    }
+
+    async verifyCountCellsNamed(name, ct){
+        await this.dbdPage.getCellsByName(name).then(async cells => {
+            expect(cells.length).to.equal(ct);
+
+        });
+    }
+
 }
 
 module.exports = dashboardSteps;

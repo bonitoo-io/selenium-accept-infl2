@@ -64,6 +64,10 @@ Then(/^the cell named "(.*)" contains a graph$/, async name => {
    await dbdSteps.verifyCellContainsGraph(name);
 });
 
+When(/^get the current graph of the cell "(.*)"$/, async name => {
+    await dbdSteps.getCurrentGraphOfCell(name);
+});
+
 When(/^get metrics of cell named "(.*)"$/, async name => {
   await dbdSteps.getCellMetrics(name);
 });
@@ -72,12 +76,28 @@ When(/^toggle context menu of dashboard cell named "(.*)"$/, async name => {
   await dbdSteps.toggleDashboardCellContextMenu(name);
 });
 
+When(/^toggle context menu of 2nd dashboard cell named "(.*)"$/, async name => {
+  await dbdSteps.toggle2ndDashboardCellContextMenu(name);
+});
+
 When(/^click cell content popover add note$/, async () => {
   await dbdSteps.clickDashboardPopOverlayAddNote();
 });
 
 When(/^click cell content popover configure$/, async () => {
   await dbdSteps.clickDashboardPopOverlayConfigure();
+});
+
+When(/^click cell content popover delete$/, async () => {
+   await dbdSteps.clickDashboardPopOverlayDelete();
+});
+
+When(/^click cell content popover delet confirm$/, async () => {
+   await dbdSteps.clickDashboardPopOverlayDeleteConfirm();
+});
+
+When(/^click cell edit content popover clone$/, async () => {
+  await dbdSteps.clickDashboardPopOverlayClone();
 });
 
 Then(/^the edit note popup is loaded$/, async () => {
@@ -141,9 +161,28 @@ When(/^move the cell named "(.*)" by "(.*)"$/, {timeout: 15000}, async (name, ve
   await dbdSteps.moveDashboardCell(name, deltaCoords);
 });
 
+When(/^resize the cell name "(.*)" by "(.*)"$/, {timeout: 15000},  async (name, vector) => {
+  let deltaSize = JSON.parse(vector);
+  await dbdSteps.resizeDashboardCell(name, deltaSize);
+});
+
+Then(/^size of the cell named "(.*)" has changed by "(.*)"$/, async (name, change) => {
+  let deltaSize = JSON.parse(change);
+  await dbdSteps.verifyDashboardCellSizeChange(name, deltaSize);
+
+});
+
+Then(/^the size of the of the cell named "(.*)" is unchangd$/, async name => {
+  await dbdSteps.verifyDashboardCellSizeChange(name, {dw: 0, dh: 0});
+});
+
 Then(/^the location of the cell named "(.*)" is changed by "(.*)"$/, async (name, vector) => {
     let deltaCoords = JSON.parse(vector);
     await dbdSteps.verifyCellPositionChange(name, deltaCoords);
+});
+
+Then(/^the location of the cell named "(.*)" is unchanged$/, async name => {
+    await dbdSteps.verifyCellPositionChange(name, {dx: 0, dy: 0});
 });
 
 When(/^click the dashboard Time Range Dropdown$/, async () => {
@@ -152,4 +191,53 @@ When(/^click the dashboard Time Range Dropdown$/, async () => {
 
 When(/^select dashboard Time Range "(.*)"$/, async item => {
    await dbdSteps.selectDashboardTimeRange(item);
+});
+
+Then(/^the graph of the cell "(.*)" has changed$/, async name => {
+   await dbdSteps.verifyCellGraphChange(name);
+});
+
+Then(/^the graph of the cell "(.*)" differs from "(.*)"$/, async (name1, name2) => {
+    await dbdSteps.compareCellGraphs(name1, name2, false);
+});
+
+When(/^hover over the graph of the cell named "(.*)"$/, async name => {
+   await dbdSteps.hoverGraphOfCell(name);
+});
+
+Then(/^the cell graph data point infobox is visible$/, async () => {
+   await dbdSteps.verifyCellGraphDataPointInfoBox();
+});
+
+When(/^move horizontally to "(.*)" of graph cell named "(.*)"$/, async (fraction,name) => {
+   await dbdSteps.moveToHorizontalFractionOfGraphCell(fraction, name);
+});
+
+When(/^drag horizontally to "(.*)" of graph cell named "(.*)"$/, async (fraction, name) => {
+    await dbdSteps.dragToHorizonatlFractionOfGraphCell(fraction, name);
+});
+
+When(/^move vertically to "(.*)" of graph cell named "(.*)"$/, async (fraction, name) => {
+    await dbdSteps.moveToVerticalFractionOfGraphCell(fraction, name);
+});
+
+When(/^drag vertically to "(.*)" of graph cell named "(.*)"$/, async (fraction, name) => {
+    await dbdSteps.dragToVerticalFractionOfGraphCell(fraction, name);
+});
+
+When(/^Click at the point "(.*)" of graph cell named "(.*)"$/, async (target, name) => {
+    let fracs = JSON.parse(target);
+   await dbdSteps.clickPointWithinCellByFractions(fracs, name);
+});
+
+Then(/^the cell named "(.*)" is visible in the dashboard$/, async name => {
+    await dbdSteps.verifyDashboardCellVisible(name);
+});
+
+Then(/^there is a second dashboard cell named "(.*)"$/, async name => {
+   await dbdSteps.verifyCountCellsNamed(name, 2);
+});
+
+Then(/^the cell named "(.*)" is no longer present$/, async name => {
+   await dbdSteps.verifyCellNotPresent(name);
 });

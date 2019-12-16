@@ -2,6 +2,7 @@ const { By, Condition, until, StaleElementReferenceError} = require('selenium-we
 
 const notificationSuccessMsg = '[data-testid=notification-success] div.notification-message';
 const notificationErrorMsg = '[data-testid=notification-error] div.notification-message';
+const notificationPrimaryMsg = '[data-testid=notification-primary] div.notification-message';
 const notificationCloseButton = '[data-testid^=notification-] button.notification-close';
 const popupOverlayContainer = '[data-testid=overlay--container]';
 const popupFormElementError  = '[data-testid=form--element-error]';
@@ -91,6 +92,12 @@ class basePage{
     async getNotificationErrorMsgs(){
         await this.waitUntilElementVisibleCss(notificationErrorMsg);
         return await this.driver.findElements(By.css(notificationErrorMsg));
+    }
+
+    async getNotificationPrimaryMsgs(){
+        await this.waitUntilElementVisibleCss(notificationPrimaryMsg);
+        return await this.driver.findElements(By.css(notificationPrimaryMsg));
+
     }
 
     async getNotificationCloseButtons(){
