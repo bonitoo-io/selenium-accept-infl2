@@ -32,7 +32,7 @@ const popupHelpText = '[data-testid=form--help-text]';
 //Add data line protocol Popup Wizard
 //reuse popup title above
 //reuse dismiss above
-const wizardStepTitle = '.wizard-step--title';
+const wizardStepTitle = '.cf-overlay--title';
 const wizardStepSubTitle = '[data-testid=form-container] [class*=sub-title]';
 const wizardRadioUploadFile = '[data-testid=\'Upload File\']';
 const wizardRadioManual = '[data-testid=\'Enter Manually\']';
@@ -41,8 +41,9 @@ const wizardDragAndDrop = 'div.drag-and-drop';
 const wizardContinueButton = '[data-testid=next]';
 const wizardTextArea = '[data-testid=\'line-protocol--text-area\']';
 const wizardFinishButton = '[data-testid=next][title=\'Finish\']';
-const wizardStepStateText = '.wizard-step--text-state';
+const wizardStepStateText = '[data-testid=\'line-protocol--status\']';
 const wizardSparkleSpinner = '[data-testid=sparkle-spinner]';
+const dataWizardPreviousButton = '[data-testid=overlay--footer] [data-testid=back]';
 
 const popoverItem = '//*[@data-testid=\'popover--contents\']//*[text() = \'%ITEM%\']';
 
@@ -300,6 +301,10 @@ class bucketsTab extends loadDataPage {
 
     async getPopoverItem(item){
         return await this.driver.findElement(By.xpath(popoverItem.replace('%ITEM%', item)));
+    }
+
+    async getDataWizardPreviousButton(){
+        return await this.driver.findElement(By.css(dataWizardPreviousButton));
     }
 
 }
