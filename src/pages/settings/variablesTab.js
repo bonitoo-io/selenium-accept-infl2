@@ -22,7 +22,7 @@ const uploadRadioButton = '[data-testid=overlay--body] [data-testid=select-group
 const pasteRadioButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Paste]';
 const dragNDropFile = 'input[type=file]'; //N.B. has display:none
 const importButton = '[data-testid=overlay--footer] [data-testid=button]';
-const pasteJSONTextarea = '[data-testid=overlay--body] [data-testid=textarea]';
+const pasteJSONTextarea = '[data-testid=overlay--body] [data-testid=import-overlay--textarea]';
 const importVariableDragNDropHeader = '.drag-and-drop--header';
 
 // create variable popup

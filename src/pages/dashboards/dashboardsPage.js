@@ -41,7 +41,7 @@ const importPopupDismiss = '[data-testid=\'overlay--header\'] button';
 const importPopupFileInput = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--form\'] ';
 const importPopupFileInputHeader = '[data-testid=\'overlay--body\'] [class*=\'drag-and-drop--header\']';
 const importPopupDragNDropFile = 'input[type=file]'; //N.B. has display:none
-const importPopupJSONTextarea = '[data-testid=\'overlay--body\'] [data-testid=\'textarea\'] ';
+const importPopupJSONTextarea = '[data-testid=\'overlay--body\'] [data-testid=\'import-overlay--textarea\']';
 
 const fromTemplatePopupDismiss = '[data-testid=\'overlay--header\'] button';
 const fromTemplatePopupCancel = '[data-testid=\'overlay--footer\'] [data-testid=\'button\'][title=\'Cancel\']';

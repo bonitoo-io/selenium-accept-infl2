@@ -506,7 +506,7 @@ class bucketsSteps extends baseSteps {
     async verifyLineProtocolWizardVisible(visibility){
         if(visibility){
             await this.assertVisible(await this.bucketsTab.getWizardStepTitle());
-            await this.assertVisible(await this.bucketsTab.getWizardStepSubTitle());
+            //await this.assertVisible(await this.bucketsTab.getWizardStepSubTitle());
             await this.assertVisible(await this.bucketsTab.getWizardDragAndDrop());
             await this.assertVisible(await this.bucketsTab.getWizardRadioUploadFile());
             await this.assertVisible(await this.bucketsTab.getWizardRadioManual());
@@ -558,6 +558,7 @@ class bucketsSteps extends baseSteps {
             throw `Unhandled mode ${mode}`;
         }
         for(let i = 0; i < samples.length; i++){
+            console.log(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`)
             dataPoints.push(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
         }
         await this.bucketsTab.getWizardTextArea().then(async elem => {
@@ -614,7 +615,7 @@ class bucketsSteps extends baseSteps {
             });
             if(msg.toLowerCase().includes('success')) {
                 await elem.getCssValue('color').then(async color => {
-                    expect(color).to.equal('rgba(78, 216, 160, 1)');
+                    expect(color).to.equal('rgba(190, 194, 204, 1)');
                 });
             }
         });
@@ -631,7 +632,7 @@ class bucketsSteps extends baseSteps {
                 });
             }else{
                 await elem.getCssValue('color').then(async color => {
-                    expect(color).to.equal('rgba(249, 95, 83, 1)');
+                    expect(color).to.equal('rgba(255, 133, 100, 1)');
                 });
             }
         });
@@ -644,6 +645,10 @@ class bucketsSteps extends baseSteps {
                 await this.driver.sleep(500); //todo better wait
             });
         });
+    }
+
+    async clickDataWizardPreviousButton(){
+        await this.clickAndWait(await this.bucketsTab.getDataWizardPreviousButton());
     }
 
 

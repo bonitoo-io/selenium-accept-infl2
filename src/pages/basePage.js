@@ -21,7 +21,7 @@ const popupWizardBack = '[data-testid=overlay--body] [data-testid=back]';
 const popupWizardTitle = '[data-testid=overlay--body] .wizard-step--title';
 const popupWizardSubTitle = '[data-testid=overlay--body] .wizard-step--sub-title';
 const popupWizardDocsLink = '[data-testid=overlay--body] [data-testid=docs-link]';
-const popupWizardStepStateText = '.wizard-step--footer .wizard-step--text-state';
+const popupWizardStepStateText = 'p.line-protocol--status:nth-of-type(1)';
 const popupTitle = '[data-testid=overlay--header] .cf-overlay--title';
 const codeMirror = 'div.CodeMirror';
 const popupAlert = '[data-testid=alert]';

@@ -19,7 +19,7 @@ const urlCtx = 'templates';
 //import template popup
 const importTemplateUploadButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Upload]';
 const importTemplatePasteButton = '[data-testid=overlay--body] [data-testid=select-group--option][title=Paste]';
-const importTemplateJSONTextArea = '[data-testid=overlay--body] [data-testid=textarea]';
+const importTemplateJSONTextArea = '[data-testid=overlay--body] [data-testid=import-overlay--textarea]';
 const importTemplateDragNDrop = '[data-testid=overlay--body] input[type=file]';
 
 class templatesTab extends settingsPage{

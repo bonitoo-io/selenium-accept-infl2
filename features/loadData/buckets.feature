@@ -156,7 +156,7 @@ Scenario: Add Manual Line Protocol Data to Default
   When enter "12" datapoints with value named "foo" starting at "-2h" with "fibonacci" data of type "int" and prec "ms"
   When click the Line Protocol wizard continue button
   Then the line Protocol wizard second step opens
-  Then the Line Protocol wizard step status message is "Data Written Successfully!"
+  Then the Line Protocol wizard step status message is "Data Written Successfully"
   When click the Line Protocol wizard finish button
   Then the line Protocol wizard is not present
   When API sign in user "DEFAULT"
@@ -195,13 +195,13 @@ Scenario: Add Manual Line Protocol Data to Default
     When click the Line Protocol wizard continue button
     Then the popup wizard step state text contains "Unable to Write Data"
     Then the popup wizard step is in state "error"
-    When click the wizard previous button
+    When click the bucket data wizard previous button
     When click the Line Protocol wizard precision dropdown
     When click the line Protocol wizard precision "ms"
     When add the file "etc/test-data/line-protocol-hydro.txt" to the Line Protocol Wizard file upload
     Then the popup wizard import file header contains "line-protocol-hydro.txt"
     When click the Line Protocol wizard continue button
-    Then the popup wizard step state text contains "Data Written Successfully!"
+    Then the popup wizard step state text contains "Data Written Successfully"
     Then the popup wizard step is in state "success"
     When click the Line Protocol wizard finish button
     Then the line Protocol wizard is not present

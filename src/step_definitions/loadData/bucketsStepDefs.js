@@ -287,3 +287,7 @@ When(/^add the file "(.*)" to the Line Protocol Wizard file upload$/, async file
     await bktTabSteps.setFileUpload(filePath);
 });
 
+When(/^click the bucket data wizard previous button$/, async () => {
+   await bktTabSteps.clickDataWizardPreviousButton();
+});
+
