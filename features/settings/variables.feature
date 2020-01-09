@@ -88,6 +88,9 @@ Feature: Settings - Variables
     |Slavia|etc/test-data/variable-csv-slavia.json|
     |Arsenal|etc/test-data/variable-csv-arsenal.json|
 
+
+  # TODO - failover on bad variable file
+
   Scenario: Create Map Variable
     When click create variable dropdown in header
     When click "new" variable dropdown item
