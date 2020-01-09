@@ -116,25 +116,25 @@ Scenario: Sort Buckets by Name
   Given ensure buckets name sort order "asc"
   Then the buckets are sorted as "Týdenní,Trvalá,DEFAULT,Půldenní,Oprava,Měsíční,Hodinová,Denní,_tasks,_monitoring"
   Given ensure buckets name sort order "desc"
-#  Given pending
 
-#Scenario: Sort Buckets by Retention Policy
-# implementation on hold for issue 14923
-#  Given pending
+Scenario: Sort Buckets by Retention Policy
+  When click buckets sort by retention policy
+  Then the buckets are sorted as "Hodinová,Půldenní,Denní,Oprava,_tasks,Týdenní,_monitoring,Měsíční,Trvalá,DEFAULT"
+  When click buckets sort by retention policy
+  Then the buckets are sorted as "DEFAULT,Trvalá,Měsíční,Týdenní,_monitoring,_tasks,Oprava,Denní,Půldenní,Hodinová"
 
 
 Scenario Outline: Delete Buckets
 # following check leads to troublesome false positives - todo fix it
-# Then the delete button of the card named "<Name>" is not present
+#  Then the delete button of the card named "<Name>" is not present
   When hover over bucket card named "<Name>"
   When click the delete button of the card named "<Name>"
   When click the confirm delete button of the card named "<Name>"
   Then the bucket card named "<Name>" is not in the list
-#  Given pending
 
 Examples:
   | Name |
-#  | Trvalá | due to issue 14903 - skip for now
+  | Trvalá |
   | Měsíční |
   | Týdenní |
   | Denní |

@@ -420,6 +420,10 @@ class bucketsSteps extends baseSteps {
         });
     }
 
+    async clickRetentionSort(){
+        await this.clickAndWait(await this.bucketsTab.getPolicySorter());
+    }
+
     async clickBucketsFilter(){
         await this.clickAndWait(await this.bucketsTab.getFilterInput());
     }

@@ -164,6 +164,10 @@ Given(/^ensure buckets name sort order "(.*)"$/,{timeout: 2 * 5000}, async (orde
     await bktTabSteps.ensureNameSortOrder(order);
 });
 
+When(/^click buckets sort by retention policy$/, async () => {
+   await bktTabSteps.clickRetentionSort();
+});
+
 When(/^click the buckets page title$/, async () => {
     await bktTabSteps.clickPageTitle();
 });
