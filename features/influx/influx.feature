@@ -72,4 +72,6 @@ Feature: Influx common
     Then the menu item text "Feedback" is "visible"
     Then the feedback URL should include "https://docs.google.com/forms"
 
+  # TODO - create organization from Home Menu Item
+
 

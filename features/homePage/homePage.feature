@@ -35,7 +35,7 @@ Feature: Home Page
     When I click the panel "Alerting"
     Then the Alerting page is loaded
 
-  Scenario: Logout from Account
+  Scenario: Logout from Menu
     When hover over the "home" menu item
     When click nav menu item "home"
     When click logout from the home page
