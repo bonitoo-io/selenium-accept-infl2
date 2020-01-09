@@ -6,7 +6,7 @@ const navMenuHome = '[data-testid=nav-menu--item] span.cubo-nav';
 const navMenuDExplorer = '[data-testid=nav-menu--item] span.graphline-2';
 const navMenuDashboards = '[data-testid=nav-menu--item] span.dashboards';
 const navMenuTasks = '[data-testid=nav-menu--item] span.calendar';
-// const navMenuAlerting = '[data-testid=nav-menu--item] span.bell'; //N.B. only available with alerting on
+const navMenuAlerting = '[data-testid=nav-menu--item] span.bell'; //N.B. only available with alerting on
 const navMenuLoadData = '[data-testid=nav-menu--item] span.disks-nav';
 const navMenuSettings = '[data-testid=nav-menu--item] span.wrench-nav';
 const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
@@ -112,6 +112,10 @@ class influxPage extends basePage {
 
     async getMenuHomeLogout(){
         return await this.driver.findElement(By.css(navMenuHomeLogout));
+    }
+
+    async getNavMenuAlerting(){
+        return await this.driver.findElement(By.css(navMenuAlerting));
     }
 
     async getSubItemByText(text){

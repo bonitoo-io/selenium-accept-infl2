@@ -54,6 +54,9 @@ class influxSteps extends baseSteps {
         case 'feedback':
             elem = await this.influxPage.getMenuFeedback();
             break;
+        case 'alerting':
+            elem = await this.influxPage.getNavMenuAlerting();
+            break;
         case 'loaddata':
             elem = await this.influxPage.getMenuLoadData();
             //            await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
