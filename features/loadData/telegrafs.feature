@@ -136,14 +136,6 @@ Scenario: Sort Telegrafs by Name
   When click the telegraf sort by name button
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
-#Scenario: Sort By Buckets - bucket sort is no longer present
-#  When click the telegraf sort by bucket button
-#  Then the telegraf sort order is "Decin,Nymburk,Strakonice,Kladno,Rakovnik"
-#  When click the telegraf sort by bucket button
-#  Then the telegraf sort order is "Strakonice,Kladno,Rakovnik,Decin,Nymburk"
-#  When click the telegraf sort by name button
-#  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
-
 Scenario: Filter Telegrafs
   When enter the value "Rak" into the Telegrafs filter
   Then the telegraf sort order is "Rakovnik,Strakonice"
@@ -196,7 +188,6 @@ Scenario: Edit Telegraf Card
     Then the label select list for "Kladno" shows the empty state message
     When enter the value "Lidstvo" into the Telegraf Card "Kladno" label filter
     Then the create Label popup is loaded
-    # N.B. test the popup thoroughly in the settings > Labels test section
     When dismiss the popup
     Then popup is not loaded
 

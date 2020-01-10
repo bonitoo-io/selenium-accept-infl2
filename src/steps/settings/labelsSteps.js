@@ -208,6 +208,10 @@ class labelsSteps extends baseSteps{
         await this.clickAndWait(await this.labTab.getLabelNameSort());
     }
 
+    async clickLabelSortByDescription(){
+        await this.clickAndWait(await this.labTab.getLabelDescSort());
+    }
+
     async clearLabelFilterInput(){
         await this.clearInputText(await this.labTab.getLabelsFilter());
     }

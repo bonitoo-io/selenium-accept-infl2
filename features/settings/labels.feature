@@ -91,19 +91,24 @@ Scenario: Sort By Name
   When click sort label by name
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
-# Scenario: Sort By Description - not working - waiting on issue #13950
+Scenario: Sort By Description
+  When click sort label by description
+  Then the first labels are sorted as "Javor,Briza,Habr,Buk,Jilm"
+  When click sort label by description
+  Then the first labels are sorted as "Jilm,Buk,Habr,Briza,Javor"
 
-Scenario: Filter Labels
+
+  Scenario: Filter Labels
   When clear the labels filter input
   When enter the value "J" into the label filter
-  Then the first labels are sorted as "Javor,Jilm"
+  Then the first labels are sorted as "Jilm,Javor"
   Then the labels "Briza,Buk,Habr" are not present
   When enter the value "AV" into the label filter
   Then the first labels are sorted as "Javor"
   Then the labels "Briza,Buk,Habr,Jilm" are not present
   When clear the labels filter input
   When enter the value "betul" into the label filter
-  Then the first labels are sorted as "Briza,Habr"
+  Then the first labels are sorted as "Habr,Briza"
   Then the labels "Buk,Javor,Jilm" are not present
   When click sort label by name
   # There is a third neutral phase to the toggle
@@ -114,17 +119,17 @@ Scenario: Filter Labels
   When clear the labels filter input
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
-Scenario Outline: Delete Label
-  When hover over label card "<NAME>"
-  When click delete for the label card "<NAME>"
-  When click delete confirm for the label card "<NAME>"
-  Then the labels "<NAME>" are not present
+#Scenario Outline: Delete Label
+#  When hover over label card "<NAME>"
+#  When click delete for the label card "<NAME>"
+#  When click delete confirm for the label card "<NAME>"
+#  Then the labels "<NAME>" are not present
 
-  Examples:
-  | NAME |
-  | Briza |
-  | Buk |
-  | Habr |
-  | Javor |
-  | Jilm |
+#  Examples:
+#  | NAME |
+#  | Briza |
+#  | Buk |
+#  | Habr |
+#  | Javor |
+#  | Jilm |
 

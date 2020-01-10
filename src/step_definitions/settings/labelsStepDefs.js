@@ -121,6 +121,10 @@ When(/^click sort label by name$/, async () => {
     await lblSteps.clickLabelSortByName();
 });
 
+When(/^click sort label by description$/, async () => {
+    await lblSteps.clickLabelSortByDescription();
+});
+
 When(/^clear the labels filter input$/, async () => {
     await lblSteps.clearLabelFilterInput();
 });
