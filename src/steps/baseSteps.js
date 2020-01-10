@@ -336,7 +336,7 @@ class baseSteps{
             try {
                 await this.driver.wait(until.stalenessOf(await this.basePage.getPopupOverlay()));
             }catch(err){
-                console.log("DEBUG err " + JSON.stringify(err));
+              //  console.log("DEBUG err " + JSON.stringify(err));
                 if(err.name !== 'NoSuchElementError'){ // O.K. if not found - DOM already updated
                     throw err;
                 }

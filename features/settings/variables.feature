@@ -90,6 +90,15 @@ Feature: Settings - Variables
 
 
   # TODO - failover on bad variable file
+  Scenario: Import Bad Variable
+    When click create variable dropdown in header
+    When click "import" variable dropdown item
+    When upload the import variable file "etc/test-data/variable-empty.json"
+    Then the import variable drag and drop header contains success "etc/test-data/variable-empty.json"
+    When click the import variable import button
+    Then popup is not loaded
+    Then the error notification contains "Failed to create variable: Cannot read property 'id' of undefined"
+    Then close all notifications
 
   Scenario: Create Map Variable
     When click create variable dropdown in header
@@ -283,20 +292,20 @@ Feature: Settings - Variables
     Then close all notifications
     Then there is a variable card for "Kybl"
 
-  Scenario Outline: Delete Variable
-    When hover over variable card named "<NAME>"
-    When click delete menu of variable card named "<NAME>"
-    When click delete confirm of variable card named "<NAME>"
-    Then the success notification contains "Successfully deleted the variable"
-    Then the variable card "<NAME>" is not present
+  #Scenario Outline: Delete Variable
+  #  When hover over variable card named "<NAME>"
+  #  When click delete menu of variable card named "<NAME>"
+  #  When click delete confirm of variable card named "<NAME>"
+  #  Then the success notification contains "Successfully deleted the variable"
+  #  Then the variable card "<NAME>" is not present
 
-    Examples:
-      |NAME|
-      |Kybl|
-      |Kocky |
-      |Jehlicnany|
-      |Slavia    |
-      |Arsenal   |
+  #  Examples:
+  #    |NAME|
+  #    |Kybl|
+  #    |Kocky |
+  #    |Jehlicnany|
+  #    |Slavia    |
+  #    |Arsenal   |
 
 
 
