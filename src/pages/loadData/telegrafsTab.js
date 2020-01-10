@@ -41,6 +41,10 @@ const configurationPluginsSideBar = '//*[*[text()=\'Plugins\']]//div[contains(@c
 const pluginDockerEditEndpoint = '//*[label/span[text()=\'endpoint\']]//*[@data-testid=\'input-field\']';
 const pluginK8SEditEndpoint = '//*[label/span[text()=\'url\']]//*[@data-testid=\'input-field\']';
 const pluginNGINXEditEndpoint = '//*[label/span[text()=\'urls\']]//*[@data-testid=\'input-field\']';
+const pluginNGINXAddUrlButton = '[data-testid=button][title=\'Add to list of urls\']';
+const pluginNGINXDeleteFirstURL = '[data-testid=confirmation-button--button][title=\'Delete\']:nth-of-type(1)';
+const pluginNGINXDeleteURLConfirmButton = '[data-testid=button][title=\'Confirm\']';
+const pluginNGINXURLListItems = '[data-testid=overlay--body] [data-testid=\'grid--column\'] [data-testid=index-list]';
 const pluginRedisServersEditEndpoint = '//*[label/span[text()=\'servers\']]//*[@data-testid=\'input-field\']';
 const pluginRedisPasswordEditEndpoint = '//*[label/span[text()=\'password\']]//*[@data-testid=\'input-field\']';
 
@@ -154,6 +158,26 @@ class telegrafsTab extends loadDataPage{
 
     async getPluginNGINXEditEndpoint(){
         return await this.driver.findElement(By.xpath(pluginNGINXEditEndpoint));
+    }
+
+    async getPluginNGINXAddUrlButton(){
+        return await this.driver.findElement(By.css(pluginNGINXAddUrlButton));
+    }
+
+    async getPluginNGINXDeleteFirstURL(){
+        return await this.driver.findElement(By.css(pluginNGINXDeleteFirstURL))
+    }
+
+    async getPluginNGINXDeleteURLConfirmButton(){
+        return await this.driver.findElement(By.css(pluginNGINXDeleteURLConfirmButton));
+    }
+
+    async getPluginNGINXURLListItems(){
+        return await this.driver.findElements(By.css(pluginNGINXURLListItems));
+    }
+
+    static getPluginNGINXURLListItemsSelector(){
+        return { type: 'css', selector: pluginNGINXURLListItems };
     }
 
     async getPluginRedisServersEditEndpoint(){

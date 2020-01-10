@@ -66,9 +66,38 @@ Scenario Outline: Edit Plugin Values
   | PLUGIN     | FAKE_VALUES | FIELDS           | ERRMSGS               | TRUE_VALUES |
   | Docker     | SKIP        | endpoint         | SKIP                 | http://localhost:10080 |
   | Kubernetes | ASDF        | url              | Must be a valid URI. | http://localhost:10080 |
-# Skip NGINX due to issue 15500
-#  | NGINX      | ASDF        | urls             | NONE                 | http://localhost:10080 |
   | Redis      | SKIP,SKIP   | servers,password | SKIP                 | tcp://localhost:6379,wumpus |
+
+Scenario: Edit NGINX Plugin Values
+  When click the plugin tile "NGINX" in the Create Telegraf Wizard
+  When click the Popup Wizard continue button
+  Then the create Telegraf Wizard second step is loaded
+  Then the create Telegraf plugins sidebar contains "NGINX"
+  Then the create Telegraf plugin sidebar "NGINX" item is in state "neutral"
+  When click the create Telegraf plugin sidebar "NGINX" item
+  Then the create Telegraf edit plugin "NGINX" step is loaded
+  When enter the values ASDF into the fields urls
+  Then verify the edit plugin error notification with message "NONE"
+  When clear the create Telegraf edit plugin fields urls
+  When enter the values http://localhost:10080 into the fields urls
+  When click the NGINX configuration add button
+  Then the NGINX configuration URLs list contains '1' items
+  When click delete for the first NGINX configuration URL
+  When click confirm delete of NGINX configuration URL
+  Then the NGINX configuration URLs list is empty
+  When click the Popup Wizard done button
+  Then the create Telegraf plugin sidebar "NGINX" item is in state "error"
+  When click the create Telegraf plugin sidebar "NGINX" item
+  When enter the values http://localhost:10080 into the fields urls
+  When click the NGINX configuration add button
+  When click the Popup Wizard done button
+  Then the create Telegraf plugin sidebar "NGINX" item is in state "success"
+  When click the wizard previous button
+  Then the Create Telegraf Wizard is loaded
+  Then the Create Telegraf wizard plugin tile "NGINX" is selected
+  When click the plugin tile "NGINX" in the Create Telegraf Wizard
+  Then the Create Telegraf wizard plugin tile "NGINX" is not selected
+  Then the popup wizard continue button is disabled
 
 Scenario: Cleanup from Edit Plugin Values
   When dismiss the Create Telegraf Wizard
