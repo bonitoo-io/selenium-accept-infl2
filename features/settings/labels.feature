@@ -119,17 +119,17 @@ Scenario: Sort By Description
   When clear the labels filter input
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
-#Scenario Outline: Delete Label
-#  When hover over label card "<NAME>"
-#  When click delete for the label card "<NAME>"
-#  When click delete confirm for the label card "<NAME>"
-#  Then the labels "<NAME>" are not present
+Scenario Outline: Delete Label
+  When hover over label card "<NAME>"
+  When click delete for the label card "<NAME>"
+  When click delete confirm for the label card "<NAME>"
+  Then the labels "<NAME>" are not present
 
-#  Examples:
-#  | NAME |
-#  | Briza |
-#  | Buk |
-#  | Habr |
-#  | Javor |
-#  | Jilm |
+  Examples:
+  | NAME |
+  | Briza |
+  | Buk |
+  | Habr |
+  | Javor |
+  | Jilm |
 
