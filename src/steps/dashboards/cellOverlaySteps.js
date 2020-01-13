@@ -55,11 +55,16 @@ class cellOverlaySteps extends influxSteps {
 
     async pasteIntoCellEditScriptEditor(text){
         let escapedTxt = text.replace(/\"/g, "\\\"");
-        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), escapedTxt);
+        //await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), escapedTxt);
+        //await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), escapedTxt);
+        await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), text);
     }
 
     async clearCellEditScriptEditor(){
-        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), "");
+//        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), "");
+        await this.driver.sleep(1000);
+        //await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), "");
+        await this.clearMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor());
     }
 
     async clickCellEditSubmitButton(){
