@@ -110,9 +110,11 @@ class variablesSteps extends baseSteps{
 
     async verifyCreateVarPopupQueryEditorVisible(visible){
         if(visible){
-            await this.assertVisible(await this.varTab.getCreateVariableQueryCodeMirror());
+            //await this.assertVisible(await this.varTab.getCreateVariableQueryCodeMirror());
+            await this.assertVisible(await this.varTab.getCreateVariableQueryMonacoEdit());
         }else{
-            await this.assertNotPresent(await variablesTab.getCreateVariableQueryCodeMirrorSelector());
+            //await this.assertNotPresent(await variablesTab.getCreateVariableQueryCodeMirrorSelector());
+            await this.assertNotPresent(await variablesTab.getCreateVariableQueryMonacoEditSelector());
         }
     }
 
@@ -237,6 +239,11 @@ class variablesSteps extends baseSteps{
 
     async setVariablePopupCodeMirrorText(text){
         await this.setCodeMirrorText(await this.varTab.getCreateVariableQueryCodeMirror(), text);
+    }
+
+    async setVariablePopupMonacoEditText(text){
+        await this.setMonacoEditorText(await this.driver.findElement(By.css('.monaco-editor .inputarea')),
+            text);
     }
 
     async enterValueIntoVariablesFilter(value){
