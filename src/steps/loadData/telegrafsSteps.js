@@ -362,7 +362,7 @@ class telegrafsSteps extends loadDataSteps{
     async verifyTelegrafConfigPopup(name){
         await this.verifyElementContainsText(await this.teleTab.getPopupTitle(), `Telegraf Configuration - ${name}`);
         await this.assertVisible(await this.teleTab.getDownloadConfigButton());
-        await this.assertVisible(await this.teleTab.getCodeMirror());
+        await this.assertVisible(await this.teleTab.getMonacoEditor());
     }
 
     async clickTelegrafCardNamed(name){

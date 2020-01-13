@@ -24,6 +24,7 @@ const popupWizardDocsLink = '[data-testid=overlay--body] [data-testid=docs-link]
 const popupWizardStepStateText = 'p.line-protocol--status:nth-of-type(1)';
 const popupTitle = '[data-testid=overlay--header] .cf-overlay--title';
 const codeMirror = 'div.CodeMirror';
+const monacoEditor = '.monaco-editor';
 const popupAlert = '[data-testid=alert]';
 const popupFileUpload = 'input[type=file]';
 const popupFileUploadHeader = '.drag-and-drop--header';
@@ -255,6 +256,10 @@ class basePage{
 
     async getCodeMirror(){
         return await this.driver.findElement(By.css(codeMirror));
+    }
+
+    async getMonacoEditor(){
+        return await this.driver.findElement(By.css(monacoEditor));
     }
 
     async getPopupAlert(){
