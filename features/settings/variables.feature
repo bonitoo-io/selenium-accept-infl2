@@ -97,7 +97,7 @@ Feature: Settings - Variables
     Then the import variable drag and drop header contains success "etc/test-data/variable-empty.json"
     When click the import variable import button
     Then popup is not loaded
-    Then the error notification contains "Failed to create variable: Cannot read property 'id' of undefined"
+    Then the error notification contains "Failed to create variable:"
     Then close all notifications
 
   Scenario: Create Map Variable

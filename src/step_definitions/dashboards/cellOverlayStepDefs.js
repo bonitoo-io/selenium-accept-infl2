@@ -39,7 +39,7 @@ When(/^paste into cell edit Script Editor$/, { timeout: 10000 }, async text => {
    await celOvSteps.pasteIntoCellEditScriptEditor(text);
 });
 
-When(/^clear the cell edit Script Editor$/, { timeout: 10000 }, async () => {
+When(/^clear the cell edit Script Editor$/, { timeout: 20000 }, async () => {
    await celOvSteps.clearCellEditScriptEditor();
 });
 
