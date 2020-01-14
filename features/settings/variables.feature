@@ -88,6 +88,18 @@ Feature: Settings - Variables
     |Slavia|etc/test-data/variable-csv-slavia.json|
     |Arsenal|etc/test-data/variable-csv-arsenal.json|
 
+
+  # TODO - failover on bad variable file
+  Scenario: Import Bad Variable
+    When click create variable dropdown in header
+    When click "import" variable dropdown item
+    When upload the import variable file "etc/test-data/variable-empty.json"
+    Then the import variable drag and drop header contains success "etc/test-data/variable-empty.json"
+    When click the import variable import button
+    Then popup is not loaded
+    Then the error notification contains "Failed to create variable:"
+    Then close all notifications
+
   Scenario: Create Map Variable
     When click create variable dropdown in header
     When click "new" variable dropdown item
@@ -145,7 +157,7 @@ Feature: Settings - Variables
     When click the create variable popup type dropdown item "Query"
     When clear the create variable popup name input
     When enter the create variable popup name "Kybl"
-    When enter the create variable popup CodeMirror text:
+    When enter the create variable popup Monaco Editor text:
     """
     buckets()
    |> filter(fn: (r) => r.name !~ /^_/)
@@ -237,7 +249,7 @@ Feature: Settings - Variables
     When click the edit variable popup type dropdown
     When click the edit variable popup type dropdown item "query"
     Then the edit variable name input is disabled
-    When enter the edit variable popup CodeMirror text:
+    When enter the edit variable popup Query text:
     """
         buckets()
    |> filter(fn: (r) => r.name !~ /^_/)

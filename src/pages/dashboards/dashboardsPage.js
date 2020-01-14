@@ -28,7 +28,7 @@ const dashboardCardLabelPillDelete = '//*[@data-testid=\'dashboard-card\'][.//sp
 ////*[@data-testid='dashboard-card'][.//*[text()='Test Dashboard']]//*[@data-testid='context-menu']
 
 const addLabelsPopover = '[data-testid=\'inline-labels--popover\']';
-const addLabelsPopoverLabel = '//*[@data-testid=\'inline-labels--popover\']//*[contains(@data-testid,\'label--pill\')][text()=\'%LABEL%\']';
+const addLabelsPopoverLabel = '//*[@data-testid=\'inline-labels--popover--contents\']//*[contains(@data-testid,\'label--pill\')][text()=\'%LABEL%\']';
 const addLabelsPopoverFilter = '[data-testid=\'inline-labels--popover-field\']';
 const addLabelsLabelPills = '[data-testid^=\'label--pill\']';
 const addLabelsPopoverListItem = '[data-testid^=\'label-list--item %ITEM%\']';

@@ -22,6 +22,8 @@ const bucketSelect = '[data-testid=bucket-selector]';
 const bucketSelectItem = '[data-testid=bucket-selector] [data-testid=\'selector-list %ITEM%\'] ';
 const bucketSelectSearch = '[data-testid=bucket-selector] [data-testid=builder-card--menu] [class *= search]';
 const scriptEditorCodeMirror = '.CodeMirror';
+//const scriptMonacoEditor = '.monaco-editor';
+const scriptMonacoEditor = '.inputarea';
 const graphCanvas = 'canvas[data-testid^=giraffe-layer]';
 const graphCanvasAxes = 'canvas[data-testid=giraffe-axes]';
 
@@ -101,6 +103,10 @@ class cellEditOverlay extends influxPage {
 
     async getScriptEditorCodeMirror(){
         return await this.driver.findElement(By.css(scriptEditorCodeMirror));
+    }
+
+    async getScriptMonacoEditor(){
+        return await this.driver.findElement(By.css(scriptMonacoEditor));
     }
 
     async getGraphCanvas(){

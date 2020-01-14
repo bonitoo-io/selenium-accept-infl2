@@ -29,6 +29,7 @@ const importVariableDragNDropHeader = '.drag-and-drop--header';
 const createVariableNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
 const createVariableTypeDropdown = '[data-testid=\'variable-form--dropdown-button\']';
 const createVariableQueryCodeMirror = '.CodeMirror';
+const createVariableQueryMonacoEdit = '.monaco-editor';
 const createVariableTextArea = '[data-testid=overlay--body] [data-testid=textarea]';
 const createVariableTypeDropdownItem = '[data-testid=\'variable-form--dropdown-%ITEM%\']';
 const createVariableDefaultValDropdown = '//*[@data-testid=\'form--element\'][label/span[text() = \'Select A Default\']]//*[@data-testid=\'dropdown--button\']';
@@ -112,6 +113,14 @@ class variablesTab extends settingsPage{
 
     static getCreateVariableQueryCodeMirrorSelector(){
         return {type: 'css', selector: createVariableQueryCodeMirror };
+    }
+
+    async getCreateVariableQueryMonacoEdit(){
+        return await this.driver.findElement(By.css(createVariableQueryMonacoEdit));
+    }
+
+    static getCreateVariableQueryMonacoEditSelector(){
+        return {type: 'css', selector: createVariableQueryMonacoEdit};
     }
 
     async getCreateVariableTextArea(){

@@ -153,8 +153,12 @@ When(/^enter the create variable popup CodeMirror text:$/, async text => {
     await vblSteps.setVariablePopupCodeMirrorText(text);
 });
 
-When(/^enter the edit variable popup CodeMirror text:$/, async text => {
-    await vblSteps.setVariablePopupCodeMirrorText(text);
+When(/^enter the create variable popup Monaco Editor text:$/, async text => {
+    await vblSteps.setVariablePopupMonacoEditText(text);
+});
+
+When(/^enter the edit variable popup Query text:$/, async text => {
+    await vblSteps.setVariablePopupMonacoEditText(text);
 });
 
 When(/^click the create variable popup title$/, async () => {

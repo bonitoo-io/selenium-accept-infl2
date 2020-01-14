@@ -66,9 +66,38 @@ Scenario Outline: Edit Plugin Values
   | PLUGIN     | FAKE_VALUES | FIELDS           | ERRMSGS               | TRUE_VALUES |
   | Docker     | SKIP        | endpoint         | SKIP                 | http://localhost:10080 |
   | Kubernetes | ASDF        | url              | Must be a valid URI. | http://localhost:10080 |
-# Skip NGINX due to issue 15500
-#  | NGINX      | ASDF        | urls             | NONE                 | http://localhost:10080 |
   | Redis      | SKIP,SKIP   | servers,password | SKIP                 | tcp://localhost:6379,wumpus |
+
+Scenario: Edit NGINX Plugin Values
+  When click the plugin tile "NGINX" in the Create Telegraf Wizard
+  When click the Popup Wizard continue button
+  Then the create Telegraf Wizard second step is loaded
+  Then the create Telegraf plugins sidebar contains "NGINX"
+  Then the create Telegraf plugin sidebar "NGINX" item is in state "neutral"
+  When click the create Telegraf plugin sidebar "NGINX" item
+  Then the create Telegraf edit plugin "NGINX" step is loaded
+  When enter the values ASDF into the fields urls
+  Then verify the edit plugin error notification with message "NONE"
+  When clear the create Telegraf edit plugin fields urls
+  When enter the values http://localhost:10080 into the fields urls
+  When click the NGINX configuration add button
+  Then the NGINX configuration URLs list contains '1' items
+  When click delete for the first NGINX configuration URL
+  When click confirm delete of NGINX configuration URL
+  Then the NGINX configuration URLs list is empty
+  When click the Popup Wizard done button
+  Then the create Telegraf plugin sidebar "NGINX" item is in state "error"
+  When click the create Telegraf plugin sidebar "NGINX" item
+  When enter the values http://localhost:10080 into the fields urls
+  When click the NGINX configuration add button
+  When click the Popup Wizard done button
+  Then the create Telegraf plugin sidebar "NGINX" item is in state "success"
+  When click the wizard previous button
+  Then the Create Telegraf Wizard is loaded
+  Then the Create Telegraf wizard plugin tile "NGINX" is selected
+  When click the plugin tile "NGINX" in the Create Telegraf Wizard
+  Then the Create Telegraf wizard plugin tile "NGINX" is not selected
+  Then the popup wizard continue button is disabled
 
 Scenario: Cleanup from Edit Plugin Values
   When dismiss the Create Telegraf Wizard
@@ -106,14 +135,6 @@ Scenario: Sort Telegrafs by Name
   Then the telegraf sort order is "Strakonice,Rakovnik,Nymburk,Kladno,Decin"
   When click the telegraf sort by name button
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
-
-#Scenario: Sort By Buckets - bucket sort is no longer present
-#  When click the telegraf sort by bucket button
-#  Then the telegraf sort order is "Decin,Nymburk,Strakonice,Kladno,Rakovnik"
-#  When click the telegraf sort by bucket button
-#  Then the telegraf sort order is "Strakonice,Kladno,Rakovnik,Decin,Nymburk"
-#  When click the telegraf sort by name button
-#  Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
 Scenario: Filter Telegrafs
   When enter the value "Rak" into the Telegrafs filter
@@ -167,7 +188,6 @@ Scenario: Edit Telegraf Card
     Then the label select list for "Kladno" shows the empty state message
     When enter the value "Lidstvo" into the Telegraf Card "Kladno" label filter
     Then the create Label popup is loaded
-    # N.B. test the popup thoroughly in the settings > Labels test section
     When dismiss the popup
     Then popup is not loaded
 
@@ -176,6 +196,7 @@ Scenario: Edit Telegraf Card
     When click delete the label pill "Cesko" for the Telegraf Card "Kladno"
     Then the label pill "Cesko" for the Telegraf Card "Kladno" is NOT present
     When click Add Label for Telegraf Card "Kladno"
+    # Affected by issue 16528
     Then the item "Cesko" is in the Telegraf Card "Kladno" label select list
     # lose focus
     When click telegraf card "Kladno"

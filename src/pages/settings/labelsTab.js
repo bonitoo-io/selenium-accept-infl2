@@ -5,7 +5,7 @@ const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 const labelsFilter = '[data-testid=search-widget]';
 const createLabelHeader = '[data-testid=button-create]';
 const labelNameSort = '[data-testid=sorter--name]';
-const descSort = '[data-testid=sorter--desc]';
+const labelDescSort = '[data-testid=sorter--desc]';
 const createLabelEmpty = '[data-testid=button-create-initial]';
 const labelCard = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]';
 const labelCardPills = '[data-testid^=label--pill]';
@@ -40,7 +40,7 @@ class labelsTab extends settingsPage{
                 {type: 'css', selector: labelsFilter},
                 {type: 'css', selector: createLabelHeader},
                 {type: 'css', selector: labelNameSort},
-                {type: 'css', selector: descSort},
+                {type: 'css', selector: labelDescSort},
             ]
         );
     }
@@ -49,8 +49,8 @@ class labelsTab extends settingsPage{
         return await this.driver.findElement(By.css(labelNameSort));
     }
 
-    async getDescSort(){
-        return await this.driver.findElement(By.css(descSort));
+    async getLabelDescSort(){
+        return await this.driver.findElement(By.css(labelDescSort));
     }
 
     async getLabelsFilter(){

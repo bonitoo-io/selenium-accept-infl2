@@ -99,6 +99,26 @@ When(/^enter the values (.*) into the fields (.*)$/, async (values, fields) => {
     await teleTabSteps.enterValuesIntoFields(values, fields);
 });
 
+When(/^click the NGINX configuration add button$/, async () => {
+    await teleTabSteps.clickNGINXConfigAddUrlButton();
+});
+
+Then(/^the NGINX configuration URLs list contains '(.*)' items$/, async ct => {
+   await teleTabSteps.verifyNGINXConfUrlsListSize(ct);
+});
+
+Then(/^the NGINX configuration URLs list is empty$/, async () => {
+  await teleTabSteps.verifyNGINXConfUrlsListEmpty();
+});
+
+When(/^click delete for the first NGINX configuration URL$/, async () => {
+   await teleTabSteps.clickNGINXConfUrlsFirstDelete();
+});
+
+When(/^click confirm delete of NGINX configuration URL$/, async () => {
+   await teleTabSteps.clickNGINXConfUrlDeleteConfirm();
+});
+
 Then(/^verify the edit plugin error notification with message "(.*)"$/, async msg => {
     await teleTabSteps.verifyEditPluginErrorMessage(msg);
 });

@@ -336,7 +336,7 @@ class baseSteps{
             try {
                 await this.driver.wait(until.stalenessOf(await this.basePage.getPopupOverlay()));
             }catch(err){
-                console.log("DEBUG err " + JSON.stringify(err));
+              //  console.log("DEBUG err " + JSON.stringify(err));
                 if(err.name !== 'NoSuchElementError'){ // O.K. if not found - DOM already updated
                     throw err;
                 }
@@ -474,6 +474,37 @@ class baseSteps{
         await this.driver.executeScript(`arguments[0].CodeMirror.setValue("${text}");`, cmElem);
         await this.driver.sleep(1000); //todo better wait - troubleshoot flakey consequences of this step
     }
+
+    //get text
+    //window.editor.getModel().getValueInRange(window.editor.getSelection())
+    //
+    //
+
+    async setMonacoEditorText(monElem, text){
+        //need to escape new lines which break the js code
+        //text = text.replace(/\n/g, '\\n');
+        //await this.driver.executeScript(`arguments[0].getModel().applyEdits([{ range monaco.Range.fromPositions(arguments[0].getPosition()), text: "${text}"}]);`, monElem);
+        //await monElem.sendKeys(text);
+        //let elem = await this.driver.findElement(By.css('.inputarea'));
+        await monElem.click();
+        await monElem.clear();
+        await monElem.sendKeys(text);
+        //await this.driver.executeScript(`arguments[0].setValue('HELLO')`, monElem);
+        await this.driver.sleep(1000); //todo better wait - troubleshoot flakey consequences of this step
+    }
+
+    async clearMonacoEditorText(monElem){
+        let elem = this.driver.findElement(By.css('.lines-content'));
+        let text = await elem.getText();
+        //await console.log("DEBUG text from monacoElement #" + text + "#");
+        await monElem.sendKeys(Key.chord(Key.CONTROL, Key.END));
+        for( let i = 0; i < text.length; i++){
+           await monElem.sendKeys(Key.BACK_SPACE);
+        }
+    }
+
+
+
 
     async getCodeMirrorText(cmElem, text){
         return await this.driver.executeScript('return arguments[0].CodeMirror.getValue()', cmElem);

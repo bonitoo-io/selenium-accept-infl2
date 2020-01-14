@@ -231,6 +231,28 @@ class telegrafsSteps extends loadDataSteps{
         }
     }
 
+    async clickNGINXConfigAddUrlButton(){
+        await this.clickAndWait(await this.teleTab.getPluginNGINXAddUrlButton());
+    }
+
+    async verifyNGINXConfUrlsListSize(ct){
+        await this.teleTab.getPluginNGINXURLListItems().then(async list => {
+           await expect(await list.length).to.equal(parseInt(ct));
+        });
+    }
+
+    async verifyNGINXConfUrlsListEmpty(){
+        await this.assertNotPresent(telegrafsTab.getPluginNGINXURLListItemsSelector());
+    }
+
+    async clickNGINXConfUrlsFirstDelete(){
+        await this.clickAndWait(await this.teleTab.getPluginNGINXDeleteFirstURL());
+    }
+
+    async clickNGINXConfUrlDeleteConfirm(){
+        await this.clickAndWait(await this.teleTab.getPluginNGINXDeleteURLConfirmButton());
+    }
+
     async verifyEditPluginErrorMessage(msgs)    {
         let msgArr = msgs.split(',');
         for(let i = 0; i < msgArr.length; i++){
@@ -340,7 +362,7 @@ class telegrafsSteps extends loadDataSteps{
     async verifyTelegrafConfigPopup(name){
         await this.verifyElementContainsText(await this.teleTab.getPopupTitle(), `Telegraf Configuration - ${name}`);
         await this.assertVisible(await this.teleTab.getDownloadConfigButton());
-        await this.assertVisible(await this.teleTab.getCodeMirror());
+        await this.assertVisible(await this.teleTab.getMonacoEditor());
     }
 
     async clickTelegrafCardNamed(name){
@@ -401,7 +423,8 @@ class telegrafsSteps extends loadDataSteps{
     }
 
     async clickTelegrafCardDeleteConfirm(name){
-        await this.clickAndWait(await this.teleTab.getTelegrafCardDeleteConfirm(name));
+        await this.clickAndWait(await this.teleTab.getTelegrafCardDeleteConfirm(name),
+            async () => {await this.driver.sleep(1000)}); //longer wait - seems to sometimes be slow
     }
 
     async clickTelegrafCardAddLabel(name){
