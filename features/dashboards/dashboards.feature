@@ -61,6 +61,7 @@ Feature: Dashboards - Base
     Then the description for card "Mercure" contains "le dieu du commerce dans la mythologie romaine"
 
   Scenario: Add Labels to dashboard
+    # Issue 16529 - possible design change
     When click empty label for the dashboard card "Mercure"
     Then the label "Cesko" in the popover selector is visible
     Then the label "Mesto" in the popover selector is visible
@@ -74,6 +75,7 @@ Feature: Dashboards - Base
     Then popup is not loaded
     Then the add label popover is not present
     When click the add label button for the dashboard card "Mercure"
+    # Issue 16528 - control values not cleared
     Then there are "2" label pills in the select label popover
     When enter "Slovensko" in the popover label selector filter
     When click the new label item in the add labels popover
