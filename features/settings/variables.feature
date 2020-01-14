@@ -292,20 +292,20 @@ Feature: Settings - Variables
     Then close all notifications
     Then there is a variable card for "Kybl"
 
-  #Scenario Outline: Delete Variable
-  #  When hover over variable card named "<NAME>"
-  #  When click delete menu of variable card named "<NAME>"
-  #  When click delete confirm of variable card named "<NAME>"
-  #  Then the success notification contains "Successfully deleted the variable"
-  #  Then the variable card "<NAME>" is not present
+  Scenario Outline: Delete Variable
+    When hover over variable card named "<NAME>"
+    When click delete menu of variable card named "<NAME>"
+    When click delete confirm of variable card named "<NAME>"
+    Then the success notification contains "Successfully deleted the variable"
+    Then the variable card "<NAME>" is not present
 
-  #  Examples:
-  #    |NAME|
-  #    |Kybl|
-  #    |Kocky |
-  #    |Jehlicnany|
-  #    |Slavia    |
-  #    |Arsenal   |
+    Examples:
+      |NAME|
+      |Kybl|
+      |Kocky |
+      |Jehlicnany|
+      |Slavia    |
+      |Arsenal   |
 
 
 
