@@ -196,6 +196,7 @@ Scenario: Edit Telegraf Card
     When click delete the label pill "Cesko" for the Telegraf Card "Kladno"
     Then the label pill "Cesko" for the Telegraf Card "Kladno" is NOT present
     When click Add Label for Telegraf Card "Kladno"
+    # Affected by issue 16528
     Then the item "Cesko" is in the Telegraf Card "Kladno" label select list
     # lose focus
     When click telegraf card "Kladno"

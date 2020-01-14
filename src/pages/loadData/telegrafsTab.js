@@ -18,11 +18,11 @@ const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][div/div/div/
 const telegrafCardDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
 const telegrafCardDeleteConfirm = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//button[@data-testid=\'context-menu-item\']';
 const telegrafCardAddLabelBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
-const telegrafCardLabelPopup = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover\']';
-const telegrafCardLabelPopupListItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label-list--item %ITEM%\']';
+const telegrafCardLabelPopup = '[data-testid=inline-labels--popover--dialog]';
+const telegrafCardLabelPopupListItem = '[data-testid=\'inline-labels--popover--dialog\'] [data-testid=\'label-list--item %ITEM%\']';
 const telegrafCardLabelPillItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %ITEM%\']';
-const telegrafCardLabelPopupFilter = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--popover-field\']';
-const telegrafCardLabelEmptyState = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'empty-state--text\']';
+const telegrafCardLabelPopupFilter = '[data-testid=\'inline-labels--popover--dialog\'] [data-testid=\'inline-labels--popover-field\']';
+const telegrafCardLabelEmptyState = '[data-testid=\'inline-labels--popover--dialog\'] [data-testid=\'empty-state--text\']';
 const telegrafCardLabelPillDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %ITEM%\']';
 
 const urlCtx = 'telegrafs';
@@ -265,24 +265,22 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getTelegrafCardLabelPopup(name){
-        return await this.driver.findElement(By.xpath(telegrafCardLabelPopup.replace('%NAME%', name)));
+        return await this.driver.findElement(By.css(telegrafCardLabelPopup.replace('%NAME%', name)));
     }
 
     static getTelegrafCardLabelPopupSelector(name){
-        return { type: 'xpath', selector: telegrafCardLabelPopup.replace('%NAME%', name)};
+        return { type: 'css', selector: telegrafCardLabelPopup.replace('%NAME%', name)};
     }
 
     async getTelegrafCardLabelPopupListItem(name, item){
 
-        return await this.driver.findElement(By.xpath(telegrafCardLabelPopupListItem
-            .replace('%NAME%', name)
+        return await this.driver.findElement(By.css(telegrafCardLabelPopupListItem
             .replace('%ITEM%', item)));
 
     }
 
     static getTelegrafCardLabelPopupListItemSelector(name, item){
-        return { type: 'xpath', selector: telegrafCardLabelPopupListItem
-            .replace('%NAME%', name)
+        return { type: 'css', selector: telegrafCardLabelPopupListItem
             .replace('%ITEM%', item)};
     }
 
@@ -293,17 +291,17 @@ class telegrafsTab extends loadDataPage{
     }
 
     static getTelegrafCardLabelPillItemSelector(name, item){
-        return { type: 'xpath', selector: telegrafCardLabelPopupListItem
+        return { type: 'xpath', selector: telegrafCardLabelPillItem
             .replace('%NAME%', name)
             .replace('%ITEM%', item)};
     }
 
     async getTelegrafCardLabelPopupFilter(name){
-        return await this.driver.findElement(By.xpath(telegrafCardLabelPopupFilter.replace('%NAME%', name)));
+        return await this.driver.findElement(By.css(telegrafCardLabelPopupFilter.replace('%NAME%', name)));
     }
 
     async getTelegrafCardLabelEmptyState(name){
-        return await this.driver.findElement(By.xpath(telegrafCardLabelEmptyState.replace('%NAME%', name)));
+        return await this.driver.findElement(By.css(telegrafCardLabelEmptyState.replace('%NAME%', name)));
     }
 
     async getTelegrafCardLabelPillDelete(name, item){
