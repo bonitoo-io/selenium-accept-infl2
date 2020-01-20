@@ -66,3 +66,39 @@ When(/^click on the cell edit name$/, async () => {
 When(/^change the cell edit name to "(.*)"$/, async name => {
    await celOvSteps.updateCellName(name);
 });
+
+When(/^click the dashboard cell view type dropdown$/, async () => {
+   await celOvSteps.clickViewTypeDropdown();
+});
+
+Then(/^the dashboard cell view type dropdown list contains:$/, async itemList => {
+   await celOvSteps.verifyViewTypeListContents(itemList);
+});
+
+Then(/^the cell view type dropdown list is not present$/, async () => {
+   await celOvSteps.verifyViewTypeListNotPresent();
+});
+
+When(/^click cell view customize button$/, async () => {
+   await celOvSteps.clickCellViewCustomize();
+});
+
+Then(/^the view options container is present$/, async () => {
+   await celOvSteps.verifyViewOptionsContainerVisible();
+});
+
+Then(/^the view options container is not present$/, async () => {
+   await celOvSteps.verifyViewOptionsContainerNotPresent();
+});
+
+Then(/^the cell view customize button is highlighted$/, async () => {
+   await celOvSteps.verifyCellCustomizeButtonHighlight();
+});
+
+Then(/^the cell view customize button is not highlighted$/, async () => {
+   await celOvSteps.verifyCustomizeButtonNoHighlightd();
+});
+
+Then(/^the time machine view empty graph is visible$/, async () => {
+   await celOvSteps.verifyTMViewEmptyGraphVisible();
+});

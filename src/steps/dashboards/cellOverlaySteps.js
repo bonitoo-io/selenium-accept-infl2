@@ -130,6 +130,48 @@ class cellOverlaySteps extends influxSteps {
         await this.typeTextAndWait(await this.cellOverlay.getCellNameInput(), name);
     }
 
+    async clickViewTypeDropdown(){
+        await this.clickAndWait(await this.cellOverlay.getViewTypeDropdown());
+    }
+
+    async verifyViewTypeListContents(itemList){
+        let list = itemList.split(',');
+        for(let i = 0; i < list.length; i++){
+            let elem = await this.cellOverlay.getViewTypeItem(list[i]);
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async verifyViewTypeListNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getViewTypeListContentsSelector());
+    }
+
+    async clickCellViewCustomize(){
+        await this.clickAndWait(await this.cellOverlay.getCustomizeButton());
+    }
+
+    async verifyViewOptionsContainerVisible(){
+        await this.assertVisible(await this.cellOverlay.getViewOptionsContainer());
+    }
+
+    async verifyCellCustomizeButtonHighlight(){
+        await this.verifyElementContainsClass(await this.cellOverlay.getCustomizeButton()
+            , 'button-primary')
+    }
+
+    async verifyViewOptionsContainerNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getViewOptionsContainerSelector());
+    }
+
+    async verifyCustomizeButtonNoHighlightd(){
+        await this.verifyElementDoesNotContainClass(await this.cellOverlay.getCustomizeButton()
+            , 'button-primary');
+    }
+
+    async verifyTMViewEmptyGraphVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMViewEmptyGraph());
+    }
 }
 
 module.exports = cellOverlaySteps;
