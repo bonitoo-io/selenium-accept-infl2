@@ -322,6 +322,12 @@ const genPoints = async (algo, count) => {
     case 'sine':
         samples = await genSineValues(count);
         break;
+    case 'log':
+        samples = await genLogisticValues(count);
+        break;
+    case 'life':
+        samples = await genLifeValues(count);
+        break;
     default:
         throw `Unhandled mode ${algo}`;
     }
@@ -388,10 +394,58 @@ const genHydroValues = async(count) => {
 const genSineValues = async(count) => {
     let result = [];
     for(let i = 0; i < count; i++){
-        result.push(Math.sin(i));
+        result.push(Math.sin(i) * 1000);
     }
     return result;
 };
+
+const genLogisticValues = async(count) => {
+    let result = [];
+    let reset = ((Math.random() * 5) * 10) + 10;
+    let resetReset = Math.round(reset);
+    for(let i = 0; i < count; i++){
+        result.push(((1/(1 + ((1/2.71828)**(i % reset)))) * 100) + ((Math.random() * 10) - 5)); // + ((Math.random() * 10) - 5));
+        if(i === resetReset){
+            reset = ((Math.random() * 5) * 10) + 10;
+            resetReset += Math.round(reset);
+        }
+    }
+    return result;
+};
+
+const genLifeValues = async(count) => {
+  let result = [];
+  let carryCap = ((Math.random() * 9) * 100) + 100;
+  let growthRate = Math.random() + 1;
+  //console.log("DEBUG carryCap " + carryCap + " growthRate " + growthRate);
+  result.push(2.0);
+  for(let i = 1; i < count; i++){
+      let accGrowth = growthRate + (0.10 - (Math.random() * 0.20));
+      if(result[i-1] > carryCap){ //cull
+          let overshoot = result[i -1] - carryCap;
+          let cull = overshoot * 2; //((Math.random() * 2) + 1);
+          //console.log('DEBUG culling ' + cull  + "  cull percent " + cull/carryCap);
+          if(carryCap - cull < 2){
+              result.push(2); //reseed
+              growthRate = growthRate * 0.95;
+          }else{
+              result.push(result[i - 1] - cull);
+          }
+          let origCarryCap = carryCap;
+          carryCap -= (carryCap * (cull/carryCap * 0.1)); //overshoot degrades carrying capacity
+          if(carryCap < origCarryCap / 2){
+              carryCap = origCarryCap/2;
+          }
+      }else if(result[i-1] < 2){
+          result.push(2)
+      }else{
+          result.push(result[i - 1] ** accGrowth);
+      }
+      //console.log('DEBUG ' + result[i] + " carryCap " + carryCap + " growthRate " + accGrowth);
+  }
+  return result;
+};
+
 
 const readFileToBuffer = async function(filepath) {
     return await fs.readFileSync(filepath, 'utf-8'); //, async (err) => {

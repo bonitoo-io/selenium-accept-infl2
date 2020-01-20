@@ -6,6 +6,7 @@ Feature: Settings - Variables
     Given I reset the environment
     Given run setup over REST "DEFAULT"
     When open the signin page
+    When clear browser storage
     When UI sign in user "DEFAULT"
     When hover over the "Settings" menu item
     When click nav sub menu "Variables"
@@ -149,6 +150,30 @@ Feature: Settings - Variables
     Then the success notification contains "Successfully created new variable: Obdobi"
     Then close all notifications
     Then there is a variable card for "Obdobi"
+
+  Scenario: Create CSV Variable
+    When click create variable dropdown in header
+    When click "new" variable dropdown item
+    When click the create variable popup type dropdown
+    When click the create variable popup type dropdown item "constant"
+    When clear the create variable popup name input
+    When enter the create variable popup name "Reals"
+    When enter the create variable popup values:
+    """
+    1.0,2.0,2.72,3.0,3.14
+    """
+    When click the create variable popup title
+    Then the create variable popup info line contains "5" items
+    Then the selected default variable dropdown item is "1.0"
+    When click the create variable popup default dropdown
+    When click the create variable popup default csv dropdown item "2.0"
+    Then the selected default variable dropdown item is "2.0"
+    When click the create variable popup create button
+    Then popup is not loaded
+    Then the success notification contains "Successfully created new variable: Reals"
+    Then close all notifications
+    Then there is a variable card for "Reals"
+
 
   Scenario: Create Query Variable
     When click create variable dropdown in header

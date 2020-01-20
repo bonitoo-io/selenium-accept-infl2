@@ -28,6 +28,10 @@ class baseSteps{
         await this.driver.sleep(timeout);
     }
 
+    async clearBrowserLocalStorage(){
+        await this.driver.executeScript('window.localStorage.clear()');
+    }
+
     /* async open(url){
         await this.driver.get(url);
     } */
