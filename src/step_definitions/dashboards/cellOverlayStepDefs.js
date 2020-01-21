@@ -126,3 +126,7 @@ Then(/^the time machine force refresh button is present$/, async () => {
 Then(/^the time machine Time Range dropdown list contains:$/, async itemList => {
    await celOvSteps.verifyTMTimeRangeDropdownList(itemList);
 });
+
+Then(/^the time machine Time Range dropdown list is not present$/, async () => {
+   await celOvSteps.verifyTMTimeRangeDropdownListNotPresent();
+});

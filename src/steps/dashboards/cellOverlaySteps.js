@@ -210,6 +210,10 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
+    async verifyTMTimeRangeDropdownListNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMTimeRangeDropdownContentsSelector());
+    }
+
 }
 
 module.exports = cellOverlaySteps;

@@ -90,6 +90,8 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   Custom Time Range,Past 5m,Past 15m,Past 1h,Past 6h,Past 12h,Past 24h,Past 2d,Past 7d,Past 30d
   """
+    When click the cell edit Time Range Dropdown
+    Then the time machine Time Range dropdown list is not present
     #When click dashboard cell save button
     #Then the dashboard contains a cell named "вре́менный"
     # ~~page-title -- name edit

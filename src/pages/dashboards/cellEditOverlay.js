@@ -18,6 +18,7 @@ const TMAutorefreshItem = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%ITE
 const TMAutorefreshForceButton = '[class=time-machine] [class^=autorefresh-dropdown] [data-testid=square-button]';
 const TMTimeRangeDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=timerange-dropdown]';
 const TMTimeRangeDropdownItem = '[data-testid=dropdown-item-%ITEM%]';
+const TMTimeRangeDropdownContents = '[data-testid=dropdown-menu--contents]';
 const switchToScriptEditor = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=switch-to-script-editor] ';
 const timemachineSubmit = '[data-testid=time-machine-submit-button] ';
 const queryBuilder = '[data-testid=query-builder]';
@@ -173,6 +174,14 @@ class cellEditOverlay extends influxPage {
 
     static getTMAutorefreshForceButtonSelector(){
         return { type: 'css', selector: TMAutorefreshForceButton };
+    }
+
+    async getTMTimeRangeDropdownContents(){
+        return await this.driver.findElement(By.css(TMTimeRangeDropdownContents));
+    }
+
+    static getTMTimeRangeDropdownContentsSelector(){
+        return { type: 'css', selector: TMTimeRangeDropdownContents };
     }
 
 }
