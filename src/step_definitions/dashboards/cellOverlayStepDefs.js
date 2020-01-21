@@ -102,3 +102,27 @@ Then(/^the cell view customize button is not highlighted$/, async () => {
 Then(/^the time machine view empty graph is visible$/, async () => {
    await celOvSteps.verifyTMViewEmptyGraphVisible();
 });
+
+When(/^click time machine autorefresh dropdown$/, async () => {
+   await celOvSteps.clickTMAutorefreshDropdown();
+});
+
+Then(/^the time machine autorefresh dropdown list contains:$/, async itemList => {
+   await celOvSteps.verifyAutorefreshListContents(itemList);
+});
+
+When(/^select the time machine autorefresh rate "(.*)"$/, async item => {
+   await celOvSteps.clickTMAutorefreshItem(item);
+});
+
+Then(/^the time machine force refresh button is not present$/, async () => {
+   await celOvSteps.verifyTMAutorefreshForceButtonNotPresent();
+});
+
+Then(/^the time machine force refresh button is present$/, async () => {
+   await celOvSteps.verifyTMAutorefreshForceButtonVisible();
+});
+
+Then(/^the time machine Time Range dropdown list contains:$/, async itemList => {
+   await celOvSteps.verifyTMTimeRangeDropdownList(itemList);
+});

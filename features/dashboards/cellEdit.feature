@@ -75,10 +75,23 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the view options container is not present
     Then the cell view customize button is not highlighted
     Then the time machine view empty graph is visible
-
+    When click time machine autorefresh dropdown
+    Then the time machine autorefresh dropdown list contains:
+  """
+  Paused,5s,10s,30s,60s
+  """
+    When select the time machine autorefresh rate "60s"
+    Then the time machine force refresh button is not present
+    When click time machine autorefresh dropdown
+    When select the time machine autorefresh rate "Paused"
+    Then the time machine force refresh button is present
+    When click the cell edit Time Range Dropdown
+    Then the time machine Time Range dropdown list contains:
+  """
+  Custom Time Range,Past 5m,Past 15m,Past 1h,Past 6h,Past 12h,Past 24h,Past 2d,Past 7d,Past 30d
+  """
     #When click dashboard cell save button
     #Then the dashboard contains a cell named "вре́менный"
-
     # ~~page-title -- name edit
     # ~~Graph drop down
     # ~~cog-cell--button
@@ -87,7 +100,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     # ~~time-machine--view
        # ~~empty-graph--no-queries
     # time-machine--bottom
-       # Refresh Rate
+       # ~~Refresh Rate -- N.B. pause has update button which disappears with other refresh rate values
        # Time Range
        # switch-to-script-editor
        # switch-to-query-builder

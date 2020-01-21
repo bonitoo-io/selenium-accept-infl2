@@ -38,13 +38,15 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async clickCellEditTimeRangeDropdown(){
-        await this.clickAndWait(await this.cellOverlay.getTimeRangeDropdown());
+        await this.clickAndWait(await this.cellOverlay.getTMTimeRangeDropdown());
     }
 
     async selectCellEditTimeRangeItem(item){
-        await this.cellOverlay.getTimeRangeDropdownItem(item).then(async elem => {
+        let itemToken = await item.replace(/\s/g,'').toLowerCase();
+        await this.cellOverlay.getTMTimeRangeDropdownItem(itemToken).then(async elem => {
             await this.scrollElementIntoView(elem).then(async () => {
-                await this.clickAndWait(await this.cellOverlay.getTimeRangeDropdownItem(item));
+                await this.clickAndWait(await this.cellOverlay
+                    .getTMTimeRangeDropdownItem(itemToken));
             })
         })
     }
@@ -172,6 +174,42 @@ class cellOverlaySteps extends influxSteps {
     async verifyTMViewEmptyGraphVisible(){
         await this.assertVisible(await this.cellOverlay.getTMViewEmptyGraph());
     }
+
+    async clickTMAutorefreshDropdown(){
+        await this.clickAndWait(await this.cellOverlay.getTMAutorefreshDropdown());
+    }
+
+    async verifyAutorefreshListContents(itemList){
+        let list = itemList.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await this.cellOverlay.getTMAutorefreshItem(list[i]));
+        }
+    }
+
+    async clickTMAutorefreshItem(item){
+        await this.clickAndWait(await this.cellOverlay.getTMAutorefreshItem(item));
+    }
+
+    async verifyTMAutorefreshForceButtonNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMAutorefreshForceButtonSelector());
+    }
+
+    async verifyTMAutorefreshForceButtonVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMAutorefreshForceButton());
+    }
+
+    async verifyTMTimeRangeDropdownList(itemList){
+        let list = itemList.split(',');
+        for(let i = 0; i < list.length; i++){
+            let elem = await this.cellOverlay
+                .getTMTimeRangeDropdownItem(list[i]
+                    .replace(/\s/g,'')
+                    .toLowerCase());
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
 }
 
 module.exports = cellOverlaySteps;

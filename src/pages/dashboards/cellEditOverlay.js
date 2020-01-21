@@ -13,9 +13,11 @@ const saveCell = '[data-testid=overlay] [data-testid=page-header--right] [data-t
 const TMViewEmptyGraph = '[data-testid=overlay] [data-testid=empty-graph--no-queries]';
 const resizerHandle = '[data-testid=overlay] [data-testid^=draggable-resizer--handle] ';
 const viewRawDataToggle = '[data-testid=overlay] .view-raw-data-toggle';
-const autorefreshDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button]';
-const timeRangeDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=timerange-dropdown]';
-const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
+const TMAutorefreshDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button]';
+const TMAutorefreshItem = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%ITEM%\']]';
+const TMAutorefreshForceButton = '[class=time-machine] [class^=autorefresh-dropdown] [data-testid=square-button]';
+const TMTimeRangeDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=timerange-dropdown]';
+const TMTimeRangeDropdownItem = '[data-testid=dropdown-item-%ITEM%]';
 const switchToScriptEditor = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=switch-to-script-editor] ';
 const timemachineSubmit = '[data-testid=time-machine-submit-button] ';
 const queryBuilder = '[data-testid=query-builder]';
@@ -46,8 +48,8 @@ class cellEditOverlay extends influxPage {
             {type: 'css', selector: saveCell},
             {type: 'css', selector: resizerHandle},
             {type: 'css', selector: viewRawDataToggle},
-            {type: 'css', selector: autorefreshDropdown},
-            {type: 'css', selector: timeRangeDropdown},
+            {type: 'css', selector: TMAutorefreshDropdown},
+            {type: 'css', selector: TMTimeRangeDropdown},
            // {type: 'css', selector: switchToScriptEditor},
             {type: 'css', selector: timemachineSubmit},
             //{type: 'css', selector: queryBuilder},
@@ -88,12 +90,13 @@ class cellEditOverlay extends influxPage {
         return await this.driver.findElement(By.css(saveCell));
     }
 
-    async getTimeRangeDropdown(){
-        return await this.driver.findElement(By.css(timeRangeDropdown));
+    async getTMTimeRangeDropdown(){
+        return await this.driver.findElement(By.css(TMTimeRangeDropdown));
     }
 
-    async getTimeRangeDropdownItem(item){
-        return await this.driver.findElement(By.css(timeRangeDropdownItem.replace('%ITEM%', item)));
+    async getTMTimeRangeDropdownItem(item){
+        //console.log("DEBUG selector " + TMTimeRangeDropdownItem.replace('%ITEM%', item));
+        return await this.driver.findElement(By.css(TMTimeRangeDropdownItem.replace('%ITEM%', item)));
     }
 
     async getTimemachineSubmit(){
@@ -154,6 +157,22 @@ class cellEditOverlay extends influxPage {
 
     async getTMViewEmptyGraph(){
         return await this.driver.findElement(By.css(TMViewEmptyGraph));
+    }
+
+    async getTMAutorefreshDropdown(){
+        return await this.driver.findElement(By.css(TMAutorefreshDropdown));
+    }
+
+    async getTMAutorefreshItem(item){
+        return await this.driver.findElement(By.xpath(TMAutorefreshItem.replace('%ITEM%', item)))
+    }
+
+    async getTMAutorefreshForceButton(){
+        return await this.driver.findElement(By.css(TMAutorefreshForceButton));
+    }
+
+    static getTMAutorefreshForceButtonSelector(){
+        return { type: 'css', selector: TMAutorefreshForceButton };
     }
 
 }

@@ -173,7 +173,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the cell edit overlay is loaded as "вре́менный"
     When get the current cell edit preview graph
     When click the cell edit Time Range Dropdown
-    When select the cell edit Time Range "30d"
+    When select the cell edit Time Range "Past 30d"
     When click the cell edit Script Editor button
     When paste into cell edit Script Editor
   """
