@@ -20,10 +20,11 @@ class dashboardSteps extends influxSteps {
         await this.dbdPage.getPageTitle().then(async elem => {
             await elem.click().then( async () => {
                 await this.dbdPage.getNameInput().then(async input => {
-                    await input.clear().then(async () => {
+                    await this.clearInputText(input);
+                    //await input.clear().then(async () => { // input.clear not working consistently here
                         await input.sendKeys(name + Key.ENTER).then(async () => {
                         });
-                    });
+                    //});
                 });
             });
         });

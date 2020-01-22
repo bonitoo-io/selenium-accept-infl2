@@ -20,8 +20,12 @@ const TMTimeRangeDropdown = '[data-testid=overlay] [data-testid=time-machine--bo
 const TMTimeRangeDropdownItem = '[data-testid=dropdown-item-%ITEM%]';
 const TMTimeRangeDropdownContents = '[data-testid=dropdown-menu--contents]';
 const switchToScriptEditor = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=switch-to-script-editor] ';
+const TMSwitchToQueryBuilder = '[data-testid=switch-query-builder-confirm--button]';
+const TMSwitchToQBuilderConfirm = '[data-testid=switch-query-builder-confirm--popover--contents] [data-testid=button]';
+const TMSwitchToQBuilderWarn = '[data-testid=switch-query-builder-confirm--popover--contents]';
 const timemachineSubmit = '[data-testid=time-machine-submit-button] ';
-const queryBuilder = '[data-testid=query-builder]';
+const TMQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[@title=\'%NAME%\']]';
+const TMQueryBuilder = '[data-testid=query-builder]';
 const functionSelect = '[data-testid=function-selector]';
 const bucketSelect = '[data-testid=bucket-selector]';
 const bucketSelectItem = '[data-testid=bucket-selector] [data-testid=\'selector-list %ITEM%\'] ';
@@ -29,6 +33,7 @@ const bucketSelectSearch = '[data-testid=bucket-selector] [data-testid=builder-c
 const scriptEditorCodeMirror = '.CodeMirror';
 //const scriptMonacoEditor = '.monaco-editor';
 const scriptMonacoEditor = '.inputarea';
+const TMFluxEditor = '[data-testid=flux-editor]';
 const graphCanvas = 'canvas[data-testid^=giraffe-layer]';
 const graphCanvasAxes = 'canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
@@ -182,6 +187,34 @@ class cellEditOverlay extends influxPage {
 
     static getTMTimeRangeDropdownContentsSelector(){
         return { type: 'css', selector: TMTimeRangeDropdownContents };
+    }
+
+    async getTMQueryTabByName(name){
+        return await this.driver.findElement(By.xpath(TMQueryTabByName.replace('%NAME%',name)))
+    }
+
+    async getTMQueryBuilder(){
+        return await this.driver.findElement(By.css(TMQueryBuilder));
+    }
+
+    async getTMFluxEditor(){
+        return await this.driver.findElement(By.css(TMFluxEditor));
+    }
+
+    static getTMFluxEditorSelector(){
+        return { type: 'css', selector: TMFluxEditor }
+    }
+
+    async getTMSwitchToQueryBuilder(){
+        return await this.driver.findElement(By.css(TMSwitchToQueryBuilder));
+    }
+
+    async getTMSwitchToQBuilderConfirm(){
+        return await this.driver.findElement(By.css(TMSwitchToQBuilderConfirm));
+    }
+
+    static getTMSwitchToQBuilderWarnSelector(){
+        return { type: 'css', selector: TMSwitchToQBuilderWarn }
     }
 
 }

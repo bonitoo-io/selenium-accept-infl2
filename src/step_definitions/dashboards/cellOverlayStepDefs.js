@@ -130,3 +130,31 @@ Then(/^the time machine Time Range dropdown list contains:$/, async itemList => 
 Then(/^the time machine Time Range dropdown list is not present$/, async () => {
    await celOvSteps.verifyTMTimeRangeDropdownListNotPresent();
 });
+
+Then(/^the time machine query builder is visible$/, async () => {
+   await celOvSteps.verifyTMQueryBuilderVisible();
+});
+
+Then(/^the time machine switch to Query Builder warning is not present$/, async () => {
+   await celOvSteps.verifyTMQueryBuilderSwitchWarnNotPresent();
+});
+
+Then(/^the time machine flux editor is visible$/, async () => {
+   await celOvSteps.verifyTMFluxEditorVisible();
+});
+
+When(/^click the cell edit Query Builder button$/, async () => {
+   await celOvSteps.clickTMSwitch2QBuilder();
+});
+
+When(/^click the cell edit Query Builder confirm button$/, async () => {
+   await celOvSteps.clickTMSwitch2QBuilderConfirm();
+});
+
+When(/^click the time machine flux editor$/, async () => {
+   await celOvSteps.clickTMFluxEditor();
+});
+
+Then(/^the time machine flux editor is not present$/, async () => {
+   await celOvSteps.verifyTMFluxEditorNotPresent();
+});

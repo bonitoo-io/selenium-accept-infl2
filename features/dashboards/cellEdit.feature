@@ -92,6 +92,20 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
     When click the cell edit Time Range Dropdown
     Then the time machine Time Range dropdown list is not present
+    Then the time machine query builder is visible
+    When click the cell edit Script Editor button
+    Then the time machine flux editor is visible
+    When click the cell edit Query Builder button
+    When click the time machine flux editor
+    Then the time machine flux editor is visible
+    Then the time machine switch to Query Builder warning is not present
+    When click the cell edit Query Builder button
+    When click the cell edit Query Builder confirm button
+    Then the time machine query builder is visible
+    Then the time machine switch to Query Builder warning is not present
+    Then the time machine flux editor is not present
+
+
     #When click dashboard cell save button
     #Then the dashboard contains a cell named "вре́менный"
     # ~~page-title -- name edit
@@ -103,9 +117,9 @@ Feature: Dashboards - Dashboard - Cell Edit
        # ~~empty-graph--no-queries
     # time-machine--bottom
        # ~~Refresh Rate -- N.B. pause has update button which disappears with other refresh rate values
-       # Time Range
-       # switch-to-script-editor
-       # switch-to-query-builder
+       # ~~Time Range
+       # ~~switch-to-script-editor
+       # ~~switch-to-query-builder
 
   #Scenario: Create basic query
     # time-machine--view

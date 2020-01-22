@@ -214,6 +214,34 @@ class cellOverlaySteps extends influxSteps {
         await this.assertNotPresent(cellEditOverlay.getTMTimeRangeDropdownContentsSelector());
     }
 
+    async verifyTMQueryBuilderVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMQueryBuilder());
+    }
+
+    async verifyTMQueryBuilderSwitchWarnNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMSwitchToQBuilderWarnSelector())
+    }
+
+    async verifyTMFluxEditorVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMFluxEditor());
+    }
+
+    async clickTMSwitch2QBuilder(){
+        await this.clickAndWait(await this.cellOverlay.getTMSwitchToQueryBuilder());
+    }
+
+    async clickTMSwitch2QBuilderConfirm(){
+        await this.clickAndWait(await this.cellOverlay.getTMSwitchToQBuilderConfirm());
+    }
+
+    async clickTMFluxEditor(){
+        await this.clickAndWait(await this.cellOverlay.getTMFluxEditor());
+    }
+
+    async verifyTMFluxEditorNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMFluxEditorSelector());
+    }
+
 }
 
 module.exports = cellOverlaySteps;
