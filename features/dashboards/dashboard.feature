@@ -65,6 +65,7 @@ Feature: Dashboards - Dashboard - Base
     When click dashboard cell save button
     Then the dashboard contains a cell named "вре́менный"
 
+    #Currently failing due to issue #16619
   Scenario: Add Note to Cell
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover add note
@@ -262,6 +263,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When change the cell edit name to "klouzavý průměr"
     When click the cell edit save button
     Then the graph of the cell "dočasný" differs from "klouzavý průměr"
+    # Following step fails due to issue #16619
     When click the note indicator of the "klouzavý průměr" cell
     Then the cell note popover contains:
   """
