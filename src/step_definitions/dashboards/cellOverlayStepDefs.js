@@ -66,3 +66,95 @@ When(/^click on the cell edit name$/, async () => {
 When(/^change the cell edit name to "(.*)"$/, async name => {
    await celOvSteps.updateCellName(name);
 });
+
+When(/^click the dashboard cell view type dropdown$/, async () => {
+   await celOvSteps.clickViewTypeDropdown();
+});
+
+Then(/^the dashboard cell view type dropdown list contains:$/, async itemList => {
+   await celOvSteps.verifyViewTypeListContents(itemList);
+});
+
+Then(/^the cell view type dropdown list is not present$/, async () => {
+   await celOvSteps.verifyViewTypeListNotPresent();
+});
+
+When(/^click cell view customize button$/, async () => {
+   await celOvSteps.clickCellViewCustomize();
+});
+
+Then(/^the view options container is present$/, async () => {
+   await celOvSteps.verifyViewOptionsContainerVisible();
+});
+
+Then(/^the view options container is not present$/, async () => {
+   await celOvSteps.verifyViewOptionsContainerNotPresent();
+});
+
+Then(/^the cell view customize button is highlighted$/, async () => {
+   await celOvSteps.verifyCellCustomizeButtonHighlight();
+});
+
+Then(/^the cell view customize button is not highlighted$/, async () => {
+   await celOvSteps.verifyCustomizeButtonNoHighlightd();
+});
+
+Then(/^the time machine view empty graph is visible$/, async () => {
+   await celOvSteps.verifyTMViewEmptyGraphVisible();
+});
+
+When(/^click time machine autorefresh dropdown$/, async () => {
+   await celOvSteps.clickTMAutorefreshDropdown();
+});
+
+Then(/^the time machine autorefresh dropdown list contains:$/, async itemList => {
+   await celOvSteps.verifyAutorefreshListContents(itemList);
+});
+
+When(/^select the time machine autorefresh rate "(.*)"$/, async item => {
+   await celOvSteps.clickTMAutorefreshItem(item);
+});
+
+Then(/^the time machine force refresh button is not present$/, async () => {
+   await celOvSteps.verifyTMAutorefreshForceButtonNotPresent();
+});
+
+Then(/^the time machine force refresh button is present$/, async () => {
+   await celOvSteps.verifyTMAutorefreshForceButtonVisible();
+});
+
+Then(/^the time machine Time Range dropdown list contains:$/, async itemList => {
+   await celOvSteps.verifyTMTimeRangeDropdownList(itemList);
+});
+
+Then(/^the time machine Time Range dropdown list is not present$/, async () => {
+   await celOvSteps.verifyTMTimeRangeDropdownListNotPresent();
+});
+
+Then(/^the time machine query builder is visible$/, async () => {
+   await celOvSteps.verifyTMQueryBuilderVisible();
+});
+
+Then(/^the time machine switch to Query Builder warning is not present$/, async () => {
+   await celOvSteps.verifyTMQueryBuilderSwitchWarnNotPresent();
+});
+
+Then(/^the time machine flux editor is visible$/, async () => {
+   await celOvSteps.verifyTMFluxEditorVisible();
+});
+
+When(/^click the cell edit Query Builder button$/, async () => {
+   await celOvSteps.clickTMSwitch2QBuilder();
+});
+
+When(/^click the cell edit Query Builder confirm button$/, async () => {
+   await celOvSteps.clickTMSwitch2QBuilderConfirm();
+});
+
+When(/^click the time machine flux editor$/, async () => {
+   await celOvSteps.clickTMFluxEditor();
+});
+
+Then(/^the time machine flux editor is not present$/, async () => {
+   await celOvSteps.verifyTMFluxEditorNotPresent();
+});

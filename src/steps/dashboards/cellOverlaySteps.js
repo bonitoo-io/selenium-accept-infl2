@@ -38,13 +38,15 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async clickCellEditTimeRangeDropdown(){
-        await this.clickAndWait(await this.cellOverlay.getTimeRangeDropdown());
+        await this.clickAndWait(await this.cellOverlay.getTMTimeRangeDropdown());
     }
 
     async selectCellEditTimeRangeItem(item){
-        await this.cellOverlay.getTimeRangeDropdownItem(item).then(async elem => {
+        let itemToken = await item.replace(/\s/g,'').toLowerCase();
+        await this.cellOverlay.getTMTimeRangeDropdownItem(itemToken).then(async elem => {
             await this.scrollElementIntoView(elem).then(async () => {
-                await this.clickAndWait(await this.cellOverlay.getTimeRangeDropdownItem(item));
+                await this.clickAndWait(await this.cellOverlay
+                    .getTMTimeRangeDropdownItem(itemToken));
             })
         })
     }
@@ -128,6 +130,116 @@ class cellOverlaySteps extends influxSteps {
     async updateCellName(name){
         await this.clearInputText(await this.cellOverlay.getCellNameInput());
         await this.typeTextAndWait(await this.cellOverlay.getCellNameInput(), name);
+    }
+
+    async clickViewTypeDropdown(){
+        await this.clickAndWait(await this.cellOverlay.getViewTypeDropdown());
+    }
+
+    async verifyViewTypeListContents(itemList){
+        let list = itemList.split(',');
+        for(let i = 0; i < list.length; i++){
+            let elem = await this.cellOverlay.getViewTypeItem(list[i]);
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async verifyViewTypeListNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getViewTypeListContentsSelector());
+    }
+
+    async clickCellViewCustomize(){
+        await this.clickAndWait(await this.cellOverlay.getCustomizeButton());
+    }
+
+    async verifyViewOptionsContainerVisible(){
+        await this.assertVisible(await this.cellOverlay.getViewOptionsContainer());
+    }
+
+    async verifyCellCustomizeButtonHighlight(){
+        await this.verifyElementContainsClass(await this.cellOverlay.getCustomizeButton()
+            , 'button-primary')
+    }
+
+    async verifyViewOptionsContainerNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getViewOptionsContainerSelector());
+    }
+
+    async verifyCustomizeButtonNoHighlightd(){
+        await this.verifyElementDoesNotContainClass(await this.cellOverlay.getCustomizeButton()
+            , 'button-primary');
+    }
+
+    async verifyTMViewEmptyGraphVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMViewEmptyGraph());
+    }
+
+    async clickTMAutorefreshDropdown(){
+        await this.clickAndWait(await this.cellOverlay.getTMAutorefreshDropdown());
+    }
+
+    async verifyAutorefreshListContents(itemList){
+        let list = itemList.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await this.cellOverlay.getTMAutorefreshItem(list[i]));
+        }
+    }
+
+    async clickTMAutorefreshItem(item){
+        await this.clickAndWait(await this.cellOverlay.getTMAutorefreshItem(item));
+    }
+
+    async verifyTMAutorefreshForceButtonNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMAutorefreshForceButtonSelector());
+    }
+
+    async verifyTMAutorefreshForceButtonVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMAutorefreshForceButton());
+    }
+
+    async verifyTMTimeRangeDropdownList(itemList){
+        let list = itemList.split(',');
+        for(let i = 0; i < list.length; i++){
+            let elem = await this.cellOverlay
+                .getTMTimeRangeDropdownItem(list[i]
+                    .replace(/\s/g,'')
+                    .toLowerCase());
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async verifyTMTimeRangeDropdownListNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMTimeRangeDropdownContentsSelector());
+    }
+
+    async verifyTMQueryBuilderVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMQueryBuilder());
+    }
+
+    async verifyTMQueryBuilderSwitchWarnNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMSwitchToQBuilderWarnSelector())
+    }
+
+    async verifyTMFluxEditorVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMFluxEditor());
+    }
+
+    async clickTMSwitch2QBuilder(){
+        await this.clickAndWait(await this.cellOverlay.getTMSwitchToQueryBuilder());
+    }
+
+    async clickTMSwitch2QBuilderConfirm(){
+        await this.clickAndWait(await this.cellOverlay.getTMSwitchToQBuilderConfirm());
+    }
+
+    async clickTMFluxEditor(){
+        await this.clickAndWait(await this.cellOverlay.getTMFluxEditor());
+    }
+
+    async verifyTMFluxEditorNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMFluxEditorSelector());
     }
 
 }

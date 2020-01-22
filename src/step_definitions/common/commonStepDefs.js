@@ -30,6 +30,9 @@ AfterAll(async() => {
     await bSteps.driver.close();
 });
 
+When(/^clear browser storage$/, async () => {
+   await bSteps.clearBrowserLocalStorage();
+});
 
 Then(/^the success notification says "(.*?)"$/, async message => {
     await bSteps.isNotificationMessage(message);

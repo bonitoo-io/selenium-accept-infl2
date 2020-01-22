@@ -67,7 +67,7 @@ class templatesSteps extends baseSteps{
     async clickImportTemplateHeaderButton(){
         await this.clickAndWait(await this.tmTab.getImportTemplateHeaderButton(),
             //seems to be overrunning ui response
-            async () => { this.driver.sleep(1000);}); //todo better wait
+            async () => { this.driver.sleep(1500);}); //todo better wait
     }
 
     async clickImportTemplatePasteButton(){

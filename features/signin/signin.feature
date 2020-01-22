@@ -5,6 +5,7 @@ Feature: Signin
     Given I reset the environment
     Given run setup over REST "DEFAULT"
     When open the signin page
+    When clear browser storage
     Then the heading contains "InfluxData"
     Then the version shown contains "DEFAULT"
     Then the credits are valid
