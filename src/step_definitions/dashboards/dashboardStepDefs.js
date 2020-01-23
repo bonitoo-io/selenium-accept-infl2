@@ -7,7 +7,7 @@ When(/^name dashboard "(.*)"$/, async name => {
     await dbdSteps.nameDashboard(name);
 });
 
-Then(/^the dashboard named "(.*)" is loaded$/, async name => {
+Then(/^the dashboard named "(.*)" is loaded$/, {timeout: 10000}, async name => {
     await dbdSteps.verifyDashboardLoaded(name);
 });
 

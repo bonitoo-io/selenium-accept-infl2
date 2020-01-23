@@ -158,3 +158,61 @@ When(/^click the time machine flux editor$/, async () => {
 Then(/^the time machine flux editor is not present$/, async () => {
    await celOvSteps.verifyTMFluxEditorNotPresent();
 });
+
+Then(/^the edit cell bucket selector contains buckets:$/, async bucketList => {
+   await celOvSteps.verifyTMBucketListContents(bucketList);
+});
+
+Then(/^the bucket '(.*)' is not present in the time machine bucket selector$/, async bucket => {
+   await celOvSteps.verifyBucketNotInTMBucketList(bucket);
+});
+
+When(/^filter the time machine bucket selector with "(.*)"$/, async value => {
+   await celOvSteps.filterBucketListContents(value);
+});
+
+When(/^clear the time machine bucket selector filter$/, async () => {
+   await celOvSteps.clearBucketSelectorFilter();
+});
+
+Then(/^there are '(.*)' time machine builder cards$/, async count => {
+   await celOvSteps.verifyTMBuilderCardsSize(count);
+});
+
+Then(/^time machine builder card '(.*)' contains:$/, async (index,items) => {
+   await celOvSteps.verifyItemsInBuilderCard(index,items);
+});
+
+Then(/^time machine builder card '(.*)' does not contain '(.*)'$/, async (index, item) => {
+   await celOvSteps.verifyItemNotInBuilderCard(index,item);
+});
+
+When(/^click the tag selector dropdown of builder card '(.*)'$/, async index => {
+   await celOvSteps.clickTagSelectorOfBuilderCard(index);
+});
+
+Then(/^the tag selector dropdown of builder card '(.*)' contains:$/, async (index,items) => {
+   await celOvSteps.verifyItemsInBuilderCardTagSelector(index,items);
+});
+
+When(/^click the tag selector dropdown item '(.*)' of builder card '(.*)'$/, async (item, index) => {
+  await celOvSteps.clickTagSelectorDropdownItemInBuilderCard(item,index);
+});
+
+When(/^click the tag '(.*)' in builder card '(.*)'$/, async (tag, cardIndex) => {
+  await celOvSteps.clickTagInBuilderCard(tag, cardIndex);
+});
+
+When(/^filter the tags in time machine builder card '(.*)' with '(.*)'$/, {timeout: 10000}, async (index,term) => {
+  await celOvSteps.filterBuilderCardListContents(index,term);
+});
+
+Then(/^time machine builder card '(.*)' is empty$/, async index => {
+   await celOvSteps.verifyBuilderCardEmpty(index);
+});
+
+When(/^clear the tags filter in time machine builder card '(.*)'$/, async index => {
+   await celOvSteps.clearTagsFilterInBuilderCard(index);
+});
+
+

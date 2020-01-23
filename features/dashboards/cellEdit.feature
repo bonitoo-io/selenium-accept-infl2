@@ -104,10 +104,9 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine query builder is visible
     Then the time machine switch to Query Builder warning is not present
     Then the time machine flux editor is not present
+    When click dashboard cell save button
+    Then the dashboard contains a cell named "Kliky"
 
-
-    #When click dashboard cell save button
-    #Then the dashboard contains a cell named "вре́менный"
     # ~~page-title -- name edit
     # ~~Graph drop down
     # ~~cog-cell--button
@@ -121,15 +120,74 @@ Feature: Dashboards - Dashboard - Cell Edit
        # ~~switch-to-script-editor
        # ~~switch-to-query-builder
 
-  #Scenario: Create basic query
-    # time-machine--view
-       # giraffe-autosizer
+  Scenario: Exercise Query Builder
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then the cell edit overlay is loaded as "Kliky"
+    Then the edit cell bucket selector contains buckets:
+  """
+  qa,_monitoring,_tasks
+  """
+    When filter the time machine bucket selector with "t"
+    Then the edit cell bucket selector contains buckets:
+  """
+  _monitoring,_tasks
+  """
+    Then the bucket 'qa' is not present in the time machine bucket selector
+    When clear the time machine bucket selector filter
+    Then the edit cell bucket selector contains buckets:
+  """
+  qa,_monitoring,_tasks
+  """
+    Then there are '1' time machine builder cards
+    Then time machine builder card '1' contains:
+  """
+  beat,foo
+  """
+    When click the tag selector dropdown of builder card '1'
+    Then the tag selector dropdown of builder card '1' contains:
+  """
+  _field,_measurement,test
+  """
+    When click the tag selector dropdown item '_field' of builder card '1'
+    Then time machine builder card '1' contains:
+  """
+  pulse,signal
+  """
+    When click the tag selector dropdown of builder card '1'
+    When click the tag selector dropdown item '_measurement' of builder card '1'
+    Then time machine builder card '1' contains:
+  """
+  beat,foo
+  """
+    When filter the tags in time machine builder card '1' with 'eat'
+    Then time machine builder card '1' does not contain 'foo'
+    When click the tag 'beat' in builder card '1'
+    Then there are '2' time machine builder cards
+    Then time machine builder card '2' contains:
+  """
+    pulse
+  """
+    When filter the tags in time machine builder card '2' with 'ratfink'
+    Then time machine builder card '2' is empty
+    When clear the tags filter in time machine builder card '2'
+    Then time machine builder card '2' contains:
+  """
+    pulse
+  """
+    When clear the tags filter in time machine builder card '2'
+
+
+  # Scenario: Create basic query
+
     # time-machine--bottom
           # Builder
              # Schema navigator
          # Submit#
 
   #Scenario: Resize Preview
+    # time-machine--view
+       # giraffe-autosizer
 
   #Scenario: Create Second Query
     # Add Query
