@@ -209,7 +209,7 @@ When(/^click the edit variable popup submit button$/, async ()=> {
     await vblSteps.clickEditVarPopupSubmitButton();
 });
 
-Then(/^the variable cards "(.*)" are not present$/, {timeout: 20000}, async cards => {
+Then(/^the variable cards "(.*)" are not present$/, {timeout: 30000}, async cards => {
     await vblSteps.verifyVariablsCardsNotPresent(cards);
 });
 
@@ -241,7 +241,7 @@ When(/^click the context menu of the variable "(.*)"$/, async name => {
     await vblSteps.clickVariableCardContextMenu(name);
 });
 
-When(/^click the context menu item "(.*)" of the variable "(.*)"$/, async (item, name) => {
+When(/^click the context menu item "(.*)" of the variable "(.*)"$/, {timeout: 10000}, async (item, name) => {
     await vblSteps.clickVariableCardContextMenuItem(name,item);
 });
 
@@ -266,11 +266,15 @@ Then(/^the rename variable from warning icon is visible$/, async () => {
 });
 
 Then(/^the rename variable submit button is disabled$/, async () => {
-    await vblSteps.verifySubmitDisabled();
+    await vblSteps.verifyChangeVariableNameSubmitDisabled();
 });
 
 When(/^enter the new variable name "(.*)"$/, async name => {
     await vblSteps.enterNewVariableName(name);
+});
+
+When(/^click rename variable popup submit button$/, async () => {
+   await vblSteps.clickSubmitRenameVariablePopup();
 });
 
 Then(/^the edit variable name input is disabled$/, async () => {
