@@ -58,9 +58,9 @@ class variablesSteps extends baseSteps{
 
     async verifyVariableNameChangeWarningPopupLoaded(){
         await this.assertVisible(await this.varTab.getPopupDismiss());
-        await this.assertVisible(await this.varTab.getPopupSubmit());
+        await this.assertVisible(await this.varTab.getEditVariablWarnSubmit());
         await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Are you sure?');
-        await this.varTab.getPopupSubmit().then(async elem => {
+        await this.varTab.getEditVariablWarnSubmit().then(async elem => {
             await this.verifyElementContainsText(await elem.findElement(By.xpath('./span')),
                 'I understand, let\'s rename my Variable');
         });
@@ -300,7 +300,7 @@ class variablesSteps extends baseSteps{
     }
 
     async clickVariableNameChangeWarningUnderstand(){
-        await this.clickAndWait(await this.varTab.getPopupSubmit(),
+        await this.clickAndWait(await this.varTab.getEditVariablWarnSubmit(),
             //occasional overrun at this point
             async () => { await this.driver.sleep(2000); }); //todo better wait
     }
@@ -311,6 +311,14 @@ class variablesSteps extends baseSteps{
 
     async enterNewVariableName(name){
         await this.typeTextAndWait(await this.varTab.getUpdateNameNameInput(), name);
+    }
+
+    async verifyChangeVariableNameSubmitDisabled(){
+        await this.verifyElementDisabled(await this.varTab.getEditVariableNameChangeSubmit());
+    }
+
+    async clickSubmitRenameVariablePopup(){
+        await this.clickAndWait(await this.varTab.getEditVariableNameChangeSubmit())
     }
 
     async verifyEditVariablePopupNameDisabled(){

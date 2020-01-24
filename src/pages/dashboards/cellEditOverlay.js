@@ -28,6 +28,9 @@ const TMQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[@title=\'%NAM
 const TMQueryBuilder = '[data-testid=query-builder]';
 const functionSelect = '[data-testid=function-selector]';
 const bucketSelect = '[data-testid=bucket-selector]';
+const TMBucketSelectorBucket = '[data-testid=bucket-selector] [data-testid=\'selector-list %NAME%\']';
+const TMBucketSelectorFilter = '[data-testid=bucket-selector] [data-testid=\'input-field\']';
+const TMBuilderCards = '[data-testid=builder-card]';
 const bucketSelectItem = '[data-testid=bucket-selector] [data-testid=\'selector-list %ITEM%\'] ';
 const bucketSelectSearch = '[data-testid=bucket-selector] [data-testid=builder-card--menu] [class *= search]';
 const scriptEditorCodeMirror = '.CodeMirror';
@@ -215,6 +218,26 @@ class cellEditOverlay extends influxPage {
 
     static getTMSwitchToQBuilderWarnSelector(){
         return { type: 'css', selector: TMSwitchToQBuilderWarn }
+    }
+
+    async getTMBucketSelectorBucket(name){
+        return await this.driver.findElement(By.css(TMBucketSelectorBucket.replace('%NAME%', name)));
+    }
+
+    static getTMBucketSelectorBucketSelector(name){
+        return { type: 'css', selector: TMBucketSelectorBucket.replace('%NAME%', name) }
+    }
+
+    async getTMBucketSelectorFilter(){
+        return await this.driver.findElement(By.css(TMBucketSelectorFilter));
+    }
+
+    async getTMBuilderCards(){
+        return await this.driver.findElements(By.css(TMBuilderCards));
+    }
+
+    async getTMBuilderCardByIndex(index){
+        return (await this.driver.findElements(By.css(TMBuilderCards)))[index];
     }
 
 }

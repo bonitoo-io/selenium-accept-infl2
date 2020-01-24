@@ -198,24 +198,24 @@ Feature: Settings - Variables
   Scenario: Filter Variables By Name
     When enter the value "yb" into the variables filter
     Then the variable cards "Kybl,Ryby" are visible
-    Then the variable cards "Arsenal,Bucket,Jehlicnany,Obdobi,Primaty,Slavia" are not present
+    Then the variable cards "Arsenal,Bucket,Jehlicnany,Obdobi,Primaty,Reals,Slavia" are not present
     Then the variable cards are sorted as "Kybl,Ryby"
     When click the variable sort by name button
     Then the variable cards are sorted as "Ryby,Kybl"
     When click the variable sort by name button
     When clear the variables filter
-    Then the variable cards "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia" are visible
+    Then the variable cards "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Reals,Ryby,Slavia" are visible
 
   # Sort by type not working - TODO fix after Issue 15379 fixed
 
   Scenario: Sort Variables by name
-    Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia"
+    Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Reals,Ryby,Slavia"
     When click the variable sort by name button
     # has third neutral state
     When click the variable sort by name button
-    Then the variable cards are sorted as "Slavia,Ryby,Primaty,Obdobi,Kybl,Jehlicnany,Bucket,Arsenal"
+    Then the variable cards are sorted as "Slavia,Ryby,Reals,Primaty,Obdobi,Kybl,Jehlicnany,Bucket,Arsenal"
     When click the variable sort by name button
-    Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Ryby,Slavia"
+    Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Reals,Ryby,Slavia"
 
   Scenario: Rename Variable
     When hover over variable card named "Ryby"
@@ -240,7 +240,7 @@ Feature: Settings - Variables
     Then the rename variable from warning icon is visible
     Then the rename variable submit button is disabled
     When enter the new variable name "Kocky"
-    When click popup submit button
+    When click rename variable popup submit button
     Then the success notification contains "Successfully updated variable: Kocky."
     Then close all notifications
     Then there is a variable card for "Kocky"

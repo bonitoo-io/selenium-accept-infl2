@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const assert = require('chai').assert;
 const Key = require('selenium-webdriver').Key;
+const { By } = require('selenium-webdriver');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
@@ -240,6 +241,96 @@ class cellOverlaySteps extends influxSteps {
 
     async verifyTMFluxEditorNotPresent(){
         await this.assertNotPresent(cellEditOverlay.getTMFluxEditorSelector());
+    }
+
+    async verifyTMBucketListContents(bucketList){
+        let list = bucketList.split(',')
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await this.cellOverlay.getTMBucketSelectorBucket(list[i].trim()));
+        }
+    }
+
+    async verifyBucketNotInTMBucketList(bucket){
+        await this.assertNotPresent(cellEditOverlay.getTMBucketSelectorBucketSelector(bucket));
+    }
+
+    async filterBucketListContents(value){
+        await this.clearInputText(await this.cellOverlay.getTMBucketSelectorFilter());
+        await this.typeTextAndWait(await this.cellOverlay.getTMBucketSelectorFilter(), value);
+    }
+
+    async clearBucketSelectorFilter(){
+        await this.clearInputText(await this.cellOverlay.getTMBucketSelectorFilter());
+    }
+
+    async verifyTMBuilderCardsSize(count){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await expect(cards.length).to.equal(parseInt(count));
+    }
+
+    async verifyItemsInBuilderCard(index,items){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        let list = items.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await cards[parseInt(index) - 1]
+                .findElement(By.css(`[data-testid='selector-list ${list[i].trim()}']`)))
+        }
+    }
+
+    async verifyItemNotInBuilderCard(index,item){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await cards[parseInt(index) - 1]
+            .findElements(By.css(`[data-testid='selector-list ${item.trim()}']`))
+            .then(async elems => {
+                expect(await elems.length).to.equal(0);
+            })
+    }
+
+    async clickTagSelectorOfBuilderCard(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.clickAndWait(await cards[parseInt(index) - 1]
+            .findElement(By.css('[data-testid=tag-selector--dropdown-button]')));
+    }
+
+    async verifyItemsInBuilderCardTagSelector(index,items){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        let list = items.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await cards[parseInt(index) - 1]
+                .findElement(By.css(`[data-testid='searchable-dropdown--item ${list[i].trim()}']`)))
+        }
+    }
+
+    async clickTagSelectorDropdownItemInBuilderCard(item,index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.clickAndWait(await cards[parseInt(index) - 1]
+            .findElement(By.css(`[data-testid='searchable-dropdown--item ${item.trim()}']`)));
+    }
+
+    async clickTagInBuilderCard(tag, cardIndex){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.clickAndWait(await cards[parseInt(cardIndex) - 1]
+            .findElement(By.css(`[data-testid='selector-list ${tag}']`)));
+    }
+
+    async filterBuilderCardListContents(index,term){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.typeTextAndWait(await cards[parseInt(index) - 1]
+            .findElement(By.css('[data-testid=\'input-field\']')), term,
+            async () => { await this.driver.sleep(2000) }); //can be slow to update
+        //this.driver.sleep(2000); //DEBUG
+    }
+
+    async clearTagsFilterInBuilderCard(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.clearInputText(await cards[parseInt(index) - 1]
+            .findElement(By.css('[data-testid=\'input-field\']')));
+    }
+
+    async verifyBuilderCardEmpty(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.assertVisible(await cards[parseInt(index) - 1]
+            .findElement(By.css('[data-testid=\'builder-card--empty\']')));
     }
 
 }

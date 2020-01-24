@@ -13,7 +13,7 @@ const variableCardName = '//*[@data-testid=\'resource-name\']//span[text()=\'%NA
 const variableCardContextMenu = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
 const variableCardContextMenuItem = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[button[@data-testid=\'context-menu\']]//button[text()=\'%ITEM%\']';
 const variableCardContextDelete = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
-const variableCardContextDeleteConfirm = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-task\']';
+const variableCardContextDeleteConfirm = '//*[@data-testid=\'resource-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-variable\']';
 
 const urlCtx = 'variables';
 
@@ -41,9 +41,11 @@ const createVariableDefaultValCSVDropdownItem = '//*[@data-testid=\'dropdown-ite
 const editVariableTypeDropdown = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Type\']]//*[@data-testid=\'dropdown--button\']';
 const editVariableTypeDropdownItem = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Type\']]//*[@data-testid=\'dropdown-item\'][@id=\'%ITEM%\']';
 const editVariableNameInput = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Name\']]//input';
+const editWarnVariablSubmit = '[data-testid=danger-confirmation-button]'
+const editVariableNameChangeSubmit = '[data-testid=rename-variable-submit]'
 
 //Warning popup
-const updateNameNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
+const updateNameNameInput = '[data-testid=overlay--body] [data-testid=rename-variable-input]';
 
 
 class variablesTab extends settingsPage{
@@ -226,6 +228,14 @@ class variablesTab extends settingsPage{
 
     async getVariableCardContextDeleteConfirm(name){
         return await this.driver.findElement(By.xpath(variableCardContextDeleteConfirm.replace('%NAME%', name)));
+    }
+
+    async getEditVariablWarnSubmit(){
+        return await this.driver.findElement(By.css(editWarnVariablSubmit));
+    }
+
+    async getEditVariableNameChangeSubmit(){
+        return await this.driver.findElement(By.css(editVariableNameChangeSubmit));
     }
 
 }
