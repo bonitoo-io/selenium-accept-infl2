@@ -261,11 +261,12 @@ class tokensSteps extends baseSteps{
         }
 
         //and finally the orgs-<bucket> read item
-        await this.tknTab.getTokenReviewPermissionItem(`orgs-${__defaultUser.bucket}`)
-            .then(async elem => {
-                await this.assertVisible(await elem
-                    .findElement(By.xpath('//*[@data-testid=\'permissions--item\']/label[text()=\'read\']')));
-            });
+        // 24.01.20 - this section no longer present
+        //await this.tknTab.getTokenReviewPermissionItem(`orgs-${__defaultUser.bucket}`)
+        //    .then(async elem => {
+        //        await this.assertVisible(await elem
+        //            .findElement(By.xpath('//*[@data-testid=\'permissions--item\']/label[text()=\'read\']')));
+        //   });
 
     }
 
