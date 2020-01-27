@@ -248,6 +248,7 @@ class telegrafsSteps extends loadDataSteps{
     async clickNGINXConfUrlsFirstDelete(){
         //Getting stale element exception here in Circle CI...
         // StaleElementReferenceError: stale element reference: element is not attached to the page document
+        await this.driver.sleep(1000);
         await this.clickAndWait(await this.teleTab.getPluginNGINXDeleteFirstURL());
     }
 
