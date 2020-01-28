@@ -124,6 +124,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
     Then the cell edit overlay is loaded as "Kliky"
+    Then the cell edit submit button is disabled
     Then the edit cell bucket selector contains buckets:
   """
   qa,_monitoring,_tasks
@@ -163,6 +164,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When filter the tags in time machine builder card '1' with 'eat'
     Then time machine builder card '1' does not contain 'foo'
     When click the tag 'beat' in builder card '1'
+    Then the cell edit submit button is enabled
     Then there are '2' time machine builder cards
     Then time machine builder card '2' contains:
   """
@@ -175,7 +177,32 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
     pulse
   """
-    When clear the tags filter in time machine builder card '2'
+    When clear the tags filter in time machine builder card '1'
+    Then time machine builder card '1' contains:
+  """
+  beat,foo
+  """
+    When click the tag 'foo' in builder card '1'
+    Then time machine builder card '2' contains:
+  """
+    pulse,signal
+  """
+    Then the selector count for builder card '1' contains the value '2'
+    When click the tag selector dropdown of builder card '2'
+    Then the tag selector dropdown of builder card '2' contains:
+  """
+  _field,test
+  """
+    When click the tag selector dropdown of builder card '2'
+    Then the contents of tag selector dropodwn of build card '2' are not present
+    When click the tag 'foo' in builder card '1'
+    Then the selector count for builder card '1' contains the value '1'
+    When click the tag 'beat' in builder card '1'
+    Then the selector counf for builder card '1' is not present
+    Then the delete button for builder card '1' is not present
+    When click delete for builder card '2'
+    Then there are '1' time machine builder cards
+  # Check coverage of issue 16682 once fixed
 
 
   # Scenario: Create basic query

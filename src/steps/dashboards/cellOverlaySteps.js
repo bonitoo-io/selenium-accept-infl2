@@ -76,6 +76,14 @@ class cellOverlaySteps extends influxSteps {
         });
     }
 
+    async verifyCellEditSubmitDisabled(){
+        await this.verifyElementDisabled(await this.cellOverlay.getTimemachineSubmit());
+    }
+
+    async verifyCellEditSubmitEnabled(){
+        await this.verifyElementEnabled(await this.cellOverlay.getTimemachineSubmit());
+    }
+
     async getCurrentCellEditPreviewGraph(){
 
         if(await this.isPresent(cellEditOverlay.getGraphCanvasSelector())) {
@@ -277,6 +285,15 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
+    async verifySelectorCountInBuilderCard(index,value){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await cards[parseInt(index) - 1]
+            .findElement(By.css('.tag-selector--count'))
+            .then(async elem => {
+                await this.verifyElementContainsText(elem, value);
+            })
+    }
+
     async verifyItemNotInBuilderCard(index,item){
         let cards = await this.cellOverlay.getTMBuilderCards();
         await cards[parseInt(index) - 1]
@@ -313,6 +330,12 @@ class cellOverlaySteps extends influxSteps {
             .findElement(By.css(`[data-testid='selector-list ${tag}']`)));
     }
 
+    async clickBuilderCardDelete(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await this.clickAndWait(await cards[parseInt(index) - 1]
+            .findElement(By.css('.builder-card--delete')));
+    }
+
     async filterBuilderCardListContents(index,term){
         let cards = await this.cellOverlay.getTMBuilderCards();
         await this.typeTextAndWait(await cards[parseInt(index) - 1]
@@ -331,6 +354,33 @@ class cellOverlaySteps extends influxSteps {
         let cards = await this.cellOverlay.getTMBuilderCards();
         await this.assertVisible(await cards[parseInt(index) - 1]
             .findElement(By.css('[data-testid=\'builder-card--empty\']')));
+    }
+
+    async verifyBuilderCardTagSelectNotPresent(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await cards[parseInt(index) - 1]
+            .findElements(By.css('[data-testid=tag-selector--dropdown-menu--contents]'))
+            .then(async elems => {
+                expect(await elems.length).to.equal(0);
+            })
+    }
+
+    async verifyBuilderCardSelectCountNotPresent(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await cards[parseInt(index) - 1]
+            .findElements(By.css('.tag-selector--count'))
+            .then(async elems => {
+                expect(await elems.length).to.equal(0);
+            })
+    }
+
+    async verifyBuilderCardDeleteNotPresent(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        await cards[parseInt(index) - 1]
+            .findElements(By.css('.builder-card--delete'))
+            .then(async elems => {
+                expect(await elems.length).to.equal(0);
+            })
     }
 
 }

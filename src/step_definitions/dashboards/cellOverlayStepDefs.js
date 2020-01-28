@@ -43,6 +43,14 @@ When(/^clear the cell edit Script Editor$/, { timeout: 20000 }, async () => {
    await celOvSteps.clearCellEditScriptEditor();
 });
 
+Then(/^the cell edit submit button is disabled$/, async () => {
+   await celOvSteps.verifyCellEditSubmitDisabled();
+});
+
+Then(/^the cell edit submit button is enabled$/, async () => {
+   await celOvSteps.verifyCellEditSubmitEnabled()
+});
+
 When(/^click the cell edit submit button$/, async () => {
    await celOvSteps.clickCellEditSubmitButton();
 });
@@ -183,6 +191,10 @@ Then(/^time machine builder card '(.*)' contains:$/, async (index,items) => {
    await celOvSteps.verifyItemsInBuilderCard(index,items);
 });
 
+Then(/^the selector count for builder card '(.*)' contains the value '(.*)'$/, async (index,value) =>{
+   await celOvSteps.verifySelectorCountInBuilderCard(index,value);
+});
+
 Then(/^time machine builder card '(.*)' does not contain '(.*)'$/, async (index, item) => {
    await celOvSteps.verifyItemNotInBuilderCard(index,item);
 });
@@ -213,6 +225,22 @@ Then(/^time machine builder card '(.*)' is empty$/, async index => {
 
 When(/^clear the tags filter in time machine builder card '(.*)'$/, async index => {
    await celOvSteps.clearTagsFilterInBuilderCard(index);
+});
+
+Then(/^the contents of tag selector dropodwn of build card '(.*)' are not present$/, async index => {
+   await celOvSteps.verifyBuilderCardTagSelectNotPresent(index);
+});
+
+Then(/^the selector counf for builder card '(.*)' is not present$/, async index => {
+   await celOvSteps.verifyBuilderCardSelectCountNotPresent(index);
+});
+
+Then(/^the delete button for builder card '(.*)' is not present$/, async index => {
+   await celOvSteps.verifyBuilderCardDeleteNotPresent(index);
+});
+
+When(/^click delete for builder card '(.*)'$/, async index => {
+   await celOvSteps.clickBuilderCardDelete(index);
 });
 
 
