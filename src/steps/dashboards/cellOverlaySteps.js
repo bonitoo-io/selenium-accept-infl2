@@ -383,6 +383,30 @@ class cellOverlaySteps extends influxSteps {
             })
     }
 
+    async verifyTMQueryBuilderFunctionDuration(duration){
+        await this.verifyInputEqualsValue(await this.cellOverlay.getTMBuilderCardMenuDurationInput(), duration);
+    }
+
+    async verifyTMQueryBuilderFunctionListItems(items){
+        let list = items.split(',');
+        for(let i = 0; i < list.length; i++){
+            let elem = await this.cellOverlay.getTMBuilderCardMenuFunctionListItem(list[i].trim())
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+
+    }
+
+    async filterQueryBuilderFunctionList(term){
+        await this.typeTextAndWait(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter(), term)
+    }
+
+    async verifyQuerBuilderFunctionListItemCount(count){
+        await this.cellOverlay.getTMBuilderCardMenuFunctionListItems().then(async elems => {
+           await expect(await elems.length).to.equal(parseInt(count));
+        });
+    }
+
 }
 
 module.exports = cellOverlaySteps;

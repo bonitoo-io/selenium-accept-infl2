@@ -243,4 +243,19 @@ When(/^click delete for builder card '(.*)'$/, async index => {
    await celOvSteps.clickBuilderCardDelete(index);
 });
 
+Then(/^the time machine query builder function duration period is '(.*)'$/, async duration => {
+   await celOvSteps.verifyTMQueryBuilderFunctionDuration(duration);
+});
+
+Then(/^the query builder function list contains$/, async items => {
+   await celOvSteps.verifyTMQueryBuilderFunctionListItems(items);
+});
+
+Then(/^the query build function list has '(.*)' items$/, async count => {
+   await celOvSteps.verifyQuerBuilderFunctionListItemCount(count);
+});
+
+When(/^filter the query builder function list with '(.*)'$/, async term => {
+  await celOvSteps.filterQueryBuilderFunctionList(term);
+});
 

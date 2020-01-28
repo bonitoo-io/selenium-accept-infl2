@@ -204,6 +204,18 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then there are '1' time machine builder cards
   # Check coverage of issue 16682 once fixed
 
+  Scenario: Exercise Query Builder Functions
+    # 16682 - following will not have been reset
+    # Then the time machine query builder function duration period is 'auto'
+    When click the tag 'beat' in builder card '1'
+    Then the time machine query builder function duration period is 'auto (10s)'
+    Then the query builder function list contains
+  """
+  mean, median, max, min, sum, derivative, nonnegative derivative, distinct, count, increase,
+  skew, spread, stddev, first, last, unique, sort
+  """
+    When filter the query builder function list with 'rx'
+    Then the query build function list has '0' items
 
   # Scenario: Create basic query
 

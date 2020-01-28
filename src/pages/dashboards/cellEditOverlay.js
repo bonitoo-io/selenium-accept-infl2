@@ -41,6 +41,11 @@ const graphCanvas = 'canvas[data-testid^=giraffe-layer]';
 const graphCanvasAxes = 'canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
 
+const TMBuilderCardMenuDurationInput = '[data-testid=\'builder-card--menu\'] [data-testid=\'duration-input\']';
+const TMBuilderCardMenuFunctionListItem = '[data-testid=\'function-selector\'] [data-testid=\'selector-list %ITEM%\']'
+const TMBuilderCardMenuFunctionFilter = '[data-testid=\'input-field\'][placeholder*=\'functions\']';
+const TMBuilderCardMenuFunctionListItems = '[data-testid=function-selector] [data-testid^=\'selector-list\']'
+
 const urlCtx = 'cells';
 
 class cellEditOverlay extends influxPage {
@@ -238,6 +243,26 @@ class cellEditOverlay extends influxPage {
 
     async getTMBuilderCardByIndex(index){
         return (await this.driver.findElements(By.css(TMBuilderCards)))[index];
+    }
+
+    async getTMBuilderCardMenuDurationInput(){
+        return await this.driver.findElement(By.css(TMBuilderCardMenuDurationInput));
+    }
+
+    async getTMBuilderCardMenuFunctionListItem(item){
+        return await this.driver.findElement(By.css(TMBuilderCardMenuFunctionListItem.replace('%ITEM%', item)));
+    }
+
+    static getTMBuilderCardMenuFunctionListItemSelector(item){
+        return { type: 'css', selector: TMBuilderCardMenuFunctionListItem.replace('%ITEM%', item) }
+    }
+
+    async getTMBuilderCardMenuFunctionFilter(){
+        return await this.driver.findElement(By.css(TMBuilderCardMenuFunctionFilter));
+    }
+
+    async getTMBuilderCardMenuFunctionListItems(){
+        return await this.driver.findElements(By.css(TMBuilderCardMenuFunctionListItems));
     }
 
 }
