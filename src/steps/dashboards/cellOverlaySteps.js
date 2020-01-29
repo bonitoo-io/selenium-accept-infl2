@@ -387,6 +387,31 @@ class cellOverlaySteps extends influxSteps {
         await this.verifyInputEqualsValue(await this.cellOverlay.getTMBuilderCardMenuDurationInput(), duration);
     }
 
+    async clickTMQueryBuilderFunctionDuration(){
+        await this.clickAndWait(await this.cellOverlay.getTMBuilderCardMenuDurationInput())
+    }
+
+    async verifyTMQBFunctionDurationSuggestionCount(count){
+        await this.cellOverlay.getTMQBDurationSuggestions().then(async elems => {
+           expect(await elems.length).to.equal(parseInt(count));
+        });
+    }
+
+    async verifyTMQBFunctionDurationSuggestionItems(items){
+        let list = items.split(',');
+        for (let i = 0; i < list.length; i++){
+            let elem = await this.cellOverlay.getTMQBDurationSuggestionByName(list[i].trim());
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async clickTMQBFunctionDurationSuggestionItem(item){
+        let elem = await this.cellOverlay.getTMQBDurationSuggestionByName(item.trim());
+        await this.scrollElementIntoView(elem);
+        await this.clickAndWait(elem);
+    }
+
     async verifyTMQueryBuilderFunctionListItems(items){
         let list = items.split(',');
         for(let i = 0; i < list.length; i++){
@@ -399,6 +424,10 @@ class cellOverlaySteps extends influxSteps {
 
     async filterQueryBuilderFunctionList(term){
         await this.typeTextAndWait(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter(), term)
+    }
+
+    async clearQueryBuilderFunctionListFilter(){
+        await this.clearInputText(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter())
     }
 
     async verifyQuerBuilderFunctionListItemCount(count){

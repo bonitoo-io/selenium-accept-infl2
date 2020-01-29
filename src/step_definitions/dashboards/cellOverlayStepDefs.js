@@ -247,15 +247,35 @@ Then(/^the time machine query builder function duration period is '(.*)'$/, asyn
    await celOvSteps.verifyTMQueryBuilderFunctionDuration(duration);
 });
 
+When(/^click the time machine query builder function duration input$/, async () => {
+   await celOvSteps.clickTMQueryBuilderFunctionDuration();
+});
+
+Then(/^the query builder function duration suggestion drop down contains '(.*)' suggestions$/, async count => {
+   await celOvSteps.verifyTMQBFunctionDurationSuggestionCount(count);
+});
+
+Then(/^the query builder function duration suggestion drop down includes$/, async items => {
+   await celOvSteps.verifyTMQBFunctionDurationSuggestionItems(items);
+});
+
+When(/^click the query builder function duration suggestion '(.*)'$/, async item => {
+   await celOvSteps.clickTMQBFunctionDurationSuggestionItem(item);
+})
+
 Then(/^the query builder function list contains$/, async items => {
    await celOvSteps.verifyTMQueryBuilderFunctionListItems(items);
 });
 
-Then(/^the query build function list has '(.*)' items$/, async count => {
+Then(/^the query builder function list has '(.*)' items$/, async count => {
    await celOvSteps.verifyQuerBuilderFunctionListItemCount(count);
 });
 
 When(/^filter the query builder function list with '(.*)'$/, async term => {
   await celOvSteps.filterQueryBuilderFunctionList(term);
+});
+
+When(/^clear the query builder function lis filter$/, async () => {
+   await celOvSteps.clearQueryBuilderFunctionListFilter();
 });
 

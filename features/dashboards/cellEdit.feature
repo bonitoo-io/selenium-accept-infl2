@@ -215,7 +215,33 @@ Feature: Dashboards - Dashboard - Cell Edit
   skew, spread, stddev, first, last, unique, sort
   """
     When filter the query builder function list with 'rx'
-    Then the query build function list has '0' items
+    Then the query builder function list has '0' items
+    When clear the query builder function lis filter
+    Then the query builder function list contains
+  """
+  mean, median, max, min, sum, derivative, nonnegative derivative, distinct, count, increase,
+  skew, spread, stddev, first, last, unique, sort
+  """
+    When filter the query builder function list with 'in'
+    Then the query builder function list contains
+  """
+  min,distinct,increase
+  """
+    Then the query builder function list has '3' items
+    When click the time machine query builder function duration input
+    Then the query builder function duration suggestion drop down contains '14' suggestions
+    Then the query builder function duration suggestion drop down includes
+  """
+    auto (10s),none,5s,15s,1m,5m,15m,1h,6h,12h,24h,2d,7d,30d
+  """
+    When click the query builder function duration suggestion '7d'
+    Then the time machine query builder function duration period is '7d'
+    When click the time machine query builder function duration input
+    When click the query builder function duration suggestion 'auto (10s)'
+    Then the time machine query builder function duration period is 'auto (10s)'
+    When click dashboard cell edit cancel button
+    
+
 
   # Scenario: Create basic query
 

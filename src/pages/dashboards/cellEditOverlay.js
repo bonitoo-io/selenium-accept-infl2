@@ -44,7 +44,9 @@ const viewOptionsContainer = '.view-options';
 const TMBuilderCardMenuDurationInput = '[data-testid=\'builder-card--menu\'] [data-testid=\'duration-input\']';
 const TMBuilderCardMenuFunctionListItem = '[data-testid=\'function-selector\'] [data-testid=\'selector-list %ITEM%\']'
 const TMBuilderCardMenuFunctionFilter = '[data-testid=\'input-field\'][placeholder*=\'functions\']';
-const TMBuilderCardMenuFunctionListItems = '[data-testid=function-selector] [data-testid^=\'selector-list\']'
+const TMBuilderCardMenuFunctionListItems = '[data-testid=function-selector] [data-testid^=\'selector-list\']';
+const TMQBDurationSuggestions = '[data-testid=\'builder-card--menu\'] [data-testid=\'dropdown-menu--contents\'] [data-testid=\'dropdown-item\']';
+const TMQBDurationSuggestionByName = '//*[@data-testid=\'builder-card--menu\']//*[@data-testid=\'dropdown-menu--contents\']//*[@data-testid=\'dropdown-item\'][./*[text()=\'%NAME%\']]'
 
 const urlCtx = 'cells';
 
@@ -263,6 +265,14 @@ class cellEditOverlay extends influxPage {
 
     async getTMBuilderCardMenuFunctionListItems(){
         return await this.driver.findElements(By.css(TMBuilderCardMenuFunctionListItems));
+    }
+
+    async getTMQBDurationSuggestions(){
+        return await this.driver.findElements(By.css(TMQBDurationSuggestions));
+    }
+
+    async getTMQBDurationSuggestionByName(name){
+        return await this.driver.findElement(By.xpath(TMQBDurationSuggestionByName.replace('%NAME%', name)));
     }
 
 }
