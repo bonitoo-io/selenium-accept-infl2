@@ -171,6 +171,10 @@ Then(/^the edit cell bucket selector contains buckets:$/, async bucketList => {
    await celOvSteps.verifyTMBucketListContents(bucketList);
 });
 
+When(/^click the time machine bucket selector item '(.*)'$/, async item => {
+   await celOvSteps.clickTMBucketSelectorItem(item);
+});
+
 Then(/^the bucket '(.*)' is not present in the time machine bucket selector$/, async bucket => {
    await celOvSteps.verifyBucketNotInTMBucketList(bucket);
 });
@@ -189,6 +193,10 @@ Then(/^there are '(.*)' time machine builder cards$/, async count => {
 
 Then(/^time machine builder card '(.*)' contains:$/, async (index,items) => {
    await celOvSteps.verifyItemsInBuilderCard(index,items);
+});
+
+Then(/^time machine bulider card '(.*)' contains the empty tag message$/, async index => {
+   await celOvSteps.verifyEmptyTagsInBuilderCard(index);
 });
 
 Then(/^the selector count for builder card '(.*)' contains the value '(.*)'$/, async (index,value) =>{

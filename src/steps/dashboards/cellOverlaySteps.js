@@ -258,6 +258,10 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
+    async clickTMBucketSelectorItem(item){
+        await this.clickAndWait(await this.cellOverlay.getTMBucketSelectorBucket(item.trim()))
+    }
+
     async verifyBucketNotInTMBucketList(bucket){
         await this.assertNotPresent(cellEditOverlay.getTMBucketSelectorBucketSelector(bucket));
     }
@@ -283,6 +287,12 @@ class cellOverlaySteps extends influxSteps {
             await this.assertVisible(await cards[parseInt(index) - 1]
                 .findElement(By.css(`[data-testid='selector-list ${list[i].trim()}']`)))
         }
+    }
+
+    async verifyEmptyTagsInBuilderCard(index){
+        await this.cellOverlay.getTMBuilderCardByIndex(index).then(async elem => {
+            await this.assertVisible(await elem.findElement(By.css('[data-testid=\'empty-tag-keys\']')));
+        });
     }
 
     async verifySelectorCountInBuilderCard(index,value){

@@ -244,7 +244,7 @@ class cellEditOverlay extends influxPage {
     }
 
     async getTMBuilderCardByIndex(index){
-        return (await this.driver.findElements(By.css(TMBuilderCards)))[index];
+        return (await this.driver.findElements(By.css(TMBuilderCards)))[index - 1];
     }
 
     async getTMBuilderCardMenuDurationInput(){

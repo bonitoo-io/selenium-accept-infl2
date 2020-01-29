@@ -140,6 +140,9 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   qa,_monitoring,_tasks
   """
+    When click the time machine bucket selector item '_monitoring'
+    Then time machine bulider card '1' contains the empty tag message
+    When click the time machine bucket selector item 'qa'
     Then there are '1' time machine builder cards
     Then time machine builder card '1' contains:
   """
@@ -240,10 +243,10 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the query builder function duration suggestion 'auto (10s)'
     Then the time machine query builder function duration period is 'auto (10s)'
     When click dashboard cell edit cancel button
-    
 
-
-  # Scenario: Create basic query
+  Scenario: Create basic query
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
 
     # time-machine--bottom
           # Builder
