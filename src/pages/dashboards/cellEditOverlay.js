@@ -10,7 +10,8 @@ const viewTypeItem = '[data-testid=\'view-type--%ITEM%\']';
 const customizeButton = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cog-cell--button\']';
 const editCancel = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cancel-cell-edit--button\']';
 const saveCell = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'save-cell--button\']';
-const TMViewEmptyGraph = '[data-testid=overlay] [data-testid=empty-graph--no-queries]';
+const TMViewEmptyGraphQueries = '[data-testid=overlay] [data-testid=empty-graph--no-queries]';
+const TMViewNoResults = '[data-testid=overlay] [data-testid=empty-graph--no-results]';
 const resizerHandle = '[data-testid=overlay] [data-testid^=draggable-resizer--handle] ';
 const viewRawDataToggle = '[data-testid=overlay] .view-raw-data-toggle';
 const TMAutorefreshDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button]';
@@ -171,8 +172,12 @@ class cellEditOverlay extends influxPage {
         return { type: 'css', selector: viewOptionsContainer };
     }
 
-    async getTMViewEmptyGraph(){
-        return await this.driver.findElement(By.css(TMViewEmptyGraph));
+    async getTMViewEmptyGraphQueries(){
+        return await this.driver.findElement(By.css(TMViewEmptyGraphQueries));
+    }
+
+    async getTMViewNoResults(){
+        return await this.driver.findElement(By.css(TMViewNoResults));
     }
 
     async getTMAutorefreshDropdown(){

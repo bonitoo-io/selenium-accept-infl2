@@ -74,7 +74,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click cell view customize button
     Then the view options container is not present
     Then the cell view customize button is not highlighted
-    Then the time machine view empty graph is visible
+    Then the time machine view empty queries graph is visible
     When click time machine autorefresh dropdown
     Then the time machine autorefresh dropdown list contains:
   """
@@ -134,114 +134,114 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   _monitoring,_tasks
   """
-    Then the bucket 'qa' is not present in the time machine bucket selector
+    Then the bucket "qa" is not present in the time machine bucket selector
     When clear the time machine bucket selector filter
     Then the edit cell bucket selector contains buckets:
   """
   qa,_monitoring,_tasks
   """
-    When click the time machine bucket selector item '_monitoring'
-    Then time machine bulider card '1' contains the empty tag message
-    When click the time machine bucket selector item 'qa'
-    Then there are '1' time machine builder cards
-    Then time machine builder card '1' contains:
+    When click the time machine bucket selector item "_monitoring"
+    Then time machine bulider card "1" contains the empty tag message
+    When click the time machine bucket selector item "qa"
+    Then there are "1" time machine builder cards
+    Then time machine builder card "1" contains:
   """
   beat,foo
   """
-    When click the tag selector dropdown of builder card '1'
-    Then the tag selector dropdown of builder card '1' contains:
+    When click the tag selector dropdown of builder card "1"
+    Then the tag selector dropdown of builder card "1" contains:
   """
   _field,_measurement,test
   """
-    When click the tag selector dropdown item '_field' of builder card '1'
-    Then time machine builder card '1' contains:
+    When click the tag selector dropdown item "_field" of builder card "1"
+    Then time machine builder card "1" contains:
   """
   pulse,signal
   """
-    When click the tag selector dropdown of builder card '1'
-    When click the tag selector dropdown item '_measurement' of builder card '1'
-    Then time machine builder card '1' contains:
+    When click the tag selector dropdown of builder card "1"
+    When click the tag selector dropdown item "_measurement" of builder card "1"
+    Then time machine builder card "1" contains:
   """
   beat,foo
   """
-    When filter the tags in time machine builder card '1' with 'eat'
-    Then time machine builder card '1' does not contain 'foo'
-    When click the tag 'beat' in builder card '1'
+    When filter the tags in time machine builder card "1" with "eat"
+    Then time machine builder card "1" does not contain "foo"
+    When click the tag "beat" in builder card "1"
     Then the cell edit submit button is enabled
-    Then there are '2' time machine builder cards
-    Then time machine builder card '2' contains:
+    Then there are "2" time machine builder cards
+    Then time machine builder card "2" contains:
   """
     pulse
   """
-    When filter the tags in time machine builder card '2' with 'ratfink'
-    Then time machine builder card '2' is empty
-    When clear the tags filter in time machine builder card '2'
-    Then time machine builder card '2' contains:
+    When filter the tags in time machine builder card "2" with "ratfink"
+    Then time machine builder card "2" is empty
+    When clear the tags filter in time machine builder card "2"
+    Then time machine builder card "2" contains:
   """
     pulse
   """
-    When clear the tags filter in time machine builder card '1'
-    Then time machine builder card '1' contains:
+    When clear the tags filter in time machine builder card "1"
+    Then time machine builder card "1" contains:
   """
   beat,foo
   """
-    When click the tag 'foo' in builder card '1'
-    Then time machine builder card '2' contains:
+    When click the tag "foo" in builder card "1"
+    Then time machine builder card "2" contains:
   """
     pulse,signal
   """
-    Then the selector count for builder card '1' contains the value '2'
-    When click the tag selector dropdown of builder card '2'
-    Then the tag selector dropdown of builder card '2' contains:
+    Then the selector count for builder card "1" contains the value "2"
+    When click the tag selector dropdown of builder card "2"
+    Then the tag selector dropdown of builder card "2" contains:
   """
   _field,test
   """
-    When click the tag selector dropdown of builder card '2'
-    Then the contents of tag selector dropodwn of build card '2' are not present
-    When click the tag 'foo' in builder card '1'
-    Then the selector count for builder card '1' contains the value '1'
-    When click the tag 'beat' in builder card '1'
-    Then the selector counf for builder card '1' is not present
-    Then the delete button for builder card '1' is not present
-    When click delete for builder card '2'
-    Then there are '1' time machine builder cards
+    When click the tag selector dropdown of builder card "2"
+    Then the contents of tag selector dropodwn of build card "2" are not present
+    When click the tag "foo" in builder card "1"
+    Then the selector count for builder card "1" contains the value "1"
+    When click the tag "beat" in builder card "1"
+    Then the selector counf for builder card "1" is not present
+    Then the delete button for builder card "1" is not present
+    When click delete for builder card "2"
+    Then there are "1" time machine builder cards
   # Check coverage of issue 16682 once fixed
 
   Scenario: Exercise Query Builder Functions
     # 16682 - following will not have been reset
-    # Then the time machine query builder function duration period is 'auto'
-    When click the tag 'beat' in builder card '1'
-    Then the time machine query builder function duration period is 'auto (10s)'
+    # Then the time machine query builder function duration period is "auto"
+    When click the tag "beat" in builder card "1"
+    Then the time machine query builder function duration period is "auto (10s)"
     Then the query builder function list contains
   """
   mean, median, max, min, sum, derivative, nonnegative derivative, distinct, count, increase,
   skew, spread, stddev, first, last, unique, sort
   """
-    When filter the query builder function list with 'rx'
-    Then the query builder function list has '0' items
+    When filter the query builder function list with "rx"
+    Then the query builder function list has "0" items
     When clear the query builder function lis filter
     Then the query builder function list contains
   """
   mean, median, max, min, sum, derivative, nonnegative derivative, distinct, count, increase,
   skew, spread, stddev, first, last, unique, sort
   """
-    When filter the query builder function list with 'in'
+    When filter the query builder function list with "in"
     Then the query builder function list contains
   """
   min,distinct,increase
   """
-    Then the query builder function list has '3' items
+    Then the query builder function list has "3" items
     When click the time machine query builder function duration input
-    Then the query builder function duration suggestion drop down contains '14' suggestions
+    Then the query builder function duration suggestion drop down contains "14" suggestions
     Then the query builder function duration suggestion drop down includes
   """
     auto (10s),none,5s,15s,1m,5m,15m,1h,6h,12h,24h,2d,7d,30d
   """
-    When click the query builder function duration suggestion '7d'
-    Then the time machine query builder function duration period is '7d'
+    When click the query builder function duration suggestion "7d"
+    Then the time machine query builder function duration period is "7d"
     When click the time machine query builder function duration input
-    When click the query builder function duration suggestion 'auto (10s)'
-    Then the time machine query builder function duration period is 'auto (10s)'
+    When click the query builder function duration suggestion "auto (10s)"
+    Then the time machine query builder function duration period is "auto (10s)"
     When click dashboard cell edit cancel button
 
   Scenario: Create basic query

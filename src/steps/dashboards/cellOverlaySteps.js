@@ -180,8 +180,12 @@ class cellOverlaySteps extends influxSteps {
             , 'button-primary');
     }
 
-    async verifyTMViewEmptyGraphVisible(){
-        await this.assertVisible(await this.cellOverlay.getTMViewEmptyGraph());
+    async verifyTMViewEmptyQueriesGraphVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMViewEmptyGraphQueries());
+    }
+
+    async verifyTMViewNoResultsVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMViewNoResults());
     }
 
     async clickTMAutorefreshDropdown(){
