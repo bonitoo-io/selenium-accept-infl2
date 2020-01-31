@@ -10,9 +10,11 @@ const viewTypeItem = '[data-testid=\'view-type--%ITEM%\']';
 const customizeButton = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cog-cell--button\']';
 const editCancel = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cancel-cell-edit--button\']';
 const saveCell = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'save-cell--button\']';
+const TMTop = '.time-machine--top';
+const TMBottom = '[data-testid=\'time-machine--bottom\']';
 const TMViewEmptyGraphQueries = '[data-testid=overlay] [data-testid=empty-graph--no-queries]';
 const TMViewNoResults = '[data-testid=overlay] [data-testid=empty-graph--no-results]';
-const resizerHandle = '[data-testid=overlay] [data-testid^=draggable-resizer--handle] ';
+const TMResizerHandle = '[data-testid=overlay] [data-testid=draggable-resizer--handle]';
 const viewRawDataToggle = '[data-testid=overlay] .view-raw-data-toggle';
 const TMAutorefreshDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button]';
 const TMAutorefreshItem = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%ITEM%\']]';
@@ -38,16 +40,20 @@ const scriptEditorCodeMirror = '.CodeMirror';
 //const scriptMonacoEditor = '.monaco-editor';
 const scriptMonacoEditor = '.inputarea';
 const TMFluxEditor = '[data-testid=flux-editor]';
-const graphCanvas = 'canvas[data-testid^=giraffe-layer]';
-const graphCanvasAxes = 'canvas[data-testid=giraffe-axes]';
+const graphCanvas = '[data-testid=\'overlay\'] canvas[data-testid^=giraffe-layer]';
+const graphCanvasAxes = '[data-testid=\'overlay\'] canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
 
+const TMQBSelectedBucket = '[data-testid=bucket-selector] [data-testid^=\'selector-list\'][class*=selected]';
+const TMQBSelectedTagOfCard = '//*[@data-testid=\'builder-card\'][.//*[@data-testid=\'tag-selector--container %INDEX%\']]//*[contains(@data-testid,\'selector-list\')][contains(@class,\'selected\')]'
 const TMBuilderCardMenuDurationInput = '[data-testid=\'builder-card--menu\'] [data-testid=\'duration-input\']';
 const TMBuilderCardMenuFunctionListItem = '[data-testid=\'function-selector\'] [data-testid=\'selector-list %ITEM%\']'
 const TMBuilderCardMenuFunctionFilter = '[data-testid=\'input-field\'][placeholder*=\'functions\']';
 const TMBuilderCardMenuFunctionListItems = '[data-testid=function-selector] [data-testid^=\'selector-list\']';
 const TMQBDurationSuggestions = '[data-testid=\'builder-card--menu\'] [data-testid=\'dropdown-menu--contents\'] [data-testid=\'dropdown-item\']';
-const TMQBDurationSuggestionByName = '//*[@data-testid=\'builder-card--menu\']//*[@data-testid=\'dropdown-menu--contents\']//*[@data-testid=\'dropdown-item\'][./*[text()=\'%NAME%\']]'
+const TMQBDurationSuggestionByName = '//*[@data-testid=\'builder-card--menu\']//*[@data-testid=\'dropdown-menu--contents\']//*[@data-testid=\'dropdown-item\'][./*[text()=\'%NAME%\']]';
+const TMBuilderTabsAddQuery = '[data-testid=overlay] [class=time-machine-queries--tabs] [data-testid=square-button]';
+
 
 const urlCtx = 'cells';
 
@@ -63,7 +69,7 @@ class cellEditOverlay extends influxPage {
             {type: 'css', selector: customizeButton},
             {type: 'css', selector: editCancel},
             {type: 'css', selector: saveCell},
-            {type: 'css', selector: resizerHandle},
+            {type: 'css', selector: TMResizerHandle},
             {type: 'css', selector: viewRawDataToggle},
             {type: 'css', selector: TMAutorefreshDropdown},
             {type: 'css', selector: TMTimeRangeDropdown},
@@ -77,6 +83,14 @@ class cellEditOverlay extends influxPage {
 
     static getTimeMachineOverlay(){
         return {type: 'css', selector: timeMachineOverlay};
+    }
+
+    async getTMTop(){
+        return await this.driver.findElement(By.css(TMTop));
+    }
+
+    async getTMBottom(){
+        return await this.driver.findElement(By.css(TMBottom));
     }
 
     async getCellTitle(){
@@ -279,6 +293,23 @@ class cellEditOverlay extends influxPage {
     async getTMQBDurationSuggestionByName(name){
         return await this.driver.findElement(By.xpath(TMQBDurationSuggestionByName.replace('%NAME%', name)));
     }
+
+    async getTMResizerHandle(){
+        return await this.driver.findElement(By.css(TMResizerHandle));
+    }
+
+    async getTMBuilderTabsAddQuery(){
+        return await this.driver.findElement(By.css(TMBuilderTabsAddQuery));
+    }
+
+    async getTMQBSelectedBucket(){
+        return await this.driver.findElement(By.css(TMQBSelectedBucket));
+    }
+
+    async getTMQBSelectedTagOfCard(index){
+        return await this.driver.findElement(By.xpath(TMQBSelectedTagOfCard.replace('%INDEX%', index)));
+    }
+
 
 }
 

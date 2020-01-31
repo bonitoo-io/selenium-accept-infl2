@@ -124,7 +124,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
     Then the cell edit overlay is loaded as "Kliky"
-    Then the cell edit submit button is disabled
+    Then the time machine cell edit submit button is disabled
     Then the edit cell bucket selector contains buckets:
   """
   qa,_monitoring,_tasks
@@ -167,7 +167,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When filter the tags in time machine builder card "1" with "eat"
     Then time machine builder card "1" does not contain "foo"
     When click the tag "beat" in builder card "1"
-    Then the cell edit submit button is enabled
+    Then the time machine cell edit submit button is enabled
     Then there are "2" time machine builder cards
     Then time machine builder card "2" contains:
   """
@@ -245,23 +245,87 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell edit cancel button
 
   Scenario: Create basic query
+    Then the cell named "Kliky" contains the empty graph message
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
+    Then the time machine view no results is visible
+    Then the time machine cell edit submit button is disabled
+    When click the time machine bucket selector item "qa"
+    When click the tag "beat" in builder card "1"
+    Then the time machine cell edit submit button is enabled
+    When click the tag "pulse" in builder card "2"
+    When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
+    Then the time machine cell edit preview axes are shown
 
-    # time-machine--bottom
-          # Builder
-             # Schema navigator
-         # Submit#
-
-  #Scenario: Resize Preview
-    # time-machine--view
-       # giraffe-autosizer
+    # +time-machine--bottom
+          # +Builder
+             # +Schema navigator
+         # +Submit#
+  Scenario: Resize Preview
+    When get metrics of time machine cell edit preview
+    When get metrics of time machine query builder
+    When get time machine preview canvas
+    When get time machine preview axes
+  ## Resize - larger
+    When resize time machine preview area by "{ "dw": "0", "dh": "+200" }"
+  #  When wait "3" seconds
+  # Compare new dims Dashboard steps 387
+    Then the time machine preview area has changed by "{ "dw": "0", "dh": "+200" }"
+    Then the time machine query builder area has changed by "{ "dw": "0", "dh": "-200" }"
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+  # Git dims again
+    When get metrics of time machine cell edit preview
+    When get metrics of time machine query builder
+    When get time machine preview canvas
+    When get time machine preview axes
+  # Resize - smaller
+    When resize time machine preview area by "{ "dw": "0", "dh": "-300" }"
+  # Compare new dims
+    Then the time machine preview area has changed by "{ "dw": "0", "dh": "-300" }"
+    Then the time machine query builder area has changed by "{ "dw": "0", "dh": "+300" }"
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell save button
+    Then the cell named "Kliky" contains a graph
 
   #Scenario: Create Second Query
     # Add Query
     # Queries
        # Schema navigator
        # Aggregate functions
+
+  Scenario: Create Second Query
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then the time machine cell edit preview graph is shown
+    Then the time machine cell edit preview axes are shown
+    Then the bucket selected in the current time machine query is 'qa'
+    Then the tag selected in the current time machine query card '1' is 'beat'
+    Then the tag selected in the current time machine query card '2' is 'pulse'
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click the time machine query builder add query button
+    Then the bucket selected in the current time machine query is 'qa'
+    Then there are "1" time machine builder cards
+    Then time machine builder card "1" contains:
+  """
+  beat,foo
+  """
+    Then there are no selected tags in time machine builder card "1"
+    When click the tag "foo" in builder card "1"
+    When click the tag "signal" in builder card "2"
+    When click the query builder function "mean"
+    When click the time machine query builder function duration input
+    When click the query builder function duration suggestion "1m"
+    When click the time machine cell edit submit button
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell save button
+    Then the graph of the cell "Kliky" has changed
+
 
   #Scenario: Delete Second Query
 
