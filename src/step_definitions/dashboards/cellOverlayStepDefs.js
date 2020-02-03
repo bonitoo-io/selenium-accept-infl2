@@ -351,7 +351,35 @@ Then(/^the tag selected in the current time machine query card '(.*)' is '(.*)'$
    await celOvSteps.verifyTMQueryCardSelected(index,tag);
 });
 
+Then(/^the functions selected in the current time machine query card are '(.*)'$/, async funcs => {
+   await celOvSteps.verifyTMQueryFunctionsSelected(funcs);
+});
+
 When(/^click the query builder function "(.*)"$/, async func => {
    await celOvSteps.clickTMQBFunction(func);
+});
+
+Then(/^query '(.*)' is the active query in query builder$/, async title => {
+   await celOvSteps.verifyTMQBActiveQuery(title);
+});
+
+When(/^click on query '(.*)' in the query builder$/, async title => {
+   await celOvSteps.clickOnTMQBQueryTab(title);
+});
+
+When(/^right click on the time machine query tab title '(.*)'$/, async title => {
+   await celOvSteps.rightClickTMQBQueryTabTitle(title);
+});
+
+When(/^click the time machine query tab right click menu item '(.*)'$/, async item => {
+   await celOvSteps.clickTMQBQueryTabRightClickMenuItem(item);
+});
+
+When(/^enter "(.*)" into the time machine query tab name input$/, async name => {
+   await celOvSteps.enterNewTMQBQueryTabName(name);
+});
+
+Then(/^there is no time machine query tab named '(.*)'$/, async name => {
+   await celOvSteps.verifyNoTMQBQueryTabNamed(name);
 });
 

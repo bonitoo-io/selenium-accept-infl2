@@ -326,6 +326,22 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell save button
     Then the graph of the cell "Kliky" has changed
 
+  Scenario: Change Query Name
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then query 'Query 1' is the active query in query builder
+    When click on query 'Query 2' in the query builder
+    Then the bucket selected in the current time machine query is 'qa'
+    Then the tag selected in the current time machine query card '1' is 'foo'
+    Then the tag selected in the current time machine query card '2' is 'signal'
+    Then the functions selected in the current time machine query card are 'mean'
+    When right click on the time machine query tab title 'Query 2'
+    When click the time machine query tab right click menu item 'Edit'
+    When enter "Dotaz B" into the time machine query tab name input
+    Then there is no time machine query tab named 'Query 2'
+    Then query 'Dotaz B' is the active query in query builder
+
 
   #Scenario: Delete Second Query
 

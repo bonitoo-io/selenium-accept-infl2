@@ -635,8 +635,51 @@ class cellOverlaySteps extends influxSteps {
             .getTMQBSelectedTagOfCard(parseInt(index) - 1), tag)
     }
 
+    async verifyTMQueryFunctionsSelected(funcs){
+        let list = funcs.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.cellOverlay.getTMQBSelectedFunctionByName(list[i].trim()).then(async elems => {
+                expect(elems.length).to.equal(1, ` selected function ${list[i]} should occur once` );
+            });
+        }
+
+    }
+
     async clickTMQBFunction(func){
         await this.clickAndWait(await this.cellOverlay.getTMBuilderCardMenuFunctionListItem(func));
+    }
+
+    async verifyTMQBActiveQuery(name){
+        await this.cellOverlay.getTMQBActiveQueryTab().then(async tab => {
+            await tab.findElement(By.css('.query-tab--name')).then(async elem => {
+                this.verifyElementContainsText(elem, name)
+            })
+        })
+    }
+
+    async clickOnTMQBQueryTab(title){
+        await this.clickAndWait(await this.cellOverlay.getTMQBQueryTabByName(title));
+    }
+
+    async rightClickTMQBQueryTabTitle(title){
+        await this.cellOverlay.getTMQBQueryTabByName(title).then(async elem => {
+            let action = this.driver.actions();
+
+            await action.contextClick(elem).perform();
+        });
+    }
+
+    async clickTMQBQueryTabRightClickMenuItem(item){
+        await this.clickAndWait(await this.cellOverlay.getTMQBRightClickItem(item));
+    }
+
+    async enterNewTMQBQueryTabName(name){
+        await this.typeTextAndWait(await this.cellOverlay.getTMQBQueryTabNameInput(),
+            name + Key.ENTER);
+    }
+
+    async verifyNoTMQBQueryTabNamed(name){
+        await this.assertNotPresent(cellEditOverlay.getTMQBQueryTabSelectorByName(name));
     }
 
 }
