@@ -165,6 +165,9 @@ class dashboardSteps extends influxSteps {
     }
 
     async verifyCellGraphChange(name){
+
+        await this.driver.sleep(1000); //troubleshoot canvas update issue
+
         await this.dbdPage.getCellCanvasAxes(name).then(async canvasAxes => {
             let currentAxes = await this.driver
                 .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);

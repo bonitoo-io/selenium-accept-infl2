@@ -43,12 +43,24 @@ When(/^clear the cell edit Script Editor$/, { timeout: 20000 }, async () => {
    await celOvSteps.clearCellEditScriptEditor();
 });
 
-When(/^click the cell edit submit button$/, async () => {
+Then(/^the time machine cell edit submit button is disabled$/, async () => {
+   await celOvSteps.verifyCellEditSubmitDisabled();
+});
+
+Then(/^the time machine cell edit submit button is enabled$/, async () => {
+   await celOvSteps.verifyCellEditSubmitEnabled()
+});
+
+When(/^click the time machine cell edit submit button$/, async () => {
    await celOvSteps.clickCellEditSubmitButton();
 });
 
-Then(/^the cell edit preview graph is shown$/, async() => {
+Then(/^the time machine cell edit preview graph is shown$/, async() => {
    await celOvSteps.verifyCellEditPreviewGraphVisible();
+});
+
+Then(/^the time machine cell edit preview axes are shown$/, async() => {
+   await celOvSteps.verifyCellEditPreviewAxesVisible();
 });
 
 Then(/^the cell edit preview graph is changed$/, async() => {
@@ -99,8 +111,12 @@ Then(/^the cell view customize button is not highlighted$/, async () => {
    await celOvSteps.verifyCustomizeButtonNoHighlightd();
 });
 
-Then(/^the time machine view empty graph is visible$/, async () => {
-   await celOvSteps.verifyTMViewEmptyGraphVisible();
+Then(/^the time machine view empty queries graph is visible$/, async () => {
+   await celOvSteps.verifyTMViewEmptyQueriesGraphVisible();
+});
+
+Then(/^the time machine view no results is visible$/, async () => {
+   await celOvSteps.verifyTMViewNoResultsVisible();
 });
 
 When(/^click time machine autorefresh dropdown$/, async () => {
@@ -163,7 +179,12 @@ Then(/^the edit cell bucket selector contains buckets:$/, async bucketList => {
    await celOvSteps.verifyTMBucketListContents(bucketList);
 });
 
-Then(/^the bucket '(.*)' is not present in the time machine bucket selector$/, async bucket => {
+When(/^click the time machine bucket selector item "(.*)"$/, async item => {
+   await celOvSteps.driver.sleep(500); //troubleshoot issue with click on wrong item
+   await celOvSteps.clickTMBucketSelectorItem(item);
+});
+
+Then(/^the bucket "(.*)" is not present in the time machine bucket selector$/, async bucket => {
    await celOvSteps.verifyBucketNotInTMBucketList(bucket);
 });
 
@@ -175,44 +196,162 @@ When(/^clear the time machine bucket selector filter$/, async () => {
    await celOvSteps.clearBucketSelectorFilter();
 });
 
-Then(/^there are '(.*)' time machine builder cards$/, async count => {
+Then(/^there are "(.*)" time machine builder cards$/, async count => {
    await celOvSteps.verifyTMBuilderCardsSize(count);
 });
 
-Then(/^time machine builder card '(.*)' contains:$/, async (index,items) => {
+Then(/^time machine builder card "(.*)" contains:$/, async (index,items) => {
    await celOvSteps.verifyItemsInBuilderCard(index,items);
 });
 
-Then(/^time machine builder card '(.*)' does not contain '(.*)'$/, async (index, item) => {
+Then(/^time machine bulider card "(.*)" contains the empty tag message$/, async index => {
+   await celOvSteps.verifyEmptyTagsInBuilderCard(index);
+});
+
+Then(/^there are no selected tags in time machine builder card "(.*)"$/, async index => {
+   await celOvSteps.verifyNoSelectedTagsInBuilderCard(index);
+});
+
+Then(/^the selector count for builder card "(.*)" contains the value "(.*)"$/, async (index,value) =>{
+   await celOvSteps.verifySelectorCountInBuilderCard(index,value);
+});
+
+Then(/^time machine builder card "(.*)" does not contain "(.*)"$/, async (index, item) => {
    await celOvSteps.verifyItemNotInBuilderCard(index,item);
 });
 
-When(/^click the tag selector dropdown of builder card '(.*)'$/, async index => {
+When(/^click the tag selector dropdown of builder card "(.*)"$/, async index => {
    await celOvSteps.clickTagSelectorOfBuilderCard(index);
 });
 
-Then(/^the tag selector dropdown of builder card '(.*)' contains:$/, async (index,items) => {
+Then(/^the tag selector dropdown of builder card "(.*)" contains:$/, async (index,items) => {
    await celOvSteps.verifyItemsInBuilderCardTagSelector(index,items);
 });
 
-When(/^click the tag selector dropdown item '(.*)' of builder card '(.*)'$/, async (item, index) => {
+When(/^click the tag selector dropdown item "(.*)" of builder card "(.*)"$/, async (item, index) => {
   await celOvSteps.clickTagSelectorDropdownItemInBuilderCard(item,index);
 });
 
-When(/^click the tag '(.*)' in builder card '(.*)'$/, async (tag, cardIndex) => {
+When(/^click the tag "(.*)" in builder card "(.*)"$/, async (tag, cardIndex) => {
   await celOvSteps.clickTagInBuilderCard(tag, cardIndex);
 });
 
-When(/^filter the tags in time machine builder card '(.*)' with '(.*)'$/, {timeout: 10000}, async (index,term) => {
+When(/^filter the tags in time machine builder card "(.*)" with "(.*)"$/, {timeout: 10000}, async (index,term) => {
   await celOvSteps.filterBuilderCardListContents(index,term);
 });
 
-Then(/^time machine builder card '(.*)' is empty$/, async index => {
+Then(/^time machine builder card "(.*)" is empty$/, async index => {
    await celOvSteps.verifyBuilderCardEmpty(index);
 });
 
-When(/^clear the tags filter in time machine builder card '(.*)'$/, async index => {
+When(/^clear the tags filter in time machine builder card "(.*)"$/, async index => {
    await celOvSteps.clearTagsFilterInBuilderCard(index);
 });
 
+Then(/^the contents of tag selector dropodwn of build card "(.*)" are not present$/, async index => {
+   await celOvSteps.verifyBuilderCardTagSelectNotPresent(index);
+});
+
+Then(/^the selector counf for builder card "(.*)" is not present$/, async index => {
+   await celOvSteps.verifyBuilderCardSelectCountNotPresent(index);
+});
+
+Then(/^the delete button for builder card "(.*)" is not present$/, async index => {
+   await celOvSteps.verifyBuilderCardDeleteNotPresent(index);
+});
+
+When(/^click delete for builder card "(.*)"$/, async index => {
+   await celOvSteps.clickBuilderCardDelete(index);
+});
+
+Then(/^the time machine query builder function duration period is "(.*)"$/, async duration => {
+   await celOvSteps.verifyTMQueryBuilderFunctionDuration(duration);
+});
+
+When(/^click the time machine query builder function duration input$/, async () => {
+   await celOvSteps.clickTMQueryBuilderFunctionDuration();
+});
+
+Then(/^the query builder function duration suggestion drop down contains "(.*)" suggestions$/, async count => {
+   await celOvSteps.verifyTMQBFunctionDurationSuggestionCount(count);
+});
+
+Then(/^the query builder function duration suggestion drop down includes$/, async items => {
+   await celOvSteps.verifyTMQBFunctionDurationSuggestionItems(items);
+});
+
+When(/^click the query builder function duration suggestion "(.*)"$/, async item => {
+   await celOvSteps.clickTMQBFunctionDurationSuggestionItem(item);
+})
+
+Then(/^the query builder function list contains$/, async items => {
+   await celOvSteps.verifyTMQueryBuilderFunctionListItems(items);
+});
+
+Then(/^the query builder function list has "(.*)" items$/, async count => {
+   await celOvSteps.verifyQuerBuilderFunctionListItemCount(count);
+});
+
+When(/^filter the query builder function list with "(.*)"$/, async term => {
+  await celOvSteps.filterQueryBuilderFunctionList(term);
+});
+
+When(/^clear the query builder function lis filter$/, async () => {
+   await celOvSteps.clearQueryBuilderFunctionListFilter();
+});
+
+When(/^get metrics of time machine cell edit preview$/, async () => {
+   await celOvSteps.getTMPreviewMetrics();
+});
+
+When(/^get metrics of time machine query builder$/, async () => {
+   await celOvSteps.getTMPQueryAreaMetrics();
+});
+
+When(/^get time machine preview canvas$/, async () => {
+   await celOvSteps.getTMPreviewCanvas();
+});
+
+When(/^get time machine preview axes$/, async () => {
+   await celOvSteps.getTMPreviewCanvasAxes();
+});
+
+When(/^resize time machine preview area by "(.*)"$/, async dims => {
+   let deltaSize = JSON.parse(dims);
+   await celOvSteps.resizeTMPreviewBy(deltaSize);
+});
+
+Then(/^the time machine preview area has changed by "(.*)"$/, async dims => {
+   let deltaSize = JSON.parse(dims);
+   await celOvSteps.verifyTMPreviewAreaSizeChange(deltaSize);
+});
+
+Then(/^the time machine query builder area has changed by "(.*)"$/, async dims => {
+   let deltaSize = JSON.parse(dims);
+   await celOvSteps.verifyTMQBAreaSizeChange(deltaSize);
+});
+
+Then(/^the time machine preview canvas has changed$/, {timeout: 10000}, async () => {
+   await celOvSteps.verifyTMPreviewCanvasChange();
+});
+
+Then(/^the time machine preview axes have changed$/, async () => {
+   await celOvSteps.verifyTMPreviewAxesChange();
+});
+
+When(/^click the time machine query builder add query button$/, async () => {
+   await celOvSteps.clickTMAddQuery();
+});
+
+Then(/^the bucket selected in the current time machine query is '(.*)'$/, async bucket => {
+   await celOvSteps.verifyTMQueryBucketSelected(bucket);
+});
+
+Then(/^the tag selected in the current time machine query card '(.*)' is '(.*)'$/, async (index, tag) => {
+   await celOvSteps.verifyTMQueryCardSelected(index,tag);
+});
+
+When(/^click the query builder function "(.*)"$/, async func => {
+   await celOvSteps.clickTMQBFunction(func);
+});
 

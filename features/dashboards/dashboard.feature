@@ -183,8 +183,8 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
   |> filter(fn: (r) => r._measurement == "foo")
   |> filter(fn: (r) => r._field == "level")
   """
-    When click the cell edit submit button
-    Then the cell edit preview graph is shown
+    When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
     Then the cell edit preview graph is changed
     When click the cell edit save button
     When click the dashboard Time Range Dropdown
@@ -258,7 +258,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
 |> filter(fn: (r) => r._field == "level")
 |> movingAverage(n: 5)
   """
-    When click the cell edit submit button
+    When click the time machine cell edit submit button
     When click on the cell edit name
     When change the cell edit name to "klouzavý průměr"
     When click the cell edit save button
