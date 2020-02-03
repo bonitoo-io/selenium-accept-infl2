@@ -383,3 +383,15 @@ Then(/^there is no time machine query tab named '(.*)'$/, async name => {
    await celOvSteps.verifyNoTMQBQueryTabNamed(name);
 });
 
+When(/^click hide query of time machine query tab "(.*)"$/, async name => {
+   await celOvSteps.clickTMQBHideQuery(name);
+});
+
+When(/^click delete of time machine query tab "(.*)"$/, async name => {
+   await celOvSteps.clickTMQBDeleteQuery(name);
+});
+
+Then(/^there are "(.*)" time machine query tabs$/, async count => {
+   await celOvSteps.verifyTMQBNumberOfQueryTabs(count);
+});
+

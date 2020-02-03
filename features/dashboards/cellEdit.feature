@@ -342,6 +342,32 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then there is no time machine query tab named 'Query 2'
     Then query 'Dotaz B' is the active query in query builder
 
+  Scenario: Hide Query
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click hide query of time machine query tab "Dotaz B"
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click hide query of time machine query tab "Dotaz B"
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell save button
+
+  Scenario: Delete Second Query
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click delete of time machine query tab "Dotaz B"
+    Then there is no time machine query tab named 'Dotaz B'
+    Then there are "1" time machine query tabs
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell save button
+    Then the graph of the cell "Kliky" has changed
 
   #Scenario: Delete Second Query
 

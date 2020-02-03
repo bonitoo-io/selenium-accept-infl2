@@ -682,6 +682,25 @@ class cellOverlaySteps extends influxSteps {
         await this.assertNotPresent(cellEditOverlay.getTMQBQueryTabSelectorByName(name));
     }
 
+    async clickTMQBHideQuery(name){
+        await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
+            await this.clickAndWait(await tab.findElement(By.css('.query-tab--hide')));
+        })
+    }
+
+    async clickTMQBDeleteQuery(name){
+        await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
+            await this.clickAndWait(await tab.findElement(By.css('.query-tab--close')));
+        })
+    }
+
+    async verifyTMQBNumberOfQueryTabs(count){
+        await this.cellOverlay.getTMQBQueryTabs().then(async elems => {
+            await expect(elems.length).to.equal(parseInt(count),
+                `Expected number of query tabs to equals ${count}`);
+        })
+    }
+
 }
 
 module.exports = cellOverlaySteps;

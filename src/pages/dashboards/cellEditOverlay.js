@@ -57,7 +57,8 @@ const TMBuilderTabsAddQuery = '[data-testid=overlay] [class=time-machine-queries
 const TMQBActiveQueryTab = '.query-tab.active';
 const TMQBQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[text()=\'%NAME%\']]';
 const TMQBRightClickItem = '[data-testid=\'right-click--%ITEM%-tab\']';
-const TMQBQueryTabNameInput = 'div.cf-input__focused input'
+const TMQBQueryTabNameInput = 'div.cf-input__focused input';
+const TMQBQueryTabs = '.time-machine-queries .query-tab';
 
 
 const urlCtx = 'cells';
@@ -339,7 +340,9 @@ class cellEditOverlay extends influxPage {
         return await this.driver.findElement(By.css(TMQBQueryTabNameInput));
     }
 
-
+    async getTMQBQueryTabs(){
+        return await this.driver.findElements(By.css(TMQBQueryTabs));
+    }
 }
 
 module.exports = cellEditOverlay;
