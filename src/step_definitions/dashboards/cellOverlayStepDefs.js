@@ -395,3 +395,11 @@ Then(/^there are "(.*)" time machine query tabs$/, async count => {
    await celOvSteps.verifyTMQBNumberOfQueryTabs(count);
 });
 
+Then(/^the time machine script editor contains$/, async script => {
+   await celOvSteps.verifyTMQBScriptEditorContents(script);
+});
+
+When(/^change the time machine script editor contents to:$/, { timeout: 20000 }, async script => {
+   await celOvSteps.updateTMQBScriptEditorContents(script);
+});
+

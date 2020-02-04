@@ -701,6 +701,16 @@ class cellOverlaySteps extends influxSteps {
         })
     }
 
+    async verifyTMQBScriptEditorContents(script){
+        let text = await this.getMonacoEditorText();
+        await expect(text.trim()).to.equal(script.trim());
+    }
+
+    async updateTMQBScriptEditorContents(script){
+        await this.clearMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor());
+        await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), script);
+    }
+
 }
 
 module.exports = cellOverlaySteps;
