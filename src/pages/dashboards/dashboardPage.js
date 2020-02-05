@@ -23,6 +23,9 @@ const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'ad
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
 const cellEmptyGraphMessage = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-queries\']';
+const cellEmptyGraphError = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--error\']';
+const cellEmptyGraphErrorIcon = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--error\']//*[contains(@class,\'empty-graph-error--icon\')]';
+const emptyGraphPopoverContents = '[data-testid^=emptygraph-popover--contents]';
 const cellTitle = '//*[@class=\'cell--header\'][./*[text()=\'%NAME%\']]';
 const cellHandleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--draggable\']';
 const cellResizerByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'react-resizable-handle\']';
@@ -150,6 +153,11 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(cellEmptyGraphMessage.replace('%NAME%', name)));
     }
 
+
+    async getCellEmptyGraphError(name){
+        return await this.driver.findElement(By.xpath(cellEmptyGraphError.replace('%NAME%', name)));
+    }
+
     async getCellTitle(name){
         return await this.driver.findElement(By.xpath(cellTitle.replace('%NAME%', name)));
     }
@@ -232,6 +240,14 @@ class dashboardPage extends influxPage {
 
     async getCellHoverBox(){
         return await this.driver.findElement(By.css(cellHoverBox));
+    }
+
+    async getEmptyGraphPopoverContents(){
+        return await this.driver.findElement(By.css(emptyGraphPopoverContents));
+    }
+
+    async getCellEmptyGraphErrorIcon(name){
+        return await this.driver.findElement(By.xpath(cellEmptyGraphErrorIcon.replace('%NAME%', name)));
     }
 }
 

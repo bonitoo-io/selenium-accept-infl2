@@ -623,7 +623,13 @@ class cellOverlaySteps extends influxSteps {
         })
     }
 
+    async verifyTMPreviewCanvasNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getGraphCanvasSelector())
+    }
 
+    async verifyTMPreviewCanvasAxesNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getGraphCanvasAxesSelector())
+    }
 
     async clickTMAddQuery(){
         await this.clickAndWait(await this.cellOverlay.getTMBuilderTabsAddQuery());
@@ -713,6 +719,10 @@ class cellOverlaySteps extends influxSteps {
     async updateTMQBScriptEditorContents(script){
         await this.clearMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor());
         await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), script);
+    }
+
+    async verifyTMEmptyGraphErrorMessage(msg){
+        await this.verifyElementContainsText(await this.cellOverlay.getTMEmptyGraphErrMessage(), msg)
     }
 
 }

@@ -43,6 +43,7 @@ const TMFluxEditor = '[data-testid=flux-editor]';
 const graphCanvas = '[data-testid=\'overlay\'] canvas[data-testid^=giraffe-layer]';
 const graphCanvasAxes = '[data-testid=\'overlay\'] canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
+const TMEmptyGraphErrMessage = '.empty-graph-error pre'
 
 const TMQBSelectedBucket = '[data-testid=bucket-selector] [data-testid^=\'selector-list\'][class*=selected]';
 const TMQBSelectedTagOfCard = '//*[@data-testid=\'builder-card\'][.//*[@data-testid=\'tag-selector--container %INDEX%\']]//*[contains(@data-testid,\'selector-list\')][contains(@class,\'selected\')]'
@@ -162,6 +163,10 @@ class cellEditOverlay extends influxPage {
 
     async getGraphCanvasAxes(){
         return await this.driver.findElement(By.css(graphCanvasAxes));
+    }
+
+    static getGraphCanvasAxesSelector(){
+        return { type: 'css', selector: graphCanvasAxes }
     }
 
     async getViewTypeDropdown(){
@@ -346,6 +351,10 @@ class cellEditOverlay extends influxPage {
 
     async getTMQBQueryTabs(){
         return await this.driver.findElements(By.css(TMQBQueryTabs));
+    }
+
+    async getTMEmptyGraphErrMessage(){
+        return await this.driver.findElement(By.css(TMEmptyGraphErrMessage));
     }
 }
 

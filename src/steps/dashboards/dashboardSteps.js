@@ -118,6 +118,10 @@ class dashboardSteps extends influxSteps {
         await this.assertVisible(await this.dbdPage.getCellEmptyGraphMessage(name));
     }
 
+    async verifyCellContainsGraphError(name){
+        await this.assertVisible(await this.dbdPage.getCellEmptyGraphError(name));
+    }
+
     async verifyCellContainsGraph(name){
         await this.assertVisible(await this.dbdPage.getCellCanvasAxes(name));
         await this.assertVisible(await this.dbdPage.getCellCanvasLine(name));
@@ -557,6 +561,14 @@ class dashboardSteps extends influxSteps {
             expect(cells.length).to.equal(ct);
 
         });
+    }
+
+    async hoverOverCellErrorIcon(name){
+        await this.hoverOver(await this.dbdPage.getCellEmptyGraphErrorIcon(name));
+    }
+
+    async verifyEmptyCellErrorPopoverMessage(msg){
+        await this.verifyElementContainsText(await this.dbdPage.getEmptyGraphPopoverContents(), msg);
     }
 
 }

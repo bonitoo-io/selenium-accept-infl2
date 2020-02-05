@@ -60,6 +60,10 @@ Then(/^the cell named "(.*)" contains the empty graph message$/, async name => {
    await dbdSteps.verifyEmptyGraphMessage(name);
 });
 
+Then(/^the cell named "(.*)" contains a graph error$/, async name => {
+  await dbdSteps.verifyCellContainsGraphError(name);
+});
+
 Then(/^the cell named "(.*)" contains a graph$/, async name => {
    await dbdSteps.verifyCellContainsGraph(name);
 });
@@ -244,4 +248,12 @@ Then(/^there is a second dashboard cell named "(.*)"$/, async name => {
 
 Then(/^the cell named "(.*)" is no longer present$/, async name => {
    await dbdSteps.verifyCellNotPresent(name);
+});
+
+When(/^hover over the error icon of the cell "(.*)"$/, async name => {
+   await dbdSteps.hoverOverCellErrorIcon(name);
+});
+
+Then(/^the empty cell error popover message is:$/, async msg => {
+   await dbdSteps.verifyEmptyCellErrorPopoverMessage(msg);
 });

@@ -422,12 +422,41 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the cell edit Query Builder button
     When click the cell edit Query Builder confirm button
     Then the time machine query builder is visible
+    # Issue 16731 todo - check how query is reflected in query builder state
     Then the time machine preview canvas has changed
     Then the time machine preview axes have changed
     When click dashboard cell edit cancel button
     Then the graph of the cell "Kliky" has not changed
 
-
+  Scenario:  Edit invalid query
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "foo")
+  |> filter(fn: (r) => r._field == "signal")
+  """
+    When change the time machine script editor contents to:
+  """
+  Muffin Man
+  """
+    When click the time machine cell edit submit button
+    Then the time machine preview canvas is not present
+    Then the time machine preview canvas axes are not present
+    Then the time machine empty graph error message is:
+  """
+  type error 1:1-1:7: undefined identifier "Muffin"
+  """
+    When click the cell edit save button
+    Then the cell named "Kliky" contains a graph error
+    When hover over the error icon of the cell "Kliky"
+    Then the empty cell error popover message is:
+  """
+  type error 1:1-1:7: undefined identifier "Muffin"
+  """
 
   #Scenario: Edit Query - Add functions
     # time-machine--bottom

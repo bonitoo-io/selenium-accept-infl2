@@ -343,6 +343,14 @@ Then(/^the time machine preview axes have changed$/, async () => {
    await celOvSteps.verifyTMPreviewAxesChange();
 });
 
+Then(/^the time machine preview canvas is not present$/, async () => {
+   await celOvSteps.verifyTMPreviewCanvasNotPresent();
+});
+
+Then(/^the time machine preview canvas axes are not present$/, async () => {
+   await celOvSteps.verifyTMPreviewCanvasAxesNotPresent();
+});
+
 When(/^click the time machine query builder add query button$/, async () => {
    await celOvSteps.clickTMAddQuery();
 });
@@ -409,5 +417,9 @@ When(/^change the time machine script editor contents to:$/, { timeout: 20000 },
 
 When(/^click the time machine switch to query builder button$/, async () => {
    await celOvSteps.clickTMSwitch2QBuilder();
+});
+
+Then(/^the time machine empty graph error message is:$/, async msg => {
+   await celOvSteps.verifyTMEmptyGraphErrorMessage(msg);
 });
 
