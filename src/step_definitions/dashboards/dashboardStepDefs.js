@@ -197,6 +197,10 @@ Then(/^the graph of the cell "(.*)" has changed$/, async name => {
    await dbdSteps.verifyCellGraphChange(name);
 });
 
+Then(/^the graph of the cell "(.*)" has not changed$/, async name => {
+    await dbdSteps.verifyCellGraphNoChange(name);
+});
+
 Then(/^the graph of the cell "(.*)" differs from "(.*)"$/, async (name1, name2) => {
     await dbdSteps.compareCellGraphs(name1, name2, false);
 });

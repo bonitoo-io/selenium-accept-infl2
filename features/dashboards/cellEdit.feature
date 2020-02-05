@@ -402,6 +402,31 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the cell edit save button
     Then the graph of the cell "Kliky" has changed
 
+  Scenario: Switch to Query Builder
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "foo")
+  |> filter(fn: (r) => r._field == "signal")
+  """
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click the cell edit Query Builder button
+    Then the time machine switch to Query Builder warning is present
+    When click the time machine flux editor
+    Then the time machine switch to Query Builder warning is not present
+    When click the cell edit Query Builder button
+    When click the cell edit Query Builder confirm button
+    Then the time machine query builder is visible
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell edit cancel button
+    Then the graph of the cell "Kliky" has not changed
+
 
 
   #Scenario: Edit Query - Add functions

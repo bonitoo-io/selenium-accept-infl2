@@ -240,6 +240,10 @@ class cellOverlaySteps extends influxSteps {
         await this.assertNotPresent(cellEditOverlay.getTMSwitchToQBuilderWarnSelector())
     }
 
+    async verifyTMQueryBuilderSwitchWarnVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMSwitchToQBuilderWarn());
+    }
+
     async verifyTMFluxEditorVisible(){
         await this.assertVisible(await this.cellOverlay.getTMFluxEditor());
     }

@@ -182,6 +182,25 @@ class dashboardSteps extends influxSteps {
         })
     }
 
+    async verifyCellGraphNoChange(name){
+
+        await this.driver.sleep(1000); //troubleshoot canvas update issue
+
+        await this.dbdPage.getCellCanvasAxes(name).then(async canvasAxes => {
+            let currentAxes = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
+
+            await expect(currentAxes).to.equal(__dataBuffer.graphCellAxes[name]);
+
+            await this.dbdPage.getCellCanvasLine(name).then(async canvasLine => {
+                let currentLine = await this.driver
+                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
+                await expect(currentLine).to.equal(__dataBuffer.graphCellLine[name]);
+            })
+        })
+
+    }
+
     async compareCellGraphs(name1, name2, equal = true){
         await this.dbdPage.getCellCanvasLine(name1).then(async canvas1 => {
             let line1 = await this.driver
@@ -211,7 +230,7 @@ class dashboardSteps extends influxSteps {
         await this.dbdPage.getCellsByName(name).then( async cells => {
             await this.clickAndWait(await cells[1]
                 .findElement(By.xpath('.//*[@data-testid=\'cell-context--toggle\']')), async () => {
-                await this.driver.sleep(1000);
+                await this.driver.sleep(1000); // todo - better wait sometimes slow to load
             });
         });
     }
@@ -227,9 +246,10 @@ class dashboardSteps extends influxSteps {
 
     async clickDashboardPopOverlayConfigure(){
         await this.clickAndWait(await this.dbdPage.getCellPopoverContentsConfigure(), async () => {
-            await this.driver.wait(
+            /*await this.driver.wait(
                 until.elementLocated(By.css(cellEditOverlay.getTimeMachineOverlay().selector))
-            );
+            );*/ // this wait not working reliably.  so for now use sleep
+            await this.driver.sleep(1500); // todo better wait
         });
     }
 

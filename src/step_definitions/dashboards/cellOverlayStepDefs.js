@@ -151,6 +151,10 @@ Then(/^the time machine query builder is visible$/, async () => {
    await celOvSteps.verifyTMQueryBuilderVisible();
 });
 
+Then(/^the time machine switch to Query Builder warning is present$/, async () => {
+   await celOvSteps.verifyTMQueryBuilderSwitchWarnVisible();
+});
+
 Then(/^the time machine switch to Query Builder warning is not present$/, async () => {
    await celOvSteps.verifyTMQueryBuilderSwitchWarnNotPresent();
 });
@@ -401,5 +405,9 @@ Then(/^the time machine script editor contains$/, async script => {
 
 When(/^change the time machine script editor contents to:$/, { timeout: 20000 }, async script => {
    await celOvSteps.updateTMQBScriptEditorContents(script);
+});
+
+When(/^click the time machine switch to query builder button$/, async () => {
+   await celOvSteps.clickTMSwitch2QBuilder();
 });
 

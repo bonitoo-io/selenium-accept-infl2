@@ -252,6 +252,10 @@ class cellEditOverlay extends influxPage {
         return { type: 'css', selector: TMSwitchToQBuilderWarn }
     }
 
+    async getTMSwitchToQBuilderWarn(){
+        return await this.driver.findElement(By.css(TMSwitchToQBuilderWarn))
+    }
+
     async getTMBucketSelectorBucket(name){
         return await this.driver.findElement(By.css(TMBucketSelectorBucket.replace('%NAME%', name)));
     }
