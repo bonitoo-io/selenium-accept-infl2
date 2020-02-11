@@ -423,3 +423,7 @@ Then(/^the time machine empty graph error message is:$/, async msg => {
    await celOvSteps.verifyTMEmptyGraphErrorMessage(msg);
 });
 
+When(/^close all time machine builder cards$/, async () => {
+   await celOvSteps.closeAllTMQBCards();
+});
+

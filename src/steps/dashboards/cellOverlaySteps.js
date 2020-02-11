@@ -416,6 +416,13 @@ class cellOverlaySteps extends influxSteps {
             })
     }
 
+    async closeAllTMQBCards(){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        for(let i = cards.length - 1; i > 0; i--){ //close all but last card
+            await this.clickAndWait(await cards[i].findElement(By.css('.builder-card--delete')));
+        }
+    }
+
     async verifyTMQueryBuilderFunctionDuration(duration){
         await this.verifyInputEqualsValue(await this.cellOverlay.getTMBuilderCardMenuDurationInput(), duration);
     }
