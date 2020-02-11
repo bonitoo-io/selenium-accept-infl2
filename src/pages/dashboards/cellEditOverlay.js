@@ -43,6 +43,7 @@ const TMFluxEditor = '[data-testid=flux-editor]';
 const graphCanvas = '[data-testid=\'overlay\'] canvas[data-testid^=giraffe-layer]';
 const graphCanvasAxes = '[data-testid=\'overlay\'] canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
+const TMEmptyGraphErrMessage = '.empty-graph-error pre'
 
 const TMQBSelectedBucket = '[data-testid=bucket-selector] [data-testid^=\'selector-list\'][class*=selected]';
 const TMQBSelectedTagOfCard = '//*[@data-testid=\'builder-card\'][.//*[@data-testid=\'tag-selector--container %INDEX%\']]//*[contains(@data-testid,\'selector-list\')][contains(@class,\'selected\')]'
@@ -50,9 +51,15 @@ const TMBuilderCardMenuDurationInput = '[data-testid=\'builder-card--menu\'] [da
 const TMBuilderCardMenuFunctionListItem = '[data-testid=\'function-selector\'] [data-testid=\'selector-list %ITEM%\']'
 const TMBuilderCardMenuFunctionFilter = '[data-testid=\'input-field\'][placeholder*=\'functions\']';
 const TMBuilderCardMenuFunctionListItems = '[data-testid=function-selector] [data-testid^=\'selector-list\']';
+const TMQBSelectedFunctionsByName = '[data-testid=function-selector] [data-testid=\'selector-list %NAME%\'].selected';
 const TMQBDurationSuggestions = '[data-testid=\'builder-card--menu\'] [data-testid=\'dropdown-menu--contents\'] [data-testid=\'dropdown-item\']';
 const TMQBDurationSuggestionByName = '//*[@data-testid=\'builder-card--menu\']//*[@data-testid=\'dropdown-menu--contents\']//*[@data-testid=\'dropdown-item\'][./*[text()=\'%NAME%\']]';
 const TMBuilderTabsAddQuery = '[data-testid=overlay] [class=time-machine-queries--tabs] [data-testid=square-button]';
+const TMQBActiveQueryTab = '.query-tab.active';
+const TMQBQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[text()=\'%NAME%\']]';
+const TMQBRightClickItem = '[data-testid=\'right-click--%ITEM%-tab\']';
+const TMQBQueryTabNameInput = 'div.cf-input__focused input';
+const TMQBQueryTabs = '.time-machine-queries .query-tab';
 
 
 const urlCtx = 'cells';
@@ -158,6 +165,10 @@ class cellEditOverlay extends influxPage {
         return await this.driver.findElement(By.css(graphCanvasAxes));
     }
 
+    static getGraphCanvasAxesSelector(){
+        return { type: 'css', selector: graphCanvasAxes }
+    }
+
     async getViewTypeDropdown(){
         return await this.driver.findElement(By.css(viewTypeDropdown));
     }
@@ -246,6 +257,10 @@ class cellEditOverlay extends influxPage {
         return { type: 'css', selector: TMSwitchToQBuilderWarn }
     }
 
+    async getTMSwitchToQBuilderWarn(){
+        return await this.driver.findElement(By.css(TMSwitchToQBuilderWarn))
+    }
+
     async getTMBucketSelectorBucket(name){
         return await this.driver.findElement(By.css(TMBucketSelectorBucket.replace('%NAME%', name)));
     }
@@ -310,7 +325,37 @@ class cellEditOverlay extends influxPage {
         return await this.driver.findElement(By.xpath(TMQBSelectedTagOfCard.replace('%INDEX%', index)));
     }
 
+    async getTMQBActiveQueryTab(){
+        return await this.driver.findElement(By.css(TMQBActiveQueryTab));
+    }
 
+    async getTMQBQueryTabByName(name){
+        return await this.driver.findElement(By.xpath(TMQBQueryTabByName.replace('%NAME%', name)));
+    }
+
+    static getTMQBQueryTabSelectorByName(name){
+        return { type: 'xpath', selector: TMQBQueryTabByName.replace('%NAME%', name)}
+    }
+
+    async getTMQBSelectedFunctionByName(name){
+        return await this.driver.findElements(By.css(TMQBSelectedFunctionsByName.replace('%NAME%', name)))
+    }
+
+    async getTMQBRightClickItem(item){
+        return await this.driver.findElement(By.css(TMQBRightClickItem.replace('%ITEM%', item.toLowerCase().trim())));
+    }
+
+    async getTMQBQueryTabNameInput(){
+        return await this.driver.findElement(By.css(TMQBQueryTabNameInput));
+    }
+
+    async getTMQBQueryTabs(){
+        return await this.driver.findElements(By.css(TMQBQueryTabs));
+    }
+
+    async getTMEmptyGraphErrMessage(){
+        return await this.driver.findElement(By.css(TMEmptyGraphErrMessage));
+    }
 }
 
 module.exports = cellEditOverlay;

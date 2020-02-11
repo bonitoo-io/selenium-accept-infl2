@@ -507,8 +507,9 @@ class baseSteps{
         }
     }
 
-
-
+    async getMonacoEditorText(){
+        return await this.driver.executeScript('return this.monaco.editor.getModels()[0].getValue()');
+    }
 
     async getCodeMirrorText(cmElem, text){
         return await this.driver.executeScript('return arguments[0].CodeMirror.getValue()', cmElem);

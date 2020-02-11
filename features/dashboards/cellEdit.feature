@@ -326,14 +326,137 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell save button
     Then the graph of the cell "Kliky" has changed
 
+  Scenario: Change Query Name
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then query 'Query 1' is the active query in query builder
+    When click on query 'Query 2' in the query builder
+    Then the bucket selected in the current time machine query is 'qa'
+    Then the tag selected in the current time machine query card '1' is 'foo'
+    Then the tag selected in the current time machine query card '2' is 'signal'
+    Then the functions selected in the current time machine query card are 'mean'
+    When right click on the time machine query tab title 'Query 2'
+    When click the time machine query tab right click menu item 'Edit'
+    When enter "Dotaz B" into the time machine query tab name input
+    Then there is no time machine query tab named 'Query 2'
+    Then query 'Dotaz B' is the active query in query builder
 
-  #Scenario: Delete Second Query
+  Scenario: Hide Query
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click hide query of time machine query tab "Dotaz B"
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click hide query of time machine query tab "Dotaz B"
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell save button
+
+  Scenario: Delete Second Query
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click delete of time machine query tab "Dotaz B"
+    Then there is no time machine query tab named 'Dotaz B'
+    Then there are "1" time machine query tabs
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell save button
+    Then the graph of the cell "Kliky" has changed
 
   #Scenario: Edit Query
     # time-machine--bottom
        # switch-to-script-editor
        # Queries
           # Script Editor
+
+  Scenario: Edit Query
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click the cell edit Script Editor button
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "beat")
+    |> filter(fn: (r) => r._field == "pulse")
+  """
+    When change the time machine script editor contents to:
+  """
+  from(bucket: "qa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "foo")
+  |> filter(fn: (r) => r._field == "signal")
+  """
+    When click the time machine cell edit submit button
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click the cell edit save button
+    Then the graph of the cell "Kliky" has changed
+
+  Scenario: Switch to Query Builder
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "foo")
+  |> filter(fn: (r) => r._field == "signal")
+  """
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click the cell edit Query Builder button
+    Then the time machine switch to Query Builder warning is present
+    When click the time machine flux editor
+    Then the time machine switch to Query Builder warning is not present
+    When click the cell edit Query Builder button
+    When click the cell edit Query Builder confirm button
+    Then the time machine query builder is visible
+    # Issue 16731 todo - check how query is reflected in query builder state
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click dashboard cell edit cancel button
+    Then the graph of the cell "Kliky" has not changed
+
+  Scenario:  Edit invalid query
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "foo")
+  |> filter(fn: (r) => r._field == "signal")
+  """
+    When change the time machine script editor contents to:
+  """
+  Muffin Man
+  """
+    When click the time machine cell edit submit button
+    Then the time machine preview canvas is not present
+    Then the time machine preview canvas axes are not present
+    Then the time machine empty graph error message is:
+  """
+  type error 1:1-1:7: undefined identifier "Muffin"
+  """
+    When click the cell edit save button
+    Then the cell named "Kliky" contains a graph error
+    When hover over the error icon of the cell "Kliky"
+    Then the empty cell error popover message is:
+  """
+  type error 1:1-1:7: undefined identifier "Muffin"
+  """
 
   #Scenario: Edit Query - Add functions
     # time-machine--bottom

@@ -151,6 +151,10 @@ Then(/^the time machine query builder is visible$/, async () => {
    await celOvSteps.verifyTMQueryBuilderVisible();
 });
 
+Then(/^the time machine switch to Query Builder warning is present$/, async () => {
+   await celOvSteps.verifyTMQueryBuilderSwitchWarnVisible();
+});
+
 Then(/^the time machine switch to Query Builder warning is not present$/, async () => {
    await celOvSteps.verifyTMQueryBuilderSwitchWarnNotPresent();
 });
@@ -339,6 +343,14 @@ Then(/^the time machine preview axes have changed$/, async () => {
    await celOvSteps.verifyTMPreviewAxesChange();
 });
 
+Then(/^the time machine preview canvas is not present$/, async () => {
+   await celOvSteps.verifyTMPreviewCanvasNotPresent();
+});
+
+Then(/^the time machine preview canvas axes are not present$/, async () => {
+   await celOvSteps.verifyTMPreviewCanvasAxesNotPresent();
+});
+
 When(/^click the time machine query builder add query button$/, async () => {
    await celOvSteps.clickTMAddQuery();
 });
@@ -351,7 +363,63 @@ Then(/^the tag selected in the current time machine query card '(.*)' is '(.*)'$
    await celOvSteps.verifyTMQueryCardSelected(index,tag);
 });
 
+Then(/^the functions selected in the current time machine query card are '(.*)'$/, async funcs => {
+   await celOvSteps.verifyTMQueryFunctionsSelected(funcs);
+});
+
 When(/^click the query builder function "(.*)"$/, async func => {
    await celOvSteps.clickTMQBFunction(func);
+});
+
+Then(/^query '(.*)' is the active query in query builder$/, async title => {
+   await celOvSteps.verifyTMQBActiveQuery(title);
+});
+
+When(/^click on query '(.*)' in the query builder$/, async title => {
+   await celOvSteps.clickOnTMQBQueryTab(title);
+});
+
+When(/^right click on the time machine query tab title '(.*)'$/, async title => {
+   await celOvSteps.rightClickTMQBQueryTabTitle(title);
+});
+
+When(/^click the time machine query tab right click menu item '(.*)'$/, async item => {
+   await celOvSteps.clickTMQBQueryTabRightClickMenuItem(item);
+});
+
+When(/^enter "(.*)" into the time machine query tab name input$/, async name => {
+   await celOvSteps.enterNewTMQBQueryTabName(name);
+});
+
+Then(/^there is no time machine query tab named '(.*)'$/, async name => {
+   await celOvSteps.verifyNoTMQBQueryTabNamed(name);
+});
+
+When(/^click hide query of time machine query tab "(.*)"$/, async name => {
+   await celOvSteps.clickTMQBHideQuery(name);
+});
+
+When(/^click delete of time machine query tab "(.*)"$/, async name => {
+   await celOvSteps.clickTMQBDeleteQuery(name);
+});
+
+Then(/^there are "(.*)" time machine query tabs$/, async count => {
+   await celOvSteps.verifyTMQBNumberOfQueryTabs(count);
+});
+
+Then(/^the time machine script editor contains$/, async script => {
+   await celOvSteps.verifyTMQBScriptEditorContents(script);
+});
+
+When(/^change the time machine script editor contents to:$/, { timeout: 20000 }, async script => {
+   await celOvSteps.updateTMQBScriptEditorContents(script);
+});
+
+When(/^click the time machine switch to query builder button$/, async () => {
+   await celOvSteps.clickTMSwitch2QBuilder();
+});
+
+Then(/^the time machine empty graph error message is:$/, async msg => {
+   await celOvSteps.verifyTMEmptyGraphErrorMessage(msg);
 });
 

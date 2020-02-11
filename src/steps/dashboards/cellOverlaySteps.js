@@ -240,6 +240,10 @@ class cellOverlaySteps extends influxSteps {
         await this.assertNotPresent(cellEditOverlay.getTMSwitchToQBuilderWarnSelector())
     }
 
+    async verifyTMQueryBuilderSwitchWarnVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMSwitchToQBuilderWarn());
+    }
+
     async verifyTMFluxEditorVisible(){
         await this.assertVisible(await this.cellOverlay.getTMFluxEditor());
     }
@@ -619,7 +623,13 @@ class cellOverlaySteps extends influxSteps {
         })
     }
 
+    async verifyTMPreviewCanvasNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getGraphCanvasSelector())
+    }
 
+    async verifyTMPreviewCanvasAxesNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getGraphCanvasAxesSelector())
+    }
 
     async clickTMAddQuery(){
         await this.clickAndWait(await this.cellOverlay.getTMBuilderTabsAddQuery());
@@ -635,8 +645,84 @@ class cellOverlaySteps extends influxSteps {
             .getTMQBSelectedTagOfCard(parseInt(index) - 1), tag)
     }
 
+    async verifyTMQueryFunctionsSelected(funcs){
+        let list = funcs.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.cellOverlay.getTMQBSelectedFunctionByName(list[i].trim()).then(async elems => {
+                expect(elems.length).to.equal(1, ` selected function ${list[i]} should occur once` );
+            });
+        }
+
+    }
+
     async clickTMQBFunction(func){
         await this.clickAndWait(await this.cellOverlay.getTMBuilderCardMenuFunctionListItem(func));
+    }
+
+    async verifyTMQBActiveQuery(name){
+        await this.cellOverlay.getTMQBActiveQueryTab().then(async tab => {
+            await tab.findElement(By.css('.query-tab--name')).then(async elem => {
+                this.verifyElementContainsText(elem, name)
+            })
+        })
+    }
+
+    async clickOnTMQBQueryTab(title){
+        await this.clickAndWait(await this.cellOverlay.getTMQBQueryTabByName(title));
+    }
+
+    async rightClickTMQBQueryTabTitle(title){
+        await this.cellOverlay.getTMQBQueryTabByName(title).then(async elem => {
+            let action = this.driver.actions();
+
+            await action.contextClick(elem).perform();
+        });
+    }
+
+    async clickTMQBQueryTabRightClickMenuItem(item){
+        await this.clickAndWait(await this.cellOverlay.getTMQBRightClickItem(item));
+    }
+
+    async enterNewTMQBQueryTabName(name){
+        await this.typeTextAndWait(await this.cellOverlay.getTMQBQueryTabNameInput(),
+            name + Key.ENTER);
+    }
+
+    async verifyNoTMQBQueryTabNamed(name){
+        await this.assertNotPresent(cellEditOverlay.getTMQBQueryTabSelectorByName(name));
+    }
+
+    async clickTMQBHideQuery(name){
+        await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
+            await this.clickAndWait(await tab.findElement(By.css('.query-tab--hide')));
+        })
+    }
+
+    async clickTMQBDeleteQuery(name){
+        await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
+            await this.clickAndWait(await tab.findElement(By.css('.query-tab--close')));
+        })
+    }
+
+    async verifyTMQBNumberOfQueryTabs(count){
+        await this.cellOverlay.getTMQBQueryTabs().then(async elems => {
+            await expect(elems.length).to.equal(parseInt(count),
+                `Expected number of query tabs to equals ${count}`);
+        })
+    }
+
+    async verifyTMQBScriptEditorContents(script){
+        let text = await this.getMonacoEditorText();
+        await expect(text.trim()).to.equal(script.trim());
+    }
+
+    async updateTMQBScriptEditorContents(script){
+        await this.clearMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor());
+        await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), script);
+    }
+
+    async verifyTMEmptyGraphErrorMessage(msg){
+        await this.verifyElementContainsText(await this.cellOverlay.getTMEmptyGraphErrMessage(), msg)
     }
 
 }
