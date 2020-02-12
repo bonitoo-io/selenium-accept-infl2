@@ -423,6 +423,14 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
+    async deselectAllActiveTagsInTMQBCard(index){
+        let cards = await this.cellOverlay.getTMBuilderCards();
+        let selecteds = await cards[parseInt(index)-1].findElements(By.css('.selector-list--checkbox.selected'));
+        for(let i = 0; i < selecteds.length; i++){
+            await this.clickAndWait(selecteds[i]);
+        }
+    }
+
     async verifyTMQueryBuilderFunctionDuration(duration){
         await this.verifyInputEqualsValue(await this.cellOverlay.getTMBuilderCardMenuDurationInput(), duration);
     }
@@ -729,7 +737,63 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async verifyTMEmptyGraphErrorMessage(msg){
-        await this.verifyElementContainsText(await this.cellOverlay.getTMEmptyGraphErrMessage(), msg)
+        await this.verifyElementContainsText(await this.cellOverlay.getTMEmptyGraphErrMessage(), msg);
+    }
+
+    async verifyTMQEFunctionCategoriesDisplayed(cats){
+        let catList = cats.split(',');
+        for(let i = 0; i < catList.length; i++){
+            await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionCategory(catList[i].trim()));
+            await this.assertVisible(await this.cellOverlay.getTMQEFunctionCategory(catList[i].trim()));
+        }
+    }
+
+    async filterTMQEFunctionsList(term){
+        await this.typeTextAndWait(await this.cellOverlay.getTMQEFunctionFilter(), term);
+    }
+
+    async clearTMQEFunctionsListFilter(){
+        await this.clearInputText(await this.cellOverlay.getTMQEFunctionFilter());
+    }
+
+    async verifyTMQEVisibleFunctions(funcs){
+        let funcList = funcs.split(',');
+        for(let i = 0; i < funcList.length; i++){
+            await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(funcList[i].trim()));
+            await this.assertVisible(await this.cellOverlay.getTMQEFunctionListItem(funcList[i].trim()));
+        }
+    }
+
+    async verifyTMQENotVisibleFunctions(funcs){
+        let funcList = funcs.split(',');
+        for(let i = 0; i < funcList.length; i++) {
+            await this.assertNotPresent(cellEditOverlay.getTMQEFunctionListItemSelector(funcList[i].trim()));
+        }
+    }
+
+    async hoverOverTMQEFunction(func){
+        await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+        await this.hoverOver(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+    }
+
+    async verifyTMQEFunctionPopupDescription(text){
+        await this.verifyElementText(await this.cellOverlay.getTMQEFunctionPopupDescription(), text);
+    }
+
+    async verifyTMQEFunctionPopupSnippet(text){
+        await this.verifyElementText(await this.cellOverlay.getTMQEFunctionPopupSnippet(), text);
+    }
+
+    async verifyTMQEFunctionPopupNotVisible(){
+        await this.assertNotPresent(cellEditOverlay.getTMQEFunctionPopupSelector());
+    }
+
+    async hoverOverTMQETimerangeDropdown(){
+        await this.hoverOver(await this.cellOverlay.getTMTimeRangeDropdown());
+    }
+
+    async hoverOverTMCellEditSubmit(){
+        await this.hoverOver(await this.cellOverlay.getTimemachineSubmit());
     }
 
 }

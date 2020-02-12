@@ -427,3 +427,51 @@ When(/^close all time machine builder cards$/, async () => {
    await celOvSteps.closeAllTMQBCards();
 });
 
+When(/^unselect any tags in time machine builder card '(.*)'$/, async index => {
+   await celOvSteps.deselectAllActiveTagsInTMQBCard(index);
+});
+
+Then(/^the time machine query edit function categories are displayed:$/, async cats => {
+   await celOvSteps.verifyTMQEFunctionCategoriesDisplayed(cats);
+});
+
+When(/^filter the time machine query edit function list with '(.*)'$/, async term => {
+   await celOvSteps.filterTMQEFunctionsList(term);
+});
+
+When(/^clear the time machine query edit function list filter$/, async () => {
+   await celOvSteps.clearTMQEFunctionsListFilter();
+});
+
+Then(/^the following function are visible in the time machine function list:$/, async funcs => {
+   await celOvSteps.verifyTMQEVisibleFunctions(funcs);
+});
+
+Then(/^the following function are not visible in the time machine function list:$/, {timeout: 20000}, async funcs => {
+   await celOvSteps.verifyTMQENotVisibleFunctions(funcs);
+});
+
+When(/^hover over time machine query edit function '(.*)'$/, async func => {
+   await celOvSteps.hoverOverTMQEFunction(func);
+});
+
+Then(/^the time machine query edit function popup description contains:$/, async text => {
+   await celOvSteps.verifyTMQEFunctionPopupDescription(text);
+});
+
+Then(/^the time machine query edit function popup snippet contains:$/, async text => {
+   await celOvSteps.verifyTMQEFunctionPopupSnippet(text);
+});
+
+Then(/^the time machine query edit function popup is not visible$/, async () => {
+   await celOvSteps.verifyTMQEFunctionPopupNotVisible();
+});
+
+When(/^hover over the time machine query editor timerange dropdown button$/, async () => {
+   await celOvSteps.hoverOverTMQETimerangeDropdown();
+});
+
+When(/^hover over the time machine query editor submit button$/, async() => {
+   await celOvSteps.hoverOverTMCellEditSubmit();
+});
+

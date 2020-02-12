@@ -45,6 +45,7 @@ const graphCanvasAxes = '[data-testid=\'overlay\'] canvas[data-testid=giraffe-ax
 const viewOptionsContainer = '.view-options';
 const TMEmptyGraphErrMessage = '.empty-graph-error pre'
 
+//Query builder
 const TMQBSelectedBucket = '[data-testid=bucket-selector] [data-testid^=\'selector-list\'][class*=selected]';
 const TMQBSelectedTagOfCard = '//*[@data-testid=\'builder-card\'][.//*[@data-testid=\'tag-selector--container %INDEX%\']]//*[contains(@data-testid,\'selector-list\')][contains(@class,\'selected\')]'
 const TMBuilderCardMenuDurationInput = '[data-testid=\'builder-card--menu\'] [data-testid=\'duration-input\']';
@@ -60,6 +61,14 @@ const TMQBQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[text()=\'%N
 const TMQBRightClickItem = '[data-testid=\'right-click--%ITEM%-tab\']';
 const TMQBQueryTabNameInput = 'div.cf-input__focused input';
 const TMQBQueryTabs = '.time-machine-queries .query-tab';
+
+//Query Editor
+const TMQEFunctionCategory = '//*[@class=\'flux-functions-toolbar--category\']/*[text()=\'%NAME%\']';
+const TMQEFunctionListItem = '[data-testid=\'flux-function %NAME%\']';
+const TMQEFunctionFilter = '.flux-functions-toolbar [data-testid=\'input-field\']';
+const TMQEFunctionPopup = '[data-testid=\'toolbar-popover--contents\']';
+const TMQEFunctionPopupDescription = '[data-testid=\'toolbar-popover--contents\'] .flux-functions-toolbar--description span';
+const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\']//*[./*[text()=\'Example\']]/*[@class=\'flux-functions-toolbar--snippet\']';
 
 
 const urlCtx = 'cells';
@@ -356,6 +365,35 @@ class cellEditOverlay extends influxPage {
     async getTMEmptyGraphErrMessage(){
         return await this.driver.findElement(By.css(TMEmptyGraphErrMessage));
     }
+
+    async getTMQEFunctionCategory(name){
+        return await this.driver.findElement(By.xpath(TMQEFunctionCategory.replace('%NAME%', name)));
+    }
+
+    async getTMQEFunctionListItem(name){
+        return await this.driver.findElement(By.css(TMQEFunctionListItem.replace('%NAME%', name)))
+    }
+
+    static getTMQEFunctionListItemSelector(name){
+        return { type: 'css', selector: TMQEFunctionListItem.replace('%NAME%', name) }
+    }
+
+    async getTMQEFunctionFilter(){
+        return await this.driver.findElement(By.css(TMQEFunctionFilter));
+    }
+
+    async getTMQEFunctionPopupDescription(){
+        return await this.driver.findElement(By.css(TMQEFunctionPopupDescription));
+    }
+
+    async getTMQEFunctionPopupSnippet(){
+        return await this.driver.findElement(By.xpath(TMQEFunctionPopupSnippet));
+    }
+
+    static getTMQEFunctionPopupSelector(){
+        return { type: 'css', selector: TMQEFunctionPopup };
+    }
+
 }
 
 module.exports = cellEditOverlay;
