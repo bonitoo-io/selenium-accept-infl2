@@ -118,7 +118,7 @@ Feature: Dashboards - Base
     """
     Mercure,Venus,Terre,Mars,Jupiter
     """
-    When click the dashboards panel link 'Mercure'
+    When click the dashboards panel link "Mercure"
     Then the dashboard named "Mercure" is loaded
 
   Scenario: Filter Dashboard Cards

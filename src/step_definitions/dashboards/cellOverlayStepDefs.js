@@ -355,15 +355,15 @@ When(/^click the time machine query builder add query button$/, async () => {
    await celOvSteps.clickTMAddQuery();
 });
 
-Then(/^the bucket selected in the current time machine query is '(.*)'$/, async bucket => {
+Then(/^the bucket selected in the current time machine query is "(.*)"$/, async bucket => {
    await celOvSteps.verifyTMQueryBucketSelected(bucket);
 });
 
-Then(/^the tag selected in the current time machine query card '(.*)' is '(.*)'$/, async (index, tag) => {
+Then(/^the tag selected in the current time machine query card "(.*)" is "(.*)"$/, async (index, tag) => {
    await celOvSteps.verifyTMQueryCardSelected(index,tag);
 });
 
-Then(/^the functions selected in the current time machine query card are '(.*)'$/, async funcs => {
+Then(/^the functions selected in the current time machine query card are "(.*)"$/, async funcs => {
    await celOvSteps.verifyTMQueryFunctionsSelected(funcs);
 });
 
@@ -371,19 +371,19 @@ When(/^click the query builder function "(.*)"$/, async func => {
    await celOvSteps.clickTMQBFunction(func);
 });
 
-Then(/^query '(.*)' is the active query in query builder$/, async title => {
+Then(/^query "(.*)" is the active query in query builder$/, async title => {
    await celOvSteps.verifyTMQBActiveQuery(title);
 });
 
-When(/^click on query '(.*)' in the query builder$/, async title => {
+When(/^click on query "(.*)" in the query builder$/, async title => {
    await celOvSteps.clickOnTMQBQueryTab(title);
 });
 
-When(/^right click on the time machine query tab title '(.*)'$/, async title => {
+When(/^right click on the time machine query tab title "(.*)"$/, async title => {
    await celOvSteps.rightClickTMQBQueryTabTitle(title);
 });
 
-When(/^click the time machine query tab right click menu item '(.*)'$/, async item => {
+When(/^click the time machine query tab right click menu item "(.*)"$/, async item => {
    await celOvSteps.clickTMQBQueryTabRightClickMenuItem(item);
 });
 
@@ -391,7 +391,7 @@ When(/^enter "(.*)" into the time machine query tab name input$/, async name => 
    await celOvSteps.enterNewTMQBQueryTabName(name);
 });
 
-Then(/^there is no time machine query tab named '(.*)'$/, async name => {
+Then(/^there is no time machine query tab named "(.*)"$/, async name => {
    await celOvSteps.verifyNoTMQBQueryTabNamed(name);
 });
 
@@ -427,7 +427,7 @@ When(/^close all time machine builder cards$/, async () => {
    await celOvSteps.closeAllTMQBCards();
 });
 
-When(/^unselect any tags in time machine builder card '(.*)'$/, async index => {
+When(/^unselect any tags in time machine builder card "(.*)"$/, async index => {
    await celOvSteps.deselectAllActiveTagsInTMQBCard(index);
 });
 
@@ -435,7 +435,7 @@ Then(/^the time machine query edit function categories are displayed:$/, async c
    await celOvSteps.verifyTMQEFunctionCategoriesDisplayed(cats);
 });
 
-When(/^filter the time machine query edit function list with '(.*)'$/, async term => {
+When(/^filter the time machine query edit function list with "(.*)"$/, async term => {
    await celOvSteps.filterTMQEFunctionsList(term);
 });
 
@@ -455,7 +455,7 @@ When(/^click the time machine query editor function "(.*)"$/, async func => {
    await celOvSteps.clickTMQEFunction(func);
 });
 
-When(/^hover over time machine query edit function '(.*)'$/, async func => {
+When(/^hover over time machine query edit function "(.*)"$/, async func => {
    await celOvSteps.hoverOverTMQEFunction(func);
 });
 

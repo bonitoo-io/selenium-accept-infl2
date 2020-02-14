@@ -302,13 +302,13 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click cell content popover configure
     Then the time machine cell edit preview graph is shown
     Then the time machine cell edit preview axes are shown
-    Then the bucket selected in the current time machine query is 'qa'
-    Then the tag selected in the current time machine query card '1' is 'beat'
-    Then the tag selected in the current time machine query card '2' is 'pulse'
+    Then the bucket selected in the current time machine query is "qa"
+    Then the tag selected in the current time machine query card "1" is "beat"
+    Then the tag selected in the current time machine query card "2" is "pulse"
     When get time machine preview canvas
     When get time machine preview axes
     When click the time machine query builder add query button
-    Then the bucket selected in the current time machine query is 'qa'
+    Then the bucket selected in the current time machine query is "qa"
     Then there are "1" time machine builder cards
     Then time machine builder card "1" contains:
   """
@@ -330,17 +330,17 @@ Feature: Dashboards - Dashboard - Cell Edit
     When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
-    Then query 'Query 1' is the active query in query builder
-    When click on query 'Query 2' in the query builder
-    Then the bucket selected in the current time machine query is 'qa'
-    Then the tag selected in the current time machine query card '1' is 'foo'
-    Then the tag selected in the current time machine query card '2' is 'signal'
-    Then the functions selected in the current time machine query card are 'mean'
-    When right click on the time machine query tab title 'Query 2'
-    When click the time machine query tab right click menu item 'Edit'
+    Then query "Query 1" is the active query in query builder
+    When click on query "Query 2" in the query builder
+    Then the bucket selected in the current time machine query is "qa"
+    Then the tag selected in the current time machine query card "1" is "foo"
+    Then the tag selected in the current time machine query card "2" is "signal"
+    Then the functions selected in the current time machine query card are "mean"
+    When right click on the time machine query tab title "Query 2"
+    When click the time machine query tab right click menu item "Edit"
     When enter "Dotaz B" into the time machine query tab name input
-    Then there is no time machine query tab named 'Query 2'
-    Then query 'Dotaz B' is the active query in query builder
+    Then there is no time machine query tab named "Query 2"
+    Then query "Dotaz B" is the active query in query builder
 
   Scenario: Hide Query
     When get time machine preview canvas
@@ -362,7 +362,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When get time machine preview canvas
     When get time machine preview axes
     When click delete of time machine query tab "Dotaz B"
-    Then there is no time machine query tab named 'Dotaz B'
+    Then there is no time machine query tab named "Dotaz B"
     Then there are "1" time machine query tabs
     Then the time machine preview canvas has changed
     Then the time machine preview axes have changed
@@ -472,7 +472,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the cell edit Query Builder confirm button
     # Clean up garbage from issue 16731
     When close all time machine builder cards
-    When unselect any tags in time machine builder card '1'
+    When unselect any tags in time machine builder card "1"
     When click the time machine bucket selector item "qa"
     When click the tag "beat" in builder card "1"
     Then the time machine cell edit submit button is enabled
@@ -525,7 +525,7 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   Aggregates,Inputs,Type Conversions,Selectors,Transformations,Test,Outputs,Miscellaneous,Tests
   """
-    When filter the time machine query edit function list with 'average'
+    When filter the time machine query edit function list with "average"
     Then the following function are visible in the time machine function list:
   """
    exponentialMovingAverage,movingAverage,timedMovingAverage,highestAverage,lowestAverage
@@ -539,7 +539,7 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
    doubleEMA,pearsonr,sum,first,lowestCurrent
   """
-    When hover over time machine query edit function 'skew'
+    When hover over time machine query edit function "skew"
     Then the time machine query edit function popup description contains:
   """
   Outputs the skew of non-null records as a float.

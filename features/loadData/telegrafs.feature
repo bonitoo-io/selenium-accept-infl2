@@ -81,7 +81,7 @@ Scenario: Edit NGINX Plugin Values
   When clear the create Telegraf edit plugin fields urls
   When enter the values http://localhost:10080 into the fields urls
   When click the NGINX configuration add button
-  Then the NGINX configuration URLs list contains '1' items
+  Then the NGINX configuration URLs list contains "1" items
   When click delete for the first NGINX configuration URL
   When click confirm delete of NGINX configuration URL
   Then the NGINX configuration URLs list is empty

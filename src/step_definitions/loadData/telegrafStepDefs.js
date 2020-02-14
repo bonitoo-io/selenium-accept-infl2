@@ -103,7 +103,7 @@ When(/^click the NGINX configuration add button$/, async () => {
     await teleTabSteps.clickNGINXConfigAddUrlButton();
 });
 
-Then(/^the NGINX configuration URLs list contains '(.*)' items$/, async ct => {
+Then(/^the NGINX configuration URLs list contains "(.*)" items$/, async ct => {
    await teleTabSteps.verifyNGINXConfUrlsListSize(ct);
 });
 
