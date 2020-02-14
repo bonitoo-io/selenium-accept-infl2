@@ -30,7 +30,7 @@ const cellTitle = '//*[@class=\'cell--header\'][./*[text()=\'%NAME%\']]';
 const cellHandleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--draggable\']';
 const cellResizerByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'react-resizable-handle\']';
 const cellContextToggleByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'cell-context--toggle\']';
-const cellNoteByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--note-indicator\']'
+const cellNoteByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@class=\'cell--note-indicator\']';
 const cellPopoverContents = '[data-testid=popover--contents]';
 const cellPopoverContentsConfigure = '[data-testid=popover--contents] [data-testid=\'cell-context--configure\']';
 const cellPopoverContentsAddNote = '[data-testid=popover--contents] [data-testid=\'cell-context--note\']';
@@ -86,7 +86,7 @@ class dashboardPage extends influxPage {
     }
 
     static getCellSelectorByName(name){
-        return {type: 'xpath', selector: cellByName.replace('%NAME%', name) }
+        return {type: 'xpath', selector: cellByName.replace('%NAME%', name) };
     }
 
     async getCellsByName(name){
@@ -142,7 +142,7 @@ class dashboardPage extends influxPage {
     }
 
     async getDropdownMenuItem(item){
-        return await this.driver.findElement(By.xpath(dropdownMenuItem.replace('%ITEM%', item)))
+        return await this.driver.findElement(By.xpath(dropdownMenuItem.replace('%ITEM%', item)));
     }
 
     async getdropdownMenuDivider(label){
@@ -171,7 +171,7 @@ class dashboardPage extends influxPage {
     }
 
     static getCellPopoverContentsSelector(){
-        return { type: "css", selector: cellPopoverContents}
+        return { type: 'css', selector: cellPopoverContents};
     }
 
     async getCellContextToggleByName(name){

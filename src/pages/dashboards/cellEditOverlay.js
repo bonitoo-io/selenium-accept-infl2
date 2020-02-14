@@ -29,8 +29,8 @@ const TMSwitchToQBuilderWarn = '[data-testid=switch-query-builder-confirm--popov
 const timemachineSubmit = '[data-testid=time-machine-submit-button] ';
 const TMQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[@title=\'%NAME%\']]';
 const TMQueryBuilder = '[data-testid=query-builder]';
-const functionSelect = '[data-testid=function-selector]';
-const bucketSelect = '[data-testid=bucket-selector]';
+//const functionSelect = '[data-testid=function-selector]';
+//const bucketSelect = '[data-testid=bucket-selector]';
 const TMBucketSelectorBucket = '[data-testid=bucket-selector] [data-testid=\'selector-list %NAME%\']';
 const TMBucketSelectorFilter = '[data-testid=bucket-selector] [data-testid=\'input-field\']';
 const TMBuilderCards = '[data-testid=builder-card]';
@@ -43,13 +43,13 @@ const TMFluxEditor = '[data-testid=flux-editor]';
 const graphCanvas = '[data-testid=\'overlay\'] canvas[data-testid^=giraffe-layer]';
 const graphCanvasAxes = '[data-testid=\'overlay\'] canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
-const TMEmptyGraphErrMessage = '.empty-graph-error pre'
+const TMEmptyGraphErrMessage = '.empty-graph-error pre';
 
 //Query builder
 const TMQBSelectedBucket = '[data-testid=bucket-selector] [data-testid^=\'selector-list\'][class*=selected]';
-const TMQBSelectedTagOfCard = '//*[@data-testid=\'builder-card\'][.//*[@data-testid=\'tag-selector--container %INDEX%\']]//*[contains(@data-testid,\'selector-list\')][contains(@class,\'selected\')]'
+const TMQBSelectedTagOfCard = '//*[@data-testid=\'builder-card\'][.//*[@data-testid=\'tag-selector--container %INDEX%\']]//*[contains(@data-testid,\'selector-list\')][contains(@class,\'selected\')]';
 const TMBuilderCardMenuDurationInput = '[data-testid=\'builder-card--menu\'] [data-testid=\'duration-input\']';
-const TMBuilderCardMenuFunctionListItem = '[data-testid=\'function-selector\'] [data-testid=\'selector-list %ITEM%\']'
+const TMBuilderCardMenuFunctionListItem = '[data-testid=\'function-selector\'] [data-testid=\'selector-list %ITEM%\']';
 const TMBuilderCardMenuFunctionFilter = '[data-testid=\'input-field\'][placeholder*=\'functions\']';
 const TMBuilderCardMenuFunctionListItems = '[data-testid=function-selector] [data-testid^=\'selector-list\']';
 const TMQBSelectedFunctionsByName = '[data-testid=function-selector] [data-testid=\'selector-list %NAME%\'].selected';
@@ -89,10 +89,10 @@ class cellEditOverlay extends influxPage {
             {type: 'css', selector: viewRawDataToggle},
             {type: 'css', selector: TMAutorefreshDropdown},
             {type: 'css', selector: TMTimeRangeDropdown},
-           // {type: 'css', selector: switchToScriptEditor},
+            // {type: 'css', selector: switchToScriptEditor},
             {type: 'css', selector: timemachineSubmit},
             //{type: 'css', selector: queryBuilder},
-           // {type: 'css', selector: functionSelect},
+            // {type: 'css', selector: functionSelect},
             //{type: 'css', selector: bucketSelect}
         ], urlCtx);
     }
@@ -118,7 +118,7 @@ class cellEditOverlay extends influxPage {
     }
 
     async getBucketSelectItem(item){
-        return await this.driver.findElement(By.css(bucketSelectItem.replace('%ITEM%', item)))
+        return await this.driver.findElement(By.css(bucketSelectItem.replace('%ITEM%', item)));
     }
 
     async getBucketSelectSearch(){
@@ -167,7 +167,7 @@ class cellEditOverlay extends influxPage {
     }
 
     static getGraphCanvasSelector(){
-        return { type: 'css', selector: graphCanvas }
+        return { type: 'css', selector: graphCanvas };
     }
 
     async getGraphCanvasAxes(){
@@ -175,7 +175,7 @@ class cellEditOverlay extends influxPage {
     }
 
     static getGraphCanvasAxesSelector(){
-        return { type: 'css', selector: graphCanvasAxes }
+        return { type: 'css', selector: graphCanvasAxes };
     }
 
     async getViewTypeDropdown(){
@@ -219,7 +219,7 @@ class cellEditOverlay extends influxPage {
     }
 
     async getTMAutorefreshItem(item){
-        return await this.driver.findElement(By.xpath(TMAutorefreshItem.replace('%ITEM%', item)))
+        return await this.driver.findElement(By.xpath(TMAutorefreshItem.replace('%ITEM%', item)));
     }
 
     async getTMAutorefreshForceButton(){
@@ -239,7 +239,7 @@ class cellEditOverlay extends influxPage {
     }
 
     async getTMQueryTabByName(name){
-        return await this.driver.findElement(By.xpath(TMQueryTabByName.replace('%NAME%',name)))
+        return await this.driver.findElement(By.xpath(TMQueryTabByName.replace('%NAME%',name)));
     }
 
     async getTMQueryBuilder(){
@@ -251,7 +251,7 @@ class cellEditOverlay extends influxPage {
     }
 
     static getTMFluxEditorSelector(){
-        return { type: 'css', selector: TMFluxEditor }
+        return { type: 'css', selector: TMFluxEditor };
     }
 
     async getTMSwitchToQueryBuilder(){
@@ -263,11 +263,11 @@ class cellEditOverlay extends influxPage {
     }
 
     static getTMSwitchToQBuilderWarnSelector(){
-        return { type: 'css', selector: TMSwitchToQBuilderWarn }
+        return { type: 'css', selector: TMSwitchToQBuilderWarn };
     }
 
     async getTMSwitchToQBuilderWarn(){
-        return await this.driver.findElement(By.css(TMSwitchToQBuilderWarn))
+        return await this.driver.findElement(By.css(TMSwitchToQBuilderWarn));
     }
 
     async getTMBucketSelectorBucket(name){
@@ -275,7 +275,7 @@ class cellEditOverlay extends influxPage {
     }
 
     static getTMBucketSelectorBucketSelector(name){
-        return { type: 'css', selector: TMBucketSelectorBucket.replace('%NAME%', name) }
+        return { type: 'css', selector: TMBucketSelectorBucket.replace('%NAME%', name) };
     }
 
     async getTMBucketSelectorFilter(){
@@ -299,7 +299,7 @@ class cellEditOverlay extends influxPage {
     }
 
     static getTMBuilderCardMenuFunctionListItemSelector(item){
-        return { type: 'css', selector: TMBuilderCardMenuFunctionListItem.replace('%ITEM%', item) }
+        return { type: 'css', selector: TMBuilderCardMenuFunctionListItem.replace('%ITEM%', item) };
     }
 
     async getTMBuilderCardMenuFunctionFilter(){
@@ -343,11 +343,11 @@ class cellEditOverlay extends influxPage {
     }
 
     static getTMQBQueryTabSelectorByName(name){
-        return { type: 'xpath', selector: TMQBQueryTabByName.replace('%NAME%', name)}
+        return { type: 'xpath', selector: TMQBQueryTabByName.replace('%NAME%', name)};
     }
 
     async getTMQBSelectedFunctionByName(name){
-        return await this.driver.findElements(By.css(TMQBSelectedFunctionsByName.replace('%NAME%', name)))
+        return await this.driver.findElements(By.css(TMQBSelectedFunctionsByName.replace('%NAME%', name)));
     }
 
     async getTMQBRightClickItem(item){
@@ -371,11 +371,11 @@ class cellEditOverlay extends influxPage {
     }
 
     async getTMQEFunctionListItem(name){
-        return await this.driver.findElement(By.css(TMQEFunctionListItem.replace('%NAME%', name)))
+        return await this.driver.findElement(By.css(TMQEFunctionListItem.replace('%NAME%', name)));
     }
 
     static getTMQEFunctionListItemSelector(name){
-        return { type: 'css', selector: TMQEFunctionListItem.replace('%NAME%', name) }
+        return { type: 'css', selector: TMQEFunctionListItem.replace('%NAME%', name) };
     }
 
     async getTMQEFunctionFilter(){

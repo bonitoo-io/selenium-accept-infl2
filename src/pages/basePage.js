@@ -82,7 +82,7 @@ class basePage{
     }
 
     static getPopupOverlaySelector(){
-        return { type: 'css', selector: popupOverlay}
+        return { type: 'css', selector: popupOverlay};
     }
 
     async getNoficicationSuccessMsgs(){
@@ -300,7 +300,7 @@ class basePage{
     }
 
     static getPopupBodySelector(){
-        return { type: 'css', selector: popupBody }
+        return { type: 'css', selector: popupBody };
     }
 
     async getPopupGithubLink(){

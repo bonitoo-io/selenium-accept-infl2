@@ -41,8 +41,8 @@ const createVariableDefaultValCSVDropdownItem = '//*[@data-testid=\'dropdown-ite
 const editVariableTypeDropdown = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Type\']]//*[@data-testid=\'dropdown--button\']';
 const editVariableTypeDropdownItem = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Type\']]//*[@data-testid=\'dropdown-item\'][@id=\'%ITEM%\']';
 const editVariableNameInput = '//*[@data-testid=\'form--element\'][.//span[text()  = \'Name\']]//input';
-const editWarnVariablSubmit = '[data-testid=danger-confirmation-button]'
-const editVariableNameChangeSubmit = '[data-testid=rename-variable-submit]'
+const editWarnVariablSubmit = '[data-testid=danger-confirmation-button]';
+const editVariableNameChangeSubmit = '[data-testid=rename-variable-submit]';
 
 //Warning popup
 const updateNameNameInput = '[data-testid=overlay--body] [data-testid=rename-variable-input]';

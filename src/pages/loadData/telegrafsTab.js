@@ -165,7 +165,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getPluginNGINXDeleteFirstURL(){
-        return await this.driver.findElement(By.css(pluginNGINXDeleteFirstURL))
+        return await this.driver.findElement(By.css(pluginNGINXDeleteFirstURL));
     }
 
     async getPluginNGINXDeleteURLConfirmButton(){
