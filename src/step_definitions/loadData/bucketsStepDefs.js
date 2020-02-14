@@ -165,7 +165,7 @@ Given(/^ensure buckets name sort order "(.*)"$/,{timeout: 2 * 5000}, async (orde
 });
 
 When(/^click buckets sort by retention policy$/, async () => {
-   await bktTabSteps.clickRetentionSort();
+    await bktTabSteps.clickRetentionSort();
 });
 
 When(/^click the buckets page title$/, async () => {
@@ -292,6 +292,6 @@ When(/^add the file "(.*)" to the Line Protocol Wizard file upload$/, async file
 });
 
 When(/^click the bucket data wizard previous button$/, async () => {
-   await bktTabSteps.clickDataWizardPreviousButton();
+    await bktTabSteps.clickDataWizardPreviousButton();
 });
 

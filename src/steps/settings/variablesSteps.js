@@ -296,7 +296,7 @@ class variablesSteps extends baseSteps{
     async clickVariableCardContextMenuItem(name,item){
         await this.clickAndWait(await this.varTab.getVariableCardContextMenuItem(name, item),
             //troubleshoot occasional overrun
-            async () => { await this.driver.sleep(2000) } ); //todo better wait
+            async () => { await this.driver.sleep(2000); } ); //todo better wait
     }
 
     async clickVariableNameChangeWarningUnderstand(){
@@ -318,7 +318,7 @@ class variablesSteps extends baseSteps{
     }
 
     async clickSubmitRenameVariablePopup(){
-        await this.clickAndWait(await this.varTab.getEditVariableNameChangeSubmit())
+        await this.clickAndWait(await this.varTab.getEditVariableNameChangeSubmit());
     }
 
     async verifyEditVariablePopupNameDisabled(){

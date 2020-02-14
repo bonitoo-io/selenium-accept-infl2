@@ -10,16 +10,16 @@ const createDashboardItems = '[data-testid^=add-resource-dropdown--][id]';
 const dashboardCardByName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]';
 const dashboardCardExportButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Export\']]';
 const dashboardCardExportConfirm = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[text()=\'Export\']';
-const dashboardCardCloneButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Clone\']]'
+const dashboardCardCloneButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Clone\']]';
 const dashboardCardCloneConfirm = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\']//*[text() = \'Clone\']';
 const dashboardCardDeleteButton = '//*[@data-testid=\'dashboard-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
-const dashboardCardDeleteConfirm = '//*[@data-testid=\'dashboard-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-dashboard\']'
+const dashboardCardDeleteConfirm = '//*[@data-testid=\'dashboard-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-dashboard\']';
 const dashboardCardName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name\']';
 const dashboardCardNames = '[data-testid=\'dashboard-card--name\']';
 const dashboardCardNameButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name-button\']';
 const dashboardCardNameInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--input\']';
 const dashboardCardDescription = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
-const dashboardCardDescriptionEdit = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']'
+const dashboardCardDescriptionEdit = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']';
 const dashboardCardDescriptionInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'input-field\']';
 const dashboardCardLabelsEmpty = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
 const dashboardCardAddLabels = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
@@ -98,7 +98,7 @@ class dashboardsPage extends influxPage {
     }
 
     static getCreateDashboardDropdownEmptySelector(){
-        return { type: 'css', selector: createDashboardDropdownEmpty}
+        return { type: 'css', selector: createDashboardDropdownEmpty};
     }
 
     async getCreateDashboardItems(){
@@ -106,11 +106,11 @@ class dashboardsPage extends influxPage {
     }
 
     async getDashboardCardByName(name){
-        return await this.driver.findElement(By.xpath(dashboardCardByName.replace('%NAME%', name)))
+        return await this.driver.findElement(By.xpath(dashboardCardByName.replace('%NAME%', name)));
     }
 
     static getDashboardCardSelectorByName(name){
-        return {  type: 'xpath', selector: dashboardCardByName.replace('%NAME%', name) }
+        return {  type: 'xpath', selector: dashboardCardByName.replace('%NAME%', name) };
     }
 
     async getDashboardCardExportButton(name){
@@ -179,7 +179,7 @@ class dashboardsPage extends influxPage {
     }
 
     static getAddLabelsPopoverLabelSelector(label){
-        return { type: 'xpath', selector: addLabelsPopoverLabel.replace('%LABEL%', label)}
+        return { type: 'xpath', selector: addLabelsPopoverLabel.replace('%LABEL%', label)};
     }
 
     async getAddLabelsPopoverFilter(){
@@ -199,7 +199,7 @@ class dashboardsPage extends influxPage {
     }
 
     static getAddLabelsPopoverNewItemSelector(){
-        return { type: 'css', selector: addLabelsPopoverNewItem }
+        return { type: 'css', selector: addLabelsPopoverNewItem };
     }
 
     async getDashboardCardLabelPill(name, label){
@@ -209,7 +209,7 @@ class dashboardsPage extends influxPage {
 
     static getDashboardCardLabelPillSelector(name, label){
         return { type: 'xpath', selector: dashboardCardLabelPill
-                .replace('%NAME%', name).replace('%LABEL%', label) }
+            .replace('%NAME%', name).replace('%LABEL%', label) };
     }
 
     async getAddLabelsPopover(){
@@ -222,7 +222,7 @@ class dashboardsPage extends influxPage {
 
     async getDashboardCardLabelPillDelete(name, label){
         return await this.driver.findElement(By.xpath(dashboardCardLabelPillDelete
-            .replace("%NAME%", name).replace('%LABEL%', label)));
+            .replace('%NAME%', name).replace('%LABEL%', label)));
     }
 
     async getImportPopupUploadFileRadio(){
@@ -250,7 +250,7 @@ class dashboardsPage extends influxPage {
     }
 
     async getImportPopupFileInputHeader(){
-       return await this.driver.findElement(By.css(importPopupFileInputHeader));
+        return await this.driver.findElement(By.css(importPopupFileInputHeader));
     }
 
     async getImportPopupDragNDropFile(){

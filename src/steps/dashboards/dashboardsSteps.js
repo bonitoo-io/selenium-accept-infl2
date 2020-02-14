@@ -1,4 +1,4 @@
-const { expect, assert } = require('chai');
+const { expect } = require('chai');
 const  path  = require('path');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
@@ -29,7 +29,7 @@ class dashboardsSteps extends influxSteps {
 
     async clickCreateDashboardItem(item){
         await this.clickAndWait(await this.dbdsPage.getCreateDashboardItem(item),
-            async () => { await this.driver.sleep(1000)}); // todo better wait - slow to load?
+            async () => { await this.driver.sleep(1000);}); // todo better wait - slow to load?
     }
 
     async clickCreateDashboardEmpty(){
@@ -90,7 +90,7 @@ class dashboardsSteps extends influxSteps {
     }
 
     async renameDashboardCard(newName, oldName){
-        await this.typeTextAndWait(await this.dbdsPage.getDashboardCardNameInput(oldName), newName)
+        await this.typeTextAndWait(await this.dbdsPage.getDashboardCardNameInput(oldName), newName);
     }
 
     async verifyDashboardCardContainsDescription(name,descr){
@@ -132,7 +132,7 @@ class dashboardsSteps extends influxSteps {
 
     async verifyDasboardAddLabelsPillCount(count){
         await this.dbdsPage.getAddLabelsLabelPills().then(async pills => {
-           expect(pills.length).to.equal(parseInt(count));
+            expect(pills.length).to.equal(parseInt(count));
         });
     }
 
@@ -150,7 +150,7 @@ class dashboardsSteps extends influxSteps {
 
     async clickLabelPopoverCreateNewLabel(){
         await this.clickAndWait(await this.dbdsPage.getAddLabelsPopoverNewItem(),
-            async () => { await this.driver.sleep(1000) }); //popup slow to load? todo better wait
+            async () => { await this.driver.sleep(1000); }); //popup slow to load? todo better wait
     }
 
     async verifyDashboardCardHasLabel(name, label){
@@ -166,7 +166,7 @@ class dashboardsSteps extends influxSteps {
     }
 
     async hoverDashboardCardLabel(name, label){
-        await this.hoverOver(await this.dbdsPage.getDashboardCardLabelPill(name, label))
+        await this.hoverOver(await this.dbdsPage.getDashboardCardLabelPill(name, label));
     }
 
     async clickDashboardCardRemoveLabel(name,label){
@@ -185,7 +185,7 @@ class dashboardsSteps extends influxSteps {
         let cardsArr = cards.split(',');
         cardsArr.forEach(async cardName => {
             await this.assertVisible(await this.dbdsPage.getDashboardCardByName(cardName));
-        } )
+        } );
     }
 
     async verifyDashboardCardsNotPresent(cards){
@@ -204,7 +204,7 @@ class dashboardsSteps extends influxSteps {
     }
 
     async verifyImportDashboardPopupVisible(){
-        await this.verifyElementContainsText(await this.dbdsPage.getPopupTitle(), 'Import Dashboard')
+        await this.verifyElementContainsText(await this.dbdsPage.getPopupTitle(), 'Import Dashboard');
         //and upload file
         await this.assertVisible(await this.dbdsPage.getImportPopupUploadFileRadio());
         //and paste json
@@ -259,13 +259,13 @@ class dashboardsSteps extends influxSteps {
     }
 
     async verifyImportDashboardFileUploadNotPresent(){
-         await this.assertNotPresent(await dashboardsPage.getImportPopupFileInputSelector());
+        await this.assertNotPresent(await dashboardsPage.getImportPopupFileInputSelector());
     }
 
     async pasteFileContentsImportDashboardTextarea(filepath){
         let contents = await influxUtils.readFileToBuffer(filepath);
         //console.log("DEBUG file contents:\n " + contents );
-        await this.typeTextAndWait(await this.dbdsPage.getImportPopupJSONTextarea(), contents)
+        await this.typeTextAndWait(await this.dbdsPage.getImportPopupJSONTextarea(), contents);
     }
 
     async clickFromTemplatePopupCancel(){
@@ -291,9 +291,9 @@ class dashboardsSteps extends influxSteps {
     async verifyDashboardSortOrder(dBoards){
         let dbArray = dBoards.split(',');
         await this.dbdsPage.getDashboardCardNames().then(async names => {
-           for(let i = 0; i < names.length; i++){
-               expect(await names[i].getText()).to.equal(dbArray[i]);
-           }
+            for(let i = 0; i < names.length; i++){
+                expect(await names[i].getText()).to.equal(dbArray[i]);
+            }
         });
     }
 
@@ -323,7 +323,7 @@ class dashboardsSteps extends influxSteps {
 
     async clickDashboardCardExportConfirm(name){
         await this.clickAndWait(await this.dbdsPage.getDashboardCardExportConfirm(name),
-            async () => { await this.driver.sleep(1000); }) //slow to load?
+            async () => { await this.driver.sleep(1000); }); //slow to load?
     }
 
     async verifyExportDashboardPopupLoaded(){
@@ -346,7 +346,7 @@ class dashboardsSteps extends influxSteps {
 
     async clickExportDashboardDownloadJSON(filePath){
         await this.clickAndWait(await this.dbdsPage.getExportPopupDownloadJSON(),
-            async () => {await influxUtils.waitForFileToExist(filePath) }); //wait for download to complete
+            async () => {await influxUtils.waitForFileToExist(filePath); }); //wait for download to complete
     }
 
     async clickExportDashboardSaveAsTemplate(){

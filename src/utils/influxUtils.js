@@ -202,10 +202,10 @@ const getDashboards = async() => {
     return await axios.get('/api/v2/dashboards').then(resp => {
         return resp.data;
     }).catch(err => {
-       console.log('ERROR: ' + err);
-       throw(err);
+        console.log('ERROR: ' + err);
+        throw(err);
     });
-}
+};
 
 // http://localhost:9999/api/v2/labels
 // {"orgID":"8576cb897e0b4ce9","name":"MyLabel","properties":{"description":"","color":"#7CE490"}}
@@ -253,7 +253,7 @@ const createTemplateFromFile = async(filepath, orgID) => {
         return resp.data;
     }).catch(err => {
         throw(err);
-    })
+    });
 
 };
 
@@ -414,36 +414,36 @@ const genLogisticValues = async(count) => {
 };
 
 const genLifeValues = async(count) => {
-  let result = [];
-  let carryCap = ((Math.random() * 9) * 100) + 100;
-  let growthRate = Math.random() + 1;
-  //console.log("DEBUG carryCap " + carryCap + " growthRate " + growthRate);
-  result.push(2.0);
-  for(let i = 1; i < count; i++){
-      let accGrowth = growthRate + (0.10 - (Math.random() * 0.20));
-      if(result[i-1] > carryCap){ //cull
-          let overshoot = result[i -1] - carryCap;
-          let cull = overshoot * 2; //((Math.random() * 2) + 1);
-          //console.log('DEBUG culling ' + cull  + "  cull percent " + cull/carryCap);
-          if(carryCap - cull < 2){
-              result.push(2); //reseed
-              growthRate = growthRate * 0.95;
-          }else{
-              result.push(result[i - 1] - cull);
-          }
-          let origCarryCap = carryCap;
-          carryCap -= (carryCap * (cull/carryCap * 0.1)); //overshoot degrades carrying capacity
-          if(carryCap < origCarryCap / 2){
-              carryCap = origCarryCap/2;
-          }
-      }else if(result[i-1] < 2){
-          result.push(2)
-      }else{
-          result.push(result[i - 1] ** accGrowth);
-      }
-      //console.log('DEBUG ' + result[i] + " carryCap " + carryCap + " growthRate " + accGrowth);
-  }
-  return result;
+    let result = [];
+    let carryCap = ((Math.random() * 9) * 100) + 100;
+    let growthRate = Math.random() + 1;
+    //console.log("DEBUG carryCap " + carryCap + " growthRate " + growthRate);
+    result.push(2.0);
+    for(let i = 1; i < count; i++){
+        let accGrowth = growthRate + (0.10 - (Math.random() * 0.20));
+        if(result[i-1] > carryCap){ //cull
+            let overshoot = result[i -1] - carryCap;
+            let cull = overshoot * 2; //((Math.random() * 2) + 1);
+            //console.log('DEBUG culling ' + cull  + "  cull percent " + cull/carryCap);
+            if(carryCap - cull < 2){
+                result.push(2); //reseed
+                growthRate = growthRate * 0.95;
+            }else{
+                result.push(result[i - 1] - cull);
+            }
+            let origCarryCap = carryCap;
+            carryCap -= (carryCap * (cull/carryCap * 0.1)); //overshoot degrades carrying capacity
+            if(carryCap < origCarryCap / 2){
+                carryCap = origCarryCap/2;
+            }
+        }else if(result[i-1] < 2){
+            result.push(2);
+        }else{
+            result.push(result[i - 1] ** accGrowth);
+        }
+        //console.log('DEBUG ' + result[i] + " carryCap " + carryCap + " growthRate " + accGrowth);
+    }
+    return result;
 };
 
 
@@ -458,20 +458,20 @@ const removeFileIfExists = async function(filepath){
 };
 
 const fileExists = async function(filePath){
-   return fs.existsSync(filePath);
+    return fs.existsSync(filePath);
 };
 
 const waitForFileToExist = async function(filePath, timeout = 10000){
-  let sleepTime = 3000;
-  let totalSleep = 0;
-  while (totalSleep < timeout){
-      if(fs.existsSync(filePath)){
-          return true;
-      }
-      totalSleep += sleepTime;
-  }
+    let sleepTime = 3000;
+    let totalSleep = 0;
+    while (totalSleep < timeout){
+        if(fs.existsSync(filePath)){
+            return true;
+        }
+        totalSleep += sleepTime;
+    }
 
-  throw `Timed out ${timeout}ms waiting for file ${filePath}`;
+    throw `Timed out ${timeout}ms waiting for file ${filePath}`;
 
 };
 

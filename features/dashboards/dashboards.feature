@@ -65,7 +65,7 @@ Feature: Dashboards - Base
     When click empty label for the dashboard card "Mercure"
     Then the label "Cesko" in the popover selector is visible
     Then the label "Mesto" in the popover selector is visible
-    Then the  create new label item is not visible in the popover
+    Then the create new label item is not visible in the popover
     When enter "Slovensko" in the popover label selector filter
     Then the create new label item is visible in the popover
     Then there are "0" label pills in the select label popover
@@ -118,7 +118,7 @@ Feature: Dashboards - Base
     """
     Mercure,Venus,Terre,Mars,Jupiter
     """
-    When click the dashboards panel link 'Mercure'
+    When click the dashboards panel link "Mercure"
     Then the dashboard named "Mercure" is loaded
 
   Scenario: Filter Dashboard Cards

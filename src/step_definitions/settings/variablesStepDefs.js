@@ -274,7 +274,7 @@ When(/^enter the new variable name "(.*)"$/, async name => {
 });
 
 When(/^click rename variable popup submit button$/, async () => {
-   await vblSteps.clickSubmitRenameVariablePopup();
+    await vblSteps.clickSubmitRenameVariablePopup();
 });
 
 Then(/^the edit variable name input is disabled$/, async () => {

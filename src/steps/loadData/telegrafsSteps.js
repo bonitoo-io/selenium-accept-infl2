@@ -237,7 +237,7 @@ class telegrafsSteps extends loadDataSteps{
 
     async verifyNGINXConfUrlsListSize(ct){
         await this.teleTab.getPluginNGINXURLListItems().then(async list => {
-           await expect(await list.length).to.equal(parseInt(ct));
+            await expect(await list.length).to.equal(parseInt(ct));
         });
     }
 
@@ -427,7 +427,7 @@ class telegrafsSteps extends loadDataSteps{
 
     async clickTelegrafCardDeleteConfirm(name){
         await this.clickAndWait(await this.teleTab.getTelegrafCardDeleteConfirm(name),
-            async () => {await this.driver.sleep(1000)}); //longer wait - seems to sometimes be slow
+            async () => {await this.driver.sleep(1000);}); //longer wait - seems to sometimes be slow
     }
 
     async clickTelegrafCardAddLabel(name){

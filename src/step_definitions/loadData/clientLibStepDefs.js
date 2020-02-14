@@ -1,4 +1,4 @@
-import { Given, Then, When } from 'cucumber';
+import { Then, When } from 'cucumber';
 
 const clientLibsSteps = require(__srcdir + '/steps/loadData/clientLibsSteps.js');
 let clibTabSteps = new clientLibsSteps(__wdriver);
@@ -9,11 +9,11 @@ Then(/^the Client Libraries tab is loaded$/, async () => {
 });
 
 When(/^click the "(.*)" client library tile$/, async name => {
-   await clibTabSteps.clickLibTileByName(name);
+    await clibTabSteps.clickLibTileByName(name);
 });
 
 Then(/^the csharp info popup is loaded$/, async () => {
-   await clibTabSteps.verifyCSharpPopupLoaded();
+    await clibTabSteps.verifyCSharpPopupLoaded();
 });
 
 Then(/^the go info popup is loaded$/, async () => {
@@ -37,7 +37,7 @@ Then(/^click copy "(.*)" to clipboard$/, {timeout: 10000}, async  label => {
 });
 
 Then(/^verify clipboard contains text of "(.*)"$/,  async label => {
-   await clibTabSteps.verifyClipboardTextFrom(label);
+    await clibTabSteps.verifyClipboardTextFrom(label);
 });
 
 Then(/^verify the github repository link contains "(.*)"$/, async token => {

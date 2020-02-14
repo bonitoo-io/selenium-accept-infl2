@@ -1,11 +1,11 @@
-const fs = require('fs')
+const fs = require('fs');
 const chai = require('chai');
 chai.use(require('chai-match'));
 
 const expect = require('chai').expect;
 const assert = require('chai').assert;
 
-const { By, Key, NoSuchElementError, until } = require('selenium-webdriver');
+const { By, Key, until } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -14,8 +14,11 @@ const keyMap = {'enter': Key.ENTER,
     'tab': Key.TAB,
     'backspace': Key.BACK_SPACE,
     'space': Key.SPACE,
-    'escape': Key.ESCAPE
-    };
+    'escape': Key.ESCAPE,
+    'ctrl': Key.CONTROL,
+    'end': Key.END,
+    'shift': Key.SHIFT
+};
 
 
 class baseSteps{
@@ -241,22 +244,22 @@ class baseSteps{
 
     async isPresent(selector){
         switch(selector.type){
-            case 'css':
-                return await this.driver.findElements(By.css(selector.selector)).then(async elems => {
-                    return elems.length > 0;
-                }).catch(async err => {
-                    err += ' expected ' + JSON.stringify(selector) + ' to not be present';
-                    throw err;
-                });
-            case 'xpath':
-                return await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
-                    return elems.length > 0;
-                }).catch(async err => {
-                    err.message += ' expected ' + selector + ' to not be present';
-                    throw err;
-                });
-            default:
-                throw `Unknown selector type ${selector}`;
+        case 'css':
+            return await this.driver.findElements(By.css(selector.selector)).then(async elems => {
+                return elems.length > 0;
+            }).catch(async err => {
+                err += ' expected ' + JSON.stringify(selector) + ' to not be present';
+                throw err;
+            });
+        case 'xpath':
+            return await this.driver.findElements(By.xpath(selector.selector)).then(async elems => {
+                return elems.length > 0;
+            }).catch(async err => {
+                err.message += ' expected ' + selector + ' to not be present';
+                throw err;
+            });
+        default:
+            throw `Unknown selector type ${selector}`;
         }
     }
 
@@ -340,7 +343,7 @@ class baseSteps{
             try {
                 await this.driver.wait(until.stalenessOf(await this.basePage.getPopupOverlay()));
             }catch(err){
-              //  console.log("DEBUG err " + JSON.stringify(err));
+                //  console.log("DEBUG err " + JSON.stringify(err));
                 if(err.name !== 'NoSuchElementError'){ // O.K. if not found - DOM already updated
                     throw err;
                 }
@@ -503,7 +506,30 @@ class baseSteps{
         //await console.log("DEBUG text from monacoElement #" + text + "#");
         await monElem.sendKeys(Key.chord(Key.CONTROL, Key.END));
         for( let i = 0; i < text.length; i++){
-           await monElem.sendKeys(Key.BACK_SPACE);
+            await monElem.sendKeys(Key.BACK_SPACE);
+        }
+    }
+
+    async sendMonacoEditorKeys(monElem, keys){
+        let actionList = keys.split(',');
+        for(let i = 0; i < actionList.length; i++){
+            if(actionList[i].includes('+')){ //is chord
+                let chord = actionList[i].split('+');
+                if(chord.length === 2){
+                    await monElem.sendKeys(Key.chord(keyMap[chord[0].toLowerCase()],
+                        keyMap[chord[1].toLowerCase()]));
+                }else if(chord.length === 3){
+                    await monElem.sendKeys(Key.chord(keyMap[chord[0].toLowerCase()],
+                        keyMap[chord[1].toLowerCase()],
+                        keyMap[chord[2].toLowerCase()]));
+
+                }else{
+                    throw `unsupported chord count ${actionList[i]}`;
+                }
+
+            }else{
+                await monElem.sendKeys(keyMap[actionList[i].toLowerCase()]);
+            }
         }
     }
 
@@ -511,7 +537,7 @@ class baseSteps{
         return await this.driver.executeScript('return this.monaco.editor.getModels()[0].getValue()');
     }
 
-    async getCodeMirrorText(cmElem, text){
+    async getCodeMirrorText(cmElem){
         return await this.driver.executeScript('return arguments[0].CodeMirror.getValue()', cmElem);
     }
 
@@ -535,8 +561,8 @@ class baseSteps{
 
     async verifyElementAttributeContainsText(elem,attrib,text){
         await elem.getAttribute(attrib).then(async at => {
-                await expect(at).to.include(text);
-        })
+            await expect(at).to.include(text);
+        });
     }
 
     async verifyElementContainsNoText(elem){
@@ -576,10 +602,10 @@ class baseSteps{
 
     async pressKeyAndWait(key, wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){
         await this.driver.switchTo().activeElement().then(async elem => {
-                await elem.sendKeys(keyMap[key.toLowerCase()]).then(async () => {
-                    await wait()
-                });
-        })
+            await elem.sendKeys(keyMap[key.toLowerCase()]).then(async () => {
+                await wait();
+            });
+        });
     }
 
     async verifyFileExists(filePath){
@@ -587,21 +613,21 @@ class baseSteps{
     }
 
     async scrollElementIntoView(elem){
-        await this.driver.executeScript("arguments[0].scrollIntoView(true);", elem).then(async () => {
+        await this.driver.executeScript('arguments[0].scrollIntoView(true);', elem).then(async () => {
             await this.driver.sleep(150);
         });
     }
 
     async writeBase64ToPNG(filePath, base64String){
-        let base64Data = base64String.replace(/^data:image\/png;base64,/,"")
+        let base64Data = base64String.replace(/^data:image\/png;base64,/,'');
         fs.writeFile(filePath,
             base64Data,
             'base64',
             async err => {
-            if(err) {
-                console.log(err)
-            }
-        })
+                if(err) {
+                    console.log(err);
+                }
+            });
     }
 
 

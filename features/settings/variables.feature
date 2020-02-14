@@ -331,6 +331,11 @@ Feature: Settings - Variables
       |Jehlicnany|
       |Slavia    |
       |Arsenal   |
+      |Bucket    |
+      |Obdobi    |
+      |Primaty   |
+      |Reals     |
+
 
 
 

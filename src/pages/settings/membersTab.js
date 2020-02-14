@@ -15,7 +15,7 @@ class membersTab extends settingsPage{
         await super.isTabLoaded(urlCtx,
             [
                 {type: 'css', selector: variablesFilter},
-  //              {type: 'css', selector: addMemberButton},
+                //              {type: 'css', selector: addMemberButton},
             ]
         );
     }

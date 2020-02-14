@@ -31,7 +31,7 @@ AfterAll(async() => {
 });
 
 When(/^clear browser storage$/, async () => {
-   await bSteps.clearBrowserLocalStorage();
+    await bSteps.clearBrowserLocalStorage();
 });
 
 Then(/^the success notification says "(.*?)"$/, async message => {
@@ -264,19 +264,19 @@ When(/^force page refresh$/, async ()=> {
 });
 
 When(/^press the "(.*)" key$/, async key => {
-   await bSteps.pressKeyAndWait(key);
+    await bSteps.pressKeyAndWait(key);
 });
 
 When(/^create a new template from the file "(.*)" for user "(.*)"$/, async (filepath, user) => {
-   let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
-   await influxUtils.createTemplateFromFile(filepath, orgID);
+    let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
+    await influxUtils.createTemplateFromFile(filepath, orgID);
 });
 
 When(/^remove file "(.*)" if exists$/, async filePath => {
-   await influxUtils.removeFileIfExists(filePath);
+    await influxUtils.removeFileIfExists(filePath);
 });
 
 Then(/^the file "(.*)" has been downloaded$/, async filePath => {
-    await bSteps.verifyFileExists(filePath)
+    await bSteps.verifyFileExists(filePath);
 });
 
