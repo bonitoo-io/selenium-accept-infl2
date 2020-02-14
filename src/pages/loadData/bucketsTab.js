@@ -201,7 +201,8 @@ class bucketsTab extends loadDataPage {
     async getBucketCardRetentionByName(name){
         //        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
         //return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket--card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(),"Retention")]`));
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//*[@data-testid='cf-resource-card--meta-item'][contains(text(), 'Retention')]`));
+        //return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//*[@data-testid='cf-resource-card--meta-item'][contains(text(), 'Retention')]`));
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(), 'Retention')]`))
     }
 
     async getBucketCardPopover(){
@@ -229,7 +230,8 @@ class bucketsTab extends loadDataPage {
 
     async getBucketCardAddDataByName(name){
 
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//button[@title='Add Data']`));
+        //return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//button[@title='Add Data']`));
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card ${name}']//button[@title='Add Data']`))
         //return await this.smartGetElement({type: 'xpath', selector: `//div[div/div/div[@data-testid='bucket--card ${name}']]//button[@title = 'Add Data']`});
     }
 
