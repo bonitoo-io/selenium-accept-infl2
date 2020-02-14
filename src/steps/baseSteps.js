@@ -14,7 +14,10 @@ const keyMap = {'enter': Key.ENTER,
     'tab': Key.TAB,
     'backspace': Key.BACK_SPACE,
     'space': Key.SPACE,
-    'escape': Key.ESCAPE
+    'escape': Key.ESCAPE,
+    'ctrl': Key.CONTROL,
+    'end': Key.END,
+    "shift": Key.SHIFT
     };
 
 
@@ -504,6 +507,29 @@ class baseSteps{
         await monElem.sendKeys(Key.chord(Key.CONTROL, Key.END));
         for( let i = 0; i < text.length; i++){
            await monElem.sendKeys(Key.BACK_SPACE);
+        }
+    }
+
+    async sendMonacoEditorKeys(monElem, keys){
+        let actionList = keys.split(',');
+        for(let i = 0; i < actionList.length; i++){
+            if(actionList[i].includes('+')){ //is chord
+                let chord = actionList[i].split('+');
+                if(chord.length === 2){
+                    await monElem.sendKeys(Key.chord(keyMap[chord[0].toLowerCase()],
+                        keyMap[chord[1].toLowerCase()]))
+                }else if(chord.length === 3){
+                    await monElem.sendKeys(Key.chord(keyMap[chord[0].toLowerCase()],
+                        keyMap[chord[1].toLowerCase()],
+                        keyMap[chord[2].toLowerCase()]))
+
+                }else{
+                    throw `unsupported chord count ${actionList[i]}`;
+                }
+
+            }else{
+                await monElem.sendKeys(keyMap[actionList[i].toLowerCase()]);
+            }
         }
     }
 

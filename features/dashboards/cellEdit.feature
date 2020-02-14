@@ -550,6 +550,38 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
     When hover over the time machine query editor submit button
     Then the time machine query edit function popup is not visible
+    When click dashboard cell edit cancel button
+
+  Scenario: Edit Query - Add a Function
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When click the cell edit Script Editor button
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "beat")
+    |> filter(fn: (r) => r._field == "pulse")
+  """
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click the time machine flux editor
+    # following is work around for 16854 - TODO remove when fixed
+    When send keys "CTRL+END" to the time machine flux editor
+    When click the time machine query editor function "aggregateWindow"
+    Then the time machine script editor contains
+  """
+  from(bucket: "qa")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "beat")
+    |> filter(fn: (r) => r._field == "pulse")
+    |> aggregateWindow(every: 1m, fn: mean)
+  """
+    When click the time machine cell edit submit button
+    Then the time machine preview canvas has changed
+    When click the cell edit save button
+    Then the graph of the cell "Kliky" has changed
 
   #Scenario: Edit Query - Add functions
     # time-machine--bottom

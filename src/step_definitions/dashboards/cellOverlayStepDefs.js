@@ -451,6 +451,10 @@ Then(/^the following function are not visible in the time machine function list:
    await celOvSteps.verifyTMQENotVisibleFunctions(funcs);
 });
 
+When(/^click the time machine query editor function "(.*)"$/, async func => {
+   await celOvSteps.clickTMQEFunction(func);
+});
+
 When(/^hover over time machine query edit function '(.*)'$/, async func => {
    await celOvSteps.hoverOverTMQEFunction(func);
 });
@@ -473,5 +477,9 @@ When(/^hover over the time machine query editor timerange dropdown button$/, asy
 
 When(/^hover over the time machine query editor submit button$/, async() => {
    await celOvSteps.hoverOverTMCellEditSubmit();
+});
+
+When(/^send keys "(.*)" to the time machine flux editor$/, async keys => {
+   await celOvSteps.sendKeysToTimeMachineFluxEditor(keys);
 });
 

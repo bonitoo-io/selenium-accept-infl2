@@ -771,6 +771,11 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
+    async clickTMQEFunction(func){
+        await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+        await this.clickAndWait(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+    }
+
     async hoverOverTMQEFunction(func){
         await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
         await this.hoverOver(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
@@ -794,6 +799,10 @@ class cellOverlaySteps extends influxSteps {
 
     async hoverOverTMCellEditSubmit(){
         await this.hoverOver(await this.cellOverlay.getTimemachineSubmit());
+    }
+
+    async sendKeysToTimeMachineFluxEditor(keys){
+        await this.sendMonacoEditorKeys(await this.cellOverlay.getScriptMonacoEditor(), keys);
     }
 
 }
