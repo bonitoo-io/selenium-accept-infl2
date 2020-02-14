@@ -1,12 +1,12 @@
 const expect = require('chai').expect;
 const assert = require('chai').assert;
-const { Key, until, By, Origin } = require('selenium-webdriver');
+const { Key, until, By } = require('selenium-webdriver');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const dashboardPage = require(__srcdir + '/pages/dashboards/dashboardPage.js');
-const basePage = require(__srcdir + '/pages/basePage.js');
+//const basePage = require(__srcdir + '/pages/basePage.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
-const influxUtils = require(__srcdir + '/utils/influxUtils.js');
+//const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 class dashboardSteps extends influxSteps {
 
@@ -22,8 +22,8 @@ class dashboardSteps extends influxSteps {
                 await this.dbdPage.getNameInput().then(async input => {
                     await this.clearInputText(input);
                     //await input.clear().then(async () => { // input.clear not working consistently here
-                        await input.sendKeys(name + Key.ENTER).then(async () => {
-                        });
+                    await input.sendKeys(name + Key.ENTER).then(async () => {
+                    });
                     //});
                 });
             });
@@ -65,9 +65,9 @@ class dashboardSteps extends influxSteps {
         let itemArr = items.split(',');
         for(let i = 0; i < itemArr.length; i++){
             await this.dbdPage.getDropdownMenuItem(itemArr[i].trim()).then(async elem => {
-               assert(true, `${await elem.getText()} is in list`);
-            }).catch(e => {
-               assert(false, `${itemArr[i]} is in list`);
+                assert(true, `${await elem.getText()} is in list`);
+            }).catch(() => {
+                assert(false, `${itemArr[i]} is in list: `);
             });
         }
     }
@@ -77,7 +77,7 @@ class dashboardSteps extends influxSteps {
         for(let i = 0; i < labelArr.length; i++){
             await this.dbdPage.getdropdownMenuDivider(labelArr[i].trim()).then(async elem => {
                 assert(true, `${await elem.getText()} is in list`);
-            }).catch(e => {
+            }).catch(() => {
                 assert(false, `${labelArr[i]} is in list`);
             });
         }
@@ -97,21 +97,21 @@ class dashboardSteps extends influxSteps {
                 await this.clickAndWait(elem, async () => {
                     await this.driver.sleep(1500); //give cells chance to reload - TODO better wait
                 });
-            })
-        })
+            });
+        });
     }
 
     async clickCreateCellEmpty(){
         //todo wait for buckets to be loaded ---
         await this.clickAndWait(await this.dbdPage.getEmptyStateAddCellButton(), async() => {
-            await this.driver.sleep(1000) /*this.driver.wait(
+            await this.driver.sleep(1000); /*this.driver.wait(
                 until.elementLocated(By.css(cellEditOverlay.getBucketSelectSearchSelector().selector))
             );*/  //for some reason wait with until still sometimes overruns subsequent steps
         });
     }
 
     async verifyCellNotPresent(name){
-        await this.assertNotPresent(await dashboardPage.getCellSelectorByName(name))
+        await this.assertNotPresent(await dashboardPage.getCellSelectorByName(name));
     }
 
     async verifyEmptyGraphMessage(name){
@@ -131,6 +131,7 @@ class dashboardSteps extends influxSteps {
         await this.dbdPage.getCellByName(name).then(async cell => {
             await cell.getRect().then(async rect => {
                 // console.log("DEBUG rect for " + name + " " + JSON.stringify(rect))
+                /* eslint-disable no-undef */
                 if(typeof __dataBuffer.rect === 'undefined'){
                     __dataBuffer.rect = [];
                 }
@@ -140,8 +141,8 @@ class dashboardSteps extends influxSteps {
                 //let dashboards = await influxUtils.getDashboards();
                 //console.log("DEBUG dashboards " + JSON.stringify(dashboards));
 
-            })
-        })
+            });
+        });
     }
 
     async getCurrentGraphOfCell(name){
@@ -149,11 +150,12 @@ class dashboardSteps extends influxSteps {
             if(typeof __dataBuffer.graphCellAxes === 'undefined') {
                 __dataBuffer.graphCellAxes = [];
             }
+            /* eslint-disable require-atomic-updates */
             __dataBuffer.graphCellAxes[name] = await this.driver
                 .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
 
-          //  console.log('DEBUG __dataBuffer.graphCellAxes[' + name + "] " +
-          //      __dataBuffer.graphCellAxes[name]);
+            //  console.log('DEBUG __dataBuffer.graphCellAxes[' + name + "] " +
+            //      __dataBuffer.graphCellAxes[name]);
 
             await this.dbdPage.getCellCanvasLine(name).then(async canvasLine => {
                 if(typeof __dataBuffer.graphCellLine === 'undefined') {
@@ -164,8 +166,8 @@ class dashboardSteps extends influxSteps {
 
             //    console.log('DEBUG __dataBuffer.graphCellLine[' + name + "] " +
             //        __dataBuffer.graphCellLine[name]);
-            })
-        })
+            });
+        });
     }
 
     async verifyCellGraphChange(name){
@@ -182,8 +184,8 @@ class dashboardSteps extends influxSteps {
                 let currentLine = await this.driver
                     .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
                 await expect(currentLine).to.not.equal(__dataBuffer.graphCellLine[name]);
-            })
-        })
+            });
+        });
     }
 
     async verifyCellGraphNoChange(name){
@@ -200,8 +202,8 @@ class dashboardSteps extends influxSteps {
                 let currentLine = await this.driver
                     .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
                 await expect(currentLine).to.equal(__dataBuffer.graphCellLine[name]);
-            })
-        })
+            });
+        });
 
     }
 
@@ -218,8 +220,8 @@ class dashboardSteps extends influxSteps {
                 }else{
                     await expect(line1).to.not.equal(line2);
                 }
-            })
-        })
+            });
+        });
     }
 
     async toggleDashboardCellContextMenu(name){
@@ -227,7 +229,7 @@ class dashboardSteps extends influxSteps {
             await this.driver.wait(
                 until.elementLocated(By.css(dashboardPage.getCellPopoverContentsSelector().selector))
             );
-        })
+        });
     }
 
     async toggle2ndDashboardCellContextMenu(name){
@@ -242,7 +244,7 @@ class dashboardSteps extends influxSteps {
     async clickDashboardPopOverlayAddNote(){
         await this.clickAndWait(await this.dbdPage.getCellPopoverContentsAddNote(), async () => {
             //await this.driver.wait(
-                //until.elementLocated(By.css(basePage.getPopupBodySelector().selector)) // not working consistentlly
+            //until.elementLocated(By.css(basePage.getPopupBodySelector().selector)) // not working consistentlly
             //);
             await this.driver.sleep(1000); //sometimes slow and then overrun by downstream steps
         });
@@ -286,7 +288,7 @@ class dashboardSteps extends influxSteps {
 
     async verifyCellNotPopupPreviewContains(text){
         await this.dbdPage.getNotePopupEditorPreviewText().then(async elem => {
-           await expect(await elem.getText()).to.include(text);
+            await expect(await elem.getText()).to.include(text);
         });
     }
 
@@ -294,7 +296,7 @@ class dashboardSteps extends influxSteps {
         await this.clickAndWait(await this.dbdPage.getPopupSaveSimple(), async () => {
             await this.driver.wait(
                 until.stalenessOf(await this.dbdPage.getPopupOverlay())
-            )
+            );
         });
     }
 
@@ -309,7 +311,7 @@ class dashboardSteps extends influxSteps {
     async verifyContentsOfCellNote(text){
         await this.dbdPage.getNotePopoverContents().then(async contents => {
             await expect(await contents.getText()).to.include(text);
-        })
+        });
     }
 
     async clickCellTitle(name){
@@ -340,12 +342,12 @@ class dashboardSteps extends influxSteps {
     async verifyCellNotePopupMarkupPreviewNoText(){
         await this.dbdPage.getNotePopupEditorPreviewText().then(async text => {
             let strText = await text.getText();
-             expect(strText.length).to.equal(0);
+            expect(strText.length).to.equal(0);
         });
     }
 
     async moveDashboardCell(name, deltaCoords){
-         //await this.clickAndWait(await this.dbdPage.getCellHandleByName(name));
+        //await this.clickAndWait(await this.dbdPage.getCellHandleByName(name));
         await this.dbdPage.getCellHandleByName(name).then( async cell => {
             let action = await this.driver.actions();
             let rect = await cell.getRect();
@@ -379,7 +381,7 @@ class dashboardSteps extends influxSteps {
             let expy = parseInt(__dataBuffer.rect[name].y) + dy;
             expect(Math.abs(expx - x )).to.be.below(tolerance);
             expect(Math.abs(expy - y )).to.be.below(tolerance);
-        })
+        });
     }
 
     async resizeDashboardCell(name, deltaSize){
@@ -431,20 +433,20 @@ class dashboardSteps extends influxSteps {
             let expw = parseInt(__dataBuffer.rect[name].width) + dw;
             expect(Math.abs(exph - height )).to.be.below(tolerance);
             expect(Math.abs(expw - width )).to.be.below(tolerance);
-        })
+        });
     }
 
     async hoverGraphOfCell(name){
         await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
-           let action = await this.driver.actions()
-           let rect = await canvas.getRect();
-           let x = parseInt(rect.x);
-           let y = parseInt(rect.y);
-           let centX = parseInt((rect.width / 2) + x);
-           let centY = parseInt((rect.height / 2) + y);
-           await action.move({x : centX, y: centY, duration: 1000})
-               .perform();
-           await this.driver.sleep(200); // todo better wait - let graph update
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let centX = parseInt((rect.width / 2) + x);
+            let centY = parseInt((rect.height / 2) + y);
+            await action.move({x : centX, y: centY, duration: 1000})
+                .perform();
+            await this.driver.sleep(200); // todo better wait - let graph update
             //await this.dbdPage.getCellHoverBox().then(async box => {
             //    await this.assertVisible(box);
             //    console.log("DEBUG got cell hover box");
@@ -461,16 +463,16 @@ class dashboardSteps extends influxSteps {
         let denom = fract[1];
         let numer = fract[0];
         await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
-           let action = await this.driver.actions();
-           let rect = await canvas.getRect();
-           let x = parseInt(rect.x);
-           let y = parseInt(rect.y);
-           let targetX = parseInt(((rect.width/denom) * numer) + x);
-           let targetY = parseInt((rect.height / 2) + y);
-           await action.move({x: targetX, y: targetY, duration: 1000})
-               .perform();
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt(((rect.width/denom) * numer) + x);
+            let targetY = parseInt((rect.height / 2) + y);
+            await action.move({x: targetX, y: targetY, duration: 1000})
+                .perform();
 
-           await this.driver.sleep(200); // todo better wait - let graph update
+            await this.driver.sleep(200); // todo better wait - let graph update
         });
     }
 
@@ -542,15 +544,15 @@ class dashboardSteps extends influxSteps {
         yfract.denom = yfract.raw[1];
         yfract.numer = yfract.raw[0];
         await this.dbdPage.getCellCanvasLine(name).then(async canvas => {
-           let action = await this.driver.actions();
-           let rect = await canvas.getRect();
-           let x = parseInt(rect.x);
-           let y = parseInt(rect.y);
-           let targetX = parseInt(((rect.width/xfract.denom) * xfract.numer) + x);
-           let targetY = parseInt(((rect.height/yfract.denom) * yfract.numer) + y);
-           await action.move({x: targetX, y: targetY, duration: 1000})
-               .doubleClick()
-               .perform();
+            let action = await this.driver.actions();
+            let rect = await canvas.getRect();
+            let x = parseInt(rect.x);
+            let y = parseInt(rect.y);
+            let targetX = parseInt(((rect.width/xfract.denom) * xfract.numer) + x);
+            let targetY = parseInt(((rect.height/yfract.denom) * yfract.numer) + y);
+            await action.move({x: targetX, y: targetY, duration: 1000})
+                .doubleClick()
+                .perform();
 
             await this.driver.sleep(200); // todo better wait - let graph update
         });

@@ -1,6 +1,5 @@
-const fs = require('fs')
+const fs = require('fs');
 const expect = require('chai').expect;
-const assert = require('chai').assert;
 const Key = require('selenium-webdriver').Key;
 const { By } = require('selenium-webdriver');
 
@@ -25,10 +24,10 @@ class cellOverlaySteps extends influxSteps {
                 await this.cellOverlay.getCellNameInput().then(async input =>{
                     await this.clearInputText(input).then(async () => {
                         await this.typeTextAndWait(input, name + Key.ENTER);
-                    })
-                })
-            })
-        })
+                    });
+                });
+            });
+        });
     }
 
     async clickDashboardCellEditCancel(){
@@ -49,8 +48,8 @@ class cellOverlaySteps extends influxSteps {
             await this.scrollElementIntoView(elem).then(async () => {
                 await this.clickAndWait(await this.cellOverlay
                     .getTMTimeRangeDropdownItem(itemToken));
-            })
-        })
+            });
+        });
     }
 
     async clickCellEditScriptEditorButton(){
@@ -58,14 +57,13 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async pasteIntoCellEditScriptEditor(text){
-        let escapedTxt = text.replace(/\"/g, "\\\"");
         //await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), escapedTxt);
         //await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), escapedTxt);
         await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), text);
     }
 
     async clearCellEditScriptEditor(){
-//        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), "");
+        //        await this.setCodeMirrorText(await this.cellOverlay.getScriptEditorCodeMirror(), "");
         await this.driver.sleep(1000);
         //await this.setMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor(), "");
         await this.clearMonacoEditorText(await this.cellOverlay.getScriptMonacoEditor());
@@ -89,16 +87,17 @@ class cellOverlaySteps extends influxSteps {
 
         if(await this.isPresent(cellEditOverlay.getGraphCanvasSelector())) {
             await this.cellOverlay.getGraphCanvas().then(async canvas => {
+                /* eslint-disable no-undef */
                 __dataBuffer.graphEditCanvas = await this.driver
                     .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas);
-                console.log("DEBUG __dataBuffer.graphEditCanvas " + __dataBuffer.graphEditCanvas);
+                console.log('DEBUG __dataBuffer.graphEditCanvas ' + __dataBuffer.graphEditCanvas);
                 await this.cellOverlay.getGraphCanvasAxes().then(async axes => {
                     __dataBuffer.graphEditCanvasAxes = await this.driver
                         .executeScript('return arguments[0].toDataURL(\'image/png\');', axes);
-                })
+                });
             });
         }else{
-            __dataBuffer.graphEditCanvas = "";
+            __dataBuffer.graphEditCanvas = '';
         }
     }
 
@@ -119,7 +118,7 @@ class cellOverlaySteps extends influxSteps {
                 //visual DEBUG Below
                 //await this.writeBase64ToPNG('debug.png', currentCanvas);
                 //this.writeBase64ToPNG('canvas.png', __dataBuffer.graphEditCanvas);
-                expect(currentCanvas).to.not.equal(__dataBuffer.graphEditCanvas)
+                expect(currentCanvas).to.not.equal(__dataBuffer.graphEditCanvas);
                 //Axes may or maynot change TODO look at axes comparison
                 /*await this.cellOverlay.getGraphCanvasAxes().then(async axes => {
                     let currentAxes = await this.driver
@@ -129,7 +128,7 @@ class cellOverlaySteps extends influxSteps {
                 })*/
             });
         }else{
-            throw new Error("Cell Edit Preview Graph Not Found");
+            throw new Error('Cell Edit Preview Graph Not Found');
         }
     }
 
@@ -173,7 +172,7 @@ class cellOverlaySteps extends influxSteps {
 
     async verifyCellCustomizeButtonHighlight(){
         await this.verifyElementContainsClass(await this.cellOverlay.getCustomizeButton()
-            , 'button-primary')
+            , 'button-primary');
     }
 
     async verifyViewOptionsContainerNotPresent(){
@@ -237,7 +236,7 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async verifyTMQueryBuilderSwitchWarnNotPresent(){
-        await this.assertNotPresent(cellEditOverlay.getTMSwitchToQBuilderWarnSelector())
+        await this.assertNotPresent(cellEditOverlay.getTMSwitchToQBuilderWarnSelector());
     }
 
     async verifyTMQueryBuilderSwitchWarnVisible(){
@@ -265,7 +264,7 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async verifyTMBucketListContents(bucketList){
-        let list = bucketList.split(',')
+        let list = bucketList.split(',');
         for(let i = 0; i < list.length; i++){
             await this.assertVisible(await this.cellOverlay.getTMBucketSelectorBucket(list[i].trim()));
         }
@@ -273,7 +272,7 @@ class cellOverlaySteps extends influxSteps {
 
     async clickTMBucketSelectorItem(item){
         await this.clickAndWait(await this.cellOverlay.getTMBucketSelectorBucket(item.trim()),
-            async () => { await this.driver.sleep(1000) }) //slow to load sometimes?
+            async () => { await this.driver.sleep(1000); }); //slow to load sometimes?
     }
 
     async verifyBucketNotInTMBucketList(bucket){
@@ -299,7 +298,7 @@ class cellOverlaySteps extends influxSteps {
         let list = items.split(',');
         for(let i = 0; i < list.length; i++){
             await this.assertVisible(await cards[parseInt(index) - 1]
-                .findElement(By.css(`[data-testid='selector-list ${list[i].trim()}']`)))
+                .findElement(By.css(`[data-testid='selector-list ${list[i].trim()}']`)));
         }
     }
 
@@ -324,7 +323,7 @@ class cellOverlaySteps extends influxSteps {
             .findElement(By.css('.tag-selector--count'))
             .then(async elem => {
                 await this.verifyElementContainsText(elem, value);
-            })
+            });
     }
 
     async verifyItemNotInBuilderCard(index,item){
@@ -333,7 +332,7 @@ class cellOverlaySteps extends influxSteps {
             .findElements(By.css(`[data-testid='selector-list ${item.trim()}']`))
             .then(async elems => {
                 expect(await elems.length).to.equal(0);
-            })
+            });
     }
 
     async clickTagSelectorOfBuilderCard(index){
@@ -347,7 +346,7 @@ class cellOverlaySteps extends influxSteps {
         let list = items.split(',');
         for(let i = 0; i < list.length; i++){
             await this.assertVisible(await cards[parseInt(index) - 1]
-                .findElement(By.css(`[data-testid='searchable-dropdown--item ${list[i].trim()}']`)))
+                .findElement(By.css(`[data-testid='searchable-dropdown--item ${list[i].trim()}']`)));
         }
     }
 
@@ -373,7 +372,7 @@ class cellOverlaySteps extends influxSteps {
         let cards = await this.cellOverlay.getTMBuilderCards();
         await this.typeTextAndWait(await cards[parseInt(index) - 1]
             .findElement(By.css('[data-testid=\'input-field\']')), term,
-            async () => { await this.driver.sleep(2000) }); //can be slow to update
+        async () => { await this.driver.sleep(2000); }); //can be slow to update
         //this.driver.sleep(2000); //DEBUG
     }
 
@@ -395,7 +394,7 @@ class cellOverlaySteps extends influxSteps {
             .findElements(By.css('[data-testid=tag-selector--dropdown-menu--contents]'))
             .then(async elems => {
                 expect(await elems.length).to.equal(0);
-            })
+            });
     }
 
     async verifyBuilderCardSelectCountNotPresent(index){
@@ -404,7 +403,7 @@ class cellOverlaySteps extends influxSteps {
             .findElements(By.css('.tag-selector--count'))
             .then(async elems => {
                 expect(await elems.length).to.equal(0);
-            })
+            });
     }
 
     async verifyBuilderCardDeleteNotPresent(index){
@@ -413,7 +412,7 @@ class cellOverlaySteps extends influxSteps {
             .findElements(By.css('.builder-card--delete'))
             .then(async elems => {
                 expect(await elems.length).to.equal(0);
-            })
+            });
     }
 
     async closeAllTMQBCards(){
@@ -436,12 +435,12 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async clickTMQueryBuilderFunctionDuration(){
-        await this.clickAndWait(await this.cellOverlay.getTMBuilderCardMenuDurationInput())
+        await this.clickAndWait(await this.cellOverlay.getTMBuilderCardMenuDurationInput());
     }
 
     async verifyTMQBFunctionDurationSuggestionCount(count){
         await this.cellOverlay.getTMQBDurationSuggestions().then(async elems => {
-           expect(await elems.length).to.equal(parseInt(count));
+            expect(await elems.length).to.equal(parseInt(count));
         });
     }
 
@@ -463,7 +462,7 @@ class cellOverlaySteps extends influxSteps {
     async verifyTMQueryBuilderFunctionListItems(items){
         let list = items.split(',');
         for(let i = 0; i < list.length; i++){
-            let elem = await this.cellOverlay.getTMBuilderCardMenuFunctionListItem(list[i].trim())
+            let elem = await this.cellOverlay.getTMBuilderCardMenuFunctionListItem(list[i].trim());
             await this.scrollElementIntoView(elem);
             await this.assertVisible(elem);
         }
@@ -471,16 +470,16 @@ class cellOverlaySteps extends influxSteps {
     }
 
     async filterQueryBuilderFunctionList(term){
-        await this.typeTextAndWait(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter(), term)
+        await this.typeTextAndWait(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter(), term);
     }
 
     async clearQueryBuilderFunctionListFilter(){
-        await this.clearInputText(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter())
+        await this.clearInputText(await this.cellOverlay.getTMBuilderCardMenuFunctionFilter());
     }
 
     async verifyQuerBuilderFunctionListItemCount(count){
         await this.cellOverlay.getTMBuilderCardMenuFunctionListItems().then(async elems => {
-           await expect(await elems.length).to.equal(parseInt(count));
+            await expect(await elems.length).to.equal(parseInt(count));
         });
     }
 
@@ -502,13 +501,13 @@ class cellOverlaySteps extends influxSteps {
 
         await this.cellOverlay.getTMTop().then(async cell => {
             // TODO generalize the following into system wide method
-           await cell.getRect().then(async rect => {
-               if(typeof __dataBuffer.rect === 'undefined'){
-                   __dataBuffer.rect = [];
-               }
-               __dataBuffer.rect['TMTop'] = rect;
+            await cell.getRect().then(async rect => {
+                if(typeof __dataBuffer.rect === 'undefined'){
+                    __dataBuffer.rect = [];
+                }
+                __dataBuffer.rect['TMTop'] = rect;
 
-           })
+            });
         });
     }
 
@@ -520,17 +519,18 @@ class cellOverlaySteps extends influxSteps {
                 }
                 __dataBuffer.rect['TMBottom'] = rect;
 
-            })
+            });
         });
     }
 
     async getTMPreviewCanvas(){
         await this.cellOverlay.getGraphCanvas().then(async canvas => {
-                if(typeof __dataBuffer.graphCellLine === 'undefined') {
-                    __dataBuffer.graphCellLine = [];
-                }
-                __dataBuffer.graphCellLine['TMPreview'] = await this.driver
-                    .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas);
+            if(typeof __dataBuffer.graphCellLine === 'undefined') {
+                __dataBuffer.graphCellLine = [];
+            }
+            /* eslint-disable require-atomic-updates */
+            __dataBuffer.graphCellLine['TMPreview'] = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvas);
         });
     }
 
@@ -541,7 +541,7 @@ class cellOverlaySteps extends influxSteps {
             }
             __dataBuffer.graphCellAxes['TMPreviewAxes'] = await this.driver
                 .executeScript('return arguments[0].toDataURL(\'image/png\');', axes);
-        })
+        });
     }
 
     async resizeTMPreviewBy(deltaSize){
@@ -552,9 +552,6 @@ class cellOverlaySteps extends influxSteps {
 
             let action = await this.driver.actions();
             let action2 = await this.driver.actions();
-            let rect = await resizer.getRect();
-            let x = parseInt(rect.x);
-            let y = parseInt(rect.y);
             await action  //troubleshoot why action occasionally fails
                 .move({x:0, y: 0, origin: resizer, duration: 500})
                 .press().perform();
@@ -614,19 +611,19 @@ class cellOverlaySteps extends influxSteps {
 
             await fs.writeFile('before.png',  __dataBuffer.graphCellLine['TMPreview'].split(',')[1], 'base64', (err) => {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
             });
 
 
             await fs.writeFile('after.png', currentLine.split(',')[1], 'base64', (err) => {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
             });
 
             await expect(currentLine).to.not.equal(__dataBuffer.graphCellLine['TMPreview']);
-        })
+        });
     }
 
     async verifyTMPreviewAxesChange(){
@@ -635,15 +632,15 @@ class cellOverlaySteps extends influxSteps {
                 .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasAxes);
 
             await expect(currentAxes).to.not.equal(__dataBuffer.graphCellAxes['TMPreviewAxes']);
-        })
+        });
     }
 
     async verifyTMPreviewCanvasNotPresent(){
-        await this.assertNotPresent(cellEditOverlay.getGraphCanvasSelector())
+        await this.assertNotPresent(cellEditOverlay.getGraphCanvasSelector());
     }
 
     async verifyTMPreviewCanvasAxesNotPresent(){
-        await this.assertNotPresent(cellEditOverlay.getGraphCanvasAxesSelector())
+        await this.assertNotPresent(cellEditOverlay.getGraphCanvasAxesSelector());
     }
 
     async clickTMAddQuery(){
@@ -657,7 +654,7 @@ class cellOverlaySteps extends influxSteps {
 
     async verifyTMQueryCardSelected(index,tag){
         await this.verifyElementContainsText(await this.cellOverlay
-            .getTMQBSelectedTagOfCard(parseInt(index) - 1), tag)
+            .getTMQBSelectedTagOfCard(parseInt(index) - 1), tag);
     }
 
     async verifyTMQueryFunctionsSelected(funcs){
@@ -677,9 +674,9 @@ class cellOverlaySteps extends influxSteps {
     async verifyTMQBActiveQuery(name){
         await this.cellOverlay.getTMQBActiveQueryTab().then(async tab => {
             await tab.findElement(By.css('.query-tab--name')).then(async elem => {
-                this.verifyElementContainsText(elem, name)
-            })
-        })
+                this.verifyElementContainsText(elem, name);
+            });
+        });
     }
 
     async clickOnTMQBQueryTab(title){
@@ -710,20 +707,20 @@ class cellOverlaySteps extends influxSteps {
     async clickTMQBHideQuery(name){
         await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
             await this.clickAndWait(await tab.findElement(By.css('.query-tab--hide')));
-        })
+        });
     }
 
     async clickTMQBDeleteQuery(name){
         await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
             await this.clickAndWait(await tab.findElement(By.css('.query-tab--close')));
-        })
+        });
     }
 
     async verifyTMQBNumberOfQueryTabs(count){
         await this.cellOverlay.getTMQBQueryTabs().then(async elems => {
             await expect(elems.length).to.equal(parseInt(count),
                 `Expected number of query tabs to equals ${count}`);
-        })
+        });
     }
 
     async verifyTMQBScriptEditorContents(script){

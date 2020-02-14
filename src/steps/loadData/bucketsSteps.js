@@ -399,7 +399,7 @@ class bucketsSteps extends baseSteps {
     }
 
     async clearFilterValue(){
-        let cardCt = (await this.bucketsTab.getBucketCards()).length;
+        //let cardCt = (await this.bucketsTab.getBucketCards()).length;
         await this.bucketsTab.getFilterInput().then(async input => {
             await input.clear().then(async() => {
                 await this.driver.sleep(500); //wait commented below seems to hang
@@ -562,7 +562,7 @@ class bucketsSteps extends baseSteps {
             throw `Unhandled mode ${mode}`;
         }
         for(let i = 0; i < samples.length; i++){
-            console.log(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`)
+            console.log(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
             dataPoints.push(`${mode},test=bucketSteps ${value}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
         }
         await this.bucketsTab.getWizardTextArea().then(async elem => {
