@@ -27,9 +27,9 @@ When(/^click the dashboard link to "(.*)"$/, async dbdName => {
 });
 
 Then(/^the dashboards panel contains links:$/, async links => {
-   await hSteps.verifyDashboardLinksInPanel(links);
+    await hSteps.verifyDashboardLinksInPanel(links);
 });
 
 When(/^click the dashboards panel link "(.*)"$/, async link => {
-   await hSteps.clickDashboardLinkFromPanel(link);
+    await hSteps.clickDashboardLinkFromPanel(link);
 });
