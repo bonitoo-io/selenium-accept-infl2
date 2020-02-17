@@ -568,7 +568,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When get time machine preview axes
     When click the time machine flux editor
     # following is work around for 16854 - TODO remove when fixed
-    When send keys "CTRL+END" to the time machine flux editor
+    When send keys "CTRL+END,ENTER,BACKSPACE" to the time machine flux editor
     When click the time machine query editor function "aggregateWindow"
     Then the time machine script editor contains
   """

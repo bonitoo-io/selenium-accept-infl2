@@ -497,6 +497,11 @@ class baseSteps{
         await monElem.clear();
         await monElem.sendKeys(text);
         //await this.driver.executeScript(`arguments[0].setValue('HELLO')`, monElem);
+        let leadParas = (text.match(/\(/g) || []).length;
+        for(let i = 0; i < leadParas; i++){
+            await monElem.sendKeys(Key.DELETE); //clean up autocomplete close paras TODO - fixme - find better solution
+        }
+
         await this.driver.sleep(1000); //todo better wait - troubleshoot flakey consequences of this step
     }
 
