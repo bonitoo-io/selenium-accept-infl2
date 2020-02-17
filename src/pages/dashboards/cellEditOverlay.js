@@ -24,7 +24,7 @@ const TMTimeRangeDropdownItem = '[data-testid=dropdown-item-%ITEM%]';
 const TMTimeRangeDropdownContents = '[data-testid=dropdown-menu--contents]';
 const switchToScriptEditor = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=switch-to-script-editor] ';
 const TMSwitchToQueryBuilder = '[data-testid=switch-query-builder-confirm--button]';
-const TMSwitchToQBuilderConfirm = '[data-testid=switch-query-builder-confirm--popover--contents] [data-testid=button]';
+const TMSwitchToQBuilderConfirm = '[data-testid=switch-query-builder-confirm--confirm-button]';
 const TMSwitchToQBuilderWarn = '[data-testid=switch-query-builder-confirm--popover--contents]';
 const timemachineSubmit = '[data-testid=time-machine-submit-button] ';
 const TMQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[@title=\'%NAME%\']]';

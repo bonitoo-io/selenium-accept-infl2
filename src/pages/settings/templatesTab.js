@@ -3,7 +3,7 @@ const { By } = require('selenium-webdriver');
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
 const templatesFilter = '[data-testid=search-widget]';
-const importTemplateHeaderButton = '[data-testid=flex-box] [data-testid=flex-box] [data-testid=button]';
+const importTemplateHeaderButton = '//*[@data-testid=\'flex-box\']//*[@data-testid=\'button\'][.//*[text()=\'Import Template\']]';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const templatesTypeFilterButton = '[data-testid=select-group--option][title=\'Static Templates\']';
 const userTemplatesRadioButton = '[data-testid=select-group--option][title=\'User Templates\']';
@@ -32,7 +32,7 @@ class templatesTab extends settingsPage{
         await super.isTabLoaded(urlCtx,
             [
                 {type: 'css', selector: templatesFilter},
-                {type: 'css', selector: importTemplateHeaderButton},
+                {type: 'xpath', selector: importTemplateHeaderButton},
                 {type: 'css', selector: nameSort},
                 {type: 'css', selector: templatesTypeFilterButton},
                 {type: 'css', selector: resourceList},
@@ -61,7 +61,7 @@ class templatesTab extends settingsPage{
     }
 
     async getImportTemplateHeaderButton(){
-        return await this.driver.findElement(By.css(importTemplateHeaderButton));
+        return await this.driver.findElement(By.xpath(importTemplateHeaderButton));
     }
 
     async getImportTemplateJSONTextArea(){
