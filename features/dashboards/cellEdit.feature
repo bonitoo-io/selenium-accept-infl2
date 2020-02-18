@@ -578,6 +578,8 @@ Feature: Dashboards - Dashboard - Cell Edit
     |> filter(fn: (r) => r._field == "pulse")
     |> aggregateWindow(every: 1m, fn: mean)
   """
+    # In CircleCi function popup can obscure the submit button
+    When click the time machine flux editor
     When click the time machine cell edit submit button
     Then the time machine preview canvas has changed
     When click the cell edit save button
