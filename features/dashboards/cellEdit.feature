@@ -585,13 +585,6 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the cell edit save button
     Then the graph of the cell "Kliky" has changed
 
-  #Scenario: Edit Query - Add functions
-    # time-machine--bottom
-       # switch-to-script-editor
-       # Queries
-          # Script Editor
-             # Aggregate functions
-
   #Scenario: Edit Query - Add variables
     # time-machine--bottom
        # switch-to-script-editor

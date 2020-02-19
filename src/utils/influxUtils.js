@@ -227,6 +227,36 @@ const createLabel = async(orgId,
     });
 };
 
+
+const createVariable = async(orgId, name, type, values, selected = null ) => {
+
+    await console.log(`DEBUG orgId: ${orgId} name: ${name} type: ${type}, values: ${values}, selected: ${selected}` );
+
+    let parseValues = JSON.parse(values);
+
+    let reSel = selected === null ? selected : JSON.parse(selected);
+
+    return await axios({
+        method: 'post',
+        url: '/api/v2/variables',
+        data: {
+            'orgId': orgId,
+            'name': name,
+            'selected': reSel,
+            'arguments': {
+                'type': type,
+                'values': parseValues
+            }
+        }
+    }).then(resp => {
+        return resp.data;
+    }).catch(err => {
+        console.log('ERROR: ' + err );
+        throw(err);
+    })
+
+};
+
 const getDocTemplates = async(orgId) => {
 
     return await axios({
@@ -485,6 +515,7 @@ module.exports = { flush,
     endSession,
     writeData,
     createDashboard,
+    createVariable,
     getDashboards,
     query,
     createBucket,
