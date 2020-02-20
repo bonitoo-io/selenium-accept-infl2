@@ -230,8 +230,6 @@ const createLabel = async(orgId,
 
 const createVariable = async(orgId, name, type, values, selected = null ) => {
 
-    await console.log(`DEBUG orgId: ${orgId} name: ${name} type: ${type}, values: ${values}, selected: ${selected}` );
-
     let parseValues = JSON.parse(values);
 
     let reSel = selected === null ? selected : JSON.parse(selected);
@@ -297,10 +295,22 @@ const writeLineProtocolData = async (user, def) => {
     let intervals = await getIntervalMillis(define.points, define.start);
     let startMillis = nowMillis - intervals.full;
 
-    let samples = await genPoints(define.algo, define.points);
+//    let samples = await genPoints(define.algo, define.points);
+    let samples;
+    if(define.data === undefined) {
+        samples = await genPoints(define.algo, define.points);
+    }else{
+        samples = await genPoints(define.algo, define.points, define.data)
+    }
 
-    for(let i = 0; i < samples.length; i++){
-        dataPoints.push(`${define.name},test=generic ${define.measurement}=${samples[i]} ${(startMillis + (intervals.step * i)) * mil2Nano}\n`);
+    if(define.algo === 'dico'){
+        for (let i = 0; i < samples.length; i++) {
+            dataPoints.push(`${define.name},test=generic ${define.measurement}="${samples[i]}" ${(startMillis + (intervals.step * i)) * mil2Nano}\n`);
+        }
+    }else {
+        for (let i = 0; i < samples.length; i++) {
+            dataPoints.push(`${define.name},test=generic ${define.measurement}=${samples[i]} ${(startMillis + (intervals.step * i)) * mil2Nano}\n`);
+        }
     }
 
     await writeData(user.org, user.bucket, dataPoints);
@@ -325,8 +335,12 @@ const genLineProtocolFile = async(filePath, def) => {
     let intervals = await getIntervalMillis(define.points, define.start);
     let startMillis = nowMillis - intervals.full;
 
-    let samples = await genPoints(define.algo, define.points);
-
+    let samples
+    if(define.data === undefined) {
+        samples = await genPoints(define.algo, define.points);
+    }else{
+        samples = await genPoints(define.algo, define.points, define.data)
+    }
 
     for(let i = 0; i < samples.length; i++){
         dataPoints.push(`${define.name},test=generic ${define.measurement}=${samples[i]} ${startMillis + (intervals.step * i)}\n`);
@@ -340,7 +354,7 @@ const genLineProtocolFile = async(filePath, def) => {
 
 };
 
-const genPoints = async (algo, count) => {
+const genPoints = async (algo, count, data = null) => {
     let samples = [];
     switch(algo.toLowerCase()){
     case 'fibonacci':
@@ -357,6 +371,9 @@ const genPoints = async (algo, count) => {
         break;
     case 'life':
         samples = await genLifeValues(count);
+        break;
+    case 'dico':
+        samples = await genDicoValues(count,data);
         break;
     default:
         throw `Unhandled mode ${algo}`;
@@ -471,7 +488,14 @@ const genLifeValues = async(count) => {
         }else{
             result.push(result[i - 1] ** accGrowth);
         }
-        //console.log('DEBUG ' + result[i] + " carryCap " + carryCap + " growthRate " + accGrowth);
+    }
+    return result;
+};
+
+const genDicoValues = async(count,data) => {
+    let result = [];
+    for(let i = 0; i < count; i++){
+        result[i] = data[Math.floor(Math.random() * Math.floor(data.length))];
     }
     return result;
 };
