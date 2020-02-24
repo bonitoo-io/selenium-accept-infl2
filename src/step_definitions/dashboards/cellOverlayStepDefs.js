@@ -483,3 +483,7 @@ When(/^send keys "(.*)" to the time machine flux editor$/, async keys => {
     await celOvSteps.sendKeysToTimeMachineFluxEditor(keys);
 });
 
+Then(/^the time machine raw data table is not present$/, async () => {
+   await celOvSteps.verifyTMRawDataTableNotPresent();
+});
+
