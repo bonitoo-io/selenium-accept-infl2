@@ -1,7 +1,7 @@
 const fs = require('fs');
 const expect = require('chai').expect;
 const Key = require('selenium-webdriver').Key;
-const { By } = require('selenium-webdriver');
+const { By, Origin } = require('selenium-webdriver');
 
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const cellEditOverlay = require(__srcdir + '/pages/dashboards/cellEditOverlay.js');
@@ -804,6 +804,46 @@ class cellOverlaySteps extends influxSteps {
 
     async verifyTMRawDataTableNotPresent(){
         await this.assertNotPresent(cellEditOverlay.getTMRawDataTableSelector());
+    }
+
+    async verifyTMRawDataTablePresent(){
+        await this.assertVisible(await this.cellOverlay.getTMRawDataTable());
+    }
+
+    async clickTMRawDataToggle(){
+        await this.clickAndWait(await this.cellOverlay.getTMRawDataToggle());
+    }
+
+    async scrollTMRawDataTableHorizontally(dist){
+
+        await this.cellOverlay.getTMRawDataScrollH().then(async scroller => {
+
+            let action = await this.driver.actions();
+
+            await action.move({x: 0, y: 0, origin: scroller, duration: 500})
+                .press()
+                .move({ x: dist, y: 0, origin: scroller, duration: 500 })
+                .perform();
+        });
+
+    }
+
+    async verifyTMRawDataCellContents(coords, value){
+        let cells = await this.cellOverlay.getTMRawDataCells();
+        console.log("DEBUG coords "  + JSON.toString(coords));
+        console.log("DEBUG value " + value);
+        console.log("DEBUG cells.length " + await cells.length);
+        console.log("DEBUG cells[0].top " + await cells[0].getCssValue('top'));
+        console.log("DEBUG cells[0].left " + await cells[0].getCssValue('left'));
+        console.log("DEBUG cells[0].height " + await cells[0].getCssValue('height'));
+        console.log("DEBUG cells[0].width " + await cells[0].getCssValue('width'));
+
+        //Find column location by left
+        //Find next row when left:0 or left:lower than previous cell
+        //move right or left using scroll below - use width of first cell as guied (2 * width)
+        await this.scrollTMRawDataTableHorizontally(200);
+        //scroll down based on height - which should be standard
+        //use top / height to determine row
     }
 
 }

@@ -487,3 +487,16 @@ Then(/^the time machine raw data table is not present$/, async () => {
    await celOvSteps.verifyTMRawDataTableNotPresent();
 });
 
+Then(/^the time machine raw data table is present$/, async () => {
+   await celOvSteps.verifyTMRawDataTablePresent();
+});
+
+When(/^click time machine raw data toggle$/, async () => {
+   await celOvSteps.clickTMRawDataToggle();
+});
+
+Then(/^time machine raw data cell "(.*)" contains "(.*)"$/, async (coords, value) => {
+    let cartesCoords = JSON.parse(coords);
+   await celOvSteps.verifyTMRawDataCellContents(cartesCoords, value);
+});
+

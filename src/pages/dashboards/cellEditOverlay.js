@@ -71,7 +71,10 @@ const TMQEFunctionPopupDescription = '[data-testid=\'toolbar-popover--contents\'
 const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\']//*[./*[text()=\'Example\']]/*[@class=\'flux-functions-toolbar--snippet\']';
 
 //RawData
-const TMRawDataTable = '[data-testid=raw-data-table]'
+const TMRawDataTable = '[data-testid=raw-data-table]';
+const TMRawDataToggle = '[data-testid=raw-data--toggle]';
+const TMRawDataCells = '[class=\'raw-flux-data-table--cell\']';
+const TMRawDataScrollH = '[data-testid=raw-data-table] [class=fancy-scroll--thumb-h]';
 
 
 const urlCtx = 'cells';
@@ -403,6 +406,18 @@ class cellEditOverlay extends influxPage {
 
     static getTMRawDataTableSelector(){
         return {  type: 'css', selector: TMRawDataTable}
+    }
+
+    async getTMRawDataToggle(){
+        return await this.driver.findElement(By.css(TMRawDataToggle));
+    }
+
+    async getTMRawDataCells(){
+        return await this.driver.findElements(By.css(TMRawDataCells));
+    }
+
+    async getTMRawDataScrollH(){
+        return await this.driver.findElement(By.css(TMRawDataScrollH));
     }
 
 }
