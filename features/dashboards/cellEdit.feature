@@ -585,24 +585,26 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the cell edit save button
     Then the graph of the cell "Kliky" has changed
 
-  #Scenario: Edit Query - Add functions
-    # time-machine--bottom
-       # switch-to-script-editor
-       # Queries
-          # Script Editor
-             # Aggregate functions
-
-  #Scenario: Edit Query - Add variables
-    # time-machine--bottom
-       # switch-to-script-editor
-       # Queries
-          # Script Editor
-             # Variables
-
-
   #Scenario: Change time range
     # time-machine--bottom
        # Time Range
+
+  Scenario: Change time range
+    When get the current graph of the cell "Kliky"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click the cell edit Time Range Dropdown
+    When select the cell edit Time Range "past24h"
+    When click the time machine flux editor
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click the cell edit save button
+    Then the graph of the cell "Kliky" has not changed
+    When click the dashboard Time Range Dropdown
+    When select dashboard Time Range "24h"
+    Then the graph of the cell "Kliky" has changed
 
   #Scenario: View raw data
 

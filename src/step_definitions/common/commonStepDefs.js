@@ -254,6 +254,13 @@ When(/^generate a line protocol testdata for user "(.*)" based on:$/, async (use
         def);
 });
 
+When(/^create the "(.*)" variable "(.*)" with default "(.*)" for user "(.*)" with values:$/,
+    async(type, name, defVal, user, values) => {
+    type = type === 'csv' ? 'constant' : type.tolowerCase();
+    let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
+    await influxUtils.createVariable(orgID, name, type, values, defVal)
+});
+
 //For troubleshooting - up to 5 min
 When(/^wait "(.*)" seconds$/, {timeout: 5 * 60 * 1000}, async secs => {
     await bSteps.driver.sleep(parseInt(secs) * 1000);

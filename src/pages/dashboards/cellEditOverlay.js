@@ -70,6 +70,9 @@ const TMQEFunctionPopup = '[data-testid=\'toolbar-popover--contents\']';
 const TMQEFunctionPopupDescription = '[data-testid=\'toolbar-popover--contents\'] .flux-functions-toolbar--description span';
 const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\']//*[./*[text()=\'Example\']]/*[@class=\'flux-functions-toolbar--snippet\']';
 
+//RawData
+const TMRawDataTable = '[data-testid=raw-data-table]'
+
 
 const urlCtx = 'cells';
 
@@ -392,6 +395,14 @@ class cellEditOverlay extends influxPage {
 
     static getTMQEFunctionPopupSelector(){
         return { type: 'css', selector: TMQEFunctionPopup };
+    }
+
+    async getTMRawDataTable(){
+        return await this.driver.findElement(By.css(TMRawDataTable));
+    }
+
+    static getTMRawDataTableSelector(){
+        return {  type: 'css', selector: TMRawDataTable}
     }
 
 }

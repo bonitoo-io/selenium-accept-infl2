@@ -802,6 +802,10 @@ class cellOverlaySteps extends influxSteps {
         await this.sendMonacoEditorKeys(await this.cellOverlay.getScriptMonacoEditor(), keys);
     }
 
+    async verifyTMRawDataTableNotPresent(){
+        await this.assertNotPresent(cellEditOverlay.getTMRawDataTableSelector());
+    }
+
 }
 
 module.exports = cellOverlaySteps;

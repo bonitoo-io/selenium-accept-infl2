@@ -223,8 +223,7 @@ Feature: Dashboards - Base
     When click export of the dashboard card named "Jupiter"
     When click confirm export of the dashboard card "Jupiter"
     When click Export Dashboard popup Copy to Clipboard
-#N.B. fix notification after issue #16054 has been addressed
-    Then the success notification contains "has been copied to clipboard"
+    Then the success notification contains "Copied dashboard to the clipboard"
 #N.B. clipboard not accessible for comparison in headless mode
     When click the Export Dashboard dismiss button
     Then popup is not loaded
