@@ -617,6 +617,11 @@ class baseSteps{
         await expect(await influxUtils.fileExists(filePath)).to.be.true;
     }
 
+    async verifyFileMatchingRegexExists(regex){
+        let res = await influxUtils.verifyFileMatchingRegexFilesExist(regex);
+        await expect(res).to.be.true;
+    }
+
     async scrollElementIntoView(elem){
         await this.driver.executeScript('arguments[0].scrollIntoView(true);', elem).then(async () => {
             await this.driver.sleep(150);

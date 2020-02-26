@@ -287,3 +287,11 @@ Then(/^the file "(.*)" has been downloaded$/, async filePath => {
     await bSteps.verifyFileExists(filePath);
 });
 
+When(/^remove files "(.*)" if exists$/, async regex => {
+    await influxUtils.removeFilesByRegex(regex);
+});
+
+Then(/^a file matching "(.*)" exists$/, async regex => {
+    await bSteps.verifyFileMatchingRegexExists(regex);
+});
+

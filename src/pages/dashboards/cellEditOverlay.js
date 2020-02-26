@@ -44,6 +44,7 @@ const graphCanvas = '[data-testid=\'overlay\'] canvas[data-testid^=giraffe-layer
 const graphCanvasAxes = '[data-testid=\'overlay\'] canvas[data-testid=giraffe-axes]';
 const viewOptionsContainer = '.view-options';
 const TMEmptyGraphErrMessage = '.empty-graph-error pre';
+const TMDownloadCSV = '[data-testid=button][title*=\'CSV\']';
 
 //Query builder
 const TMQBSelectedBucket = '[data-testid=bucket-selector] [data-testid^=\'selector-list\'][class*=selected]';
@@ -73,9 +74,13 @@ const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\'
 //RawData
 const TMRawDataTable = '[data-testid=raw-data-table]';
 const TMRawDataToggle = '[data-testid=raw-data--toggle]';
+const TMRawDataReactGrid = '[data-testid=raw-data-table] [class=ReactVirtualized__Grid__innerScrollContainer]';
 const TMRawDataCells = '[class=\'raw-flux-data-table--cell\']';
-const TMRawDataScrollH = '[data-testid=raw-data-table] [class=fancy-scroll--thumb-h]';
-
+const TMRawDataCellByIndex = '[data-testid=raw-data-table] .raw-flux-data-table--cell:nth-of-type(%INDEX%)';
+const TMRawDataScrollTrackH = '[data-testid=raw-data-table] [class=fancy-scroll--track-h]';
+const TMRawDataScrollHThumb = '[data-testid=raw-data-table] [class=fancy-scroll--thumb-h]';
+const TMRawDataScrollTrackV = '[data-testid=raw-data-table] [class=fancy-scroll--track-v]';
+const TMRawDataScrollVThumb = '[data-testid=raw-data-table] [class^=fancy-scroll--thumb-v]';
 
 const urlCtx = 'cells';
 
@@ -256,6 +261,10 @@ class cellEditOverlay extends influxPage {
         return await this.driver.findElement(By.css(TMFluxEditor));
     }
 
+    async getTMDownloadCSV(){
+        return await this.driver.findElement(By.css(TMDownloadCSV));
+    }
+
     static getTMFluxEditorSelector(){
         return { type: 'css', selector: TMFluxEditor };
     }
@@ -416,8 +425,28 @@ class cellEditOverlay extends influxPage {
         return await this.driver.findElements(By.css(TMRawDataCells));
     }
 
-    async getTMRawDataScrollH(){
-        return await this.driver.findElement(By.css(TMRawDataScrollH));
+    async getTMRawDataReactGrid(){
+        return await this.driver.findElement(By.css(TMRawDataReactGrid));
+    }
+
+    async getTMRawDataScrollTrackH(){
+        return await this.driver.findElement(By.css(TMRawDataScrollTrackH));
+    }
+
+    async getTMRawDataScrollHThumb(){
+        return await this.driver.findElement(By.css(TMRawDataScrollHThumb));
+    }
+
+    async getTMRawDataCellByIndex(index){
+        return await this.driver.findElement(By.css(TMRawDataCellByIndex.replace('%INDEX%',index)));
+    }
+
+    async getTMRawDataScrollTrackV(){
+        return await this.driver.findElement(By.css(TMRawDataScrollTrackV));
+    }
+
+    async getTMRawDataScrollVThumb(){
+        return await this.driver.findElement(By.css(TMRawDataScrollVThumb));
     }
 
 }

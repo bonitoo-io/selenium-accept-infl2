@@ -608,7 +608,7 @@ class cellOverlaySteps extends influxSteps {
         await this.cellOverlay.getGraphCanvas().then(async canvasLine => {
             let currentLine = await this.driver
                 .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
-
+/*
             await fs.writeFile('before.png',  __dataBuffer.graphCellLine['TMPreview'].split(',')[1], 'base64', (err) => {
                 if (err) {
                     console.log(err);
@@ -621,9 +621,19 @@ class cellOverlaySteps extends influxSteps {
                     console.log(err);
                 }
             });
-
+*/
             await expect(currentLine).to.not.equal(__dataBuffer.graphCellLine['TMPreview']);
         });
+    }
+
+    async verifyTMPreviewCanvasNoChange(){
+        await this.cellOverlay.getGraphCanvas().then(async canvasLine => {
+            let currentLine = await this.driver
+                .executeScript('return arguments[0].toDataURL(\'image/png\');', canvasLine);
+
+            await expect(currentLine).to.equal(__dataBuffer.graphCellLine['TMPreview']);
+        });
+
     }
 
     async verifyTMPreviewAxesChange(){
@@ -816,7 +826,7 @@ class cellOverlaySteps extends influxSteps {
 
     async scrollTMRawDataTableHorizontally(dist){
 
-        await this.cellOverlay.getTMRawDataScrollH().then(async scroller => {
+        await this.cellOverlay.getTMRawDataScrollHThumb().then(async scroller => {
 
             let action = await this.driver.actions();
 
@@ -828,22 +838,116 @@ class cellOverlaySteps extends influxSteps {
 
     }
 
+    async scrollTMRawDataTableVertically(dist){
+
+        await this.cellOverlay.getTMRawDataScrollVThumb().then(async scroller => {
+
+            let action = await this.driver.actions();
+
+            await action.move({x: 0, y: 0, origin: scroller, duration: 500})
+                .press()
+                .move({ x: 0, y: dist, origin: scroller, duration: 500 })
+                .perform();
+
+        });
+
+    }
+
+    async calculateTMRawDataVisibleTableRow(){
+
+        let results = [];
+
+        console.log("DEBUG calculateTMRawDataTableRow enter")
+
+        let i = 0;
+        let lastLeft = -1;
+        let cell = await this.cellOverlay.getTMRawDataCellByIndex(i + 1);
+        let currLeft = parseInt(await cell.getCssValue('left'));
+        console.log("DEBUG currLeft " + currLeft + " lastLeft " + lastLeft);
+        while(currLeft > lastLeft){
+            let rec = {};
+            rec.width = parseInt(await cell.getCssValue('width'));
+            rec.val = await cell.getText();
+            results[i] = rec;
+            //console.log(`DEBUG results[${i}] ${results[i].width} ${results[i].val}`);
+            lastLeft = parseInt(await cell.getCssValue('left'));
+            i++;
+            cell = await this.cellOverlay.getTMRawDataCellByIndex(i + 1);
+            currLeft = parseInt(await cell.getCssValue('left'));
+            //console.log("DEBUG currLeft " + currLeft + " lastLeft " + lastLeft);
+        }
+
+        console.log("DEBUG calculateTMRawDataTableRow exit")
+
+        return results;
+
+    }
+
     async verifyTMRawDataCellContents(coords, value){
         let cells = await this.cellOverlay.getTMRawDataCells();
+       /* let grid = await this.cellOverlay.getTMRawDataReactGrid();
+        let trackH = await this.cellOverlay.getTMRawDataScrollTrackH();
+        let trackHWidth = parseInt(await trackH.getCssValue('width'));
+        let trackV = await this.cellOverlay.getTMRawDataScrollTrackV();
+        let strdH = parseInt(await cells[0].getCssValue('height'));
+        let typW = parseInt(await cells[0].getCssValue('width'));
         console.log("DEBUG coords "  + JSON.toString(coords));
         console.log("DEBUG value " + value);
         console.log("DEBUG cells.length " + await cells.length);
         console.log("DEBUG cells[0].top " + await cells[0].getCssValue('top'));
         console.log("DEBUG cells[0].left " + await cells[0].getCssValue('left'));
-        console.log("DEBUG cells[0].height " + await cells[0].getCssValue('height'));
-        console.log("DEBUG cells[0].width " + await cells[0].getCssValue('width'));
+        console.log("DEBUG strdH " + strdH);
+        console.log("DEBUG typW " + typW);
+        console.log("DEBUG ReactGrid w: " + await grid.getCssValue('width') +
+                           " h: " + await grid.getCssValue('height'));
+        console.log("DEBUG trackH.width "  + await trackH.getCssValue('width'));
+        console.log("DEBUG trackV.height " + await trackV.getCssValue('height'));
+
+        let rowWidths = await this.calculateTMRawDataVisibleTableRow(cells);
+        let rowWidth = 0;
+        for(let i = 0; i < rowWidths.length; i++){
+            rowWidth += rowWidths[i].width;
+        }
+
+        console.log("DEBUG rowWidths " + rowWidths);
+        console.log("DEBUG rowWidth " + rowWidth);
+        console.log("DEBUG type coords.x " + typeof(coords.x));
+        if(coords.x > rowWidths.length){
+            console.log("need to scroll horizontally rowWidth type " + typeof(rowWidth) + " trackHWidth type " + typeof(trackHWidth))
+            await this.scrollTMRawDataTableHorizontally(rowWidth - trackHWidth);
+        }
+
+        */
+
+        let rowWidths = await this.calculateTMRawDataVisibleTableRow(cells);
+        let cellIndex = 1 + coords.x + coords.y * (rowWidths.length); //N.B. nth-of starts with index of 1
+       console.log("DEBUG cellIndex " + cellIndex);
+       let targetCell = await this.cellOverlay.getTMRawDataCellByIndex(cellIndex);
+       console.log("DEBUG cell text " + await targetCell.getText());
+       await this.assertVisible(targetCell); //should not be visible after scroll
 
         //Find column location by left
         //Find next row when left:0 or left:lower than previous cell
         //move right or left using scroll below - use width of first cell as guied (2 * width)
-        await this.scrollTMRawDataTableHorizontally(200);
+       // await this.scrollTMRawDataTableHorizontally(typW);
+       // await this.scrollTMRawDataTableVertically(strdH);
         //scroll down based on height - which should be standard
         //use top / height to determine row
+    }
+
+    async scrollTMRawDataTable(coords){
+        if(coords.x !== 0){
+            await this.scrollTMRawDataTableHorizontally(coords.x);
+        }
+
+        if(coords.y !== 0){
+            await this.scrollTMRawDataTableVertically(coords.y);
+        }
+    }
+
+    async clickTMDownloadCSV(){
+        await this.clickAndWait(await this.cellOverlay.getTMDownloadCSV(),
+            async () => { await this.driver.sleep(2000) }); //todo better wait - 2 sec to download
     }
 
 }

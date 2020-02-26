@@ -339,6 +339,10 @@ Then(/^the time machine preview canvas has changed$/, {timeout: 10000}, async ()
     await celOvSteps.verifyTMPreviewCanvasChange();
 });
 
+Then(/^the time machine preview canvas has not changed$/, {timeout: 1000}, async () => {
+   await celOvSteps.verifyTMPreviewCanvasNoChange();
+});
+
 Then(/^the time machine preview axes have changed$/, async () => {
     await celOvSteps.verifyTMPreviewAxesChange();
 });
@@ -498,5 +502,14 @@ When(/^click time machine raw data toggle$/, async () => {
 Then(/^time machine raw data cell "(.*)" contains "(.*)"$/, async (coords, value) => {
     let cartesCoords = JSON.parse(coords);
    await celOvSteps.verifyTMRawDataCellContents(cartesCoords, value);
+});
+
+When(/^scroll time machine raw data "(.*)"$/, async (d_coords) => {
+   let cartesCoords = JSON.parse(d_coords);
+   await celOvSteps.scrollTMRawDataTable(cartesCoords);
+});
+
+When(/^click time machine download CSV$/, async () => {
+   await celOvSteps.clickTMDownloadCSV();
 });
 

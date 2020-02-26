@@ -511,8 +511,34 @@ const removeFileIfExists = async function(filepath){
     }
 };
 
+const removeFilesByRegex = async function(regex){
+  let re = new RegExp(regex)
+  await fs.readdir('.', (err, files) => {
+        for(var i = 0; i < files.length; i++){
+            var match = files[i].match(re);
+            if(match !== null){
+                fs.unlinkSync(match[0]);
+            }
+        }
+    });
+};
+
 const fileExists = async function(filePath){
     return fs.existsSync(filePath);
+};
+
+const verifyFileMatchingRegexFilesExist = async function(regex, callback){
+    let re = new RegExp(regex);
+    let files = fs.readdirSync('.');
+
+    for(var i = 0; i < files.length; i++){
+        var match = files[i].match(re);
+        if(match !== null){
+            return true;
+        }
+    }
+
+    return false;
 };
 
 const waitForFileToExist = async function(filePath, timeout = 10000){
@@ -553,7 +579,9 @@ module.exports = { flush,
     readFileToBuffer,
     createTemplateFromFile,
     removeFileIfExists,
+    removeFilesByRegex,
     fileExists,
+    verifyFileMatchingRegexFilesExist,
     waitForFileToExist
 };
 
