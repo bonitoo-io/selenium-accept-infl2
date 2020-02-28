@@ -295,3 +295,8 @@ Then(/^a file matching "(.*)" exists$/, async regex => {
     await bSteps.verifyFileMatchingRegexExists(regex);
 });
 
+When(/^verify first CSV file matching "(.*)" as containing$/, async (path, dataDesc) => {
+    let datdescr = JSON.parse(dataDesc);
+   await bSteps.verifyFirstCSVFileMatching(path, datdescr);
+});
+

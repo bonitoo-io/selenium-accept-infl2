@@ -635,7 +635,10 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click cell content popover configure
     When click time machine download CSV
     Then a file matching ".*chronograf_data.csv" exists
-    #TODO verify file contents
+    When verify first CSV file matching ".*chronograf_data.csv" as containing
+     """
+     { "_time": "type:date", "_value": "type:double", "_field": "pulse", "_measurement": "beat", "test": "generic" }
+     """
     When click dashboard cell edit cancel button
     Then the cell named "Kliky" contains a graph
 
