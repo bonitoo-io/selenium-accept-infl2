@@ -131,8 +131,8 @@ class baseSteps{
 
     async closeAllNotifications(){
         await this.driver.sleep(500); //might not be loaded - todo better wait
-        await this.basePage.getNotificationCloseButtons().then(btns => {
-            btns.forEach(async(btn) => {
+        await this.basePage.getNotificationCloseButtons().then(async btns => {
+            await btns.forEach(async(btn) => {
                 await btn.click();
             });
         });
