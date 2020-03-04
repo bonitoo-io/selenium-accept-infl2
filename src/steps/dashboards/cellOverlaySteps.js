@@ -215,6 +215,25 @@ class cellOverlaySteps extends influxSteps {
         await this.assertVisible(await this.cellOverlay.getTMAutorefreshForceButton());
     }
 
+    async verifyTMAutorefreshDropdownSelected(selected){
+
+        if(selected.toLowerCase() === 'paused'){
+            await this.assertVisible(await this.cellOverlay.getTMAutorefreshDropdownPaused());
+        }else {
+
+            await this.cellOverlay.getTMAutorefreshDropdownSelected().then(async elem => {
+//           console.log("DEBUG selected #" + await elem.getText() + "#");
+                await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
+                console.log("DEBUG selected #" + JSON.stringify(elem) + "#");
+            });
+            await this.verifyElementText(await this.cellOverlay.getTMAutorefreshDropdownSelected(), selected)
+        }
+    }
+
+    async clickTMForceRefresh(){
+        await this.clickAndWait(await this.cellOverlay.getTMAutorefreshForceButton());
+    }
+
     async verifyTMTimeRangeDropdownList(itemList){
         let list = itemList.split(',');
         for(let i = 0; i < list.length; i++){

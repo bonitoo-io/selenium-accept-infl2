@@ -17,6 +17,8 @@ const TMViewNoResults = '[data-testid=overlay] [data-testid=empty-graph--no-resu
 const TMResizerHandle = '[data-testid=overlay] [data-testid=draggable-resizer--handle]';
 const viewRawDataToggle = '[data-testid=overlay] .view-raw-data-toggle';
 const TMAutorefreshDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button]';
+const TMAutorefreshDropdownPaused = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button] [data-testid=\'icon\'].pause';
+const TMAutorefreshDropdownSelected = '[data-testid=overlay] [data-testid=time-machine--bottom] .autorefresh-dropdown [data-testid=dropdown--button] .cf-dropdown--selected';
 const TMAutorefreshItem = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%ITEM%\']]';
 const TMAutorefreshForceButton = '[class=time-machine] [class^=autorefresh-dropdown] [data-testid=square-button]';
 const TMTimeRangeDropdown = '[data-testid=overlay] [data-testid=time-machine--bottom] [data-testid=timerange-dropdown]';
@@ -227,6 +229,14 @@ class cellEditOverlay extends influxPage {
 
     async getTMAutorefreshDropdown(){
         return await this.driver.findElement(By.css(TMAutorefreshDropdown));
+    }
+
+    async getTMAutorefreshDropdownSelected(){
+        return await this.driver.findElement(By.css(TMAutorefreshDropdownSelected))
+    }
+
+    async getTMAutorefreshDropdownPaused(){
+        return await this.driver.findElement(By.css(TMAutorefreshDropdownPaused));
     }
 
     async getTMAutorefreshItem(item){

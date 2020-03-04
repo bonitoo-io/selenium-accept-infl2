@@ -567,8 +567,6 @@ Feature: Dashboards - Dashboard - Cell Edit
     When get time machine preview canvas
     When get time machine preview axes
     When click the time machine flux editor
-    # following is work around for 16854 - TODO remove when fixed
-    When send keys "CTRL+END,ENTER,BACKSPACE" to the time machine flux editor
     When click the time machine query editor function "aggregateWindow"
     Then the time machine script editor contains
   """
@@ -576,7 +574,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
     |> filter(fn: (r) => r._measurement == "beat")
     |> filter(fn: (r) => r._field == "pulse")
-    |> aggregateWindow(every: 1m, fn: mean)
+    |> aggregateWindow(every: v.windowPeriod, fn: mean)
   """
     # In CircleCi function popup can obscure the submit button
     When click the time machine flux editor
@@ -644,6 +642,47 @@ Feature: Dashboards - Dashboard - Cell Edit
 
   #Scenario: Download results as CSV
        # CSV download
+
+  Scenario: Refresh Rates
+    #earlier signin may have timed out
+    When API sign in user "DEFAULT"
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When get time machine preview canvas
+    When get time machine preview axes
+    When wait "20" seconds
+    When generate a line protocol testdata for user "DEFAULT" based on:
+    """
+    { "points": 5, "measurement":"pulse", "start": "-5m", "algo": "log", "prec": "sec", "name": "beat"}
+    """
+    Then the time machine force refresh button is present
+    Then the time machine autorefresh dropdown list is set to "Paused"
+    When click time machine force refresh
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When get time machine preview canvas
+    When get time machine preview axes
+    When click time machine autorefresh dropdown
+    When select the time machine autorefresh rate "10s"
+    Then the time machine force refresh button is not present
+    When generate a line protocol testdata for user "DEFAULT" based on:
+    """
+    { "points": 5, "measurement":"pulse", "start": "-5m", "algo": "log", "prec": "sec", "name": "beat"}
+    """
+    When wait "20" seconds
+    Then the time machine preview canvas has changed
+    Then the time machine preview axes have changed
+    When click time machine autorefresh dropdown
+    When select the time machine autorefresh rate "Paused"
+    When get time machine preview canvas
+    When get time machine preview axes
+    When generate a line protocol testdata for user "DEFAULT" based on:
+    """
+    { "points": 5, "measurement":"pulse", "start": "-5m", "algo": "log", "prec": "sec", "name": "beat"}
+    """
+    When wait "20" seconds
+    Then the time machine preview canvas has not changed
+
 
   #Scenario: Refresh Rates
        # Refresh Rate

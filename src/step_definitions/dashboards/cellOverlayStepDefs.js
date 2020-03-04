@@ -139,6 +139,14 @@ Then(/^the time machine force refresh button is present$/, async () => {
     await celOvSteps.verifyTMAutorefreshForceButtonVisible();
 });
 
+Then(/^the time machine autorefresh dropdown list is set to "(.*)"$/, async selected => {
+   await celOvSteps.verifyTMAutorefreshDropdownSelected(selected);
+});
+
+When(/^click time machine force refresh$/, async () => {
+   await celOvSteps.clickTMForceRefresh();
+});
+
 Then(/^the time machine Time Range dropdown list contains:$/, async itemList => {
     await celOvSteps.verifyTMTimeRangeDropdownList(itemList);
 });
