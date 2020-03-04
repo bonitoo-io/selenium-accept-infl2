@@ -606,14 +606,41 @@ Feature: Dashboards - Dashboard - Cell Edit
     When select dashboard Time Range "24h"
     Then the graph of the cell "Kliky" has changed
 
+  Scenario: View raw data
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When get time machine preview canvas
+    When get time machine preview axes
+    Then the time machine raw data table is not present
+    When click time machine raw data toggle
+    Then the time machine raw data table is present
+    Then the time machine preview canvas is not present
+    When click time machine raw data toggle
+    Then the time machine preview canvas has changed
+    Then the time machine raw data table is not present
+    When click dashboard cell edit cancel button
+    Then the cell named "Kliky" contains a graph
+
+
   #Scenario: View raw data
 
     # time-machine--bottom
          # raw-data--toggle
     # time-machine--view
         # raw-data-table
-
-  #Scenario: Sort raw data
+  Scenario: Download results as CSV
+     # clean any old CSVs
+    When remove files ".*chronograf_data.csv" if exists
+    When toggle context menu of dashboard cell named "Kliky"
+    When click cell content popover configure
+    When click time machine download CSV
+    Then a file matching ".*chronograf_data.csv" exists
+    When verify first CSV file matching ".*chronograf_data.csv" as containing
+     """
+     { "_time": "type:date", "_value": "type:double", "_field": "pulse", "_measurement": "beat", "test": "generic" }
+     """
+    When click dashboard cell edit cancel button
+    Then the cell named "Kliky" contains a graph
 
   #Scenario: Download results as CSV
        # CSV download

@@ -2,6 +2,7 @@
 const process = require('process');
 const axios = require('axios');
 const fs = require('fs');
+const csvParseSync = require('csv-parse/lib/sync');
 
 const active_config = require(__basedir + '/bonitoo.conf.json').active;
 const config = require(__basedir + '/bonitoo.conf.json')[active_config];
@@ -511,8 +512,34 @@ const removeFileIfExists = async function(filepath){
     }
 };
 
+const removeFilesByRegex = async function(regex){
+  let re = new RegExp(regex)
+  await fs.readdir('.', (err, files) => {
+        for(var i = 0; i < files.length; i++){
+            var match = files[i].match(re);
+            if(match !== null){
+                fs.unlinkSync(match[0]);
+            }
+        }
+    });
+};
+
 const fileExists = async function(filePath){
     return fs.existsSync(filePath);
+};
+
+const verifyFileMatchingRegexFilesExist = async function(regex, callback){
+    let re = new RegExp(regex);
+    let files = fs.readdirSync('.');
+
+    for(var i = 0; i < files.length; i++){
+        var match = files[i].match(re);
+        if(match !== null){
+            return true;
+        }
+    }
+
+    return false;
 };
 
 const waitForFileToExist = async function(filePath, timeout = 10000){
@@ -527,6 +554,25 @@ const waitForFileToExist = async function(filePath, timeout = 10000){
 
     throw `Timed out ${timeout}ms waiting for file ${filePath}`;
 
+};
+
+const getNthFileFromRegex = async function(fileregex, index){
+    let re = await new RegExp(fileregex);
+    let files = fs.readdirSync('.');
+    let matchFiles = [];
+
+    for(var i = 0; i < files.length; i++){
+        var match = files[i].match(re);
+        if(match !== null){
+            matchFiles.push(files[i]);
+        }
+    }
+
+    return matchFiles[index - 1];
+};
+
+const readCSV = async function(content){
+    return await csvParseSync(content, { columns: true, skip_empty_lines: true, comment: "#"});
 };
 
 module.exports = { flush,
@@ -548,12 +594,16 @@ module.exports = { flush,
     genLineProtocolFile,
     getIntervalMillis,
     getDocTemplates,
+    getNthFileFromRegex,
     genFibonacciValues,
     writeLineProtocolData,
     readFileToBuffer,
+    readCSV,
     createTemplateFromFile,
     removeFileIfExists,
+    removeFilesByRegex,
     fileExists,
+    verifyFileMatchingRegexFilesExist,
     waitForFileToExist
 };
 

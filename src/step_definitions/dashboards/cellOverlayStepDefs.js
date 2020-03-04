@@ -339,6 +339,10 @@ Then(/^the time machine preview canvas has changed$/, {timeout: 10000}, async ()
     await celOvSteps.verifyTMPreviewCanvasChange();
 });
 
+Then(/^the time machine preview canvas has not changed$/, {timeout: 1000}, async () => {
+   await celOvSteps.verifyTMPreviewCanvasNoChange();
+});
+
 Then(/^the time machine preview axes have changed$/, async () => {
     await celOvSteps.verifyTMPreviewAxesChange();
 });
@@ -485,5 +489,27 @@ When(/^send keys "(.*)" to the time machine flux editor$/, async keys => {
 
 Then(/^the time machine raw data table is not present$/, async () => {
    await celOvSteps.verifyTMRawDataTableNotPresent();
+});
+
+Then(/^the time machine raw data table is present$/, async () => {
+   await celOvSteps.verifyTMRawDataTablePresent();
+});
+
+When(/^click time machine raw data toggle$/, async () => {
+   await celOvSteps.clickTMRawDataToggle();
+});
+
+Then(/^time machine raw data cell "(.*)" contains "(.*)"$/, async (coords, value) => {
+    let cartesCoords = JSON.parse(coords);
+   await celOvSteps.verifyTMRawDataCellContents(cartesCoords, value);
+});
+
+When(/^scroll time machine raw data "(.*)"$/, async (d_coords) => {
+   let cartesCoords = JSON.parse(d_coords);
+   await celOvSteps.scrollTMRawDataTable(cartesCoords);
+});
+
+When(/^click time machine download CSV$/, async () => {
+   await celOvSteps.clickTMDownloadCSV();
 });
 

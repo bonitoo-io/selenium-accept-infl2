@@ -131,8 +131,8 @@ class baseSteps{
 
     async closeAllNotifications(){
         await this.driver.sleep(500); //might not be loaded - todo better wait
-        await this.basePage.getNotificationCloseButtons().then(btns => {
-            btns.forEach(async(btn) => {
+        await this.basePage.getNotificationCloseButtons().then(async btns => {
+            await btns.forEach(async(btn) => {
                 await btn.click();
             });
         });
@@ -615,6 +615,57 @@ class baseSteps{
 
     async verifyFileExists(filePath){
         await expect(await influxUtils.fileExists(filePath)).to.be.true;
+    }
+
+    async verifyFileMatchingRegexExists(regex){
+        let res = await influxUtils.verifyFileMatchingRegexFilesExist(regex);
+        await expect(res).to.be.true;
+    }
+
+    async verifyFirstCSVFileMatching(path, dataDescr){
+        let deck = [0,1,2,3,4,5,6,7,8,9];
+        //shuffle deck
+        for(let i = 0; i < deck.length; i++){
+            let target = Math.floor(Math.random() * Math.floor(deck.length - 1));
+            //swap
+            let temp = deck[i];
+            deck[i] = deck[target];
+            deck[target] = temp;
+        }
+
+        let file = await influxUtils.getNthFileFromRegex(path, 1);
+        let content = await influxUtils.readFileToBuffer(file);
+        let firstLF = content.indexOf('\n');
+        let firstLine = content.slice(0,firstLF);
+
+        assert.match(firstLine.trim(),/^#group,.*$/);
+
+        let csvContent = await influxUtils.readCSV(content);
+
+        for(let i = 0; i < 3; i++) {
+            Object.keys(dataDescr).forEach(async (key) => {
+
+                if (dataDescr[key].includes("type:")) { //then just test type
+                    let testType = dataDescr[key].split(':')[1];
+                    switch (testType) {
+                        case 'double':
+                        case 'float':
+                        case 'number':
+                            await assert.match(csvContent[deck[i]][key], /^[-+]?\d*\.?\d*$/, `${key} should be of type double/float/number`);
+                            break;
+                        case 'date':
+                            //2020-02-27T13:51:09.7Z
+                            await assert.match(csvContent[deck[i]][key], /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.?\d{0,3}Z$/,
+                                `${key} should be of type date`);
+                            break;
+                        default:
+                            throw `unhandled test type ${testType}`;
+                    }
+                } else {
+                    expect(dataDescr[key].trim()).to.equal(csvContent[deck[i]][key].trim());
+                }
+            })
+        }
     }
 
     async scrollElementIntoView(elem){
