@@ -521,3 +521,34 @@ When(/^click time machine download CSV$/, async () => {
    await celOvSteps.clickTMDownloadCSV();
 });
 
+When(/^click the time machine script editor variables tab$/, async () => {
+   await celOvSteps.clickTMQEVariablesTab();
+});
+
+Then(/^the time machine variables list contains$/, async varList => {
+   await celOvSteps.verifyTMQEVariablesList(varList);
+});
+
+Then(/^the time machine variables list does not contain$/, {timeout: 10000}, async varList => {
+   await celOvSteps.verifyTMQWVarieblesListAbsent(varList);
+});
+
+When(/^enter the value "(.*)" in the time machine variables filter$/, async value => {
+   await celOvSteps.enterTMQEVariableVilterValue(value);
+});
+
+When(/^clear the time machine variables filter$/, async () => {
+   await celOvSteps.clearTMQEVariablesFilter();
+});
+
+When(/^hover over the time machine variable "(.*)"$/, async varname => {
+   await celOvSteps.hoverOverTMQEVariable(varname);
+});
+
+Then(/^the time machine variable popover is not visible$/, async () => {
+   await celOvSteps.verifyTMQEVariablePopoverNotVisible();
+});
+
+Then(/^the time machine variable popover is visible$/, async () => {
+   await celOvSteps.verifyTMQEVariablePopoverVisible();
+});

@@ -375,6 +375,10 @@ class bucketsSteps extends baseSteps {
             async () => { await this.driver.sleep(1000);}); // todo better wait
     }
 
+    async clickOnBucketSettings(name){
+        await this.clickAndWait(await this.bucketsTab.getBucketCardSettingsByName(name));
+    }
+
     async clickSaveChanges(){
         await this.bucketsTab.getPopupSaveChanges().then(async btn => {
             await btn.click();

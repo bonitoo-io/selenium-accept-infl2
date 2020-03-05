@@ -136,6 +136,10 @@ When(/^click on the bucket named "(.*)"$/, async (name) => {
     await bktTabSteps.clickOnBucketNamed(name);
 });
 
+When(/^click on settings for bucket named "(.*)"$/, async (name) => {
+    await bktTabSteps.clickOnBucketSettings(name);
+});
+
 Then(/^the Edit Bucket popup is loaded$/, async () => {
     await bktTabSteps.verifyEditBucketPopup();
 });

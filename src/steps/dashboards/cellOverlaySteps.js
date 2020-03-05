@@ -969,6 +969,44 @@ class cellOverlaySteps extends influxSteps {
             async () => { await this.driver.sleep(2000) }); //todo better wait - 2 sec to download
     }
 
+    async clickTMQEVariablesTab(){
+        await this.clickAndWait(await this.cellOverlay.getTMQEVariablesTab());
+    }
+
+    async verifyTMQEVariablesList(varList){
+        let list = varList.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await this.cellOverlay.getTMQEVariablesLabel(list[i].trim()));
+        }
+    }
+
+    async verifyTMQWVarieblesListAbsent(varList){
+        let list = varList.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertNotPresent(await cellEditOverlay.getTMQEVariablesLabelSelector(list[i].trim()));
+        }
+    }
+
+    async enterTMQEVariableVilterValue(value){
+        await this.typeTextAndWait(await this.cellOverlay.getTMQEVariablesFilter(), value)
+    }
+
+    async clearTMQEVariablesFilter(){
+        await this.clearInputText(await this.cellOverlay.getTMQEVariablesFilter());
+    }
+
+    async hoverOverTMQEVariable(varname){
+        await this.hoverOver(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
+    }
+
+    async verifyTMQEVariablePopoverNotVisible(){
+        await this.assertNotPresent(await cellEditOverlay.getTMQEVariablesPopoverSelector())
+    }
+
+    async verifyTMQEVariablePopoverVisible(){
+        await this.assertVisible(await this.cellOverlay.getTMQEVariablesPopover());
+    }
+
 }
 
 module.exports = cellOverlaySteps;

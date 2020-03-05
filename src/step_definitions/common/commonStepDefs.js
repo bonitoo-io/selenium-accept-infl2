@@ -256,7 +256,7 @@ When(/^generate a line protocol testdata for user "(.*)" based on:$/, async (use
 
 When(/^create the "(.*)" variable "(.*)" with default "(.*)" for user "(.*)" with values:$/,
     async(type, name, defVal, user, values) => {
-    type = type === 'csv' ? 'constant' : type.tolowerCase();
+    type = type === 'csv' ? 'constant' : type.toLowerCase();
     let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
     await influxUtils.createVariable(orgID, name, type, values, defVal)
 });
