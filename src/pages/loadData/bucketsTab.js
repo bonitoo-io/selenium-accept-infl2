@@ -7,6 +7,7 @@ const filterInput = '[data-testid=search-widget]';
 const nameSorter = '[data-testid=\'name-sorter\']';
 const policySorter = '[data-testid=\'retention-sorter\']';
 const bucketCardByName = '[data-testid=\'bucket--card--name %NAME%\']';
+const bucketCardSettingsByName = `[data-testid='bucket-card %NAME%'] [data-testid=bucket-settings]`
 
 // Create Bucket Popup
 const popupContainer = '[data-testid=overlay--container]';
@@ -307,6 +308,10 @@ class bucketsTab extends loadDataPage {
 
     async getDataWizardPreviousButton(){
         return await this.driver.findElement(By.css(dataWizardPreviousButton));
+    }
+
+    async getBucketCardSettingsByName(name){
+        return await this.driver.findElement(By.css(bucketCardSettingsByName.replace('%NAME%', name)));
     }
 
 }

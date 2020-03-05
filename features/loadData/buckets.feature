@@ -82,17 +82,17 @@ Examples:
   | Oprava    | 24h  |
 
 Scenario: Modify Retention Policy
-  When click on the bucket named "Oprava"
+  When click on settings for bucket named "Oprava"
   Then the Edit Bucket popup is loaded
   Then the name edit textbox of the Edit Bucket popup is disabled
-  Then the form help text contains "To rename the bucket use the RENAME button. Bucket renaming is not allowed here."
+  Then the form help text contains "To rename bucket use the RENAME button below"
   When dismiss the Edit Bucket Popup
   Then the Edit Bucket Popup is not present
-  When click on the bucket named "Oprava"
+  When click on settings for bucket named "Oprava"
   Then the Edit Bucket popup is loaded
   When cancel the Edit Bucket Popup
   Then the Edit Bucket Popup is not present
-  When click on the bucket named "Oprava"
+  When click on settings for bucket named "Oprava"
   When set the retention policy of the bucket as "48h"
   When click Edit Bucket Popup Save Changes
   # N.B. fix following once issue 14905 is resolved
@@ -240,4 +240,6 @@ Scenario: Add Manual Line Protocol Data to Default
     When click the Popup Wizard continue button
     When click load data tab "Telegrafs"
     Then there is a telegraf card for "Daumier"
+
+    #TODO - new functionality - click bucket name opens data explorerer
 
