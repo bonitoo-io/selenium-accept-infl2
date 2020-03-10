@@ -987,7 +987,7 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
-    async enterTMQEVariableVilterValue(value){
+    async enterTMQEVariableFilterValue(value){
         await this.typeTextAndWait(await this.cellOverlay.getTMQEVariablesFilter(), value)
     }
 
@@ -999,12 +999,50 @@ class cellOverlaySteps extends influxSteps {
         await this.hoverOver(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
     }
 
+    async clickTMQEVariable(varname){
+        await this.clickAndWait(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
+    }
+
     async verifyTMQEVariablePopoverNotVisible(){
         await this.assertNotPresent(await cellEditOverlay.getTMQEVariablesPopoverSelector())
     }
 
     async verifyTMQEVariablePopoverVisible(){
         await this.assertVisible(await this.cellOverlay.getTMQEVariablesPopover());
+    }
+
+    async clickTMQEVariablePopoverVarDropdown(){
+
+        await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'',
+            await this.cellOverlay.getTMQEVariablesPopoverContents());
+
+        await this.hoverOver(await this.cellOverlay.getTMQEVariablesPopoverContents());
+
+        await this.driver.sleep(500);
+/*
+        await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'',
+            await this.cellOverlay.getTMQEVariablePopoverDropdown());
+
+        let elem = await this.cellOverlay.getTMQEVariablesLabel('KARTA');
+
+        let dd = await this.cellOverlay.getTMQEVariablePopoverDropdown();
+        console.log("DEBUG dd " + JSON.stringify(await dd.getRect()));
+        console.log("DEBUG elem " + JSON.stringify(await elem.getRect()));
+        console.log("DEBUG win " + JSON.stringify(await this.driver.manage().window().getRect()));
+        //await this.driver.sleep(1);
+        //let action = await this.driver.actions();
+        //await action.move({x: -100, y:5, origin: Origin.POINTER,  duration: 500})
+        //    .perform();
+
+        //await dd.click();
+
+        //await this.driver.executeScript('arguments[0].click()',
+        //    await this.cellOverlay.getTMQEVariablePopoverDropdown());
+
+        await this.driver.sleep(3000); */
+        // for some reason standard methods cause popover to disappear
+        //await this.hoverOver(await this.cellOverlay.getTMQEVariablePopoverDropdown());
+        //await this.clickAndWait(await this.cellOverlay.getTMQEVariablePopoverDropdown());
     }
 
 }

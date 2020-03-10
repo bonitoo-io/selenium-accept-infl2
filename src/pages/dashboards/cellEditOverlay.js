@@ -76,6 +76,8 @@ const TMQEVariablesTab = '[data-testid=toolbar-tab][title=\'Variables\']';
 const TMQEVariablesLabel = '//*[@class=\'variables-toolbar--label\'][text()=\'%LABEL%\']';
 const TMQEVariablesFilter = '[data-testid=input-field][placeholder^=\'Filter Variables\']';
 const TMQEVariablesPopover = '[data-testid=toolbar-popover--dialog]';
+const TMQEVariablesPopoverContents = '[data-testid=\'toolbar-popover--contents\']';
+const TMQEVariablePopoverDropdown = '[data-testid=\'variable--tooltip-dropdown\'] [data-testid=\'dropdown--button\']  .caret-down';
 
 //RawData
 const TMRawDataTable = '[data-testid=raw-data-table]';
@@ -485,6 +487,14 @@ class cellEditOverlay extends influxPage {
 
     static getTMQEVariablesPopoverSelector(){
         return { type: 'css', selector: TMQEVariablesPopover };
+    }
+
+    async getTMQEVariablePopoverDropdown(){
+        return await this.driver.findElement(By.css(TMQEVariablePopoverDropdown));
+    }
+
+    async getTMQEVariablesPopoverContents(){
+        return await this.driver.findElement(By.css(TMQEVariablesPopoverContents));
     }
 
 

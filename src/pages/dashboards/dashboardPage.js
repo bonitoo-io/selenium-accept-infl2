@@ -14,6 +14,8 @@ const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains
 const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
 const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
 const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
+const variableValueDropdownButtonForVar = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown--button\']';
+const variableValueDropdownItem = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown\']//*[@data-testid=\'variable-dropdown--item\'][.//*[text()=\'%ITEM%\']]'
 
 const dropdownMenuItem = '//*[@data-testid=\'dropdown-menu\']//*[contains(@data-testid,\'dropdown-item\')]/*[text()=\'%ITEM%\']';
 const dropdownMenuDivider = '//*[@data-testid=\'dropdown-menu\']//*[@data-testid=\'dropdown-divider\'][text()=\'%LABEL%\']';
@@ -248,6 +250,16 @@ class dashboardPage extends influxPage {
 
     async getCellEmptyGraphErrorIcon(name){
         return await this.driver.findElement(By.xpath(cellEmptyGraphErrorIcon.replace('%NAME%', name)));
+    }
+
+    async getVariableValueDropdownButtonForVar(varname){
+        return await this.driver.findElement(By.xpath(variableValueDropdownButtonForVar.replace('%VARNAME%', varname)));
+    }
+
+    async getVariableValueDropdownItem(varname,item){
+        return await this.driver.findElement(By.xpath(variableValueDropdownItem
+            .replace("%VARNAME%", varname)
+            .replace("%ITEM%", item)));
     }
 }
 

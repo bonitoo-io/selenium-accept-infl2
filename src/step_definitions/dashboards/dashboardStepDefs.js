@@ -1,4 +1,4 @@
-import { Then, When } from 'cucumber';
+import { Then, When, Given } from 'cucumber';
 const dashboardSteps = require(__srcdir + '/steps/dashboards/dashboardSteps.js');
 
 let dbdSteps = new dashboardSteps(__wdriver);
@@ -257,3 +257,24 @@ When(/^hover over the error icon of the cell "(.*)"$/, async name => {
 Then(/^the empty cell error popover message is:$/, async msg => {
     await dbdSteps.verifyEmptyCellErrorPopoverMessage(msg);
 });
+
+Then(/^the dashboard variables button is highlighted$/, async () => {
+   await dbdSteps.verifyVariablesButtonActive();
+});
+
+When(/^click the value dropdown button for variable "(.*)"$/, async varname => {
+   await dbdSteps.clickValueDropdownOfVar(varname);
+});
+
+Then(/^the value dropdown for variable "(.*)" contains$/, async (varname,items) =>{
+   await dbdSteps.verifyVariableDropdownContents(varname,items)
+});
+
+Then(/^the selected item of the dropdown for variable "(.*)" is "(.*)"$/, async (varname, item) => {
+   await dbdSteps.verifySlectedValueOfVariable(varname, item);
+});
+
+When(/^click the item "(.*)" for variable "(.*)"$/, async (item, varname) => {
+   await dbdSteps.clickItemOfVariableValueDropdown(item, varname);
+});
+
