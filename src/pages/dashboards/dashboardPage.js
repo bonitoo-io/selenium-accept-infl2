@@ -3,17 +3,27 @@ const { By } = require('selenium-webdriver');
 
 const pageTitle = '[data-testid=page-title]';
 const nameInput = '[data-testid=page-header] [data-testid=input-field]';
-const graphToolTips = '[data-testid=page-header--right] [data-testid=graphtips-question-mark]';
-const addCellButtonHeader = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Cell\']]';
-const addNoteButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Note\']]';
-const variablesButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Variables\']]';
-const timeLocaleDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'dropdown--button\'][.//*[contains(@class,\'annotate\')]]';
-const autorefresh = '//*[@data-testid=\'page-header--right\']/*[contains(@class,\'autorefresh-dropdown\')]';
-const refreshRateDropdown = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
-const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
-const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+//const graphToolTips = '[data-testid=page-header--right] [data-testid=graphtips-question-mark]';
+const graphToolTips = '[data-testid=page-control-bar] [data-testid=graphtips-question-mark]';
+//const addCellButtonHeader = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Cell\']]';
+const addCellButtonHeader = '//*[@data-testid=\'page-control-bar--left\']//*[@data-testid=\'button\'][.//*[text()=\'Add Cell\']]';
+//const addNoteButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Note\']]';
+const addNoteButton = '//*[@data-testid=\'page-control-bar--left\']//*[@data-testid=\'button\'][.//*[text()=\'Add Note\']]';
+//const variablesButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Variables\']]';
+const variablesButton = '//*[@data-testid=\'page-control-bar--left\']//*[@data-testid=\'button\'][.//*[text()=\'Variables\']]';
+//const timeLocaleDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'dropdown--button\'][.//*[contains(@class,\'annotate\')]]';
+const timeLocaleDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[@data-testid=\'dropdown--button\'][.//*[contains(@class,\'annotate\')]]';
+//const autorefresh = '//*[@data-testid=\'page-header--right\']/*[contains(@class,\'autorefresh-dropdown\')]';
+const autorefresh = '//*[@data-testid=\'page-control-bar--right\']/*[contains(@class,\'autorefresh-dropdown\')]';
+//const refreshRateDropdown = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
+const refreshRateDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
+//const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
+const forceRefreshButton = '//*[@data-testid=\'page-control-bar--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
+//const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+const timeRangeDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
 const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
-const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
+//const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
+const presentationModeButton = '//*[@data-testid=\'page-control-bar--left\']//*[contains(@title,\'Presentation\')]';
 const variableValueDropdownButtonForVar = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown--button\']';
 const variableValueDropdownItem = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown\']//*[@data-testid=\'variable-dropdown--item\'][.//*[text()=\'%ITEM%\']]'
 

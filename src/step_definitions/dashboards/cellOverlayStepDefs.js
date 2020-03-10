@@ -411,6 +411,10 @@ When(/^click hide query of time machine query tab "(.*)"$/, async name => {
     await celOvSteps.clickTMQBHideQuery(name);
 });
 
+When(/^right click the time machine query tab "(.*)"$/, async name => {
+    await celOvSteps.clickRightTMQBQuery(name);
+});
+
 When(/^click delete of time machine query tab "(.*)"$/, async name => {
     await celOvSteps.clickTMQBDeleteQuery(name);
 });

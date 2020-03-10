@@ -217,6 +217,7 @@ Feature: Dashboards - Base
     When click Export Dashboard popup Save as Template
     Then the success notification contains "Successfully saved dashboard as template"
     Then a REST template document for user "DEFAULT" titled "Alpha Centauri-Template" exists
+    Then close all notifications
 
   Scenario: Export Dashboard copy to clipboard
     When hover over dashboard card named "Jupiter"
@@ -224,6 +225,7 @@ Feature: Dashboards - Base
     When click confirm export of the dashboard card "Jupiter"
     When click Export Dashboard popup Copy to Clipboard
     Then the success notification contains "Copied dashboard to the clipboard"
+    Then close all notifications
 #N.B. clipboard not accessible for comparison in headless mode
     When click the Export Dashboard dismiss button
     Then popup is not loaded

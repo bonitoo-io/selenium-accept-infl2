@@ -377,6 +377,18 @@ class baseSteps{
         });
     }
 
+    async clickRAndWait(element,
+                        wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }) { //wait 1/10th implicit timeout
+        //console.log("DEBUG timeout " + ((await this.driver.manage().getTimeouts()).implicit/20));
+        let action = this.driver.actions();
+        await action.contextClick(element).perform().then(async () => {
+           await wait();
+        });
+        //await element.click().then(async () => {
+        //    await wait();
+        //});
+    }
+
     async typeTextAndWait(input, text,
         wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }) { //wait 1/10th implicit timeout)
         await input.sendKeys(text).then(async() => {

@@ -733,6 +733,17 @@ class cellOverlaySteps extends influxSteps {
         await this.assertNotPresent(cellEditOverlay.getTMQBQueryTabSelectorByName(name));
     }
 
+    async clickRightTMQBQuery(name){
+
+        await this.clickRAndWait(await this.cellOverlay.getTMQBQueryTabByName(name));
+
+        /*
+        await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
+            await this.clickRAndWait(tab);
+        });
+        */
+    }
+
     async clickTMQBHideQuery(name){
         await this.cellOverlay.getTMQBQueryTabByName(name).then(async tab => {
             await this.clickAndWait(await tab.findElement(By.css('.query-tab--hide')));
