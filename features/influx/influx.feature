@@ -8,7 +8,8 @@ Feature: Influx common
     When UI sign in user "DEFAULT"
     When open page "HOME" for user "DEFAULT"
     Then influx page is loaded
-    Then the header contains the org name "DEFAULT"
+    #Then the header contains the org name "DEFAULT"
+    Then the home page header contains "Getting Started"
 
   Scenario: Hover home item
     Then the home submenu items are "hidden"

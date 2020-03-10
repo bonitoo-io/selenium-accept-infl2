@@ -15,6 +15,9 @@ Then(/^the header contains the org name "(.*?)"$/, async (orgname) => {
     await iSteps.verifyHeaderContains((orgname === 'DEFAULT') ? __defaultUser.org : orgname);
 });
 
+Then(/^the home page header contains "(.*)"$/, async content => {
+    await iSteps.verifyHeaderContains(content);
+});
 
 Then(/^the Create Organization form is loaded$/, {timeout: 2 * 5000}, async () => {
     await cOrgSteps.isLoaded();

@@ -370,7 +370,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine preview axes have changed
     When click dashboard cell save button
     Then the graph of the cell "Kliky" has changed
-    
+
   #Scenario: Edit Query
     # time-machine--bottom
        # switch-to-script-editor
