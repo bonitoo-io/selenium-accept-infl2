@@ -19,6 +19,7 @@ Feature: Load Data - Client Libs
     Then click copy "Package Manager" to clipboard
     Then the success notification contains "has been copied to clipboard"
     #Then verify clipboard contains text of "Package Manager"
+    When close all notifications
     Then verify the github repository link contains "influxdb-client-csharp"
     Then dismiss the popup
 
