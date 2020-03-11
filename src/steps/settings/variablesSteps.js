@@ -41,7 +41,8 @@ class variablesSteps extends baseSteps{
     async verifyCreateVariablePopupLoaded(){
         await this.assertVisible(await this.varTab.getPopupDismiss());
         await this.assertVisible(await this.varTab.getPopupCancelSimple());
-        await this.assertVisible(await this.varTab.getPopupCreate());
+        //await this.assertVisible(await this.varTab.getPopupCreate());
+        await this.assertVisible(await this.varTab.getCreateVarPopupCreateButton());
         await this.assertVisible(await this.varTab.getCreateVariableNameInput());
         await this.assertVisible(await this.varTab.getCreateVariableTypeDropdown());
         await this.verifyElementContainsText(await this.varTab.getPopupTitle(), 'Create Variable');
@@ -102,9 +103,9 @@ class variablesSteps extends baseSteps{
 
     async verifyCreatePopupCreateEnabled(enabled){
         if(enabled) {
-            await this.verifyElementEnabled(await this.varTab.getPopupCreate());
+            await this.verifyElementEnabled(await this.varTab.getCreateVarPopupCreateButton());
         }else{
-            await this.verifyElementDisabled(await this.varTab.getPopupCreate());
+            await this.verifyElementDisabled(await this.varTab.getCreateVarPopupCreateButton());
         }
     }
 
@@ -230,7 +231,7 @@ class variablesSteps extends baseSteps{
     }
 
     async clickCreateVarPopupCreateButton(){
-        await this.clickAndWait(await this.varTab.getPopupCreate());
+        await this.clickAndWait(await this.varTab.getCreateVarPopupCreateButton());
     }
 
     async clickEditVarPopupSubmitButton(){

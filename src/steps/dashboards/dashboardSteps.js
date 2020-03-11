@@ -118,6 +118,10 @@ class dashboardSteps extends influxSteps {
         await this.assertVisible(await this.dbdPage.getCellEmptyGraphMessage(name));
     }
 
+    async verifyEmptyGraphNoResults(name){
+        await this.assertVisible(await this.dbdPage.getCellEmptyGraphNoResults(name));
+    }
+
     async verifyCellContainsGraphError(name){
         await this.assertVisible(await this.dbdPage.getCellEmptyGraphError(name));
     }
@@ -571,6 +575,29 @@ class dashboardSteps extends influxSteps {
 
     async verifyEmptyCellErrorPopoverMessage(msg){
         await this.verifyElementContainsText(await this.dbdPage.getEmptyGraphPopoverContents(), msg);
+    }
+
+    async verifyVariablesButtonActive(){
+        await this.verifyElementContainsClass(await this.dbdPage.getVariablesButton(), 'cf-button-secondary');
+    }
+
+    async clickValueDropdownOfVar(varname){
+        await this.clickAndWait(await this.dbdPage.getVariableValueDropdownButtonForVar(varname));
+    }
+
+    async verifyVariableDropdownContents(varname,items){
+        let list = items.split(',');
+        for(let i = 0; i < list.length; i++){
+            await this.assertVisible(await this.dbdPage.getVariableValueDropdownItem(varname,list[i].trim()));
+        }
+    }
+
+    async verifySlectedValueOfVariable(varname, item){
+        await this.verifyElementText(await this.dbdPage.getVariableValueDropdownButtonForVar(varname), item);
+    }
+
+    async clickItemOfVariableValueDropdown(item, varname){
+        await this.clickAndWait(await this.dbdPage.getVariableValueDropdownItem(varname, item));
     }
 
 }

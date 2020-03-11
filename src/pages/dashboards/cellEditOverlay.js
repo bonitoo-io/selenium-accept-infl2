@@ -2,14 +2,19 @@ const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
 const timeMachineOverlay = '[data-testid=overlay]';
-const cellTitle = '[data-testid=overlay] [data-testid=page-header--left] [data-testid=page-title]';
+//const cellTitle = '[data-testid=overlay] [data-testid=page-header--left] [data-testid=page-title]';
+const cellTitle = '[data-testid=overlay] [data-testid=page-header] [data-testid=page-title]';
 const cellNameInput = '[data-testid=overlay] [data-testid=page-header] [data-testid=input-field]';
-const viewTypeDropdown = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'view-type--dropdown\']';
+//const viewTypeDropdown = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'view-type--dropdown\']';
+const viewTypeDropdown = '[data-testid=overlay] [data-testid=page-control-bar--left] [data-testid=\'view-type--dropdown\']';
 const viewTypeListContents = '[data-testid=\'view-type--dropdown\'] [data-testid=dropdown-menu--contents]';
 const viewTypeItem = '[data-testid=\'view-type--%ITEM%\']';
-const customizeButton = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cog-cell--button\']';
-const editCancel = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cancel-cell-edit--button\']';
-const saveCell = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'save-cell--button\']';
+//const customizeButton = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cog-cell--button\']';
+const customizeButton = '[data-testid=overlay] [data-testid=page-control-bar--left] [data-testid=\'cog-cell--button\']';
+//const editCancel = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'cancel-cell-edit--button\']';
+const editCancel = '[data-testid=overlay] [data-testid=page-control-bar--right] [data-testid=\'cancel-cell-edit--button\']';
+//const saveCell = '[data-testid=overlay] [data-testid=page-header--right] [data-testid=\'save-cell--button\']';
+const saveCell = '[data-testid=overlay] [data-testid=page-control-bar--right] [data-testid=\'save-cell--button\']';
 const TMTop = '.time-machine--top';
 const TMBottom = '[data-testid=\'time-machine--bottom\']';
 const TMViewEmptyGraphQueries = '[data-testid=overlay] [data-testid=empty-graph--no-queries]';
@@ -59,8 +64,8 @@ const TMQBSelectedFunctionsByName = '[data-testid=function-selector] [data-testi
 const TMQBDurationSuggestions = '[data-testid=\'builder-card--menu\'] [data-testid=\'dropdown-menu--contents\'] [data-testid=\'dropdown-item\']';
 const TMQBDurationSuggestionByName = '//*[@data-testid=\'builder-card--menu\']//*[@data-testid=\'dropdown-menu--contents\']//*[@data-testid=\'dropdown-item\'][./*[text()=\'%NAME%\']]';
 const TMBuilderTabsAddQuery = '[data-testid=overlay] [class=time-machine-queries--tabs] [data-testid=square-button]';
-const TMQBActiveQueryTab = '.query-tab.active';
-const TMQBQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[text()=\'%NAME%\']]';
+const TMQBActiveQueryTab = '.query-tab__active';
+const TMQBQueryTabByName = '//*[contains(@class,\'query-tab\')][./*[text()=\'%NAME%\']]';
 const TMQBRightClickItem = '[data-testid=\'right-click--%ITEM%-tab\']';
 const TMQBQueryTabNameInput = 'div.cf-input__focused input';
 const TMQBQueryTabs = '.time-machine-queries .query-tab';
@@ -76,6 +81,8 @@ const TMQEVariablesTab = '[data-testid=toolbar-tab][title=\'Variables\']';
 const TMQEVariablesLabel = '//*[@class=\'variables-toolbar--label\'][text()=\'%LABEL%\']';
 const TMQEVariablesFilter = '[data-testid=input-field][placeholder^=\'Filter Variables\']';
 const TMQEVariablesPopover = '[data-testid=toolbar-popover--dialog]';
+const TMQEVariablesPopoverContents = '[data-testid=\'toolbar-popover--contents\']';
+const TMQEVariablePopoverDropdown = '[data-testid=\'variable--tooltip-dropdown\'] [data-testid=\'dropdown--button\']  .caret-down';
 
 //RawData
 const TMRawDataTable = '[data-testid=raw-data-table]';
@@ -485,6 +492,14 @@ class cellEditOverlay extends influxPage {
 
     static getTMQEVariablesPopoverSelector(){
         return { type: 'css', selector: TMQEVariablesPopover };
+    }
+
+    async getTMQEVariablePopoverDropdown(){
+        return await this.driver.findElement(By.css(TMQEVariablePopoverDropdown));
+    }
+
+    async getTMQEVariablesPopoverContents(){
+        return await this.driver.findElement(By.css(TMQEVariablesPopoverContents));
     }
 
 

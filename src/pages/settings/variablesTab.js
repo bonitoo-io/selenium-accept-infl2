@@ -26,6 +26,7 @@ const pasteJSONTextarea = '[data-testid=overlay--body] [data-testid=import-overl
 const importVariableDragNDropHeader = '.drag-and-drop--header';
 
 // create variable popup
+const createVarPopupCreateButton = '[data-testid=overlay--container] button[title=\'Create Variable\']';
 const createVariableNameInput = '[data-testid=overlay--body] [data-testid=input-field]';
 const createVariableTypeDropdown = '[data-testid=\'variable-form--dropdown-button\']';
 const createVariableQueryCodeMirror = '.CodeMirror';
@@ -236,6 +237,10 @@ class variablesTab extends settingsPage{
 
     async getEditVariableNameChangeSubmit(){
         return await this.driver.findElement(By.css(editVariableNameChangeSubmit));
+    }
+
+    async getCreateVarPopupCreateButton(){
+        return await this.driver.findElement(By.css(createVarPopupCreateButton));
     }
 
 }

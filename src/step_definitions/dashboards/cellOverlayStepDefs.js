@@ -411,6 +411,10 @@ When(/^click hide query of time machine query tab "(.*)"$/, async name => {
     await celOvSteps.clickTMQBHideQuery(name);
 });
 
+When(/^right click the time machine query tab "(.*)"$/, async name => {
+    await celOvSteps.clickRightTMQBQuery(name);
+});
+
 When(/^click delete of time machine query tab "(.*)"$/, async name => {
     await celOvSteps.clickTMQBDeleteQuery(name);
 });
@@ -534,7 +538,7 @@ Then(/^the time machine variables list does not contain$/, {timeout: 10000}, asy
 });
 
 When(/^enter the value "(.*)" in the time machine variables filter$/, async value => {
-   await celOvSteps.enterTMQEVariableVilterValue(value);
+   await celOvSteps.enterTMQEVariableFilterValue(value);
 });
 
 When(/^clear the time machine variables filter$/, async () => {
@@ -545,10 +549,18 @@ When(/^hover over the time machine variable "(.*)"$/, async varname => {
    await celOvSteps.hoverOverTMQEVariable(varname);
 });
 
+When(/^click the time machine variable "(.*)"$/, async varname => {
+   await celOvSteps.clickTMQEVariable(varname);
+});
+
 Then(/^the time machine variable popover is not visible$/, async () => {
    await celOvSteps.verifyTMQEVariablePopoverNotVisible();
 });
 
 Then(/^the time machine variable popover is visible$/, async () => {
    await celOvSteps.verifyTMQEVariablePopoverVisible();
+});
+
+When(/^click time machine popover variable dropodown$/, async () => {
+   await celOvSteps.clickTMQEVariablePopoverVarDropdown();
 });

@@ -3,17 +3,29 @@ const { By } = require('selenium-webdriver');
 
 const pageTitle = '[data-testid=page-title]';
 const nameInput = '[data-testid=page-header] [data-testid=input-field]';
-const graphToolTips = '[data-testid=page-header--right] [data-testid=graphtips-question-mark]';
-const addCellButtonHeader = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Cell\']]';
-const addNoteButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Note\']]';
-const variablesButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Variables\']]';
-const timeLocaleDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'dropdown--button\'][.//*[contains(@class,\'annotate\')]]';
-const autorefresh = '//*[@data-testid=\'page-header--right\']/*[contains(@class,\'autorefresh-dropdown\')]';
-const refreshRateDropdown = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
-const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
-const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+//const graphToolTips = '[data-testid=page-header--right] [data-testid=graphtips-question-mark]';
+const graphToolTips = '[data-testid=page-control-bar] [data-testid=graphtips-question-mark]';
+//const addCellButtonHeader = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Cell\']]';
+const addCellButtonHeader = '//*[@data-testid=\'page-control-bar--left\']//*[@data-testid=\'button\'][.//*[text()=\'Add Cell\']]';
+//const addNoteButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Add Note\']]';
+const addNoteButton = '//*[@data-testid=\'page-control-bar--left\']//*[@data-testid=\'button\'][.//*[text()=\'Add Note\']]';
+//const variablesButton = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'button\'][.//*[text()=\'Variables\']]';
+const variablesButton = '//*[@data-testid=\'page-control-bar--left\']//*[@data-testid=\'button\'][.//*[text()=\'Variables\']]';
+//const timeLocaleDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'dropdown--button\'][.//*[contains(@class,\'annotate\')]]';
+const timeLocaleDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[@data-testid=\'dropdown--button\'][.//*[contains(@class,\'annotate\')]]';
+//const autorefresh = '//*[@data-testid=\'page-header--right\']/*[contains(@class,\'autorefresh-dropdown\')]';
+const autorefresh = '//*[@data-testid=\'page-control-bar--right\']/*[contains(@class,\'autorefresh-dropdown\')]';
+//const refreshRateDropdown = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
+const refreshRateDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'dropdown--button\']';
+//const forceRefreshButton = '//*[@data-testid=\'page-header--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
+const forceRefreshButton = '//*[@data-testid=\'page-control-bar--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
+//const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+const timeRangeDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
 const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
-const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
+//const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
+const presentationModeButton = '//*[@data-testid=\'page-control-bar--left\']//*[contains(@title,\'Presentation\')]';
+const variableValueDropdownButtonForVar = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown--button\']';
+const variableValueDropdownItem = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown\']//*[@data-testid=\'variable-dropdown--item\'][.//*[text()=\'%ITEM%\']]'
 
 const dropdownMenuItem = '//*[@data-testid=\'dropdown-menu\']//*[contains(@data-testid,\'dropdown-item\')]/*[text()=\'%ITEM%\']';
 const dropdownMenuDivider = '//*[@data-testid=\'dropdown-menu\']//*[@data-testid=\'dropdown-divider\'][text()=\'%LABEL%\']';
@@ -23,6 +35,7 @@ const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'ad
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
 const cellEmptyGraphMessage = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-queries\']';
+const cellEmptyGraphNoResults = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-results\']';
 const cellEmptyGraphError = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--error\']';
 const cellEmptyGraphErrorIcon = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--error\']//*[contains(@class,\'empty-graph-error--icon\')]';
 const emptyGraphPopoverContents = '[data-testid^=emptygraph-popover--contents]';
@@ -153,6 +166,9 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(cellEmptyGraphMessage.replace('%NAME%', name)));
     }
 
+    async getCellEmptyGraphNoResults(name){
+        return await this.driver.findElement(By.xpath(cellEmptyGraphNoResults.replace('%NAME%', name)));
+    }
 
     async getCellEmptyGraphError(name){
         return await this.driver.findElement(By.xpath(cellEmptyGraphError.replace('%NAME%', name)));
@@ -248,6 +264,16 @@ class dashboardPage extends influxPage {
 
     async getCellEmptyGraphErrorIcon(name){
         return await this.driver.findElement(By.xpath(cellEmptyGraphErrorIcon.replace('%NAME%', name)));
+    }
+
+    async getVariableValueDropdownButtonForVar(varname){
+        return await this.driver.findElement(By.xpath(variableValueDropdownButtonForVar.replace('%VARNAME%', varname)));
+    }
+
+    async getVariableValueDropdownItem(varname,item){
+        return await this.driver.findElement(By.xpath(variableValueDropdownItem
+            .replace("%VARNAME%", varname)
+            .replace("%ITEM%", item)));
     }
 }
 

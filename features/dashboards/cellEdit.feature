@@ -356,12 +356,14 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell save button
 
   Scenario: Delete Second Query
-    When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
+    When get the current graph of the cell "Kliky"
+    When right click the time machine query tab "Dotaz B"
     When get time machine preview canvas
     When get time machine preview axes
-    When click delete of time machine query tab "Dotaz B"
+    #When click delete of time machine query tab "Dotaz B"
+    When click the time machine query tab right click menu item "remove"
     Then there is no time machine query tab named "Dotaz B"
     Then there are "1" time machine query tabs
     Then the time machine preview canvas has changed
