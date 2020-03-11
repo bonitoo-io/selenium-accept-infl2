@@ -118,6 +118,10 @@ class dashboardSteps extends influxSteps {
         await this.assertVisible(await this.dbdPage.getCellEmptyGraphMessage(name));
     }
 
+    async verifyEmptyGraphNoResults(name){
+        await this.assertVisible(await this.dbdPage.getCellEmptyGraphNoResults(name));
+    }
+
     async verifyCellContainsGraphError(name){
         await this.assertVisible(await this.dbdPage.getCellEmptyGraphError(name));
     }

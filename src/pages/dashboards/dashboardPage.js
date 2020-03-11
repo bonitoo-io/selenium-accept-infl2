@@ -35,6 +35,7 @@ const emptyStateAddCellButton = '[data-testid=\'empty-state\'] [data-testid=\'ad
 
 const cellByName = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]';
 const cellEmptyGraphMessage = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-queries\']';
+const cellEmptyGraphNoResults = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--no-results\']';
 const cellEmptyGraphError = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--error\']';
 const cellEmptyGraphErrorIcon = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'empty-graph--error\']//*[contains(@class,\'empty-graph-error--icon\')]';
 const emptyGraphPopoverContents = '[data-testid^=emptygraph-popover--contents]';
@@ -165,6 +166,9 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(cellEmptyGraphMessage.replace('%NAME%', name)));
     }
 
+    async getCellEmptyGraphNoResults(name){
+        return await this.driver.findElement(By.xpath(cellEmptyGraphNoResults.replace('%NAME%', name)));
+    }
 
     async getCellEmptyGraphError(name){
         return await this.driver.findElement(By.xpath(cellEmptyGraphError.replace('%NAME%', name)));

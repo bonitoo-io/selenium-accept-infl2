@@ -60,6 +60,10 @@ Then(/^the cell named "(.*)" contains the empty graph message$/, async name => {
     await dbdSteps.verifyEmptyGraphMessage(name);
 });
 
+Then(/^the cell named "(.*)" has no results$/, async name => {
+   await dbdSteps.verifyEmptyGraphNoResults(name);
+});
+
 Then(/^the cell named "(.*)" contains a graph error$/, async name => {
     await dbdSteps.verifyCellContainsGraphError(name);
 });
