@@ -64,8 +64,8 @@ const TMQBSelectedFunctionsByName = '[data-testid=function-selector] [data-testi
 const TMQBDurationSuggestions = '[data-testid=\'builder-card--menu\'] [data-testid=\'dropdown-menu--contents\'] [data-testid=\'dropdown-item\']';
 const TMQBDurationSuggestionByName = '//*[@data-testid=\'builder-card--menu\']//*[@data-testid=\'dropdown-menu--contents\']//*[@data-testid=\'dropdown-item\'][./*[text()=\'%NAME%\']]';
 const TMBuilderTabsAddQuery = '[data-testid=overlay] [class=time-machine-queries--tabs] [data-testid=square-button]';
-const TMQBActiveQueryTab = '.query-tab.active';
-const TMQBQueryTabByName = '//*[contains(@class,\'query-tab \')][./*[text()=\'%NAME%\']]';
+const TMQBActiveQueryTab = '.query-tab__active';
+const TMQBQueryTabByName = '//*[contains(@class,\'query-tab\')][./*[text()=\'%NAME%\']]';
 const TMQBRightClickItem = '[data-testid=\'right-click--%ITEM%-tab\']';
 const TMQBQueryTabNameInput = 'div.cf-input__focused input';
 const TMQBQueryTabs = '.time-machine-queries .query-tab';
