@@ -253,6 +253,25 @@ Feature: Dashboards - Dashboard - Variables
 
   #Dashboard view show/hide variables.
 
+  # NEED TO CLEAN UP
+  # Variables cached in localstore can influence other tests
+  Scenario Outline: Delete Variable
+    When hover over the "Settings" menu item
+    When click nav sub menu "Variables"
+    When hover over variable card named "<NAME>"
+    When click delete menu of variable card named "<NAME>"
+    When click delete confirm of variable card named "<NAME>"
+    Then the success notification contains "Successfully deleted the variable"
+    Then the variable card "<NAME>" is not present
+    When close all notifications
+
+    Examples:
+      |NAME|
+      |APIVAR|
+      |KARTA|
+      |POKUS|
+
+
 
 # Useful variable query based on test data generated above.
 #  from(bucket: "qa")
