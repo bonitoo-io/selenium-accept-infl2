@@ -2,8 +2,8 @@ const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
 const timeLocaleDropdown = '[data-testid=select-dropdown]';
-const graphTypeDropdodwn = '[data-testid=page-control-bar--right] [data-testid=view-type--dropdown]';
-const customizeGraphButton = '[data-testid=page-control-bar--right] [data-testid=cog-cell--button]';
+const graphTypeDropdodwn = '[data-testid=page-control-bar--left] [data-testid=view-type--dropdown]';
+const customizeGraphButton = '[data-testid=page-control-bar--left] [data-testid=cog-cell--button]';
 const saveAsButton = '//button[./span[text() = \'Save As\']]';
 const viewArea = '.time-machine--view';
 const viewRawToggle = '[data-testid=raw-data--toggle]';
