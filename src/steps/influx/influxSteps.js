@@ -82,16 +82,23 @@ class influxSteps extends baseSteps {
         }
     }
 
-    async clickMenuItem(item){
-        await this.getNavMenuElem(item).then(async elem => {
+    async clickMenuItem(item,
+                        wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){
+        await this.clickAndWait(await this.getNavMenuElem(item), wait);
+        //Old Code
+        /*await this.getNavMenuElem(item).then(async elem => {
             await elem.click();
-        });
+        }); */
     }
 
-    async clickSubMenuItem(item){
-        await this.influxPage.getSubItemByText(item).then( async elem => {
+    async clickSubMenuItem(item,
+                           wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){
+        await this.clickAndWait(await this.influxPage.getSubItemByText(item), wait);
+
+        //Old Code
+        /*await this.influxPage.getSubItemByText(item).then( async elem => {
             await elem.click();
-        });
+        });*/
     }
 
     async verifyVisibilityNavItemByText(text, visible = true){
