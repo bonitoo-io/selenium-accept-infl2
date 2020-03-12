@@ -88,7 +88,7 @@ class influxSteps extends baseSteps {
     }
 
     async clickSubMenuItem(item,
-                           wait = async () => { await this.driver.sleep((await this.driver.manage().getTimeouts()).implicit/20); }){
+                           wait = async () => { await this.driver.sleep(1000); }){
         await this.clickAndWait(await this.influxPage.getSubItemByText(item), wait);
     }
 
