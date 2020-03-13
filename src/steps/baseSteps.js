@@ -5,7 +5,7 @@ chai.use(require('chai-match'));
 const expect = require('chai').expect;
 const assert = require('chai').assert;
 
-const { By, Key, until } = require('selenium-webdriver');
+const { By, Key, until, logging } = require('selenium-webdriver');
 const influxUtils = require(__srcdir + '/utils/influxUtils.js');
 
 const basePage = require (__srcdir + '/pages/basePage.js');
@@ -700,6 +700,28 @@ class baseSteps{
                     console.log(err);
                 }
             });
+    }
+
+    async writeMessageToConsoleLog(msg){
+        await this.driver.executeScript('console.info(\'TO WHOM IT MAY CONCERN\')');
+        await this.driver.executeScript('console.log(\'HELLO\')');
+        await this.driver.executeScript('console.warn(\'BOO BOO BOO!\')');
+        await this.driver.executeScript('console.error(\'AIEYAIYAI!\')');
+        //try {
+            await this.driver.executeScript('throw new Error(\'WHADDAP?\')');
+        //}catch(e){
+           //ignore
+        //}
+    }
+
+    async getConsoleLog(){
+        console.log("DEBUG logging.Type.BROWSER " + logging.Type.BROWSER);
+        await this.driver.manage().logs().get(logging.Type.BROWSER).then(async logs => {
+            await console.log("DEBUG typeof(logs) " + JSON.stringify(logs));
+            for(let log in logs){
+                await console.log("DEBUG logs[log] #" + logs[log].message + "#");
+            }
+        })
     }
 
 
