@@ -1,7 +1,7 @@
 const chrome = require('selenium-webdriver/chrome');
 const ffox = require('selenium-webdriver/firefox');
 const fs = require('fs');
-const {Builder, Capabilities, By, Key, promise, until} = require('selenium-webdriver');
+const {Builder, Capabilities, By, Key, logging, promise, until} = require('selenium-webdriver');
 //following provides cleaner paths in require statements
 global.__basedir = __dirname;
 global.__srcdir = __dirname + "/src";
@@ -52,6 +52,9 @@ try {
     fs.mkdirSync(__downloadsDir);
 }*/
 
+let logPrefs =  new logging.Preferences();
+logPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL)
+
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
     switch (__config.browser.toLowerCase()) {
@@ -61,6 +64,7 @@ if(__config.headless) {
             .forBrowser(__config.browser)
             .setChromeOptions(new chrome.Options().headless()
                 .setUserPreferences(chromeUserPreferences)
+                .setLoggingPrefs(logPrefs)
                 .windowSize({width: 1024, height: 768}))
             .build();
             break;
@@ -80,6 +84,7 @@ if(__config.headless) {
                 .forBrowser(__config.browser)
                 .setChromeOptions(new chrome.Options().addArguments("--incognito")
                     .setUserPreferences(chromeUserPreferences)
+                    .setLoggingPrefs(logPrefs)
                     .windowSize({width: 1024, height: 768}))
                 .build();
             break;
