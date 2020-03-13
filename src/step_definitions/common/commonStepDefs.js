@@ -300,3 +300,11 @@ When(/^verify first CSV file matching "(.*)" as containing$/, async (path, dataD
    await bSteps.verifyFirstCSVFileMatching(path, datdescr);
 });
 
+When(/^get console log$/, async () => {
+   await bSteps.getConsoleLog();
+});
+
+When(/^write message "(.*)" to console log$/, async msg => {
+    await bSteps.writeMessageToConsoleLog(msg);
+});
+

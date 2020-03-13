@@ -1,5 +1,6 @@
 const fs = require('fs')
 var {Before, BeforeAll, After, AfterAll, Status} = require('cucumber')
+var {logging} = require('selenium-webdriver');
 
 /*
 Before(function (scenario, callback) {
@@ -23,6 +24,7 @@ BeforeAll(async function (scenario, callback) {
 
 
 async function writeScreenShot(filename) {
+    filename = filename.replace(/\s+/g, '_');
     return await __wdriver.takeScreenshot().then(async (image, err) => {
 
         await fs.writeFile(filename, image, 'base64', (err) => {
@@ -34,6 +36,17 @@ async function writeScreenShot(filename) {
         return image
     })
 }
+
+async function writeConsoleLog(filename){
+    filename = filename.replace(/\s+/g, '_');
+    await __wdriver.manage().logs().get(logging.Type.BROWSER).then(async logs => {
+        for(let log in logs){
+            fs.appendFileSync(filename, `[${logs[log].timestamp}]${logs[log].level}:${logs[log].message}\n`);
+        }
+    })
+
+}
+
 
 let scenarioCt = 0;
 let currentFeature = '';
@@ -73,7 +86,10 @@ After(async function (scenario /*,   callback */) {
     if(scenario.result.status === Status.FAILED){
             await writeScreenShot(filebase + "-ERR" + ".png").then(async img => {
                 await world.attach(img, 'image/png')
-            })
+            });
+         await writeConsoleLog(filebase + '-ERR-console.log').catch(async e => {
+             throw('failed to write ' + filebase + '-ERR-console.log\n' + e);
+         })
     }else {
             await writeScreenShot(filebase + "--OK" + ".png").then(async img => {
                 await world.attach(img, 'image/png')
