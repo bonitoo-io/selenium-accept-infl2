@@ -2,6 +2,7 @@ const basePage = require(__srcdir + '/pages/basePage.js');
 const { By } = require('selenium-webdriver');
 
 const heading = '.splash-page--heading';
+const influxLogo = '[data-testid=logo--influxdb-cloud]';
 const versionInfo = '.version-info p';
 const creditsLink = '.splash-page--credits a';
 const nameInput = 'input[name=username]'; //TODO - see if data-testid can be updated - currently 'input-field' for both name and password inputds
@@ -39,6 +40,10 @@ class signinPage extends basePage{
 
     async getSigninButton(){
         return await this.driver.findElement(By.css(signinButton));
+    }
+
+    async getInfluxLogo(){
+        return await this.driver.findElement(By.css(influxLogo));
     }
 
 }

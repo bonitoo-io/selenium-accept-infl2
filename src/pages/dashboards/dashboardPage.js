@@ -23,7 +23,7 @@ const forceRefreshButton = '//*[@data-testid=\'page-control-bar--right\']//*[con
 const timeRangeDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
 const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
 //const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
-const presentationModeButton = '//*[@data-testid=\'page-control-bar--left\']//*[contains(@title,\'Presentation\')]';
+const presentationModeButton = '[data-testid=\'presentation-mode-toggle\']';
 const variableValueDropdownButtonForVar = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown--button\']';
 const variableValueDropdownItem = '//*[@class=\'variable-dropdown\'][.//*[text()=\'%VARNAME%\']]//*[@data-testid=\'variable-dropdown\']//*[@data-testid=\'variable-dropdown--item\'][.//*[text()=\'%ITEM%\']]'
 
@@ -81,7 +81,7 @@ class dashboardPage extends influxPage {
             {type: 'xpath', selector: timeLocaleDropdown},
             {type: 'xpath', selector: autorefresh},
             {type: 'xpath', selector: timeRangeDropdown},
-            {type: 'xpath', selector: presentationModeButton}], urlCtx);
+            {type: 'css', selector: presentationModeButton}], urlCtx);
     }
 
 
@@ -143,7 +143,7 @@ class dashboardPage extends influxPage {
     }
 
     async getPresentationModeButton(){
-        return await this.driver.findElement(By.xpath(presentationModeButton));
+        return await this.driver.findElement(By.css(presentationModeButton));
     }
 
     async getEmptyStateTextLink(){

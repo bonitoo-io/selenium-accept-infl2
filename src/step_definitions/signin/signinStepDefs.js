@@ -15,6 +15,10 @@ Then(/^the heading contains "(.*?)"$/, async text => {
     await sSteps.verifyHeadingContains(text);
 });
 
+Then(/^the InfluxData heading is visible$/, async () => {
+   await sSteps.verifyHeading();
+});
+
 Then(/^the version shown contains "(.*?)"$/, async version => {
     await sSteps.verifyVersionContains((version == 'DEFAULT') ? __config.influxdb.version : version);
 });
