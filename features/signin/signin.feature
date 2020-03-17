@@ -6,9 +6,10 @@ Feature: Signin
     Given run setup over REST "DEFAULT"
     When open the signin page
     When clear browser storage
-    Then the heading contains "InfluxData"
+    #Then the heading contains "InfluxData"
+    Then the InfluxData heading is visible
     Then the version shown contains "DEFAULT"
-    Then the credits are valid
+    #Then the credits are valid
     When enter the username "DEFAULT"
     When enter the password "DEFAULT"
     When click the signin button

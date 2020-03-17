@@ -15,6 +15,10 @@ class signinSteps extends baseSteps {
         expect(await (await this.signinPage.getHeading()).getText()).to.include(text);
     }
 
+    async verifyHeading(){
+        await this.assertVisible(await this.signinPage.getInfluxLogo());
+    }
+
     async verifyVersionContains(version){
         expect(await (await this.signinPage.getVersionInfo()).getText()).to.include(version);
     }
