@@ -2,7 +2,7 @@ version: 2
 jobs:
   selenium_accept:
     docker:
-      - image: circleci/node:13.7.0-stretch-browsers
+      - image: circleci/node:13.6.0-stretch-browsers
       - image: quay.io/influxdb/influx:nightly
         command: [--e2e-testing=true]
     steps:
@@ -22,6 +22,8 @@ jobs:
           name: Selenium tests
           command: |
             set +e
+            mv package.json package.json.orig
+            mv package.json.ci package.json
             npm install
             npm test; TEST_RESULT=$?
             npm run report:html
