@@ -89,7 +89,16 @@ class influxSteps extends baseSteps {
 
     async clickSubMenuItem(item,
                            wait = async () => { await this.driver.sleep(1000); }){
-        await this.clickAndWait(await this.influxPage.getSubItemByText(item), wait);
+        if(item.toLowerCase() === 'dashboards'){//troubleshoot issue in circleci
+            await this.clickAndWait(await this.influxPage.getSubItemByText(item), async () => {
+                //N.B. sometimes page will have no cells - so waiting for cells won't always work
+                //However CircleCI issue is that cells are not showing up
+                await this.driver.sleep(3000);
+            });
+
+        }else {
+            await this.clickAndWait(await this.influxPage.getSubItemByText(item), wait);
+        }
     }
 
     async verifyVisibilityNavItemByText(text, visible = true){
