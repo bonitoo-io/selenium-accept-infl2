@@ -54,7 +54,7 @@ try {
 
 let logPrefs =  new logging.Preferences();
 logPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL);
-logPrefs.setLevel(logging.Type.DRIVER, logging.Level.ALL);
+logPrefs.setLevel(logging.Type.DRIVER, logging.Level.WARNING);
 
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
