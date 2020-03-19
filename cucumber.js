@@ -58,7 +58,8 @@ logPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
 
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
-    caps.set('pageLoadStrategy', 'eager');
+    caps.set('pageLoadStrategy', 'none');
+
     switch (__config.browser.toLowerCase()) {
         case "chrome":
         global.__wdriver = new Builder()
@@ -102,7 +103,12 @@ if(__config.headless) {
 }
 
 __wdriver.manage().setTimeouts({implicit: 3000});
-
+__wdriver.executor_.w3c = true;
+//let browserVer = __wdriver.capabilities['browserVersion'];
+//let driverVer = __wdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0];
+console.log("DEBUG __wdriver: " + JSON.stringify(__wdriver));
+//console.log(`Browser version: ${browserVer}`);
+//console.log(`Driver version: ${driverVer}`);
 
 module.exports = {
     'default': common + '--format summary --format node_modules/cucumber-pretty --format json:report/cucumber_report.json',

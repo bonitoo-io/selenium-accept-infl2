@@ -62,6 +62,12 @@ async function writeDriverLog(filename){
 let scenarioCt = 0;
 let currentFeature = '';
 
+Before(async function (){
+
+    console.log(`[${new Date().toISOString()}]`);
+
+});
+
 After(async function (scenario /*,   callback */) {
 
     //__wdriver.sleep(1500) //DEBUG - getting shots out of order
