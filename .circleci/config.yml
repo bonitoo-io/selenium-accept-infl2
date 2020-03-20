@@ -23,6 +23,7 @@ jobs:
           command: |
             set +e
             npm install
+            ./node_modules/chromedriver/bin/chromedriver --version
             npm test; TEST_RESULT=$?
             npm run report:html
             npm run report:junit
