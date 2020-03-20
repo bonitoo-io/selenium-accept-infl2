@@ -23,7 +23,6 @@ jobs:
           command: |
             set +e
             npm install
-            cp /usr/local/bin/chromedriver ./node_modules/chromedriver/bin/chromedriver
             ./node_modules/chromedriver/bin/chromedriver --version
             npm test; TEST_RESULT=$?
             npm run report:html
