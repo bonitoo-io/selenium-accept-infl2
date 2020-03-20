@@ -49,10 +49,10 @@ const pluginRedisServersEditEndpoint = '//*[label/span[text()=\'servers\']]//*[@
 const pluginRedisPasswordEditEndpoint = '//*[label/span[text()=\'password\']]//*[@data-testid=\'input-field\']';
 
 //Telegraf wizard step 3
-const codeToken = '//code[contains(text(), \'TOKEN\')]';
+const codeToken = '//pre[contains(text(), \'TOKEN\')]';
 const codeCliTelegraf = '//code[contains(text(), \'telegraf\')]';
-const copyToClipboardToken = 'div.code-snippet:nth-of-type(1) [data-testid=button-copy]';
-const copyToClipboardCommand = 'div.code-snippet:nth-of-type(2) [data-testid=button-copy]';
+const copyToClipboardToken = '//*[@class=\'code-snippet\'][.//*[contains(text(),\'TOKEN\')]]//*[@data-testid=\'button-copy\']';
+const copyToClipboardCommand = '//*[@class=\'code-snippet\'][.//*[contains(text(),\'telegraf\')]]//*[@data-testid=\'button-copy\']';
 
 //Config Popup
 const downloadConfigButton = '//*[@data-testid=\'button\'][span[text()=\'Download Config\']]';
@@ -217,11 +217,11 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getCopyToClipboardToken(){
-        return await this.driver.findElement(By.css(copyToClipboardToken));
+        return await this.driver.findElement(By.xpath(copyToClipboardToken));
     }
 
     async getCopyToClipboardCommand(){
-        return await this.driver.findElement(By.css(copyToClipboardCommand));
+        return await this.driver.findElement(By.xpath(copyToClipboardCommand));
     }
 
     async getTelegrafCardSetupInstructions(card){
