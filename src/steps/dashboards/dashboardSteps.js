@@ -110,6 +110,12 @@ class dashboardSteps extends influxSteps {
         });
     }
 
+    async clickHeaderAddCellButton(){
+        await this.clickAndWait(await this.dbdPage.getAddCellButtonHeader(), async() => {
+            await this.driver.sleep(1000); //see comment above in clickCreateCellEmpty()
+        })
+    }
+
     async verifyCellNotPresent(name){
         await this.assertNotPresent(await dashboardPage.getCellSelectorByName(name));
     }
@@ -581,6 +587,10 @@ class dashboardSteps extends influxSteps {
         await this.verifyElementContainsClass(await this.dbdPage.getVariablesButton(), 'cf-button-secondary');
     }
 
+    async verifyVariablesButtonInactive(){
+        await this.verifyElementContainsClass(await this.dbdPage.getVariablesButton(), 'button-default')
+    }
+
     async clickValueDropdownOfVar(varname){
         await this.clickAndWait(await this.dbdPage.getVariableValueDropdownButtonForVar(varname));
     }
@@ -598,6 +608,18 @@ class dashboardSteps extends influxSteps {
 
     async clickItemOfVariableValueDropdown(item, varname){
         await this.clickAndWait(await this.dbdPage.getVariableValueDropdownItem(varname, item));
+    }
+
+    async verifyVariableValuesDropdownVisible(varname){
+        await this.assertVisible(await this.dbdPage.getVariableValueDropdownButtonForVar(varname));
+    }
+
+    async verifyVariableValuesDropdownNotVisible(varname){
+        await this.assertNotPresent(await dashboardPage.getVariableValueDropdownButtonForVarSelector(varname));
+    }
+
+    async clickVariablesButton(){
+        await this.clickAndWait(await this.dbdPage.getVariablesButton());
     }
 
 }

@@ -270,6 +270,10 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(variableValueDropdownButtonForVar.replace('%VARNAME%', varname)));
     }
 
+    static getVariableValueDropdownButtonForVarSelector(varname){
+        return {type: 'xpath', selector: variableValueDropdownButtonForVar.replace('%VARNAME%', varname)};
+    }
+
     async getVariableValueDropdownItem(varname,item){
         return await this.driver.findElement(By.xpath(variableValueDropdownItem
             .replace("%VARNAME%", varname)

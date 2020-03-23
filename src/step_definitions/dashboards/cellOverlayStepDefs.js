@@ -431,6 +431,10 @@ When(/^change the time machine script editor contents to:$/, { timeout: 60000 },
     await celOvSteps.updateTMQBScriptEditorContents(script);
 });
 
+When(/^set the time machine script editor contents to:$/, {timeout: 60000}, async script => {
+    await celOvSteps.updateTMQBScriptEditorContents(script);
+});
+
 When(/^click the time machine switch to query builder button$/, async () => {
     await celOvSteps.clickTMSwitch2QBuilder();
 });
