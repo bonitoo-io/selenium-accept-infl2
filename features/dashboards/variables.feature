@@ -124,12 +124,10 @@ Feature: Dashboards - Dashboard - Variables
     When hover over the time machine variable "APIVAR"
     Then the time machine variable popover is visible
     # TODO - No solution as yet to access popover contents - all action make popover disappear
+    #When hover over the time machine variable "APIVAR"
     # When click time machine popover variable dropodown
     When click the time machine variable "APIVAR"
     When click the time machine cell edit submit button
-    # Workaround - issue fetching variables
-    When click the time machine cell edit submit button
-    #When hover over the time machine variable "KARTA"
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
     When get the current graph of the cell "Semantic"
@@ -170,13 +168,12 @@ Feature: Dashboards - Dashboard - Variables
     Then the time machine variable popover is not visible
     When hover over the time machine variable "KARTA"
     Then the time machine variable popover is visible
+    # TODO - No solution as yet to access popover contents - all action make popover disappear
     # No solution as yet to access popover contents - all action make popover disappear
+    #When hover over the time machine variable "KARTA"
     #When click time machine popover variable dropodown
     When click the time machine variable "KARTA"
     When click the time machine cell edit submit button
-    # Workaround - issue fetching variables
-    When click the time machine cell edit submit button
-    #When hover over the time machine variable "KARTA"
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
     When get the current graph of the cell "Semantic"
@@ -214,13 +211,12 @@ Feature: Dashboards - Dashboard - Variables
     Then the time machine variable popover is not visible
     When hover over the time machine variable "POKUS"
     Then the time machine variable popover is visible
+    # TODO - No solution as yet to access popover contents - all action make popover disappear
     # No solution as yet to access popover contents - all action make popover disappear
+    #When hover over the time machine variable "POKUS"
     #When click time machine popover variable dropodown
     When click the time machine variable "POKUS"
     When click the time machine cell edit submit button
-    # Workaround - issue fetching variables
-    When click the time machine cell edit submit button
-    #When hover over the time machine variable "KARTA"
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
     When get the current graph of the cell "Semantic"
@@ -253,7 +249,7 @@ Feature: Dashboards - Dashboard - Variables
 from(bucket: "qa")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r._measurement == "beat")
-  |> filter(fn: (r) => r._field == v.KARTA)
+  |> filter(fn: (r) => r._field == v.POKUS)
   |> aggregateWindow(every: v.windowPeriod, fn: mean)
     """
     When click the time machine cell edit submit button
@@ -261,20 +257,21 @@ from(bucket: "qa")
     When move the cell named "Syntagma" by "{ "dx": "+400", "dy": "-200" }"
     When get the current graph of the cell "Semantic"
     When get the current graph of the cell "Syntagma"
-    When click the value dropdown button for variable "KARTA"
-    When click the item "poppy" for variable "KARTA"
+    When click the value dropdown button for variable "POKUS"
+    When click the item "pulse" for variable "POKUS"
     Then the graph of the cell "Semantic" has changed
     Then the graph of the cell "Syntagma" has changed
+    When wait "30" seconds
 
   #Dashboard view show/hide variables.
   Scenario: Toggle Variables in Dashboard
-    Then the value dropdown for variable "KARTA" is visible
+    Then the value dropdown for variable "POKUS" is visible
     Then the dashboard variables button is highlighted
     When click the dashboard variables button
     Then the dashboard variables button is not highlighted
-    Then the value dropdown for variable "KARTA" is not visible
+    Then the value dropdown for variable "POKUS" is not visible
     When click the dashboard variables button
-    Then the value dropdown for variable "KARTA" is visible
+    Then the value dropdown for variable "POKUS" is visible
     Then the dashboard variables button is highlighted
 
   #default variable
@@ -296,20 +293,3 @@ from(bucket: "qa")
       |APIVAR|
       |KARTA|
       |POKUS|
-
-
-
-# Useful variable query based on test data generated above.
-#  from(bucket: "qa")
-#  |> range(start: -1d, stop: now() )
-#  |> filter(fn: (r) => r._measurement == "slovo")
-#  |> filter(fn: (r) => r._field == "mots")
-#  |> unique(column: "_value")
-
-  #from(bucket: "qa")
-  #|> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  #|> filter(fn: (r) => r._measurement == "slovo")
-  #|> filter(fn: (r) => r._value == v.APIVAR)
-  #|> aggregateWindow(every: 1h, fn: count)
-
-
