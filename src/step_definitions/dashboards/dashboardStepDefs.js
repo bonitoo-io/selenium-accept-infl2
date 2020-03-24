@@ -213,6 +213,10 @@ Then(/^the graph of the cell "(.*)" has not changed$/, async name => {
     await dbdSteps.verifyCellGraphNoChange(name);
 });
 
+Then(/^the graph of the cell "(.*)" is visible$/, async name => {
+   await dbdSteps.verifyCellGraphVisible(name);
+});
+
 Then(/^the graph of the cell "(.*)" differs from "(.*)"$/, async (name1, name2) => {
     await dbdSteps.compareCellGraphs(name1, name2, false);
 });

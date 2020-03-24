@@ -217,6 +217,11 @@ class dashboardSteps extends influxSteps {
 
     }
 
+    async verifyCellGraphVisible(name){
+        await this.assertVisible(await this.dbdPage.getCellCanvasLine(name));
+        await this.assertVisible(await this.dbdPage.getCellCanvasAxes(name));
+    }
+
     async compareCellGraphs(name1, name2, equal = true){
         await this.dbdPage.getCellCanvasLine(name1).then(async canvas1 => {
             let line1 = await this.driver

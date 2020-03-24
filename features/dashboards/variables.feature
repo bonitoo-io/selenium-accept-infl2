@@ -261,7 +261,38 @@ from(bucket: "qa")
     When click the item "pulse" for variable "POKUS"
     Then the graph of the cell "Semantic" has changed
     Then the graph of the cell "Syntagma" has changed
-    When wait "30" seconds
+
+  Scenario: Change variables in Dashboard view - two variables
+    When toggle context menu of dashboard cell named "Syntagma"
+    When click cell content popover configure
+    # Move to end
+    When send keys "CTRL+END" to the time machine flux editor
+    # Send cursor to start of field value
+    When send keys "AUP,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT" to the time machine flux editor
+    # Delete field value
+    When send keys "DEL,DEL,DEL,DEL,DEL,DEL,DEL,DEL" to the time machine flux editor
+    # Now check then add variable
+    When click the time machine script editor variables tab
+    Then the time machine variable popover is not visible
+    When click the time machine variable "KARTA"
+    When click the time machine cell edit submit button
+    When click the cell edit save button
+    When click dashboard time range dropdown
+    When get the current graph of the cell "Semantic"
+    When get the current graph of the cell "Syntagma"
+    When select dashboard Time Range "24h"
+    Then the graph of the cell "Semantic" has changed
+    Then the graph of the cell "Syntagma" has changed
+    When get the current graph of the cell "Semantic"
+    When get the current graph of the cell "Syntagma"
+    When click the value dropdown button for variable "KARTA"
+    When click the item "daisy" for variable "KARTA"
+    Then the cell named "Syntagma" has no results
+    Then the graph of the cell "Semantic" is visible
+    # following check skipped - seems there is a slight change due to refresh
+    #Then the graph of the cell "Semantic" has not changed
+
+
 
   #Dashboard view show/hide variables.
   Scenario: Toggle Variables in Dashboard
