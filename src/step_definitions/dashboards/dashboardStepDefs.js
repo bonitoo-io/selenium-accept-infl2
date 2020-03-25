@@ -96,6 +96,10 @@ When(/^click cell content popover add note$/, async () => {
     await dbdSteps.clickDashboardPopOverlayAddNote();
 });
 
+When(/^click cell content popover edit note$/, async () => {
+   await dbdSteps.clickDashboardPopOverlayEditNote();
+});
+
 When(/^click cell content popover configure$/, async () => {
     await dbdSteps.clickDashboardPopOverlayConfigure();
 });
@@ -306,3 +310,18 @@ When(/^click the dashboard variables button$/, async() => {
    await dbdSteps.clickVariablesButton();
 });
 
+When(/^click dashboard add note button$/, async () => {
+    await dbdSteps.clickDashboardMainAddNote();
+});
+
+Then(/^main "(.*)" note popup is loaded$/, async state => {
+    await dbdSteps.verifyMainEditNotePopupLoaded(state);
+});
+
+Then(/^the main note popup markdown preview panel contains a "(.*)" tag with "(.*)"$/, async (tag,content) => {
+    await dbdSteps.verifyNotePopupMarkdownPreviewContains(tag, content);
+});
+
+Then(/^the note cell contains a "(.*)" tag with "(.*)"$/, async (tag,content) => {
+   await dbdSteps.verifyNoteCellContains(tag,content);
+});
