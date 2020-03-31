@@ -427,7 +427,11 @@ Then(/^the time machine script editor contains$/, async script => {
     await celOvSteps.verifyTMQBScriptEditorContents(script);
 });
 
-When(/^change the time machine script editor contents to:$/, { timeout: 20000 }, async script => {
+When(/^change the time machine script editor contents to:$/, { timeout: 60000 }, async script => {
+    await celOvSteps.updateTMQBScriptEditorContents(script);
+});
+
+When(/^set the time machine script editor contents to:$/, {timeout: 60000}, async script => {
     await celOvSteps.updateTMQBScriptEditorContents(script);
 });
 

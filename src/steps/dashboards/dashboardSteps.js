@@ -110,6 +110,12 @@ class dashboardSteps extends influxSteps {
         });
     }
 
+    async clickHeaderAddCellButton(){
+        await this.clickAndWait(await this.dbdPage.getAddCellButtonHeader(), async() => {
+            await this.driver.sleep(1000); //see comment above in clickCreateCellEmpty()
+        })
+    }
+
     async verifyCellNotPresent(name){
         await this.assertNotPresent(await dashboardPage.getCellSelectorByName(name));
     }
@@ -211,6 +217,11 @@ class dashboardSteps extends influxSteps {
 
     }
 
+    async verifyCellGraphVisible(name){
+        await this.assertVisible(await this.dbdPage.getCellCanvasLine(name));
+        await this.assertVisible(await this.dbdPage.getCellCanvasAxes(name));
+    }
+
     async compareCellGraphs(name1, name2, equal = true){
         await this.dbdPage.getCellCanvasLine(name1).then(async canvas1 => {
             let line1 = await this.driver
@@ -254,6 +265,12 @@ class dashboardSteps extends influxSteps {
         });
     }
 
+    async clickDashboardPopOverlayEditNote(){
+        await this.clickAndWait(await this.dbdPage.getcellPopoverContentsEditNote(), async () => {
+            await this.driver.sleep(1000);
+        })
+    }
+
     async clickDashboardPopOverlayConfigure(){
         await this.clickAndWait(await this.dbdPage.getCellPopoverContentsConfigure(), async () => {
             /*await this.driver.wait(
@@ -286,6 +303,17 @@ class dashboardSteps extends influxSteps {
         await this.assertVisible(await this.dbdPage.getNotePopupEditorPreview());
     }
 
+    async verifyMainEditNotePopupLoaded(state){
+        await this.assertVisible(await this.dbdPage.getPopupBody());
+        await this.verifyElementContainsText(await this.dbdPage.getPopupTitle(), `${state} Note`);
+        await this.assertVisible(await this.dbdPage.getNotePopupCodeMirror());
+        await this.assertVisible(await this.dbdPage.getPopupDismiss());
+        await this.assertVisible(await this.dbdPage.getPopupCancelSimple());
+        await this.assertVisible(await this.dbdPage.getPopupSaveSimple());
+        await this.assertVisible(await this.dbdPage.getNotePopupEditorPreview());
+        await this.assertVisible(await this.dbdPage.getNotePopupGuideLink());
+    }
+
     async setCellNotePopupCodeMirrorText(text){
         await this.setCodeMirrorText(await this.dbdPage.getNotePopupCodeMirror(), text);
     }
@@ -316,6 +344,14 @@ class dashboardSteps extends influxSteps {
         await this.dbdPage.getNotePopoverContents().then(async contents => {
             await expect(await contents.getText()).to.include(text);
         });
+    }
+
+    async verifyNotePopupMarkdownPreviewContains(tag, content){
+        await this.verifyElementText(await this.dbdPage.getNotePopupEditorPreviewTag(tag), content);
+    };
+
+    async verifyNoteCellContains(tag,content){
+        await this.verifyElementText(await this.dbdPage.getNoteCellMarkdownTag(tag), content);
     }
 
     async clickCellTitle(name){
@@ -581,6 +617,10 @@ class dashboardSteps extends influxSteps {
         await this.verifyElementContainsClass(await this.dbdPage.getVariablesButton(), 'cf-button-secondary');
     }
 
+    async verifyVariablesButtonInactive(){
+        await this.verifyElementContainsClass(await this.dbdPage.getVariablesButton(), 'button-default')
+    }
+
     async clickValueDropdownOfVar(varname){
         await this.clickAndWait(await this.dbdPage.getVariableValueDropdownButtonForVar(varname));
     }
@@ -598,6 +638,22 @@ class dashboardSteps extends influxSteps {
 
     async clickItemOfVariableValueDropdown(item, varname){
         await this.clickAndWait(await this.dbdPage.getVariableValueDropdownItem(varname, item));
+    }
+
+    async verifyVariableValuesDropdownVisible(varname){
+        await this.assertVisible(await this.dbdPage.getVariableValueDropdownButtonForVar(varname));
+    }
+
+    async verifyVariableValuesDropdownNotVisible(varname){
+        await this.assertNotPresent(await dashboardPage.getVariableValueDropdownButtonForVarSelector(varname));
+    }
+
+    async clickVariablesButton(){
+        await this.clickAndWait(await this.dbdPage.getVariablesButton());
+    }
+
+    async clickDashboardMainAddNote(){
+        await this.clickAndWait(await this.dbdPage.getAddNoteButton());
     }
 
 }

@@ -1,7 +1,7 @@
 const chrome = require('selenium-webdriver/chrome');
 const ffox = require('selenium-webdriver/firefox');
 const fs = require('fs');
-const {Builder, Capabilities, By, Key, logging, promise, until} = require('selenium-webdriver');
+const {Builder, Capabilities, By, Key, logging, PageLoadStrategy, promise, until} = require('selenium-webdriver');
 //following provides cleaner paths in require statements
 global.__basedir = __dirname;
 global.__srcdir = __dirname + "/src";
@@ -53,10 +53,13 @@ try {
 }*/
 
 let logPrefs =  new logging.Preferences();
-logPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL)
+logPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL);
+logPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
 
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
+    caps.set('pageLoadStrategy', 'none');
+
     switch (__config.browser.toLowerCase()) {
         case "chrome":
         global.__wdriver = new Builder()
@@ -64,6 +67,7 @@ if(__config.headless) {
             .forBrowser(__config.browser)
             .setChromeOptions(new chrome.Options().headless()
                 .setUserPreferences(chromeUserPreferences)
+                //.setPageLoadStrategy(PageLoadStrategy.NONE)
                 .setLoggingPrefs(logPrefs)
                 .windowSize({width: 1024, height: 768}))
             .build();
@@ -99,7 +103,12 @@ if(__config.headless) {
 }
 
 __wdriver.manage().setTimeouts({implicit: 3000});
-
+__wdriver.executor_.w3c = true;
+//let browserVer = __wdriver.capabilities['browserVersion'];
+//let driverVer = __wdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0];
+console.log("DEBUG __wdriver: " + JSON.stringify(__wdriver));
+//console.log(`Browser version: ${browserVer}`);
+//console.log(`Driver version: ${driverVer}`);
 
 module.exports = {
     'default': common + '--format summary --format node_modules/cucumber-pretty --format json:report/cucumber_report.json',

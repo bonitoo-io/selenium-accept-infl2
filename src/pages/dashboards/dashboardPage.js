@@ -50,6 +50,7 @@ const cellPopoverContentsAddNote = '[data-testid=popover--contents] [data-testid
 const cellPopoverContentsClone = '[data-testid=popover--contents] [data-testid=\'cell-context--clone\']';
 const cellPopoverContentsDelete = '[data-testid=popover--contents] [data-testid=\'cell-context--delete\']';
 const cellPopoverContentsDeleteConfirm = '[data-testid=popover--contents] [data-testid=\'cell-context--delete-confirm\']';
+const cellPopoverContentsEditNote = '[data-testid=cell-context--note]';
 const cellCanvasLine = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-layer-line\']';
 const cellCanvasAxes = '//*[contains(@class, \' cell \')][.//*[text()=\'%NAME%\']]//*[@data-testid=\'giraffe-axes\']';
 
@@ -59,10 +60,15 @@ const cellHoverBox = '[data-testid=giraffe-layer-hover-line]';
 const notePopupCodeMirror = '[data-testid=overlay--body] .CodeMirror';
 const notePopupNoDataToggle = '[data-testid=overlay--body] [data-testid=slide-toggle]';
 const notePopupEditorPreview = '[data-testid=overlay--body] .note-editor--preview';
+const notePopupEditorPreviewTag = '[data-testid=overlay--body] .note-editor--preview %TAG%';
 const notePopupEditorPreviewText = '[data-testid=overlay--body] .note-editor--preview .markdown-format';
+const notePopupGuideLink = '[href*=\'markdownguide.org\']';
 
 const notePopover = '[data-testid=popover--dialog]';
 const notePopoverContents = '[data-testid=popover--dialog] .markdown-format';
+
+const noteCellMarkdownTag = '[data-testid=cell--view-empty]  .markdown-format %TAG%';
+const noteCellContextEdit = '[data-testid=cell-context--note]';
 
 const urlCtx = 'dashboards';
 
@@ -214,6 +220,10 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.css(cellPopoverContentsDeleteConfirm));
     }
 
+    async getcellPopoverContentsEditNote(){
+        return await this.driver.findElement(By.css(cellPopoverContentsEditNote));
+    }
+
     async getNotePopupCodeMirror(){
         return await this.driver.findElement(By.css(notePopupCodeMirror));
     }
@@ -230,6 +240,10 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.css(notePopupEditorPreviewText));
     }
 
+    async getNotePopupGuideLink(){
+        return await this.driver.findElement(By.css(notePopupGuideLink));
+    }
+
     async getCellNoteByName(name){
         return await this.driver.findElement(By.xpath(cellNoteByName.replace('%NAME%', name)));
     }
@@ -244,6 +258,10 @@ class dashboardPage extends influxPage {
 
     static getNotePopoverSelector(){
         return { type: 'css', selector: notePopover};
+    }
+
+    async getNotePopupEditorPreviewTag(tag){
+        return await this.driver.findElement(By.css(notePopupEditorPreviewTag.replace('%TAG%', tag)));
     }
 
     async getCellCanvasLine(name){
@@ -270,10 +288,18 @@ class dashboardPage extends influxPage {
         return await this.driver.findElement(By.xpath(variableValueDropdownButtonForVar.replace('%VARNAME%', varname)));
     }
 
+    static getVariableValueDropdownButtonForVarSelector(varname){
+        return {type: 'xpath', selector: variableValueDropdownButtonForVar.replace('%VARNAME%', varname)};
+    }
+
     async getVariableValueDropdownItem(varname,item){
         return await this.driver.findElement(By.xpath(variableValueDropdownItem
             .replace("%VARNAME%", varname)
             .replace("%ITEM%", item)));
+    }
+
+    async getNoteCellMarkdownTag(tag){
+        return await this.driver.findElement(By.css(noteCellMarkdownTag.replace('%TAG%', tag)));
     }
 }
 

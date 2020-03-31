@@ -21,7 +21,9 @@ const keyMap = {'enter': Key.ENTER,
     'shift': Key.SHIFT,
     'del': Key.DELETE,
     'alft': Key.ARROW_LEFT,
-    'arght': Key.ARROW_RIGHT
+    'arght': Key.ARROW_RIGHT,
+    'aup': Key.ARROW_UP,
+    'adown': Key.ARROW_DOWN
 };
 
 

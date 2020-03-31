@@ -52,6 +52,10 @@ When(/^click the empty create cell button$/, async () => {
     await dbdSteps.clickCreateCellEmpty();
 });
 
+When(/^click the header add cell button$/, async () => {
+   await dbdSteps.clickHeaderAddCellButton();
+});
+
 Then(/^there is no dashboard cell named "(.*)"$/, async name => {
     await dbdSteps.verifyCellNotPresent(name);
 });
@@ -90,6 +94,10 @@ When(/^toggle context menu of 2nd dashboard cell named "(.*)"$/, async name => {
 
 When(/^click cell content popover add note$/, async () => {
     await dbdSteps.clickDashboardPopOverlayAddNote();
+});
+
+When(/^click cell content popover edit note$/, async () => {
+   await dbdSteps.clickDashboardPopOverlayEditNote();
 });
 
 When(/^click cell content popover configure$/, async () => {
@@ -209,6 +217,10 @@ Then(/^the graph of the cell "(.*)" has not changed$/, async name => {
     await dbdSteps.verifyCellGraphNoChange(name);
 });
 
+Then(/^the graph of the cell "(.*)" is visible$/, async name => {
+   await dbdSteps.verifyCellGraphVisible(name);
+});
+
 Then(/^the graph of the cell "(.*)" differs from "(.*)"$/, async (name1, name2) => {
     await dbdSteps.compareCellGraphs(name1, name2, false);
 });
@@ -266,6 +278,10 @@ Then(/^the dashboard variables button is highlighted$/, async () => {
    await dbdSteps.verifyVariablesButtonActive();
 });
 
+Then(/^the dashboard variables button is not highlighted$/, async () => {
+   await dbdSteps.verifyVariablesButtonInactive();
+});
+
 When(/^click the value dropdown button for variable "(.*)"$/, async varname => {
    await dbdSteps.clickValueDropdownOfVar(varname);
 });
@@ -282,3 +298,30 @@ When(/^click the item "(.*)" for variable "(.*)"$/, async (item, varname) => {
    await dbdSteps.clickItemOfVariableValueDropdown(item, varname);
 });
 
+Then(/^the value dropdown for variable "(.*)" is visible$/, async varname => {
+   await dbdSteps.verifyVariableValuesDropdownVisible(varname);
+});
+
+Then(/^the value dropdown for variable "(.*)" is not visible$/, async varname => {
+   await dbdSteps.verifyVariableValuesDropdownNotVisible(varname);
+});
+
+When(/^click the dashboard variables button$/, async() => {
+   await dbdSteps.clickVariablesButton();
+});
+
+When(/^click dashboard add note button$/, async () => {
+    await dbdSteps.clickDashboardMainAddNote();
+});
+
+Then(/^main "(.*)" note popup is loaded$/, async state => {
+    await dbdSteps.verifyMainEditNotePopupLoaded(state);
+});
+
+Then(/^the main note popup markdown preview panel contains a "(.*)" tag with "(.*)"$/, async (tag,content) => {
+    await dbdSteps.verifyNotePopupMarkdownPreviewContains(tag, content);
+});
+
+Then(/^the note cell contains a "(.*)" tag with "(.*)"$/, async (tag,content) => {
+   await dbdSteps.verifyNoteCellContains(tag,content);
+});

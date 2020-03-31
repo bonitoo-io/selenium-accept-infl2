@@ -269,7 +269,7 @@ When(/^click the Export Dashboard dismiss button$/, async () => {
     await dbdsSteps.clickExportDashboardPopupDismiss();
 });
 
-When(/^click Export Dashboard popup Download JSON for "(.*)"$/, {timeout: 20000}, async filePath => {
+When(/^click Export Dashboard popup Download JSON for "(.*)"$/, {timeout: 60000}, async filePath => {
     await dbdsSteps.clickExportDashboardDownloadJSON(filePath);
 });
 

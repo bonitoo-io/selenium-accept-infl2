@@ -41,15 +41,32 @@ async function writeConsoleLog(filename){
     filename = filename.replace(/\s+/g, '_');
     await __wdriver.manage().logs().get(logging.Type.BROWSER).then(async logs => {
         for(let log in logs){
-            fs.appendFileSync(filename, `[${logs[log].timestamp}]${logs[log].level}:${logs[log].message}\n`);
+            fs.appendFileSync(filename, `[${(new Date(parseInt(logs[log].timestamp))).toISOString()}]${logs[log].level}:${logs[log].message}\n`);
+        }
+    })
+
+}
+
+async function writeDriverLog(filename){
+    filename = filename.replace(/\s+/g, '_');
+    await __wdriver.manage().logs().get(logging.Type.DRIVER).then(async logs => {
+        for(let log in logs){
+            fs.appendFileSync(filename, `[${(new Date(parseInt(logs[log].timestamp))).toISOString()}]:${logs[log].message}\n`);
         }
     })
 
 }
 
 
+
 let scenarioCt = 0;
 let currentFeature = '';
+
+Before(async function (){
+
+    console.log(`[${new Date().toISOString()}]`);
+
+});
 
 After(async function (scenario /*,   callback */) {
 
@@ -89,7 +106,11 @@ After(async function (scenario /*,   callback */) {
             });
          await writeConsoleLog(filebase + '-ERR-console.log').catch(async e => {
              throw('failed to write ' + filebase + '-ERR-console.log\n' + e);
-         })
+         });
+        await writeDriverLog(filebase + '-ERR-driver.log').catch(async e => {
+            throw('failed to write ' + filebase + '-ERR-console.log\n' + e);
+        })
+
     }else {
             await writeScreenShot(filebase + "--OK" + ".png").then(async img => {
                 await world.attach(img, 'image/png')

@@ -56,7 +56,7 @@ class basePage{
     // selectors should be array of {type, selector}
     async isLoaded(selectors, url = undefined){
         if(url){
-            await this.driver.wait(until.urlContains(url));
+            await this.driver.wait(until.urlContains(url), 5000);
         }
 
         //selectors.forEach(async (selector) => { //N.B. for each seems to be swallowing thrown errors

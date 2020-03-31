@@ -208,7 +208,7 @@ Feature: Dashboards - Dashboard - Cell Edit
   # Check coverage of issue 16682 once fixed
 
   Scenario: Exercise Query Builder Functions
-    # 16682 - following will not have been reset
+    # TODO 16682 - following will not have been reset
     # Then the time machine query builder function duration period is "auto"
     When click the tag "beat" in builder card "1"
     Then the time machine query builder function duration period is "auto (10s)"
@@ -472,7 +472,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click cell content popover configure
     When click the cell edit Query Builder button
     When click the cell edit Query Builder confirm button
-    # Clean up garbage from issue 16731
+    # TODO Clean up garbage from issue 16731
     When close all time machine builder cards
     When unselect any tags in time machine builder card "1"
     When click the time machine bucket selector item "qa"

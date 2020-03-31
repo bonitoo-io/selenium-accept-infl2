@@ -123,14 +123,11 @@ Feature: Dashboards - Dashboard - Variables
     Then the time machine variable popover is not visible
     When hover over the time machine variable "APIVAR"
     Then the time machine variable popover is visible
-    # TODO - TO BE CONTINUED see issue 17101
-        # No solution as yet to access popover contents - all action make popover disappear
-    #When click time machine popover variable dropodown
+    # TODO - No solution as yet to access popover contents - all action make popover disappear
+    #When hover over the time machine variable "APIVAR"
+    # When click time machine popover variable dropodown
     When click the time machine variable "APIVAR"
     When click the time machine cell edit submit button
-    # Workaround - issue fetching variables
-    When click the time machine cell edit submit button
-    #When hover over the time machine variable "KARTA"
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
     When get the current graph of the cell "Semantic"
@@ -153,7 +150,6 @@ Feature: Dashboards - Dashboard - Variables
     #When click dashboard cell edit cancel button
     #Then the dashboard contains a cell named "Semantic"
 
-  # Scenario: Verify Dashboard CSV variables
 
   #Script with Map variables
   Scenario:  Add Map variable to script
@@ -172,13 +168,12 @@ Feature: Dashboards - Dashboard - Variables
     Then the time machine variable popover is not visible
     When hover over the time machine variable "KARTA"
     Then the time machine variable popover is visible
+    # TODO - No solution as yet to access popover contents - all action make popover disappear
     # No solution as yet to access popover contents - all action make popover disappear
+    #When hover over the time machine variable "KARTA"
     #When click time machine popover variable dropodown
     When click the time machine variable "KARTA"
     When click the time machine cell edit submit button
-    # Workaround - issue fetching variables
-    When click the time machine cell edit submit button
-    #When hover over the time machine variable "KARTA"
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
     When get the current graph of the cell "Semantic"
@@ -216,13 +211,12 @@ Feature: Dashboards - Dashboard - Variables
     Then the time machine variable popover is not visible
     When hover over the time machine variable "POKUS"
     Then the time machine variable popover is visible
+    # TODO - No solution as yet to access popover contents - all action make popover disappear
     # No solution as yet to access popover contents - all action make popover disappear
+    #When hover over the time machine variable "POKUS"
     #When click time machine popover variable dropodown
     When click the time machine variable "POKUS"
     When click the time machine cell edit submit button
-    # Workaround - issue fetching variables
-    When click the time machine cell edit submit button
-    #When hover over the time machine variable "KARTA"
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
     When get the current graph of the cell "Semantic"
@@ -243,15 +237,75 @@ Feature: Dashboards - Dashboard - Variables
     When click the item "znacka" for variable "POKUS"
     Then the graph of the cell "Semantic" has changed
 
-  #Script with two variables
 
-  #default variable
+   #Change variables in Dashboard view two cells same variable.
+  Scenario: Change variables in Dashboard view - two cells
+    When click the header add cell button
+    Then the cell edit overlay is loaded as "Name this Cell"
+    When name dashboard cell "Syntagma"
+    When click the cell edit Script Editor button
+    When set the time machine script editor contents to:
+    """
+from(bucket: "qa")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r._measurement == "beat")
+  |> filter(fn: (r) => r._field == v.POKUS)
+  |> aggregateWindow(every: v.windowPeriod, fn: mean)
+    """
+    When click the time machine cell edit submit button
+    When click the cell edit save button
+    When move the cell named "Syntagma" by "{ "dx": "+400", "dy": "-200" }"
+    When get the current graph of the cell "Semantic"
+    When get the current graph of the cell "Syntagma"
+    When click the value dropdown button for variable "POKUS"
+    When click the item "pulse" for variable "POKUS"
+    Then the graph of the cell "Semantic" has changed
+    Then the graph of the cell "Syntagma" has changed
 
-  #Change variables in Dashboard view.
+  Scenario: Change variables in Dashboard view - two variables
+    When toggle context menu of dashboard cell named "Syntagma"
+    When click cell content popover configure
+    # Move to end
+    When send keys "CTRL+END" to the time machine flux editor
+    # Send cursor to start of field value
+    When send keys "AUP,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT,ALFT" to the time machine flux editor
+    # Delete field value
+    When send keys "DEL,DEL,DEL,DEL,DEL,DEL,DEL,DEL" to the time machine flux editor
+    # Now check then add variable
+    When click the time machine script editor variables tab
+    Then the time machine variable popover is not visible
+    When click the time machine variable "KARTA"
+    When click the time machine cell edit submit button
+    When click the cell edit save button
+    When click dashboard time range dropdown
+    When get the current graph of the cell "Semantic"
+    When get the current graph of the cell "Syntagma"
+    When select dashboard Time Range "24h"
+    Then the graph of the cell "Semantic" has changed
+    Then the graph of the cell "Syntagma" has changed
+    When get the current graph of the cell "Semantic"
+    When get the current graph of the cell "Syntagma"
+    When click the value dropdown button for variable "KARTA"
+    When click the item "daisy" for variable "KARTA"
+    Then the cell named "Syntagma" has no results
+    Then the graph of the cell "Semantic" is visible
+    # following check skipped - seems there is a slight change due to refresh
+    #Then the graph of the cell "Semantic" has not changed
 
-  #Change variables in Dashboard view two cells same variable.
+
 
   #Dashboard view show/hide variables.
+  Scenario: Toggle Variables in Dashboard
+    Then the value dropdown for variable "POKUS" is visible
+    Then the dashboard variables button is highlighted
+    When click the dashboard variables button
+    Then the dashboard variables button is not highlighted
+    Then the value dropdown for variable "POKUS" is not visible
+    When click the dashboard variables button
+    Then the value dropdown for variable "POKUS" is visible
+    Then the dashboard variables button is highlighted
+
+  #default variable
 
   # NEED TO CLEAN UP
   # Variables cached in localstore can influence other tests
@@ -270,20 +324,3 @@ Feature: Dashboards - Dashboard - Variables
       |APIVAR|
       |KARTA|
       |POKUS|
-
-
-
-# Useful variable query based on test data generated above.
-#  from(bucket: "qa")
-#  |> range(start: -1d, stop: now() )
-#  |> filter(fn: (r) => r._measurement == "slovo")
-#  |> filter(fn: (r) => r._field == "mots")
-#  |> unique(column: "_value")
-
-  #from(bucket: "qa")
-  #|> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  #|> filter(fn: (r) => r._measurement == "slovo")
-  #|> filter(fn: (r) => r._value == v.APIVAR)
-  #|> aggregateWindow(every: 1h, fn: count)
-
-
