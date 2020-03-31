@@ -308,3 +308,7 @@ When(/^write message "(.*)" to console log$/, async msg => {
     await bSteps.writeMessageToConsoleLog(msg);
 });
 
+When(/^send keys "(.*)"$/, async keys => {
+   await bSteps.sendKeysToCurrent(keys);
+});
+

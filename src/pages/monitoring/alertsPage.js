@@ -5,6 +5,21 @@ const pageTitle = '[data-testid=\'page-title\']';
 const createCheckButton = '[data-testid=create-check]';
 const createEndpointButton = '[data-testid=create-endpoint]';
 const createRuleButton = '[data-testid=create-rule]';
+const checksFilterInput = '[data-testid=\'filter--input checks\']';
+const checksQuestionMark = '[data-testid=\'Checks--question-mark\']';
+const checksTooltipContents = '[data-testid=\'Checks--question-mark-tooltip--contents\']';
+const createCheckDropdown = '[data-testid=\'checks--column\'] [data-testid=\'dropdown-menu--contents\']';
+const createCheckDropdownItem = '[data-testid=\'dropdown-menu--contents\'] [data-testid=create-%ITEM%-check]';
+const endpointsFilterInput = '[data-testid=\'filter--input endpoints\']';
+const endpointsQuestionMark = '[data-testid=\'Notification Endpoints--question-mark\']';
+const endpointsTooltipContents = '[data-testid=\'Notification Endpoints--question-mark-tooltip--contents\']';
+const rulesFilterInput = '[data-testid=\'filter--input rules\']';
+const rulesQuestionMark = '[data-testid=\'Notification Rules--question-mark\']';
+const rulesTooltipContents = '[data-testid=\'Notification Rules--question-mark-tooltip--contents\']';
+const firstTimeThresholdCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Threshold Check\']';
+const firstTimeDeadmanCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Deadman Check\']';
+
+
 
 const urlCtx = 'alerting';
 
@@ -18,7 +33,11 @@ class alertsPage extends influxPage {
         await super.isLoaded([{type: 'css', selector: pageTitle},
             {type: 'css', selector: createCheckButton},
             {type: 'css', selector: createEndpointButton},
-            {type: 'css', selector: createRuleButton}], urlCtx);
+            {type: 'css', selector: createRuleButton},
+            {type: 'css', selector: checksFilterInput},
+            {type: 'css', selector: endpointsFilterInput},
+            {type: 'css', selector: rulesFilterInput},
+        ], urlCtx);
     }
 
 
@@ -38,6 +57,69 @@ class alertsPage extends influxPage {
         return await this.driver.findElement(By.css(createRuleButton));
     }
 
+    async getChecksQuestionMark(){
+        return await this.driver.findElement(By.css(checksQuestionMark));
+    }
+
+    async getChecksFilterInput(){
+        return await this.driver.findElement(By.css(checksFilterInput));
+    }
+
+    async getChecksTooltipContents(){
+        return await this.driver.findElement(By.css(checksTooltipContents));
+    }
+
+    static getChecksTooltipContentsSelector(){
+        return { type: 'css', selector: checksTooltipContents };
+    }
+
+    async getEndpointsQuestionMark(){
+        return await this.driver.findElement(By.css(endpointsQuestionMark));
+    }
+
+    async getEndpointsFilterInput(){
+        return await this.driver.findElement(By.css(endpointsFilterInput));
+    }
+
+    async getEndpointsTooltipContents(){
+        return await this.driver.findElement(By.css(endpointsTooltipContents));
+    }
+
+    static getEndpointsTooltipContentsSelector(){
+        return { type: 'css', selector: endpointsTooltipContents };
+    }
+
+    async getRulesFilterInput(){
+        return await this.driver.findElement(By.css(rulesFilterInput));
+    }
+
+    async getRulesQuestionMark(){
+        return await this.driver.findElement(By.css(rulesQuestionMark));
+    }
+
+    async getRulesTooltipContents(){
+        return await this.driver.findElement(By.css(rulesTooltipContents));
+    }
+
+    static getRulesTooltipContentsSelector(){
+        return { type: 'css', selector: rulesTooltipContents };
+    }
+
+    async getFirstTimeThresholdCheckCreateButton(){
+        return await this.driver.findElement(By.css(firstTimeThresholdCheckCreateButton));
+    }
+
+    async getFirstTimeDeadmanCheckCreateButton(){
+        return await this.driver.findElement(By.css(firstTimeDeadmanCheckCreateButton));
+    }
+
+    async getCreateCheckDropdownItem(item){
+        return await this.driver.findElement(By.css(createCheckDropdownItem.replace('%ITEM%', item)));
+    }
+
+    static getCreateCheckDropdownSelector(){
+        return { type: 'css', selector: createCheckDropdown }
+    }
 
 }
 
