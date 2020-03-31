@@ -46,6 +46,6 @@ Then(/^the members Tab is loaded$/, {timeout: 2 * 5000}, async() => {
     await memTabSteps.isLoaded();
 });
 
-Then(/^the org profile Tab is loaded$/, {timeout: 2 * 5000}, async() => {
+Then(/^the org profile Tab is loaded$/, {timeout: 10000}, async() => {
     await opTabSteps.isLoaded();
 });

@@ -25,6 +25,9 @@ class settingsSteps extends influxSteps{
     }
 
     async clickTab(name){
+        if(name.toLowerCase() === 'profile'){ //fix one non-matching case
+            name = 'About';
+        }
         await (await this.setPage.getTabByName(name)).click();
     }
 
