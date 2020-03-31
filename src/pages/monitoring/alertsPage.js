@@ -8,7 +8,7 @@ const createRuleButton = '[data-testid=create-rule]';
 
 const urlCtx = 'alerting';
 
-class alertingPage extends influxPage {
+class alertsPage extends influxPage {
 
     constructor(driver){
         super(driver);
@@ -41,4 +41,4 @@ class alertingPage extends influxPage {
 
 }
 
-module.exports = alertingPage;
+module.exports = alertsPage;

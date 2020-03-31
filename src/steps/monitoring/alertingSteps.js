@@ -1,5 +1,5 @@
 const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
-const alertingPage = require(__srcdir + '/pages/alerting/alertingPage.js');
+const alertingPage = require(__srcdir + '/pages/monitoring/alertsPage.js');
 
 class alertingSteps extends influxSteps{
 
