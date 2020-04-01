@@ -194,13 +194,13 @@ class baseSteps{
         }
     }
 
- /*   async assertNotVisible(element){
+    async assertNotVisible(element){
         await expect(await element.isDisplayed()).to.equal(false);
         //await expect(await element.isDisplayed().catch(async err => { console.log("DEBUG err " + err); throw err;})).to.equal(false).catch( async err => {
         //    console.log("assertNotVisible Error: " + await element.getCssValue())
         //    throw(err);
         //});
-    } */
+    } 
 
     //selector type should be {type, selector}
     async assertNotPresent(selector){
