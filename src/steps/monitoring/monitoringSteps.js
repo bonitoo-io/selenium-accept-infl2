@@ -77,6 +77,27 @@ class monitoringSteps extends influxSteps{
         await this.assertNotPresent(alertsPage.getRulesTooltipContentsSelector());
     }
 
+    async clickCreateEndpointButton(){
+        await this.clickAndWait(await this.alPage.getCreateEndpointButton());
+    }
+
+    async verifyCreateEndpointPopupLoaded(){
+        await this.verifyElementText(await this.alPage.getPopupTitle(),'Create a Notification Endpoint');
+        await this.assertVisible(await this.alPage.getEpPopupEndpointDropdownButton());
+        await this.assertVisible(await this.alPage.getEpPopupEndpointNameInput());
+        await this.assertVisible(await this.alPage.getEpPopupEndpointDescriptionText());
+        await this.assertVisible(await this.alPage.getEpPopupCancelButton());
+        await this.assertVisible(await this.alPage.getEpPopupSaveButton());
+    }
+
+    async clickFirstTimeCreateThresholdCheck(){
+        await this.clickAndWait(await this.alPage.getFirstTimeThresholdCheckCreateButton());
+    }
+
+    async clickFirstTimeCreateDeadmanCheck(){
+        await this.clickAndWait(await this.alPage.getFirstTimeDeadmanCheckCreateButton())
+    }
+
 }
 
 module.exports = monitoringSteps;

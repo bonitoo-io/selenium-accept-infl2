@@ -64,3 +64,20 @@ Then(/^the create rules tooltip is visible$/, async () => {
 Then(/^the create rules tooltip is not visible$/, async () => {
    await monSteps.verifyCreateRuleTooltipNotVisible();
 });
+
+When(/^click create endpoint button$/, async () => {
+   await monSteps.clickCreateEndpointButton();
+});
+
+Then(/^the create endpoint popup is loaded$/, async () => {
+   await monSteps.verifyCreateEndpointPopupLoaded();
+});
+
+When(/^click the first time create threshold check$/, async() => {
+   await monSteps.clickFirstTimeCreateThresholdCheck();
+});
+
+When(/^click the first time create deadman check$/, async () => {
+   await monSteps.clickFirstTimeCreateDeadmanCheck();
+});
+

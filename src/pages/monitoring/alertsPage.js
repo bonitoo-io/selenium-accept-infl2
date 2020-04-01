@@ -19,6 +19,12 @@ const rulesTooltipContents = '[data-testid=\'Notification Rules--question-mark-t
 const firstTimeThresholdCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Threshold Check\']';
 const firstTimeDeadmanCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Deadman Check\']';
 
+//Create Endpoint Popup
+const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
+const epPopupEndpointNameInput = '[data-testid=endpoint-name--input]';
+const epPopupEndpointDescriptionText = '[data-testid=endpoint-description--textarea]';
+const epPopupCancelButton = '[data-testid=endpoint-cancel--button]';
+const epPopupSaveButton = '[data-testid=endpoint-save--button]';
 
 
 const urlCtx = 'alerting';
@@ -119,6 +125,26 @@ class alertsPage extends influxPage {
 
     static getCreateCheckDropdownSelector(){
         return { type: 'css', selector: createCheckDropdown }
+    }
+
+    async getEpPopupEndpointDropdownButton(){
+        return await this.driver.findElement(By.css(epPopupEndpointDropdownButton));
+    }
+
+    async getEpPopupEndpointNameInput(){
+        return await this.driver.findElement(By.css(epPopupEndpointNameInput));
+    }
+
+    async getEpPopupEndpointDescriptionText(){
+        return await this.driver.findElement(By.css(epPopupEndpointDescriptionText));
+    }
+
+    async getEpPopupCancelButton(){
+        return await this.driver.findElement(By.css(epPopupCancelButton));
+    }
+
+    async getEpPopupSaveButton(){
+        return await this.driver.findElement(By.css(epPopupSaveButton));
     }
 
 }

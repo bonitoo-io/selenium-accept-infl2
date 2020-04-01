@@ -32,6 +32,18 @@ Scenario: Exercise Initial Alerts view Controls
   Then the create rules tooltip is visible
   When hover the alerts page title
   Then the create rules tooltip is not visible
+  When click create endpoint button
+  Then the create endpoint popup is loaded
+  When dismiss the popup
+  Then popup is not loaded
+  When click the first time create threshold check
+  Then the edit check overlay is loaded
+  When dismiss edit chck overlay
+  Then the edit check overlay is not loaded
+  When click the first time create deadman check
+  Then the edit check overlay is loaded
+  When dismiss edit chck overlay
+  Then the edit check overlay is not loaded
 
 
 # Create and start generating data --  keep it simple
