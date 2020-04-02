@@ -79,7 +79,8 @@ const TMQEFunctionPopup = '[data-testid=\'toolbar-popover--contents\']';
 const TMQEFunctionPopupDescription = '[data-testid=\'toolbar-popover--contents\'] .flux-functions-toolbar--description span';
 const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\']//*[@class=\'flux-function-docs--heading\'][text()=\'Example\']/../*[@class=\'flux-function-docs--snippet\']';
 const TMQEVariablesTab = '[data-testid=toolbar-tab][title=\'Variables\']';
-const TMQEVariablesLabel = '//*[@class=\'variables-toolbar--label\'][text()=\'%LABEL%\']';
+const TMQEVariablesLabel = '[data-testid=\'variable-name--%LABEL%\']';
+const TMQEVariablesInject = '[data-testid=\'variable--%VAR%--inject\']';
 const TMQEVariablesFilter = '[data-testid=input-field][placeholder^=\'Filter Variables\']';
 const TMQEVariablesPopover = '[data-testid=toolbar-popover--dialog]';
 const TMQEVariablesPopoverContents = '[data-testid=\'toolbar-popover--contents\']';
@@ -480,11 +481,15 @@ class cellEditOverlay extends influxPage {
     }
 
     async getTMQEVariablesLabel(label){
-        return await this.driver.findElement(By.xpath(TMQEVariablesLabel.replace('%LABEL%', label)));
+        return await this.driver.findElement(By.css(TMQEVariablesLabel.replace('%LABEL%', label)));
     }
 
     static getTMQEVariablesLabelSelector(label){
-        return { type: 'xpath', selector: TMQEVariablesLabel.replace('%LABEL%', label) }
+        return { type: 'css', selector: TMQEVariablesLabel.replace('%LABEL%', label) }
+    }
+
+    async getTMQEVariablesInject(variable){
+        return await this.driver.findElement(By.css(TMQEVariablesInject.replace('%VAR%', variable)));
     }
 
     async getTMQEVariablesFilter(){

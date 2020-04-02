@@ -565,6 +565,10 @@ When(/^click the time machine variable "(.*)"$/, async varname => {
    await celOvSteps.clickTMQEVariable(varname);
 });
 
+When(/^click inject the time machine variable "(.*)"$/, async varname => {
+   await celOvSteps.clickInjectTMQEVariable(varname);
+});
+
 Then(/^the time machine variable popover is not visible$/, async () => {
    await celOvSteps.verifyTMQEVariablePopoverNotVisible();
 });

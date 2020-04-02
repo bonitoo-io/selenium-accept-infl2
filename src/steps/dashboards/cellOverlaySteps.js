@@ -1024,6 +1024,11 @@ class cellOverlaySteps extends influxSteps {
         await this.clickAndWait(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
     }
 
+    async clickInjectTMQEVariable(varname){
+        await this.hoverOver(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
+        await this.clickAndWait(await this.cellOverlay.getTMQEVariablesInject(varname.trim()));
+    }
+
     async verifyTMQEVariablePopoverNotVisible(){
         await this.assertNotPresent(await cellEditOverlay.getTMQEVariablesPopoverSelector())
     }
