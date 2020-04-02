@@ -278,6 +278,10 @@ class cellOverlaySteps extends influxSteps {
         await this.clickAndWait(await this.cellOverlay.getTMFluxEditor());
     }
 
+    async clickTMFilterFunctionsInput(){
+        await this.clickAndWait(await this.cellOverlay.getTMQEFunctionFilter());
+    }
+
     async verifyTMFluxEditorNotPresent(){
         await this.assertNotPresent(cellEditOverlay.getTMFluxEditorSelector());
     }
@@ -811,6 +815,12 @@ class cellOverlaySteps extends influxSteps {
     async clickTMQEFunction(func){
         await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
         await this.clickAndWait(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+    }
+
+    async clickInjectTMQEFunction(func){
+        await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+        await this.hoverOver(await this.cellOverlay.getTMQEFunctionListItem(func.trim()))
+        await this.clickAndWait(await this.cellOverlay.getTMQEFunctionListItemInjector(func.trim()));
     }
 
     async hoverOverTMQEFunction(func){

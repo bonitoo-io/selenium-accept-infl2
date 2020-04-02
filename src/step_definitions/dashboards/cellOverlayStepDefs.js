@@ -183,6 +183,10 @@ When(/^click the time machine flux editor$/, async () => {
     await celOvSteps.clickTMFluxEditor();
 });
 
+When(/^click the filter functions input$/, async () => {
+   await celOvSteps.clickTMFilterFunctionsInput();
+});
+
 Then(/^the time machine flux editor is not present$/, async () => {
     await celOvSteps.verifyTMFluxEditorNotPresent();
 });
@@ -473,6 +477,10 @@ Then(/^the following function are not visible in the time machine function list:
 
 When(/^click the time machine query editor function "(.*)"$/, async func => {
     await celOvSteps.clickTMQEFunction(func);
+});
+
+When(/^click inject the time machine query editor function "(.*)"$/, async func => {
+    await celOvSteps.clickInjectTMQEFunction(func);
 });
 
 When(/^hover over time machine query edit function "(.*)"$/, async func => {

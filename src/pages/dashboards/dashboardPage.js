@@ -21,6 +21,7 @@ const refreshRateDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[co
 const forceRefreshButton = '//*[@data-testid=\'page-control-bar--right\']//*[contains(@class,\'autorefresh\')]//*[@data-testid=\'square-button\']';
 //const timeRangeDropdown = '//*[@data-testid=\'page-header--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
 const timeRangeDropdown = '//*[@data-testid=\'page-control-bar--right\']//*[@data-testid=\'timerange-dropdown\']//*[@data-testid=\'dropdown--button\']';
+const timeRangeDropdownSelected = '[data-testid=\'timerange-dropdown\'] [class*=selected]';
 const timeRangeDropdownItem = '[data-testid=dropdown-item-past%ITEM%]';
 //const presentationModeButton = '//*[@data-testid=\'page-header--right\']//*[contains(@title,\'Presentation\')]';
 const presentationModeButton = '[data-testid=\'presentation-mode-toggle\']';
@@ -142,6 +143,10 @@ class dashboardPage extends influxPage {
 
     async getTimeRangeDropdown(){
         return await this.driver.findElement(By.xpath(timeRangeDropdown));
+    }
+
+    async getTimeRangeDropdownSelected(){
+        return await this.driver.findElement(By.css(timeRangeDropdownSelected));
     }
 
     async getTimeRangeDropdownItem(item){

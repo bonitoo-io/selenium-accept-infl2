@@ -91,6 +91,10 @@ class dashboardSteps extends influxSteps {
         await this.clickAndWait(await this.dbdPage.getTimeRangeDropdown());
     }
 
+    async verifyDashboardTimeRangeDropdownSelected(value){
+        await this.verifyElementText(await this.dbdPage.getTimeRangeDropdownSelected(), value)
+    }
+
     async selectDashboardTimeRange(item){
         await this.dbdPage.getTimeRangeDropdownItem(item).then(async elem => {
             await this.scrollElementIntoView(elem).then(async () => {

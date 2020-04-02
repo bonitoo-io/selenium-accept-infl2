@@ -71,12 +71,13 @@ const TMQBQueryTabNameInput = 'div.cf-input__focused input';
 const TMQBQueryTabs = '.time-machine-queries .query-tab';
 
 //Query Editor
-const TMQEFunctionCategory = '//*[@class=\'flux-functions-toolbar--category\']/*[text()=\'%NAME%\']';
-const TMQEFunctionListItem = '[data-testid=\'flux-function %NAME%\']';
-const TMQEFunctionFilter = '.flux-functions-toolbar [data-testid=\'input-field\']';
+const TMQEFunctionCategory = '//*[@class=\'flux-toolbar--category\']/*[text()=\'%NAME%\']';
+const TMQEFunctionListItem = '[data-testid=\'flux--%NAME%\']';
+const TMQEFunctionListItemInjector = '[data-testid=\'flux--%NAME%--inject\']';
+const TMQEFunctionFilter = '.flux-toolbar--search [data-testid=\'input-field\']';
 const TMQEFunctionPopup = '[data-testid=\'toolbar-popover--contents\']';
 const TMQEFunctionPopupDescription = '[data-testid=\'toolbar-popover--contents\'] .flux-functions-toolbar--description span';
-const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\']//*[./*[text()=\'Example\']]/*[@class=\'flux-functions-toolbar--snippet\']';
+const TMQEFunctionPopupSnippet = '//*[@data-testid=\'toolbar-popover--contents\']//*[@class=\'flux-function-docs--heading\'][text()=\'Example\']/../*[@class=\'flux-function-docs--snippet\']';
 const TMQEVariablesTab = '[data-testid=toolbar-tab][title=\'Variables\']';
 const TMQEVariablesLabel = '//*[@class=\'variables-toolbar--label\'][text()=\'%LABEL%\']';
 const TMQEVariablesFilter = '[data-testid=input-field][placeholder^=\'Filter Variables\']';
@@ -412,6 +413,10 @@ class cellEditOverlay extends influxPage {
 
     static getTMQEFunctionListItemSelector(name){
         return { type: 'css', selector: TMQEFunctionListItem.replace('%NAME%', name) };
+    }
+
+    async getTMQEFunctionListItemInjector(name){
+        return await this.driver.findElement(By.css(TMQEFunctionListItemInjector.replace('%NAME%',name)));
     }
 
     async getTMQEFunctionFilter(){
