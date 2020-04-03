@@ -69,13 +69,13 @@ if(__config.headless) {
                 .setUserPreferences(chromeUserPreferences)
                 //.setPageLoadStrategy(PageLoadStrategy.NONE)
                 .setLoggingPrefs(logPrefs)
-                .windowSize({width: 1024, height: 768}))
+                .windowSize({width: 1280, height: 1024}))
             .build();
             break;
         case "firefox":
             global.__wdriver = new Builder()
                 .forBrowser(__config.browser)
-                .setFirefoxOptions(new ffox.Options().headless().windowSize({width: 1024, height: 768}))
+                .setFirefoxOptions(new ffox.Options().headless().windowSize({width: 1280, height: 1024}))
                 .build()
             break;
 
@@ -89,7 +89,7 @@ if(__config.headless) {
                 .setChromeOptions(new chrome.Options().addArguments("--incognito")
                     .setUserPreferences(chromeUserPreferences)
                     .setLoggingPrefs(logPrefs)
-                    .windowSize({width: 1024, height: 768}))
+                    .windowSize({width: 1280, height: 1024}))
                 .build();
             break;
         case "firefox":
