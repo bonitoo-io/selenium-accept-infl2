@@ -95,7 +95,8 @@ class monitoringSteps extends influxSteps{
     }
 
     async clickFirstTimeCreateDeadmanCheck(){
-        await this.clickAndWait(await this.alPage.getFirstTimeDeadmanCheckCreateButton())
+        await this.scrollElementIntoView(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
+        await this.clickAndWait(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
     }
 
 }
