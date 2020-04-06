@@ -15,6 +15,7 @@ axios.defaults.baseURL = `${config.protocol}://${config.host}:${config.port}`;
 global.__config = config;
 global.__defaultUser = defaultUser;
 global.__users = { 'init': undefined };
+global.__killLiveDataGen = false;
 
 process.argv.slice(2).forEach((val) => {
 
@@ -575,6 +576,36 @@ const readCSV = async function(content){
     return await csvParseSync(content, { columns: true, skip_empty_lines: true, comment: "#"});
 };
 
+
+function sleep(ms){
+    return new Promise(resolve => setTimeout(() => resolve(), ms));
+}
+
+const dataGenProcess = async function(def = {sleep: 333}){
+
+    console.log("DEBUG def " + JSON.stringify(def));
+    //let define = JSON.parse(def);
+   let total = 100;
+   let point = 0;
+   while(point < total && !__killLiveDataGen) {
+       let current = (new Date()).getTime();
+       console.log("DEBUG " + point++%10);
+       await writeData(__defaultUser.org,__defaultUser.bucket, [
+           `test,gen=gen val=${point%10} ${current * mil2Nano}`
+       ]);
+       await sleep(def.sleep)
+   }
+};
+
+const startLiveDataGen = function(def){
+    __killLiveDataGen = false;
+    dataGenProcess(JSON.parse(def));
+};
+
+const stopLiveDataGen = function(){
+   __killLiveDataGen = true;
+};
+
 module.exports = { flush,
     config,
     defaultUser,
@@ -602,6 +633,8 @@ module.exports = { flush,
     createTemplateFromFile,
     removeFileIfExists,
     removeFilesByRegex,
+    startLiveDataGen,
+    stopLiveDataGen,
     fileExists,
     verifyFileMatchingRegexFilesExist,
     waitForFileToExist

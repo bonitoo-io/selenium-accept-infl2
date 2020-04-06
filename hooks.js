@@ -117,6 +117,8 @@ After(async function (scenario /*,   callback */) {
             })
     }
     //callback()
+    //safety kill any live data generator
+    __killLiveDataGen = true;
 
 });
 

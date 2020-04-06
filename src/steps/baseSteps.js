@@ -753,6 +753,14 @@ class baseSteps{
         }
     }
 
+    async startLiveDataGenerator(def){
+        await influxUtils.startLiveDataGen(def);
+    }
+
+    async stopLiveDataGenerator(){
+        await influxUtils.stopLiveDataGen();
+    }
+
 
 }
 

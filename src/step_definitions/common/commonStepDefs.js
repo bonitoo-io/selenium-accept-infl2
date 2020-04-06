@@ -312,3 +312,11 @@ When(/^send keys "(.*)"$/, async keys => {
    await bSteps.sendKeysToCurrent(keys);
 });
 
+When(/^start live data generator$/, async def => {
+   bSteps.startLiveDataGenerator(def);
+});
+
+When(/^stop live data generator$/, async () => {
+   bSteps.stopLiveDataGenerator();
+});
+
