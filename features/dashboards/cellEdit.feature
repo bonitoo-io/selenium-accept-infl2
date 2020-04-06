@@ -569,7 +569,8 @@ Feature: Dashboards - Dashboard - Cell Edit
     When get time machine preview canvas
     When get time machine preview axes
     When click the time machine flux editor
-    When click the time machine query editor function "aggregateWindow"
+    #When click the time machine query editor function "aggregateWindow"
+    When click inject the time machine query editor function "aggregateWindow"
     Then the time machine script editor contains
   """
   from(bucket: "qa")
@@ -579,7 +580,8 @@ Feature: Dashboards - Dashboard - Cell Edit
     |> aggregateWindow(every: v.windowPeriod, fn: mean)
   """
     # In CircleCi function popup can obscure the submit button
-    When click the time machine flux editor
+    #When click the time machine flux editor
+    When click the filter functions input
     When click the time machine cell edit submit button
     Then the time machine preview canvas has changed
     When click the cell edit save button
@@ -597,14 +599,16 @@ Feature: Dashboards - Dashboard - Cell Edit
     When get time machine preview axes
     When click the cell edit Time Range Dropdown
     When select the cell edit Time Range "past24h"
-    When click the time machine flux editor
+    #When click the time machine flux editor
+    When click the filter functions input
     Then the time machine preview canvas has changed
     Then the time machine preview axes have changed
     When click the cell edit save button
-    Then the graph of the cell "Kliky" has not changed
-    When click the dashboard Time Range Dropdown
-    When select dashboard Time Range "24h"
     Then the graph of the cell "Kliky" has changed
+    Then the dashboard Time Range Dropdown selected contains "Past 24h"
+    #When click the dashboard Time Range Dropdown
+    #When select dashboard Time Range "24h"
+    #Then the graph of the cell "Kliky" has changed
 
   Scenario: View raw data
     When toggle context menu of dashboard cell named "Kliky"

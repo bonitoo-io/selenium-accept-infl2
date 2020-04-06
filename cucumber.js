@@ -44,7 +44,14 @@ let caps = new Capabilities();
 //console.log("DEBUG __downloadsDir " + __downloadsDir);
 
 let chromeUserPreferences = { 'download.prompt_for_download': false, "download.default_directory": __basedir };
+let windowSize = { "width": 1024, "height": 768 };
 
+if(__config.window_size){
+    windowSize.width = parseInt(__config.window_size.width);
+    windowSize.height = parseInt(__config.window_size.height);
+}
+
+console.log("DEBUG windowSize " + JSON.stringify(windowSize));
 /*
 try {
     fs.statSync(__downloadsDir);
@@ -69,14 +76,15 @@ if(__config.headless) {
                 .setUserPreferences(chromeUserPreferences)
                 //.setPageLoadStrategy(PageLoadStrategy.NONE)
                 .setLoggingPrefs(logPrefs)
-                .windowSize({width: 1024, height: 768}))
+                .windowSize({width: windowSize.width, height: windowSize.height}))
             .build();
             break;
         case "firefox":
             global.__wdriver = new Builder()
                 .forBrowser(__config.browser)
-                .setFirefoxOptions(new ffox.Options().headless().windowSize({width: 1024, height: 768}))
-                .build()
+                .setFirefoxOptions(new ffox.Options().headless().windowSize({width: windowSize.width,
+                    height: windowSize.height}))
+                .build();
             break;
 
     }
@@ -89,14 +97,14 @@ if(__config.headless) {
                 .setChromeOptions(new chrome.Options().addArguments("--incognito")
                     .setUserPreferences(chromeUserPreferences)
                     .setLoggingPrefs(logPrefs)
-                    .windowSize({width: 1024, height: 768}))
+                    .windowSize({width: windowSize.width, height: windowSize.height}))
                 .build();
             break;
         case "firefox":
             global.__wdriver = new Builder()
                 .withCapabilities(caps)
                 .forBrowser(__config.browser)
-                .build()
+                .build();
             break;
     }
 

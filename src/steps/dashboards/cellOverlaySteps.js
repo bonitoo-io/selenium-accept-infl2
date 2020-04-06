@@ -278,6 +278,10 @@ class cellOverlaySteps extends influxSteps {
         await this.clickAndWait(await this.cellOverlay.getTMFluxEditor());
     }
 
+    async clickTMFilterFunctionsInput(){
+        await this.clickAndWait(await this.cellOverlay.getTMQEFunctionFilter());
+    }
+
     async verifyTMFluxEditorNotPresent(){
         await this.assertNotPresent(cellEditOverlay.getTMFluxEditorSelector());
     }
@@ -813,6 +817,12 @@ class cellOverlaySteps extends influxSteps {
         await this.clickAndWait(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
     }
 
+    async clickInjectTMQEFunction(func){
+        await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
+        await this.hoverOver(await this.cellOverlay.getTMQEFunctionListItem(func.trim()))
+        await this.clickAndWait(await this.cellOverlay.getTMQEFunctionListItemInjector(func.trim()));
+    }
+
     async hoverOverTMQEFunction(func){
         await this.scrollElementIntoView(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
         await this.hoverOver(await this.cellOverlay.getTMQEFunctionListItem(func.trim()));
@@ -1012,6 +1022,11 @@ class cellOverlaySteps extends influxSteps {
 
     async clickTMQEVariable(varname){
         await this.clickAndWait(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
+    }
+
+    async clickInjectTMQEVariable(varname){
+        await this.hoverOver(await this.cellOverlay.getTMQEVariablesLabel(varname.trim()));
+        await this.clickAndWait(await this.cellOverlay.getTMQEVariablesInject(varname.trim()));
     }
 
     async verifyTMQEVariablePopoverNotVisible(){

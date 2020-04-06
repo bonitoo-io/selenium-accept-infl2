@@ -35,7 +35,7 @@ When(/^click the cell edit Script Editor button$/, async () => {
     await celOvSteps.clickCellEditScriptEditorButton();
 });
 
-When(/^paste into cell edit Script Editor$/, { timeout: 10000 }, async text => {
+When(/^paste into cell edit Script Editor$/, { timeout: 20000 }, async text => {
     await celOvSteps.pasteIntoCellEditScriptEditor(text);
 });
 
@@ -181,6 +181,10 @@ When(/^click the cell edit Query Builder confirm button$/, async () => {
 
 When(/^click the time machine flux editor$/, async () => {
     await celOvSteps.clickTMFluxEditor();
+});
+
+When(/^click the filter functions input$/, async () => {
+   await celOvSteps.clickTMFilterFunctionsInput();
 });
 
 Then(/^the time machine flux editor is not present$/, async () => {
@@ -475,6 +479,10 @@ When(/^click the time machine query editor function "(.*)"$/, async func => {
     await celOvSteps.clickTMQEFunction(func);
 });
 
+When(/^click inject the time machine query editor function "(.*)"$/, async func => {
+    await celOvSteps.clickInjectTMQEFunction(func);
+});
+
 When(/^hover over time machine query edit function "(.*)"$/, async func => {
     await celOvSteps.hoverOverTMQEFunction(func);
 });
@@ -555,6 +563,10 @@ When(/^hover over the time machine variable "(.*)"$/, async varname => {
 
 When(/^click the time machine variable "(.*)"$/, async varname => {
    await celOvSteps.clickTMQEVariable(varname);
+});
+
+When(/^click inject the time machine variable "(.*)"$/, async varname => {
+   await celOvSteps.clickInjectTMQEVariable(varname);
 });
 
 Then(/^the time machine variable popover is not visible$/, async () => {

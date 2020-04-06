@@ -126,7 +126,7 @@ Feature: Dashboards - Dashboard - Variables
     # TODO - No solution as yet to access popover contents - all action make popover disappear
     #When hover over the time machine variable "APIVAR"
     # When click time machine popover variable dropodown
-    When click the time machine variable "APIVAR"
+    When click inject the time machine variable "APIVAR"
     When click the time machine cell edit submit button
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
@@ -172,7 +172,7 @@ Feature: Dashboards - Dashboard - Variables
     # No solution as yet to access popover contents - all action make popover disappear
     #When hover over the time machine variable "KARTA"
     #When click time machine popover variable dropodown
-    When click the time machine variable "KARTA"
+    When click inject the time machine variable "KARTA"
     When click the time machine cell edit submit button
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
@@ -215,7 +215,7 @@ Feature: Dashboards - Dashboard - Variables
     # No solution as yet to access popover contents - all action make popover disappear
     #When hover over the time machine variable "POKUS"
     #When click time machine popover variable dropodown
-    When click the time machine variable "POKUS"
+    When click inject the time machine variable "POKUS"
     When click the time machine cell edit submit button
     When click dashboard cell save button
     Then the dashboard variables button is highlighted
@@ -274,7 +274,7 @@ from(bucket: "qa")
     # Now check then add variable
     When click the time machine script editor variables tab
     Then the time machine variable popover is not visible
-    When click the time machine variable "KARTA"
+    When click inject the time machine variable "KARTA"
     When click the time machine cell edit submit button
     When click the cell edit save button
     When click dashboard time range dropdown

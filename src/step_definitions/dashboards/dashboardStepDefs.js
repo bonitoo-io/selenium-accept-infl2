@@ -205,6 +205,10 @@ When(/^click the dashboard Time Range Dropdown$/, async () => {
     await dbdSteps.clickDashboardTimeRangeDropdown();
 });
 
+Then(/^the dashboard Time Range Dropdown selected contains "(.*)"$/, async value => {
+   await dbdSteps.verifyDashboardTimeRangeDropdownSelected(value);
+});
+
 When(/^select dashboard Time Range "(.*)"$/, async item => {
     await dbdSteps.selectDashboardTimeRange(item);
 });

@@ -17,6 +17,10 @@
     "screenshot_dir": "screenshots",
     "influxdb": {
       "version" : "2.0.0"
+    },
+    "window_size": {
+      "width": "1024",
+      "height": "933"
     }
    },
   "nightly" : {

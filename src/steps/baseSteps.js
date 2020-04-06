@@ -16,6 +16,7 @@ const keyMap = {'enter': Key.ENTER,
     'bksp': Key.BACK_SPACE,
     'space': Key.SPACE,
     'escape': Key.ESCAPE,
+    'esc': Key.ESCAPE,
     'ctrl': Key.CONTROL,
     'end': Key.END,
     'shift': Key.SHIFT,
@@ -195,11 +196,11 @@ class baseSteps{
 
     async assertNotVisible(element){
         await expect(await element.isDisplayed()).to.equal(false);
-        /*await expect(await element.isDisplayed().catch(async err => { console.log("DEBUG err " + err); throw err;})).to.equal(false).catch( async err => {
-            console.log("assertNotVisible Error: " + await element.getCssValue())
-            throw(err);
-        });*/
-    }
+        //await expect(await element.isDisplayed().catch(async err => { console.log("DEBUG err " + err); throw err;})).to.equal(false).catch( async err => {
+        //    console.log("assertNotVisible Error: " + await element.getCssValue())
+        //    throw(err);
+        //});
+    } 
 
     //selector type should be {type, selector}
     async assertNotPresent(selector){
@@ -724,6 +725,32 @@ class baseSteps{
                 await console.log("DEBUG logs[log] #" + logs[log].message + "#");
             }
         })
+    }
+
+    async sendKeysToCurrent(keys){
+        console.log("DEBUG keys " + keys);
+        let current = await this.driver.switchTo().activeElement();
+        let actionList = keys.split(',');
+        for(let i = 0; i < actionList.length; i++){
+            console.log(`DEBUG actionList[${i}] ${actionList[i]}`);
+            if(actionList[i].includes('+')){ //is chord
+                let chord = actionList[i].split('+');
+                if(chord.length === 2){
+                    await current.sendKeys(Key.chord(keyMap[chord[0].toLowerCase()],
+                        keyMap[chord[1].toLowerCase()]));
+                }else if(chord.length === 3){
+                    await current.sendKeys(Key.chord(keyMap[chord[0].toLowerCase()],
+                        keyMap[chord[1].toLowerCase()],
+                        keyMap[chord[2].toLowerCase()]));
+
+                }else{
+                    throw `unsupported chord count ${actionList[i]}`;
+                }
+
+            }else{
+                await current.sendKeys(keyMap[actionList[i].toLowerCase()]);
+            }
+        }
     }
 
 
