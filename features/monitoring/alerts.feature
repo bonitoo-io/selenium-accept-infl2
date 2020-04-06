@@ -13,6 +13,7 @@ Scenario: Load Initial Alerts view
 
 Scenario: Exercise Initial Alerts view Controls
   Then the notification rules create dropdown is disabled
+  When click alerting tab "checks"
   When click the create check button
   Then the create check dropodown list contains the items
   """
@@ -24,18 +25,22 @@ Scenario: Exercise Initial Alerts view Controls
   Then the create check tooltip is visible
   When hover the alerts page title
   Then the create check tooltip is not visible
+  When click alerting tab "endpoints"
   When hover the create endpoint question mark
   Then the create endpoint tooltip is visible
   When hover the alerts page title
   Then the create endpoint tooltip is not visible
+  When click alerting tab "rules"
   When hover the create rule question mark
   Then the create rules tooltip is visible
   When hover the alerts page title
   Then the create rules tooltip is not visible
+  When click alerting tab "endpoints"
   When click create endpoint button
   Then the create endpoint popup is loaded
   When dismiss the popup
   Then popup is not loaded
+  When click alerting tab "checks"
   When click the first time create threshold check
   Then the edit check overlay is loaded
   When dismiss edit chck overlay

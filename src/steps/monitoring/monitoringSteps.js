@@ -22,6 +22,10 @@ class monitoringSteps extends influxSteps{
         await this.verifyElementDisabled(await this.alPage.getCreateRuleButton());
     }
 
+    async clickAlertingTab(tabName){
+        await this.clickAndWait(await this.alPage.getAlertingTab(tabName));
+    }
+
     async clickCreateCheckButton(){
         await this.clickAndWait(await this.alPage.getCreateCheckButton());
     }
