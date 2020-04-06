@@ -542,7 +542,7 @@ const verifyFileMatchingRegexFilesExist = async function(regex, callback){
     return false;
 };
 
-const waitForFileToExist = async function(filePath, timeout = 10000){
+const waitForFileToExist = async function(filePath, timeout = 60000){
     let sleepTime = 3000;
     let totalSleep = 0;
     while (totalSleep < timeout){
