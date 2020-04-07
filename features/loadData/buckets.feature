@@ -8,8 +8,8 @@ Scenario: List Initial Buckets
   Given run setup over REST "DEFAULT"
   When open the signin page
   When UI sign in user "DEFAULT"
-  When hover over the "loadData" menu item
-  When click nav sub menu "Buckets"
+  When click nav menu item "LoadData"
+  When click load data tab "Buckets"
   Then the buckets tab is loaded
   Then the buckets are sorted as "_monitoring,_tasks,DEFAULT"
 
@@ -222,8 +222,8 @@ Scenario: Add Manual Line Protocol Data to Default
     Then there is a scraper card for "Courbet"
 
   Scenario: Add Telegraf to Default
-    When hover over the "loadData" menu item
-    When click nav sub menu "Buckets"
+    When click nav menu item "LoadData"
+    When click load data tab "Buckets"
     When click add data button for bucket "DEFAULT"
     Then the add data popover for the bucket "DEFAULT" is visible
     When click bucket card popover item "Configure Telegraf Agent"
