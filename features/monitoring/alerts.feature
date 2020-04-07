@@ -7,8 +7,9 @@ Scenario: Load Initial Alerts view
   Given run setup over REST "DEFAULT"
   When open the signin page
   When UI sign in user "DEFAULT"
-  When hover over the "alerting" menu item
-  When click nav sub menu "Monitoring & Alerting"
+  When click nav menu item "Alerting"
+  #When hover over the "alerting" menu item
+  #When click nav sub menu "Monitoring & Alerting"
   Then the Alerting page is loaded
 
 Scenario: Exercise Initial Alerts view Controls
