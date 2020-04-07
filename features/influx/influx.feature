@@ -11,67 +11,71 @@ Feature: Influx common
     #Then the header contains the org name "DEFAULT"
     Then the home page header contains "Getting Started"
 
-  Scenario: Hover home item
-    Then the home submenu items are "hidden"
-    When hover over the "home" menu item
-    Then the home submenu items are "visible"
-    When click nav sub menu "Create Organization"
-    Then the Create Organization form is loaded
-    When open page "HOME" for user "DEFAULT"
-    When hover over the "home" menu item
-    When click nav sub menu "Logout"
-    Then the sign in page is loaded
-    When UI sign in user "DEFAULT"
-
-  Scenario: Hover Data Explorer
-    Then the menu item text "Data Explorer" is "hidden"
-    When hover over the "explorer" menu item
-    Then the menu item text "Data Explorer" is "visible"
-    When click nav sub menu "Data Explorer"
+  Scenario: Click Data Explorer
+    #Then the menu item text "Data Explorer" is "hidden"
+    #When hover over the "explorer" menu item
+    #Then the menu item text "Data Explorer" is "visible"
+    When click nav menu item "Explorer"
     Then the Data Explorer page is loaded
 
-   Scenario: Hover Dashboards
-     Then the menu item text "Dashboards" is "hidden"
-     When hover over the "dashboards" menu item
-     Then the menu item text "Dashboards" is "visible"
-     When click nav sub menu "Dashboards"
+   Scenario: Click Dashboards
+     #Then the menu item text "Dashboards" is "hidden"
+     #When hover over the "dashboards" menu item
+     #Then the menu item text "Dashboards" is "visible"
+     When click nav menu item "Dashboards"
      Then the Dashboards page is loaded
 
-  Scenario: Hover Tasks
-    Then the menu item text "Tasks" is "hidden"
-    When hover over the "tasks" menu item
-    Then the menu item text "Tasks" is "visible"
-    When click nav sub menu "Tasks"
+  Scenario: Click Tasks
+    #Then the menu item text "Tasks" is "hidden"
+    #When hover over the "tasks" menu item
+    #Then the menu item text "Tasks" is "visible"
+    When click nav menu item "Tasks"
     Then the Tasks page is loaded
 
-  Scenario: Hover Alerting
-    Then the menu item text "Monitoring & Alerting" is "hidden"
-    When hover over the "alerting" menu item
-    Then the menu item text "Monitoring & Alerting" is "visible"
-    When click nav sub menu "Monitoring & Alerting"
+  Scenario: Click Alerting
+    #Then the menu item text "Monitoring & Alerting" is "hidden"
+    #When hover over the "alerting" menu item
+    #Then the menu item text "Monitoring & Alerting" is "visible"
+    When click nav menu item "Alerting"
     Then the Alerting page is loaded
 
-  Scenario: Hover Load Data
-    Then the menu item text "Settings" is "hidden"
-    When hover over the "loadData" menu item
-    Then the menu item text "Load Data" is "visible"
-    Then the menu item text "Buckets" is "visible"
-    Then the menu item text "Telegraf" is "visible"
-    Then the menu item text "Scrapers" is "visible"
-    When click nav sub menu "Load Data"
+  Scenario: Click Load Data
+    #Then the menu item text "Settings" is "hidden"
+    #When hover over the "loadData" menu item
+    #Then the menu item text "Load Data" is "visible"
+    #Then the menu item text "Buckets" is "visible"
+    #Then the menu item text "Telegraf" is "visible"
+    #Then the menu item text "Scrapers" is "visible"
+    When click nav menu item "LoadData"
+    Then the buckets tab is loaded
 
-  Scenario: Hover Settings
-    Then the menu item text "Settings" is "hidden"
-    When hover over the "settings" menu item
-    Then the menu item text "Settings" is "visible"
-    When click nav sub menu "Settings"
+  Scenario: Click Settings
+    #Then the menu item text "Settings" is "hidden"
+    #When hover over the "settings" menu item
+    #Then the menu item text "Settings" is "visible"
+    When click nav menu item "Settings"
     Then the Settings page is loaded
 
-  Scenario: Hover Feedback
-    Then the menu item text "Feedback" is "hidden"
-    When hover over the "feedback" menu item
-    Then the menu item text "Feedback" is "visible"
-    Then the feedback URL should include "https://docs.google.com/forms"
+  # Item no longer exists commit=bd91a81123 build_date=2020-04-07T07:57:22Z
+  #Scenario: Hover Feedback
+  #  Then the menu item text "Feedback" is "hidden"
+  #  When hover over the "feedback" menu item
+  #  Then the menu item text "Feedback" is "visible"
+  #  Then the feedback URL should include "https://docs.google.com/forms"
+
+  Scenario: Click home item
+    #Then the home submenu items are "hidden"
+    #When hover over the "home" menu item
+    #Then the home submenu items are "visible"
+    #When click nav sub menu "Create Organization"
+    #Then the Create Organization form is loaded
+    #When open page "HOME" for user "DEFAULT"
+    #When hover over the "home" menu item
+    When click nav menu item "home"
+    Then the home page is loaded
+    #Then the sign in page is loaded
+    #When UI sign in user "DEFAULT"
+
 
   # TODO - create organization from Home Menu Item
 

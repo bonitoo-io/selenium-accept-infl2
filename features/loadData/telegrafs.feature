@@ -9,8 +9,8 @@ Scenario: Load Initial Telegraf tab
   When API create a label "Mesto" described as "Matka mest" with color "#FFAAAA" for user "DEFAULT"
   When open the signin page
   When UI sign in user "DEFAULT"
-  When hover over the "loadData" menu item
-  When click nav sub menu "Telegraf"
+  When click nav menu item "LoadData"
+  When click load data tab "Telegrafs"
   Then the telegrafs tab is loaded
 
 Scenario: Exercise create Telegraf wizard

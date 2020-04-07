@@ -7,8 +7,9 @@ Feature: Dashboards - Base
     Given run setup over REST "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When API sign in user "DEFAULT"
     When API create a label "Cesko" described as "Pravda vitezi" with color "#AAFFAA" for user "DEFAULT"
@@ -31,8 +32,9 @@ Feature: Dashboards - Base
     """
     When click the create dashboard item "New Dashboard"
     Then the new dashboard page is loaded
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then the empty Create dashboard dropdown button is not present
     Then there is a dashboard card named "Name this Dashboard"
 
@@ -100,8 +102,9 @@ Feature: Dashboards - Base
     When click create dashboard control
     When click the create dashboard item "New Dashboard"
     When name dashboard "<NAME>"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then there is a dashboard card named "<NAME>"
 
     Examples:
@@ -122,8 +125,9 @@ Feature: Dashboards - Base
     Then the dashboard named "Mercure" is loaded
 
   Scenario: Filter Dashboard Cards
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then the dashboards page contains the cards:
     """
     Mercure,Venus,Terre,Mars,Jupiter
@@ -170,8 +174,9 @@ Feature: Dashboards - Base
 
   Scenario: Create Dashboard from template
     When create a new template from the file "etc/test-data/sine-test-template.json" for user "DEFAULT"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When click create dashboard control
     When click the create dashboard item "From a Template"
@@ -253,8 +258,9 @@ Feature: Dashboards - Base
     Then the dashboard contains a cell named "Hydro derivative"
     Then the dashboard contains a cell named "Sinusoid sum - missed points"
     Then the dashboard contains a cell named "Note"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then there is a dashboard card named "Tau Ceti (clone 1)"
 
   Scenario Outline: Delete dashboards

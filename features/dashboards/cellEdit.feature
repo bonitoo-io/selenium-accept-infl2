@@ -7,8 +7,9 @@ Feature: Dashboards - Dashboard - Cell Edit
     Given run setup over REST "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+#    When hover over the "Dashboards" menu item
+#    When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When API sign in user "DEFAULT"
     When generate a line protocol testdata for user "DEFAULT" based on:

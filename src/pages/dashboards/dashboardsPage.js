@@ -14,7 +14,8 @@ const dashboardCardCloneButton = '//*[@data-testid=\'dashboard-card\'][.//span[t
 const dashboardCardCloneConfirm = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\']//*[text() = \'Clone\']';
 const dashboardCardDeleteButton = '//*[@data-testid=\'dashboard-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
 const dashboardCardDeleteConfirm = '//*[@data-testid=\'dashboard-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-dashboard\']';
-const dashboardCardName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name\']';
+//const dashboardCardName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name\']';
+const dashboardCardName = '//*[@data-testid=\'dashboard-card\']//span[text() = \'%NAME%\']';
 const dashboardCardNames = '[data-testid=\'dashboard-card--name\']';
 const dashboardCardNameButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--name-button\']';
 const dashboardCardNameInput = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@data-testid=\'dashboard-card--input\']';

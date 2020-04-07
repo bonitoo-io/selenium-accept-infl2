@@ -78,7 +78,9 @@ class dashboardsSteps extends influxSteps {
     }
 
     async clickDashboardCardName(name){
-        await this.clickAndWait(await this.dbdsPage.getDashboardCardName(name));
+        await this.clickAndWait(await this.dbdsPage.getDashboardCardName(name), async () => {
+            await this.driver.sleep(500); //troubleshoot why dashboard not loaded
+        });
     }
 
     async clickDashboardCardNameButton(name){

@@ -9,8 +9,8 @@ Feature: Load Data - Tokens
     When API create a bucket named "Corot" for user "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
-    When hover over the "loadData" menu item
-    When click nav sub menu "Tokens"
+    When click nav menu item "LoadData"
+    When click load data tab "Tokens"
     Then the tokens tab is loaded
     Then the tokens list contains the token described as "admin's Token"
 

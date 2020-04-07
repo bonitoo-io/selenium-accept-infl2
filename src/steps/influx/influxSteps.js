@@ -21,7 +21,7 @@ class influxSteps extends baseSteps {
         this.assertVisible(await this.influxPage.getMenuDashboards());
         this.assertVisible(await this.influxPage.getMenuTasks());
         this.assertVisible(await this.influxPage.getMenuSettings());
-        this.assertVisible(await this.influxPage.getMenuFeedback());
+        //this.assertVisible(await this.influxPage.getMenuFeedback());
     }
 
     async getNavMenuElem(item){
@@ -51,15 +51,22 @@ class influxSteps extends baseSteps {
         case 'settings':
             elem = await this.influxPage.getMenuSettings();
             break;
-        case 'feedback':
-            elem = await this.influxPage.getMenuFeedback();
-            break;
+       // case 'feedback':
+       //     elem = await this.influxPage.getMenuFeedback();
+       //     break;
         case 'alerting':
             elem = await this.influxPage.getNavMenuAlerting();
             break;
         case 'loaddata':
             elem = await this.influxPage.getMenuLoadData();
             //            await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
+            break;
+        case 'org':
+        case 'organization':
+            elem = await this.influxPage.getNavMenuOrg();
+            break;
+        case 'user':
+            elem = await this.influxPage.getNavMenuUser();
             break;
         default:
             throw `Unkown menu item ${item}`;
