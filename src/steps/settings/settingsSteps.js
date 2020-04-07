@@ -13,7 +13,7 @@ class settingsSteps extends influxSteps{
     }
 
     async verifyIsLoaded(){
-        this.assertVisible(await this.setPage.getTabByName('Members'));
+        // this.assertVisible(await this.setPage.getTabByName('Members')); no longer on page commit=bd91a81123 build_date=2020-04-07T07:57:22Z
         //        this.assertVisible(await this.setPage.getTabByName('Buckets')); moved to new load data page
         //        this.assertVisible(await this.setPage.getTabByName('Telegraf')); ditto
         //        this.assertVisible(await this.setPage.getTabByName('Scrapers')); ditto
@@ -21,7 +21,7 @@ class settingsSteps extends influxSteps{
         this.assertVisible(await this.setPage.getTabByName('Templates'));
         this.assertVisible(await this.setPage.getTabByName('Labels'));
         // this.assertVisible(await this.setPage.getTabByName('Tokens')); // tokens no longer part of settings
-        this.assertVisible(await this.setPage.getTabByName('About'));
+        // this.assertVisible(await this.setPage.getTabByName('About')); no longer on page commit=bd91a81123 build_date=2020-04-07T07:57:22Z
     }
 
     async clickTab(name){

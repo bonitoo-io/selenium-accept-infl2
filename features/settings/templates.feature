@@ -7,8 +7,8 @@ Feature: Settings - Templates
     Given run setup over REST "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
-    When hover over the "Settings" menu item
-    When click nav sub menu "Templates"
+    When click nav menu item "Settings"
+    When click the settings tab "Templates"
     Then the templates Tab is loaded
     Then the templates are sorted as:
     """

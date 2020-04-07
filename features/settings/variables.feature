@@ -8,8 +8,8 @@ Feature: Settings - Variables
     When open the signin page
     When clear browser storage
     When UI sign in user "DEFAULT"
-    When hover over the "Settings" menu item
-    When click nav sub menu "Variables"
+    When click nav menu item "Settings"
+    When click the settings tab "Variables"
     Then the variables Tab is loaded
 
   Scenario: Exercise Import Variable Popup

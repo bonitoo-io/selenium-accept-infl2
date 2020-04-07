@@ -10,8 +10,9 @@ Feature: Dashboards - Dashboard - Note Cell
     Given run setup over REST "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+#    When hover over the "Dashboards" menu item
+#    When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When click the empty Create dashboard dropdown button
     When click the create dashboard item "New Dashboard"

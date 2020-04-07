@@ -1,15 +1,17 @@
 const basePage = require(__srcdir + '/pages/basePage.js');
 const { By } = require('selenium-webdriver');
 
-const navMenu = '[data-testid=nav-menu]';
-const navMenuHome = '[data-testid=nav-menu--item] span.cubo-nav';
-const navMenuDExplorer = '[data-testid=nav-menu--item] span.graphline-2';
-const navMenuDashboards = '[data-testid=nav-menu--item] span.dashboards';
-const navMenuTasks = '[data-testid=nav-menu--item] span.calendar';
-const navMenuAlerting = '[data-testid=nav-menu--item] span.bell'; //N.B. only available with alerting on
-const navMenuLoadData = '[data-testid=nav-menu--item] span.disks-nav';
-const navMenuSettings = '[data-testid=nav-menu--item] span.wrench-nav';
-const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
+const navMenu = '[data-testid=tree-nav]';
+const navMenuHome = '[data-testid=tree-nav--header]';
+const navMenuDExplorer = '[data-testid=nav-item-data-explorer]';
+const navMenuDashboards = '[data-testid=nav-item-dashboards]';
+const navMenuTasks = '[data-testid=nav-item-tasks]';
+const navMenuAlerting = '[data-testid=nav-item-alerting]'; //N.B. only available with alerting on
+const navMenuLoadData = '[data-testid=nav-item-load-data]';
+const navMenuSettings = '[data-testid=nav-item-settings]';
+//const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
+const navMenuUser = '[data-testid=tree-nav--user]';
+const navMenuOrg = '[data-testid=nav-item-org]';
 
 const navMenuHomeHeading = '//a[text() = \'admin (qa)\']';
 const navMenuHomeNewOrg = 'a.cf-nav--sub-item[href=\'/orgs/new\']';
@@ -53,7 +55,8 @@ class influxPage extends basePage {
                 //{type: 'css', selector: navMenuAlerting}, //N.B. only available with alerting on
                 {type: 'css', selector: navMenuLoadData},
                 {type: 'css', selector: navMenuSettings},
-                {type: 'css', selector: navMenuFeedback},
+                {type: 'css', selector: navMenuUser},
+                {type: 'css', selector: navMenuOrg},
                 {type: 'css', selector: pageHeader}
             ], urlCtx);
             return;
@@ -124,6 +127,14 @@ class influxPage extends basePage {
 
     async getSubItemContainingText(text){
         return await this.driver.findElement(By.xpath(navMenuXpath + `//*[contains(text(), '${text}')]`));
+    }
+
+    async getNavMenuUser(){
+        return await this.driver.findElement(By.css(navMenuUser));
+    }
+
+    async getNavMenuOrg(){
+        return await this.driver.findElement(By.css(navMenuOrg));
     }
 
 

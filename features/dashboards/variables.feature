@@ -8,8 +8,9 @@ Feature: Dashboards - Dashboard - Variables
     When open the signin page
     When clear browser storage
     When UI sign in user "DEFAULT"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When API sign in user "DEFAULT"
     When generate a line protocol testdata for user "DEFAULT" based on:
@@ -310,8 +311,10 @@ from(bucket: "qa")
   # NEED TO CLEAN UP
   # Variables cached in localstore can influence other tests
   Scenario Outline: Delete Variable
-    When hover over the "Settings" menu item
-    When click nav sub menu "Variables"
+    When click nav menu item "Settings"
+    When click the settings tab "Variables"
+    #When hover over the "Settings" menu item
+    #When click nav sub menu "Variables"
     When hover over variable card named "<NAME>"
     When click delete menu of variable card named "<NAME>"
     When click delete confirm of variable card named "<NAME>"
