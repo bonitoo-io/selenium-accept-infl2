@@ -13,6 +13,10 @@ Then(/^the notification rules create dropdown is disabled$/, async () => {
     await monSteps.verifyNotifyRulesCreateDropdownDiabled();
 });
 
+When(/^click alerting tab "(.*)"$/, async tabName => {
+   await monSteps.clickAlertingTab(tabName);
+});
+
 When(/^click the create check button$/, async () => {
    await monSteps.clickCreateCheckButton();
 });

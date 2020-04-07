@@ -404,7 +404,7 @@ class telegrafsSteps extends loadDataSteps{
     async setNameInputOfTelegrafCard(oldName, newName){
         await this.teleTab.getTelegrafCardNameInput(oldName).then(async elem => {
             await elem.sendKeys(newName + Key.ENTER).then(async () => {
-                await this.driver.sleep(100); // todo better wait
+                await this.driver.sleep(500); // todo better wait
             });
         });
     }
@@ -412,7 +412,7 @@ class telegrafsSteps extends loadDataSteps{
     async setDescriptionInputOfTelegrafCard(name, descr){
         await this.teleTab.getTelegrafCardDescrInput(name).then(async elem => {
             await elem.sendKeys(descr + Key.ENTER).then(async () => {
-                await this.driver.sleep(100); // todo better wait
+                await this.driver.sleep(500); // todo better wait
             });
         });
     }

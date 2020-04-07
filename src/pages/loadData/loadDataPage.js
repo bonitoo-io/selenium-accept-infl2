@@ -46,7 +46,7 @@ class loadDataPage extends influxPage {
     }
 
     async getTabByName(name){
-        return await this.driver.findElement(By.xpath(`${tabsXpath}//div[@data-testid='tabs--tab' and @id='${name.toLowerCase()}']`));
+        return await this.driver.findElement(By.xpath(`${tabsXpath}//div[@data-testid='tabs--tab' and @id='${name.toLowerCase().replace(' ', '-')}']`));
     }
 
     async getPageTitle(){

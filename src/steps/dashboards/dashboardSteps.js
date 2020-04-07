@@ -657,7 +657,9 @@ class dashboardSteps extends influxSteps {
     }
 
     async clickDashboardMainAddNote(){
-        await this.clickAndWait(await this.dbdPage.getAddNoteButton());
+        await this.clickAndWait(await this.dbdPage.getAddNoteButton(), async() => {
+            await this.driver.sleep(1000); //troubleshoot occasional problems in CircleCI
+        });
     }
 
 }

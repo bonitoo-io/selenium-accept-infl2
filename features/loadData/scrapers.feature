@@ -12,8 +12,8 @@ Scenario: Load Initial Scrapers tab
   When API create a bucket named "Duchamp" for user "DEFAULT"
   When open the signin page
   When UI sign in user "DEFAULT"
-  When hover over the "loadData" menu item
-  When click nav sub menu "Scrapers"
+  When click nav menu item "LoadData"
+  When click load data tab "Scrapers"
   Then the scrapers tab is loaded
 
 Scenario: Exercise create Scraper popup

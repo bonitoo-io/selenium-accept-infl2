@@ -18,7 +18,8 @@ Feature: Settings - Base
     Then the labels Tab is loaded
 #    When click the settings tab "Tokens" # Tokens tab is no longer available
 #    Then the tokens Tab is loaded # Tokens tab is no longer available
-    When click the settings tab "Profile"
-    Then the org profile Tab is loaded
-    When click the settings tab "Members"
-    Then the members Tab is loaded
+  # The following items are no longer present commit=bd91a81123 build_date=2020-04-07T07:57:22Z
+#    When click the settings tab "Profile"
+#    Then the org profile Tab is loaded
+#    When click the settings tab "Members"
+#    Then the members Tab is loaded

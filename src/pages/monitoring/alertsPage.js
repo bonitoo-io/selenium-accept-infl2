@@ -8,6 +8,7 @@ const createRuleButton = '[data-testid=create-rule]';
 const checksFilterInput = '[data-testid=\'filter--input checks\']';
 const checksQuestionMark = '[data-testid=\'Checks--question-mark\']';
 const checksTooltipContents = '[data-testid=\'Checks--question-mark-tooltip--contents\']';
+const alertingTab = '[data-testid=alerting-tab--%TABNAME%]';
 const createCheckDropdown = '[data-testid=\'checks--column\'] [data-testid=\'dropdown-menu--contents\']';
 const createCheckDropdownItem = '[data-testid=\'dropdown-menu--contents\'] [data-testid=create-%ITEM%-check]';
 const endpointsFilterInput = '[data-testid=\'filter--input endpoints\']';
@@ -49,6 +50,10 @@ class alertsPage extends influxPage {
 
     async getPageTitle(){
         return await this.driver.findElement(By.css(pageTitle));
+    }
+
+    async getAlertingTab(tabName){
+        return await this.driver.findElement(By.css(alertingTab.replace('%TABNAME%', tabName)));
     }
 
     async getCreateCheckButton(){
