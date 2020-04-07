@@ -13,9 +13,9 @@ class monitoringSteps extends influxSteps{
     }
 
     async verifyIsLoaded(){
-        this.assertVisible(await this.alPage.getCreateCheckButton());
-        this.assertVisible(await this.alPage.getCreateEndpointButton());
-        this.assertVisible(await this.alPage.getCreateRuleButton());
+        await this.assertVisible(await this.alPage.getAlertingTab('checks'));
+        await this.assertVisible(await this.alPage.getAlertingTab('rules'));
+        await this.assertVisible(await this.alPage.getAlertingTab('endpoints'));
     }
 
     async verifyNotifyRulesCreateDropdownDiabled(){
