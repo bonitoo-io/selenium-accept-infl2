@@ -7,8 +7,9 @@ Feature: Dashboards - Dashboard - Base
     Given run setup over REST "DEFAULT"
     When open the signin page
     When UI sign in user "DEFAULT"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    When click nav menu item "Dashboards"
+#    When hover over the "Dashboards" menu item
+#    When click nav sub menu "Dashboards"
     Then the Dashboards page is loaded
     When API sign in user "DEFAULT"
     When API create a label "Cesko" described as "Pravda vitezi" with color "#AAFFAA" for user "DEFAULT"
@@ -158,10 +159,12 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "вре́менный" is changed by "{ "dx": "0", "dy": "0" }"
     When move the cell named "вре́менный" by "{ "dx": "+400", "dy": "+200" }"
     When get metrics of cell named "вре́менный"
-    When hover over the "Dashboards" menu item
     When click nav menu item "home"
-    When hover over the "Dashboards" menu item
-    When click nav sub menu "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav menu item "home"
+    When click nav menu item "Dashboards"
+    #When hover over the "Dashboards" menu item
+    #When click nav sub menu "Dashboards"
     When click the dashboard name "про́бный прибо́ров"
     Then the dashboard named "про́бный прибо́ров" is loaded
     Then the location of the cell named "вре́менный" is unchanged
