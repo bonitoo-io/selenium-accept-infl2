@@ -4,6 +4,7 @@ const { By } = require('selenium-webdriver');
 const overlay = '[data-testid=overlay]';
 const dismissButton = '[data-testid=page-control-bar] [data-testid=square-button]';
 const pageCheckEditTitle = '[data-testid=overlay] [data-testid=page-header] [data-testid=page-title]';
+const pageCheckEditTitleInput = '[data-testid=\'page-header\'] [data-testid=\'input-field\']';
 const queriesToggle = '[data-testid=overlay] [data-testid=select-group--option][title=queries]';
 const configureCheckToggle = '[data-testid=overlay] [data-testid=\'checkeo--header alerting-tab\']';
 
@@ -44,6 +45,10 @@ class checkEditPage extends influxPage {
 
     async getConfigureCheckToggle(){
         return await this.driver.findElement(By.css(configureCheckToggle))
+    }
+
+    async getPageCheckEditTitleInput(){
+        return await this.driver.findElement(By.css(pageCheckEditTitleInput));
     }
 
 }

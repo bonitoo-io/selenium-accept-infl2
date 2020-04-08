@@ -95,7 +95,9 @@ class monitoringSteps extends influxSteps{
     }
 
     async clickFirstTimeCreateThresholdCheck(){
-        await this.clickAndWait(await this.alPage.getFirstTimeThresholdCheckCreateButton());
+        await this.clickAndWait(await this.alPage.getFirstTimeThresholdCheckCreateButton(), async () => {
+            await this.driver.sleep(500); //can be slow to load - TODO better wait
+        });
     }
 
     async clickFirstTimeCreateDeadmanCheck(){

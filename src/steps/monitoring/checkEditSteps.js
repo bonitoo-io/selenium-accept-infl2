@@ -26,6 +26,14 @@ class checkEditSteps extends influxSteps {
         await this.clickAndWait(await this.ckEdPage.getDismissButton());
     }
 
+
+    async enterAlertCheckName(name){
+        await this.clickAndWait(await this.ckEdPage.getPageCheckEditTitle());
+        await this.clearInputText(await this.ckEdPage.getPageCheckEditTitleInput());
+        await this.typeTextAndWait(await this.ckEdPage.getPageCheckEditTitleInput(), name);
+    }
+
+
 }
 
 module.exports = checkEditSteps;

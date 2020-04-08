@@ -27,6 +27,9 @@ const epPopupEndpointDescriptionText = '[data-testid=endpoint-description--texta
 const epPopupCancelButton = '[data-testid=endpoint-cancel--button]';
 const epPopupSaveButton = '[data-testid=endpoint-save--button]';
 
+//Query Builder
+const qbSelectorListItem = '[data-testid=\'selector-list %ITEM%\']';
+
 
 const urlCtx = 'alerting';
 
@@ -150,6 +153,10 @@ class alertsPage extends influxPage {
 
     async getEpPopupSaveButton(){
         return await this.driver.findElement(By.css(epPopupSaveButton));
+    }
+
+    async getQbSelectorListItem(item){
+        return await this.driver.findElement(By.css(qbSelectorListItem.replace('%ITEM%', item)))
     }
 
 }

@@ -732,7 +732,6 @@ class baseSteps{
         let current = await this.driver.switchTo().activeElement();
         let actionList = keys.split(',');
         for(let i = 0; i < actionList.length; i++){
-            console.log(`DEBUG actionList[${i}] ${actionList[i]}`);
             if(actionList[i].includes('+')){ //is chord
                 let chord = actionList[i].split('+');
                 if(chord.length === 2){

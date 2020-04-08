@@ -15,3 +15,9 @@ Then(/^the edit check overlay is not loaded$/, async () => {
 When(/^dismiss edit chck overlay$/, async () => {
    await ckEdSteps.dismissOverlay();
 });
+
+When(/^enter the alert check name "(.*)"$/, async name => {
+    await ckEdSteps.enterAlertCheckName(name);
+});
+
+
