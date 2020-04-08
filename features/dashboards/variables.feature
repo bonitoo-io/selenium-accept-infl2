@@ -78,8 +78,8 @@ Feature: Dashboards - Dashboard - Variables
   """
   from(bucket: "qa")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "beat")
-    |> filter(fn: (r) => r._field == "pulse")
+    |> filter(fn: (r) => r["_measurement"] == "beat")
+    |> filter(fn: (r) => r["_field"] == "pulse")
   """
     When click the time machine script editor variables tab
     Then the time machine variables list contains
@@ -249,8 +249,8 @@ Feature: Dashboards - Dashboard - Variables
     """
 from(bucket: "qa")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "beat")
-  |> filter(fn: (r) => r._field == v.POKUS)
+  |> filter(fn: (r) => r["_measurement"] == "beat")
+  |> filter(fn: (r) => r["_field"] == v.POKUS)
   |> aggregateWindow(every: v.windowPeriod, fn: mean)
     """
     When click the time machine cell edit submit button

@@ -389,15 +389,15 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   from(bucket: "qa")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "beat")
-    |> filter(fn: (r) => r._field == "pulse")
+    |> filter(fn: (r) => r["_measurement"] == "beat")
+    |> filter(fn: (r) => r["_field"] == "pulse")
   """
     When change the time machine script editor contents to:
   """
   from(bucket: "qa")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "foo")
-  |> filter(fn: (r) => r._field == "signal")
+  |> filter(fn: (r) => r["_measurement"] == "foo")
+  |> filter(fn: (r) => r["_field"] == "signal")
   """
     When click the time machine cell edit submit button
     Then the time machine preview canvas has changed
@@ -413,8 +413,8 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   from(bucket: "qa")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "foo")
-  |> filter(fn: (r) => r._field == "signal")
+  |> filter(fn: (r) => r["_measurement"] == "foo")
+  |> filter(fn: (r) => r["_field"] == "signal")
   """
     When get time machine preview canvas
     When get time machine preview axes
@@ -439,8 +439,8 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   from(bucket: "qa")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "foo")
-  |> filter(fn: (r) => r._field == "signal")
+  |> filter(fn: (r) => r["_measurement"] == "foo")
+  |> filter(fn: (r) => r["_field"] == "signal")
   """
     When change the time machine script editor contents to:
   """
@@ -521,8 +521,8 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   from(bucket: "qa")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "beat")
-    |> filter(fn: (r) => r._field == "pulse")
+    |> filter(fn: (r) => r["_measurement"] == "beat")
+    |> filter(fn: (r) => r["_field"] == "pulse")
   """
     Then the time machine query edit function categories are displayed:
   """
@@ -564,8 +564,8 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   from(bucket: "qa")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "beat")
-    |> filter(fn: (r) => r._field == "pulse")
+    |> filter(fn: (r) => r["_measurement"] == "beat")
+    |> filter(fn: (r) => r["_field"] == "pulse")
   """
     When get time machine preview canvas
     When get time machine preview axes
@@ -576,8 +576,8 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
   from(bucket: "qa")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "beat")
-    |> filter(fn: (r) => r._field == "pulse")
+    |> filter(fn: (r) => r["_measurement"] == "beat")
+    |> filter(fn: (r) => r["_field"] == "pulse")
     |> aggregateWindow(every: v.windowPeriod, fn: mean)
   """
     # In CircleCi function popup can obscure the submit button
