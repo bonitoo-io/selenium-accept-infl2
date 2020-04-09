@@ -8,7 +8,20 @@ const pageCheckEditTitleInput = '[data-testid=\'page-header\'] [data-testid=\'in
 const queriesToggle = '[data-testid=overlay] [data-testid=select-group--option][title=queries]';
 const configureCheckToggle = '[data-testid=overlay] [data-testid=\'checkeo--header alerting-tab\']';
 
+
 // TODO timemachine controls -- see dashboards - try and reuse
+
+// Configure Check Controls
+
+//    Properties
+const confChkIntervalInput = '//*[./label/span[text() = \'Schedule Every\']]//*[@data-testid=\'duration-input\']';
+const confChkOffset = '//*[./label/span[text() = \'Offset\']]//*[@data-testid=\'duration-input\']';
+const confChkAddTagButton = '//*[./label/span[text() = \'Tags\']]//*[@data-testid=\'dashed-button\']';
+//    Status Message Template
+const confChkMessageTextArea = '[data-testid=status-message-textarea]';
+// Thresholds
+const confChkAddThresholdButton = '[data-testid=add-threshold-condition-%STATUS%]';
+
 
 const urlCtx = 'checks';
 
@@ -49,6 +62,26 @@ class checkEditPage extends influxPage {
 
     async getPageCheckEditTitleInput(){
         return await this.driver.findElement(By.css(pageCheckEditTitleInput));
+    }
+
+    async getConfChkIntervalInput(){
+        return await this.driver.findElement(By.xpath(confChkIntervalInput));
+    }
+
+    async getConfChkOffset(){
+        return await this.driver.findElement(By.xpath(confChkOffset));
+    }
+
+    async getConfChkAddTagButton(){
+        return await this.driver.findElement(By.xpath(confChkAddTagButton));
+    }
+
+    async getConfChkMessageTextArea(){
+        return await this.driver.findElement(By.css(confChkMessageTextArea));
+    }
+
+    async getConfChkAddThresholdButton(status){
+        return await this.driver.findElement(By.css(confChkAddThresholdButton.replace('%STATUS%', status)));
     }
 
 }

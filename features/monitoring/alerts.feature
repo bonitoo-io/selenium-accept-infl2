@@ -56,7 +56,11 @@ Scenario: Exercise Initial Alerts view Controls
 
 # Create and start endpoint listener for notification checks
 
+# Exercise Configure Check -- N.B. try and reuse dashboard time machine for Define Query
+
 # Create Threshold Alerts
+
+# Check illogical alert tresholds
 
 # Create Deadman Alerts
 
@@ -82,9 +86,9 @@ Scenario: Exercise Initial Alerts view Controls
 
 # Delete Rules
 
-# Tear down data generator - In After hook - needs to be torn down after failure as well as success
+# Tear down data generator - In After All hook - needs to be torn down after failure as well as success
 
-# Tear down http listened - In After hook - ditto
+# Tear down http listened - In After All hook - ditto
 
 
 

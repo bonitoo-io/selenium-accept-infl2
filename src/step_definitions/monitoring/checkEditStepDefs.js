@@ -20,4 +20,8 @@ When(/^enter the alert check name "(.*)"$/, async name => {
     await ckEdSteps.enterAlertCheckName(name);
 });
 
+When(/^click check editor configure check button$/, async () => {
+   await ckEdSteps.clickCkEdConfigureCheck();
+});
+
 

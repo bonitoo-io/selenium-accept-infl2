@@ -33,6 +33,9 @@ class checkEditSteps extends influxSteps {
         await this.typeTextAndWait(await this.ckEdPage.getPageCheckEditTitleInput(), name);
     }
 
+    async clickCkEdConfigureCheck(){
+        await this.clickAndWait(await this.ckEdPage.getConfigureCheckToggle());
+    }
 
 }
 
