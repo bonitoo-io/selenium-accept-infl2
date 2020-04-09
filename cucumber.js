@@ -63,6 +63,16 @@ let logPrefs =  new logging.Preferences();
 logPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL);
 logPrefs.setLevel(logging.Type.DRIVER, logging.Level.INFO);
 
+let chromeArguments = ['--no-sandbox'];
+
+if(__config.sel_docker){
+    chromeArguments.push('--disable-dev-shm-usage')
+}
+
+//let selDockerSharedMemory = __config.sel_docker ? '--disable-dev-shm-usage' : '';
+
+
+
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
     caps.set('pageLoadStrategy', 'none');
@@ -73,8 +83,8 @@ if(__config.headless) {
             .withCapabilities(caps)
             .forBrowser(__config.browser)
             .setChromeOptions(new chrome.Options().headless()
-            .addArguments("--no-sandbox")
-            .addArguments("--disable-dev-shm-usage")
+            //.addArguments("--no-sandbox")
+            .addArguments(chromeArguments)
                 .setUserPreferences(chromeUserPreferences)
                 //.setPageLoadStrategy(PageLoadStrategy.NONE)
                 .setLoggingPrefs(logPrefs)
@@ -97,8 +107,8 @@ if(__config.headless) {
                 .withCapabilities(caps)
                 .forBrowser(__config.browser)
                 .setChromeOptions(new chrome.Options().addArguments("--incognito")
-                    .addArguments("--no-sandbox")
-                    .addArguments("--disable-dev-shm-usage")
+              //      .addArguments("--no-sandbox")
+                    .addArguments(chromeArguments)
                     .setUserPreferences(chromeUserPreferences)
                     .setLoggingPrefs(logPrefs)
                     .windowSize({width: windowSize.width, height: windowSize.height}))

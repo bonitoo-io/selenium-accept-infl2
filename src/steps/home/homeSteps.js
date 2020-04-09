@@ -48,15 +48,15 @@ class homeSteps extends influxSteps {
 
     async verifyDbdPanelDashboard(dbdName){
         this.homePage.getDashboardsList().then(async elem => {
-            await elem.findElement(By.xpath(`./li/a[text() = '${dbdName}']`)).then(async link => {
+            await elem.findElement(By.xpath(`.//a[text() = '${dbdName}']`)).then(async link => {
                 await this.assertVisible(link);
             });
         });
     }
 
     async clickDbdPanelDashboard(dbdName){
-        this.homePage.getDashboardsList().then(async elem => {
-            await elem.findElement(By.xpath(`./li/a[text() = '${dbdName}']`)).then(async link => {
+        await this.homePage.getDashboardsList().then(async elem => {
+            await elem.findElement(By.xpath(`.//a[text() = '${dbdName}']`)).then(async link => {
                 await link.click();
             });
         });

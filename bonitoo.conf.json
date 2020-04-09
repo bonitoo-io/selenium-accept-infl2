@@ -13,6 +13,7 @@
     "port" : "9999",
     "def_ctx": "/",
     "headless": false,
+    "sel_docker": false,
     "browser": "chrome",
     "screenshot_dir": "screenshots",
     "influxdb": {
