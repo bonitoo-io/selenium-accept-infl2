@@ -347,6 +347,11 @@ class dashboardsSteps extends influxSteps {
     }
 
     async clickExportDashboardDownloadJSON(filePath){
+        if(__config.sel_docker){
+            console.warn('File export not supported without shared memory');
+            await this.clickAndWait(await this.dbdsPage.getExportPopupDownloadJSON());
+            return;
+        }
         await this.clickAndWait(await this.dbdsPage.getExportPopupDownloadJSON(),
             async () => {await influxUtils.waitForFileToExist(filePath); }); //wait for download to complete
     }

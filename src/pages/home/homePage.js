@@ -9,10 +9,10 @@ const dataCollectButton = '[data-testid=button][title=\'Load your data\']';
 const dashboardButton = '[data-testid=button][title=\'Build a dashboard\']';
 const alertingButton = '[data-testid=button][title=\'Set up alerting\']';
 const tutorialsList = '//ul[contains(@class, \'tutorials\')]';
-const dashboardsList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][2]//ul';
+const dashboardsList = '//*[./div/*[text()=\'Recent Dashboards\']]';
 const usefulLinkList = '//div[contains(@class,\'cf-col-sm-4 cf-col-md-3\')]//div[@data-testid=\'panel\'][3]//ul';
-const dashboardLink = '//*[@data-testid=\'panel\'][.//*[text()=\'Dashboards\']]//ul/li/a[text()=\'%TEXT%\']';
-
+//const dashboardLink = '//*[@data-testid=\'panel\'][.//*[text()=\'Dashboards\']]//ul/li/a[text()=\'%TEXT%\']';
+const dashboardLink = '//*[@data-testid=\'panel\'][.//*[text()=\'Recent Dashboards\']]//*[text()=\'%TEXT%\']'
 
 // TODO - add selectors - especially for isLoaded below
 

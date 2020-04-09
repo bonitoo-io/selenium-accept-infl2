@@ -633,6 +633,10 @@ class baseSteps{
     }
 
     async verifyFileExists(filePath){
+        if(__config.sel_docker){
+            console.warn('File export not supported without shared memory');
+            return;
+        }
         await expect(await influxUtils.fileExists(filePath)).to.be.true;
     }
 
