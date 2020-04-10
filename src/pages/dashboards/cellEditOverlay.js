@@ -71,7 +71,7 @@ const TMQBQueryTabNameInput = 'div.cf-input__focused input';
 const TMQBQueryTabs = '.time-machine-queries .query-tab';
 
 //Query Editor
-const TMQEFunctionCategory = '//*[@class=\'flux-toolbar--category\']/*[text()=\'%NAME%\']';
+const TMQEFunctionCategory = '//*[@class=\'flux-toolbar--heading\'][text()=\'%NAME%\']';
 const TMQEFunctionListItem = '[data-testid=\'flux--%NAME%\']';
 const TMQEFunctionListItemInjector = '[data-testid=\'flux--%NAME%--inject\']';
 const TMQEFunctionFilter = '.flux-toolbar--search [data-testid=\'input-field\']';
