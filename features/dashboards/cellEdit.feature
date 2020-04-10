@@ -526,7 +526,7 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
     Then the time machine query edit function categories are displayed:
   """
-  Aggregates,Inputs,Type Conversions,Selectors,Transformations,Test,Outputs,Miscellaneous,Tests
+  Aggregates,Inputs,Type Conversions,Selectors,Transformations,Outputs,Miscellaneous,Tests
   """
     When filter the time machine query edit function list with "average"
     Then the following function are visible in the time machine function list:
