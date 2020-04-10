@@ -32,3 +32,7 @@ When(/^enter into duration offset "(.*)"$/, async offset => {
    await ckEdSteps.enterIntoDurationOffset(offset);
 });
 
+When(/^update the check message template to$/, async content => {
+   await ckEdSteps.updateChecMessageTemplateContent(content);
+});
+

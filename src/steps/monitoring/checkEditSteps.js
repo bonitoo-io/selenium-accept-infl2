@@ -47,6 +47,12 @@ class checkEditSteps extends influxSteps {
         await this.typeTextAndWait(await this.ckEdPage.getConfChkOffset(), offset);
     }
 
+    async updateChecMessageTemplateContent(content){
+        //await this.clearInputText(await this.ckEdPage.getConfChkMessageTextArea());
+        (await this.ckEdPage.getConfChkMessageTextArea()).clear();
+        await this.typeTextAndWait(await this.ckEdPage.getConfChkMessageTextArea(), content);
+    }
+
 }
 
 module.exports = checkEditSteps;
