@@ -24,4 +24,11 @@ When(/^click check editor configure check button$/, async () => {
    await ckEdSteps.clickCkEdConfigureCheck();
 });
 
+Then(/^the duration indicator is set to "(.*)"$/, async duration => {
+   await ckEdSteps.verifyCkEdDurationIndicator(duration);
+});
+
+When(/^enter into duration offset "(.*)"$/, async offset => {
+   await ckEdSteps.enterIntoDurationOffset(offset);
+});
 

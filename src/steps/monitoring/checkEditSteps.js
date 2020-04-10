@@ -37,6 +37,16 @@ class checkEditSteps extends influxSteps {
         await this.clickAndWait(await this.ckEdPage.getConfigureCheckToggle());
     }
 
+    async verifyCkEdDurationIndicator(duration){
+        await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfChkIntervalInput(),
+            'value', duration );
+    }
+
+    async enterIntoDurationOffset(offset){
+        await this.clearInputText(await this.ckEdPage.getConfChkOffset());
+        await this.typeTextAndWait(await this.ckEdPage.getConfChkOffset(), offset);
+    }
+
 }
 
 module.exports = checkEditSteps;

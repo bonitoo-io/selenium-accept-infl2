@@ -60,7 +60,7 @@ Scenario: Exercise Initial Alerts view Controls
 
 # Create Threshold Alerts
 
-# Check illogical alert tresholds
+# Check illogical alert thresholds
 
 # Create Deadman Alerts
 
