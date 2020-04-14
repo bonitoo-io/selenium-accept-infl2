@@ -757,6 +757,14 @@ class baseSteps{
         }
     }
 
+    async clickSortTypeDropdown(){
+        await this.clickAndWait(await this.basePage.getSortTypeButton());
+    }
+
+    async clickSortByListItem(item){
+        await this.clickAndWait(await this.basePage.getSortTypeListItem(item));
+    }
+
 
 }
 

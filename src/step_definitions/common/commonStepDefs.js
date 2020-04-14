@@ -312,3 +312,11 @@ When(/^send keys "(.*)"$/, async keys => {
    await bSteps.sendKeysToCurrent(keys);
 });
 
+When(/^click the sort type dropdown$/, async () => {
+   await bSteps.clickSortTypeDropdown();
+});
+
+When(/^click sort by item "(.*)"$/, async item => {
+   await bSteps.clickSortByListItem(item);
+});
+
