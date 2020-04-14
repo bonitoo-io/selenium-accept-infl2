@@ -112,6 +112,7 @@ Scenario: Clear Filter
   Then the bucket named "_tasks" is in the list
   Then the bucket named "Týdenní" is in the list
 
+@error-feature
 Scenario: Sort Buckets by Name
   Given ensure buckets name sort order "desc"
   Then the buckets are sorted as "_monitoring,_tasks,Denní,Hodinová,Měsíční,Oprava,Půldenní,DEFAULT,Trvalá,Týdenní"
@@ -119,12 +120,12 @@ Scenario: Sort Buckets by Name
   Then the buckets are sorted as "Týdenní,Trvalá,DEFAULT,Půldenní,Oprava,Měsíční,Hodinová,Denní,_tasks,_monitoring"
   Given ensure buckets name sort order "desc"
 
+@error-feature
 Scenario: Sort Buckets by Retention Policy
   When click buckets sort by retention policy
   Then the buckets are sorted as "Hodinová,Půldenní,Denní,Oprava,_tasks,Týdenní,_monitoring,Měsíční,Trvalá,DEFAULT"
   When click buckets sort by retention policy
   Then the buckets are sorted as "DEFAULT,Trvalá,Měsíční,Týdenní,_monitoring,_tasks,Oprava,Denní,Půldenní,Hodinová"
-
 
 Scenario Outline: Delete Buckets
 # following check leads to troublesome false positives - todo fix it

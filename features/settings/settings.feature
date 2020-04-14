@@ -6,6 +6,7 @@ Feature: Settings - Base
 
 # TODO with alerting / load data refactor now submenu is richer
 
+  @error-timeout
   Scenario: Verify Tabs
     Given I reset the environment
     Given run setup over REST "DEFAULT"

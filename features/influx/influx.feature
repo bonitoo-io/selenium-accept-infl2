@@ -3,6 +3,7 @@
 Feature: Influx common
   Click through the controls common to all influx pages
 
+  @error-timeout
   Scenario: Open home page
     Given I reset the environment
     Given run setup over REST "DEFAULT"
