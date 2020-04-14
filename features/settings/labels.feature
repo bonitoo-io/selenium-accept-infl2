@@ -86,15 +86,21 @@ Scenario: Edit Label
 
 Scenario: Sort By Name
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
-  When click sort label by name
+  When click the sort type dropdown
+  When click sort by item "Name Desc"
   Then the first labels are sorted as "Jilm,Javor,Habr,Buk,Briza"
-  When click sort label by name
+  When click the sort type dropdown
+  When click sort by item "Name Asc"
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
 Scenario: Sort By Description
-  When click sort label by description
+  When click the sort type dropdown
+  When click sort by item "Properties.Description Asc"
+  #When click sort label by description
   Then the first labels are sorted as "Javor,Briza,Habr,Buk,Jilm"
-  When click sort label by description
+  When click the sort type dropdown
+  When click sort by item "Properties.Description Desc"
+  #When click sort label by description
   Then the first labels are sorted as "Jilm,Buk,Habr,Briza,Javor"
 
 
@@ -110,11 +116,13 @@ Scenario: Sort By Description
   When enter the value "betul" into the label filter
   Then the first labels are sorted as "Habr,Briza"
   Then the labels "Buk,Javor,Jilm" are not present
-  When click sort label by name
-  # There is a third neutral phase to the toggle
-  When click sort label by name
+  When click the sort type dropdown
+  When click sort by item "Name Desc"
+  # There is a third neutral phase to the toggle - not anymore
+  #When click sort label by name
   Then the first labels are sorted as "Habr,Briza"
-  When click sort label by name
+  When click the sort type dropdown
+  When click sort by item "Name Asc"
   Then the first labels are sorted as "Briza,Habr"
   When clear the labels filter input
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"

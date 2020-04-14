@@ -11,7 +11,7 @@ const createLabelEmpty = '[data-testid=button-create-initial]';
 const labelCard = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]';
 const labelCardPills = '[data-testid^=label--pill]';
 const labelCardPill = '//*[@data-testid=\'label-card\']//div[./span[@data-testid=\'label--pill %NAME%\']]';
-const labelCardDescr = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'cf-resource-card--meta-item\'][contains(text(), \'Description\')]';
+const labelCardDescr = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'label-card--description\']';
 const labelCardDelete = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//button[@data-testid=\'context-delete-menu\']';
 const labelCardDeleteConfirm = '//*[@data-testid=\'label-card\'][.//span[text()=\'%NAME%\']]//button[@data-testid=\'context-delete-label\']';
 
