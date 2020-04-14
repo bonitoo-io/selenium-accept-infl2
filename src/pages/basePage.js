@@ -315,6 +315,10 @@ class basePage{
         return await this.driver.findElement(By.css(sortTypeButton));
     }
 
+    static getSortTypeButtonSelector(){
+        return { type: 'css', selector: sortTypeButton }
+    }
+
     async getSortTypeListItem(item){
         return await this.driver.findElement(By.css(sortTypeListItem.replace('%ITEM%', item.toLowerCase()
             .replace(" ","-"))));

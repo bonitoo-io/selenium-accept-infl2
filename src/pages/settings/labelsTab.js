@@ -1,6 +1,7 @@
 const { By } = require('selenium-webdriver');
 
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 
 const labelsFilter = '[data-testid=search-widget]';
 const createLabelHeader = '[data-testid=button-create]';
@@ -39,8 +40,9 @@ class labelsTab extends settingsPage{
             [
                 {type: 'css', selector: labelsFilter},
                 {type: 'css', selector: createLabelHeader},
-                {type: 'css', selector: labelNameSort},
-                {type: 'css', selector: labelDescSort},
+                basePage.getSortTypeButtonSelector()
+                //{type: 'css', selector: labelNameSort},
+                //{type: 'css', selector: labelDescSort},
             ]
         );
     }
