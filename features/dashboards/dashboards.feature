@@ -251,6 +251,7 @@ Feature: Dashboards - Base
     When click Export Dashboard popup Download JSON for "tau_ceti.json"
     Then popup is not loaded
     Then the file "tau_ceti.json" has been downloaded
+    When remove file "tau_ceti.json" if exists
 
   Scenario: Clone Dashboard
     When hover over dashboard card named "Tau Ceti"
