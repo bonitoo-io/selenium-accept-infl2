@@ -201,13 +201,15 @@ Feature: Dashboards - Base
     """
     Alpha Centauri,Jupiter,Mars,Mercure,Sinusoid test data,Tau Ceti,Terre,Venus
     """
-    When click dashboards sort by name
+    When click dashboards sort type dropdown
+    When click dashboards sort by "Name Desc"
     #When click dashboards sort by name
     Then the dashboards are sorted as:
     """
     Venus,Terre,Tau Ceti,Sinusoid test data,Mercure,Mars,Jupiter,Alpha Centauri
     """
-    When click dashboards sort by name
+    When click dashboards sort type dropdown
+    When click dashboards sort by "Name Asc"
     Then the dashboards are sorted as:
     """
     Alpha Centauri,Jupiter,Mars,Mercure,Sinusoid test data,Tau Ceti,Terre,Venus
