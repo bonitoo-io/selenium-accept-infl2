@@ -3,9 +3,13 @@ FROM circleci/node:lts-stretch-browsers
 
 USER root
 
-COPY . /selenium-accept-infl2
+COPY package.json /selenium-accept-infl2/package.json
 
 WORKDIR /selenium-accept-infl2
+
+RUN npm install
+
+COPY . /selenium-accept-infl2
 
 RUN \
   npm install
