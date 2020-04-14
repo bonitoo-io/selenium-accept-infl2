@@ -1,0 +1,13 @@
+FROM circleci/node:lts-stretch-browsers
+# use selenium/standalone-chrome:latest for smaller footprint (needs other deps)
+
+USER root
+
+COPY . /selenium-accept-infl2
+
+WORKDIR /selenium-accept-infl2
+
+RUN \
+  npm install
+
+CMD npm test
