@@ -1,3 +1,5 @@
+@feature-influx
+@influx-influx
 Feature: Influx common
   Click through the controls common to all influx pages
 

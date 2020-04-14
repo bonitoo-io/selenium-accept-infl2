@@ -1,3 +1,5 @@
+@feature-loadData
+@loadData-buckets
 Feature: Load Data - Buckets
   As a user I want to Read Create Update and Delete Buckets
   So that I can manage the stores used with Influxdbv2

@@ -1,3 +1,5 @@
+@feature-settings
+@settings-settings
 Feature: Settings - Base
   As a user I want to open the settings page
   So that I can explore how this Influx2 installation is set up

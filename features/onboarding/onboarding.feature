@@ -1,3 +1,5 @@
+@feature-onboarding
+@onboarding-onboarding
 Feature: Onboard to Influxdbv2
   Create an initial user and organization
 

@@ -1,3 +1,5 @@
+@feature-signin
+@signin-signin
 Feature: Signin
   Use and abuse the signin page
 

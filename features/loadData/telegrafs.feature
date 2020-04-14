@@ -1,3 +1,5 @@
+@feature-loadData
+@loadData-telegrafs
 Feature: Load Data - Telegrafs
 
 Scenario: Load Initial Telegraf tab

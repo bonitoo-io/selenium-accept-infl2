@@ -1,3 +1,5 @@
+@feature-homePage
+@homePage-homePage
 Feature: Home Page
 
   Scenario: logout home page
