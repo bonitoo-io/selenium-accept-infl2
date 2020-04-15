@@ -1,3 +1,5 @@
+@feature-monitoring
+@monitoring-alerts
 Feature: Monitoring - Alerts - Base
   As a user I want to setup alerts
   So that I can be notified of important changes in the data
