@@ -317,6 +317,14 @@ When(/^start live data generator$/, async def => {
 });
 
 When(/^stop live data generator$/, async () => {
-   bSteps.stopLiveDataGenerator();
+    bSteps.stopLiveDataGenerator();
+});
+
+When(/^click the sort type dropdown$/, async () => {
+   await bSteps.clickSortTypeDropdown();
+});
+
+When(/^click sort by item "(.*)"$/, async item => {
+   await bSteps.clickSortByListItem(item);
 });
 

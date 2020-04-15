@@ -550,6 +550,7 @@ const waitForFileToExist = async function(filePath, timeout = 60000){
         if(fs.existsSync(filePath)){
             return true;
         }
+        await __wdriver.sleep(sleepTime);
         totalSleep += sleepTime;
     }
 

@@ -84,21 +84,33 @@ Scenario: Filter Scrapers
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
 Scenario: Sort Scrapers by Name
-  When click the scraper sort by name button
+  When click the sort type dropdown
+  When click sort by item "Name Desc"
+  #When click the scraper sort by name button
   Then the scraper name sort order is "Morlaix,Melnik,Brno,Brest"
-  When click the scraper sort by name button
+  When click the sort type dropdown
+  When click sort by item "Name Asc"
+  #When click the scraper sort by name button
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
 Scenario: Sort Scrapers by URL
-  When click the scraper sort By URL button
+  When click the sort type dropdown
+  When click sort by item "URL Asc"
+  #When click the scraper sort By URL button
   Then the scraper name sort order is "Brno,Brest,Melnik,Morlaix"
-  When click the scraper sort By URL button
+  When click the sort type dropdown
+  When click sort by item "URL Desc"
+  #When click the scraper sort By URL button
   Then the scraper name sort order is "Melnik,Morlaix,Brno,Brest"
 
 Scenario: Sort Scrapers by Bucket
-  When click the scraper sort By Bucket button
+  When click the sort type dropdown
+  When click sort by item "Bucket Asc"
+  #When click the scraper sort By Bucket button
   Then the scraper name sort order is "Morlaix,Brest,Melnik,Brno"
-  When click the scraper sort By Bucket button
+  When click the sort type dropdown
+  When click sort by item "Bucket Desc"
+  #When click the scraper sort By Bucket button
   Then the scraper name sort order is "Melnik,Brno,Morlaix,Brest"
 
 Scenario: Rename Scraper

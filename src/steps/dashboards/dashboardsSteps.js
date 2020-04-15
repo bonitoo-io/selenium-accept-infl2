@@ -19,8 +19,8 @@ class dashboardsSteps extends influxSteps {
     async verifyIsLoaded(){
         this.assertVisible(await this.dbdsPage.getCreateDashboardDropdown());
         this.assertVisible(await this.dbdsPage.getFilterDashboards());
-        this.assertVisible(await this.dbdsPage.getNameSortButton());
-        this.assertVisible(await this.dbdsPage.getModifiedSortButton());
+        this.assertVisible(await this.dbdsPage.getSortTypeButton());
+      //  this.assertVisible(await this.dbdsPage.getModifiedSortButton());
     }
 
     async clickCreateDashboard(){
@@ -299,8 +299,13 @@ class dashboardsSteps extends influxSteps {
         });
     }
 
-    async clickSortDashboardsByName(){
-        await this.clickAndWait(await this.dbdsPage.getNameSortButton());
+    async clickSortDashboardsListItem(item){
+        await this.clickAndWait(await this.dbdsPage.getSortTypeItem(item.toLowerCase()
+            .replace(" ", "-")));
+    }
+
+    async clickSortDashboardsByType(){
+        await this.clickAndWait(await this.dbdsPage.getSortTypeButton());
     }
 
     async clickDashboardCardDelete(name){

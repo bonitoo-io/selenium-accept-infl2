@@ -54,9 +54,10 @@ class scrapersSteps extends baseSteps{
         await this.scrapeTab.isTabLoaded();
         await this.assertVisible(await this.scrapeTab.getCreateScraperHeader());
         await this.assertVisible(await this.scrapeTab.getScrapersFilter());
-        await this.assertVisible(await this.scrapeTab.getNameSort());
-        await this.assertVisible(await this.scrapeTab.getUrlSort());
-        await this.assertVisible(await this.scrapeTab.getBucketSort());
+        await this.assertVisible(await this.scrapeTab.getSortTypeButton());
+        //await this.assertVisible(await this.scrapeTab.getNameSort());
+        //await this.assertVisible(await this.scrapeTab.getUrlSort());
+        //await this.assertVisible(await this.scrapeTab.getBucketSort());
     }
 
     async clickCreateScraperButtonEmpty(){

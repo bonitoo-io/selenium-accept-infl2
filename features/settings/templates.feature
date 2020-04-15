@@ -116,12 +116,14 @@ Feature: Settings - Templates
     """
 
   Scenario: Sort Templates by Name
-    When click templates sort by Name
+    When click the sort type dropdown
+    When click sort by item "Meta.Name Desc"
     Then the templates are sorted as:
     """
     Sinusoid test data-Template,Notepad-Template,Note Dashboard-Template,Hydro test dashboard-Template
     """
-    When click templates sort by Name
+    When click the sort type dropdown
+    When click sort by item "Meta.Name Asc"
     Then the templates are sorted as:
     """
     Hydro test dashboard-Template,Note Dashboard-Template,Notepad-Template,Sinusoid test data-Template

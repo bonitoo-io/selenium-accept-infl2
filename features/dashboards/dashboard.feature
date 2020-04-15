@@ -249,8 +249,8 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
   Scenario: Clone Cell
     When toggle context menu of dashboard cell named "dočasný"
     When click cell edit content popover clone
-    Then there is a second dashboard cell named "dočasný"
-    When toggle context menu of 2nd dashboard cell named "dočasný"
+    Then the cell named "dočasný (Clone)" is visible in the dashboard
+    When toggle context menu of dashboard cell named "dočasný (Clone)"
     When click cell content popover configure
     When clear the cell edit Script Editor
     When paste into cell edit Script Editor

@@ -32,6 +32,10 @@ const pageTitle = '[data-testid=page-title] ';
 const popupBody = '[data-testid=overlay--body]';
 const popupGithubLink = '//a[contains(text(), \'GitHub Repository\')]';
 
+//generic controls
+const sortTypeButton = '[data-testid=resource-sorter--button]';
+const sortTypeListItem = '[data-testid=\'resource-sorter--%ITEM%\']'
+
 class basePage{
 
     constructor(driver){
@@ -306,6 +310,24 @@ class basePage{
     async getPopupGithubLink(){
         return await this.driver.findElement(By.xpath(popupGithubLink));
     }
+
+    async getSortTypeButton(){
+        return await this.driver.findElement(By.css(sortTypeButton));
+    }
+
+    static getSortTypeButtonSelector(){
+        return { type: 'css', selector: sortTypeButton }
+    }
+
+    async getSortTypeListItem(item, normalize = true){
+        if(normalize) {
+            return await this.driver.findElement(By.css(sortTypeListItem.replace('%ITEM%', item.toLowerCase()
+                .replace(" ", "-"))));
+        }else{
+            return await this.driver.findElement(By.css(sortTypeListItem.replace('%ITEM%', item)));
+        }
+    }
+
 
 }
 

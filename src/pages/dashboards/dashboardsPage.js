@@ -3,9 +3,10 @@ const { By } = require('selenium-webdriver');
 
 const createDashboardDropdown = '[data-testid=add-resource-dropdown--button]';
 const filterDashboards =  '[data-testid=search-widget]';
-const nameSortButton = '[data-testid=resource-list--sorter]:nth-of-type(1)';
+const sortTypeButton = '[data-testid=resource-sorter--button]:nth-of-type(1)';
+const sortTypeItem = '[data-testid=\'resource-sorter--%ITEM%\']';
 const modifiedSortButton = '[data-testid=resource-list--sorter]:nth-of-type(2)';
-const createDashboardDropdownEmpty = '[data-testid=\'resource-list\'] [data-testid=\'add-resource-dropdown--button\']';
+const createDashboardDropdownEmpty = '[data-testid=\'page-contents\'] [data-testid=\'add-resource-dropdown--button\']';
 const createDashboardItems = '[data-testid^=add-resource-dropdown--][id]';
 const dashboardCardByName = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]';
 const dashboardCardExportButton = '//*[@data-testid=\'dashboard-card\'][.//span[text() = \'%NAME%\']]//*[@class=\'context-menu--container\'][.//*[text() = \'Export\']]';
@@ -69,8 +70,8 @@ class dashboardsPage extends influxPage {
     async isLoaded(){
         await super.isLoaded([{type: 'css', selector: createDashboardDropdown},
             {type: 'css', selector: filterDashboards} ,
-            {type: 'css', selector: nameSortButton},
-            {type: 'css', selector: modifiedSortButton}
+            {type: 'css', selector: sortTypeButton}
+           // {type: 'css', selector: modifiedSortButton}
         ], urlCtx);
     }
 
@@ -82,13 +83,17 @@ class dashboardsPage extends influxPage {
         return await this.driver.findElement(By.css(filterDashboards));
     }
 
-    async getNameSortButton(){
-        return await this.driver.findElement(By.css(nameSortButton));
+    async getSortTypeButton(){
+        return await this.driver.findElement(By.css(sortTypeButton));
     }
 
-    async getModifiedSortButton(){
-        return await this.driver.findElement(By.css(modifiedSortButton));
+    async getSortTypeItem(item){
+        return await this.driver.findElement(By.css(sortTypeItem.replace('%ITEM%', item)));
     }
+
+//    async getModifiedSortButton(){
+//        return await this.driver.findElement(By.css(modifiedSortButton));
+//    }
 
     async getCreateDashboardItem(item){
         return await this.driver.findElement(By.css(`[data-testid^=add-resource-dropdown--][id='${item}']`));

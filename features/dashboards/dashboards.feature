@@ -201,13 +201,15 @@ Feature: Dashboards - Base
     """
     Alpha Centauri,Jupiter,Mars,Mercure,Sinusoid test data,Tau Ceti,Terre,Venus
     """
-    When click dashboards sort by name
+    When click dashboards sort type dropdown
+    When click dashboards sort by "Name Desc"
     #When click dashboards sort by name
     Then the dashboards are sorted as:
     """
     Venus,Terre,Tau Ceti,Sinusoid test data,Mercure,Mars,Jupiter,Alpha Centauri
     """
-    When click dashboards sort by name
+    When click dashboards sort type dropdown
+    When click dashboards sort by "Name Asc"
     Then the dashboards are sorted as:
     """
     Alpha Centauri,Jupiter,Mars,Mercure,Sinusoid test data,Tau Ceti,Terre,Venus
@@ -249,6 +251,7 @@ Feature: Dashboards - Base
     When click Export Dashboard popup Download JSON for "tau_ceti.json"
     Then popup is not loaded
     Then the file "tau_ceti.json" has been downloaded
+    When remove file "tau_ceti.json" if exists
 
   Scenario: Clone Dashboard
     When hover over dashboard card named "Tau Ceti"
