@@ -762,7 +762,15 @@ class baseSteps{
     }
 
     async clickSortByListItem(item){
-        await this.clickAndWait(await this.basePage.getSortTypeListItem(item));
+        //Check for camel caps
+        if(item.startsWith('retentionRules[0]')){
+            console.log('DEBUG ' + item + ' matches')
+            //don't normalize the string
+            await this.clickAndWait(await this.basePage.getSortTypeListItem(item, false));
+        }else{
+            console.log('DEBUG ' + item + ' does not match')
+            await this.clickAndWait(await this.basePage.getSortTypeListItem(item));
+        }
     }
 
 
