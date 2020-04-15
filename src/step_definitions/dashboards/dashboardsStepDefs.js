@@ -233,8 +233,12 @@ Then(/^the dashboards are sorted as:$/, async dBoards => {
     await dbdsSteps.verifyDashboardSortOrder(dBoards);
 });
 
-When(/^click dashboards sort by name$/, async () => {
-    await dbdsSteps.clickSortDashboardsByName();
+When(/^click dashboards sort type dropdown$/, async () => {
+    await dbdsSteps.clickSortDashboardsByType();
+});
+
+When(/^click dashboards sort by "(.*)"$/, async item => {
+    await dbdsSteps.clickSortDashboardsListItem(item);
 });
 
 When(/^click delete of dashboard card "(.*)"$/, async name => {

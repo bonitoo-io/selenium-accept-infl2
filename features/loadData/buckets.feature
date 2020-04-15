@@ -111,16 +111,26 @@ Scenario: Clear Filter
   Then the bucket named "Týdenní" is in the list
 
 Scenario: Sort Buckets by Name
-  Given ensure buckets name sort order "desc"
+  When click the sort type dropdown
+  When click sort by item "Name Desc"
+  #Given ensure buckets name sort order "desc"
   Then the buckets are sorted as "_monitoring,_tasks,Denní,Hodinová,Měsíční,Oprava,Půldenní,DEFAULT,Trvalá,Týdenní"
-  Given ensure buckets name sort order "asc"
+  When click the sort type dropdown
+  When click sort by item "Name Asc"
+  # Given ensure buckets name sort order "asc"
   Then the buckets are sorted as "Týdenní,Trvalá,DEFAULT,Půldenní,Oprava,Měsíční,Hodinová,Denní,_tasks,_monitoring"
-  Given ensure buckets name sort order "desc"
+  When click the sort type dropdown
+  When click sort by item "Name Desc"
+  #Given ensure buckets name sort order "desc"
 
 Scenario: Sort Buckets by Retention Policy
-  When click buckets sort by retention policy
+  When click the sort type dropdown
+  When click sort by item "retentionRules[0].everySeconds-asc"
+  #When click buckets sort by retention policy
   Then the buckets are sorted as "Hodinová,Půldenní,Denní,Oprava,_tasks,Týdenní,_monitoring,Měsíční,Trvalá,DEFAULT"
-  When click buckets sort by retention policy
+  When click the sort type dropdown
+  When click sort by item "retentionRules[0].everySeconds-desc"
+  #When click buckets sort by retention policy
   Then the buckets are sorted as "DEFAULT,Trvalá,Měsíční,Týdenní,_monitoring,_tasks,Oprava,Denní,Půldenní,Hodinová"
 
 

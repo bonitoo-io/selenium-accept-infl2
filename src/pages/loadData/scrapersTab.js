@@ -1,5 +1,6 @@
 const { By } = require('selenium-webdriver');
 const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 
 const scrapersFilter = '[data-testid=search-widget]';
 const createScraperHeader = '[data-testid=create-scraper-button-header]';
@@ -22,9 +23,10 @@ class scrapersTab extends loadDataPage{
             [
                 {type: 'css', selector: scrapersFilter},
                 {type: 'css', selector: createScraperHeader},
-                {type: 'css', selector: nameSort},
-                {type: 'css', selector: urlSort},
-                {type: 'css', selector: bucketSort},
+                basePage.getSortTypeButtonSelector()
+                //{type: 'css', selector: nameSort},
+                //{type: 'css', selector: urlSort},
+                //{type: 'css', selector: bucketSort},
             ]
         );
     }

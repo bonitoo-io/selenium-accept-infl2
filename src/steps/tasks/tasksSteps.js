@@ -13,14 +13,15 @@ class dashboardsSteps extends influxSteps {
     }
 
     async verifyIsLoaded(){
-        this.assertVisible(await this.tasksPage.getFilterTasks());
-        this.assertVisible(await this.tasksPage.getCreateTaskDropdownHeader());
-        this.assertVisible(await this.tasksPage.getInactiveToggle());
-        this.assertVisible(await this.tasksPage.getNameSortButton());
-        this.assertVisible(await this.tasksPage.getActiveSortButton());
-        this.assertVisible(await this.tasksPage.getScheduleSortButton());
-        this.assertVisible(await this.tasksPage.getLastCompetedSortButton());
-        this.assertVisible(await this.tasksPage.getCreateTaskDropdownBody());
+        await this.assertVisible(await this.tasksPage.getFilterTasks());
+        await this.assertVisible(await this.tasksPage.getCreateTaskDropdownHeader());
+        await this.assertVisible(await this.tasksPage.getInactiveToggle());
+        await this.assertVisible(await this.tasksPage.getSortTypeButton());
+        //this.assertVisible(await this.tasksPage.getNameSortButton());
+        //this.assertVisible(await this.tasksPage.getActiveSortButton());
+        //this.assertVisible(await this.tasksPage.getScheduleSortButton());
+        //this.assertVisible(await this.tasksPage.getLastCompetedSortButton());
+        await this.assertVisible(await this.tasksPage.getCreateTaskDropdownBody());
     }
 }
 

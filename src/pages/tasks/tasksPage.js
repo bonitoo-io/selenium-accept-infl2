@@ -1,4 +1,5 @@
 const influxPage = require(__srcdir + '/pages/influxPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 const { By } = require('selenium-webdriver');
 
 const filterTasks = '[data-testid=search-widget]';
@@ -23,10 +24,11 @@ class tasksPage extends influxPage{
         await super.isLoaded([{type: 'css', selector: filterTasks},
             {type: 'css', selector: inactiveToggle} ,
             {type: 'css', selector: createTaskDropdownHeader} ,
-            {type: 'css', selector: nameSortButton},
-            {type: 'css', selector: activeSortButton},
-            {type: 'css', selector: scheduleSortButton},
-            {type: 'css', selector: lastCompletedSortButton}
+           // {type: 'css', selector: nameSortButton},
+            basePage.getSortTypeButtonSelector(),
+            //{type: 'css', selector: activeSortButton},
+            //{type: 'css', selector: scheduleSortButton},
+            //{type: 'css', selector: lastCompletedSortButton}
         ], urlCtx);
     }
 

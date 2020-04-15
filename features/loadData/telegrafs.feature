@@ -131,9 +131,13 @@ Scenario Outline: Create Telegraf
 
 Scenario: Sort Telegrafs by Name
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
-  When click the telegraf sort by name button
+  When click the sort type dropdown
+  When click sort by item "Name Desc"
+  #When click the telegraf sort by name button
   Then the telegraf sort order is "Strakonice,Rakovnik,Nymburk,Kladno,Decin"
-  When click the telegraf sort by name button
+  When click the sort type dropdown
+  When click sort by item "Name Asc"
+  #When click the telegraf sort by name button
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
 Scenario: Filter Telegrafs

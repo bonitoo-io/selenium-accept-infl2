@@ -1,8 +1,9 @@
 const { By } = require('selenium-webdriver');
 const loadDataPage = require(__srcdir + '/pages/loadData/loadDataPage.js');
+const basePage = require(__srcdir + '/pages/basePage.js');
 
 const telegrafsFilter = '[data-testid=search-widget]';
-const createConfigInHeader = '//div[@data-testid=\'tabs--tab-contents\']/div[@data-testid=\'flex-box\']//*[contains(@title, \'Create\')]';
+const createConfigInHeader = '//div[@data-testid=\'tabbed-page--header\']//*[contains(@title, \'Create\')]';
 const nameSort = '[data-testid=name-sorter]';
 const bucketSort = '[data-testid=bucket-sorter]';
 const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
@@ -70,7 +71,8 @@ class telegrafsTab extends loadDataPage{
             [
                 {type: 'css', selector: telegrafsFilter},
                 {type: 'xpath', selector: createConfigInHeader},
-                {type: 'css', selector: nameSort},
+                //{type: 'css', selector: nameSort},
+                basePage.getSortTypeButtonSelector()
                 //{type: 'css', selector: bucketSort},
             ]
         );

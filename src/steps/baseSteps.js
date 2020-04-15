@@ -633,6 +633,10 @@ class baseSteps{
     }
 
     async verifyFileExists(filePath){
+        if(__config.sel_docker){
+            console.warn('File export not supported without shared memory');
+            return;
+        }
         await expect(await influxUtils.fileExists(filePath)).to.be.true;
     }
 
@@ -750,6 +754,22 @@ class baseSteps{
             }else{
                 await current.sendKeys(keyMap[actionList[i].toLowerCase()]);
             }
+        }
+    }
+
+    async clickSortTypeDropdown(){
+        await this.clickAndWait(await this.basePage.getSortTypeButton());
+    }
+
+    async clickSortByListItem(item){
+        //Check for camel caps
+        if(item.startsWith('retentionRules[0]')){
+            console.log('DEBUG ' + item + ' matches')
+            //don't normalize the string
+            await this.clickAndWait(await this.basePage.getSortTypeListItem(item, false));
+        }else{
+            console.log('DEBUG ' + item + ' does not match')
+            await this.clickAndWait(await this.basePage.getSortTypeListItem(item));
         }
     }
 

@@ -3,7 +3,8 @@ const { By } = require('selenium-webdriver');
 const settingsPage = require(__srcdir + '/pages/settings/settingsPage.js');
 
 const templatesFilter = '[data-testid=search-widget]';
-const importTemplateHeaderButton = '//*[@data-testid=\'flex-box\']//*[@data-testid=\'button\'][.//*[text()=\'Import Template\']]';
+const importTemplateHeaderButton = '//*[@data-testid=\'button\'][.//*[text()=\'Import Template\']]';
+const sortTypeButton = '[data-testid=resource-sorter--button]';
 const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const templatesTypeFilterButton = '[data-testid=select-group--option][title=\'Static Templates\']';
 const userTemplatesRadioButton = '[data-testid=select-group--option][title=\'User Templates\']';
@@ -33,7 +34,7 @@ class templatesTab extends settingsPage{
             [
                 {type: 'css', selector: templatesFilter},
                 {type: 'xpath', selector: importTemplateHeaderButton},
-                {type: 'css', selector: nameSort},
+                {type: 'css', selector: sortTypeButton},
                 {type: 'css', selector: templatesTypeFilterButton},
                 {type: 'css', selector: resourceList},
             ]
@@ -86,6 +87,10 @@ class templatesTab extends settingsPage{
 
     async getTemplatesFilter(){
         return await this.driver.findElement(By.css(templatesFilter));
+    }
+
+    async getSortTypeButton(){
+        return await this.driver.findElement(By.css(sortTypeButton));
     }
 
     async getNameSort(){

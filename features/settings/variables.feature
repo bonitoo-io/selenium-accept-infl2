@@ -200,9 +200,12 @@ Feature: Settings - Variables
     Then the variable cards "Kybl,Ryby" are visible
     Then the variable cards "Arsenal,Bucket,Jehlicnany,Obdobi,Primaty,Reals,Slavia" are not present
     Then the variable cards are sorted as "Kybl,Ryby"
-    When click the variable sort by name button
+    When click the sort type dropdown
+    When click sort by item "Name Desc"
     Then the variable cards are sorted as "Ryby,Kybl"
-    When click the variable sort by name button
+    When click the sort type dropdown
+    When click sort by item "Name Asc"
+    #When click the variable sort by name button
     When clear the variables filter
     Then the variable cards "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Reals,Ryby,Slavia" are visible
 
@@ -210,11 +213,15 @@ Feature: Settings - Variables
 
   Scenario: Sort Variables by name
     Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Reals,Ryby,Slavia"
-    When click the variable sort by name button
-    # has third neutral state
-    When click the variable sort by name button
+    When click the sort type dropdown
+    When click sort by item "Name Desc"
+    #When click the variable sort by name button
+    # has third neutral state -- not any more
+    #When click the variable sort by name button
     Then the variable cards are sorted as "Slavia,Ryby,Reals,Primaty,Obdobi,Kybl,Jehlicnany,Bucket,Arsenal"
-    When click the variable sort by name button
+    When click the sort type dropdown
+    When click sort by item "Name Asc"
+    #When click the variable sort by name button
     Then the variable cards are sorted as "Arsenal,Bucket,Jehlicnany,Kybl,Obdobi,Primaty,Reals,Ryby,Slavia"
 
   Scenario: Rename Variable
