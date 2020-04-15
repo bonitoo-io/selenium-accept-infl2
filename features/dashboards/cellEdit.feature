@@ -1,3 +1,5 @@
+@feature-dashboards
+@dashboards-cellEdit
 Feature: Dashboards - Dashboard - Cell Edit
   As a user I want to Create and Update Cells
   So that I can view specific Influxdbv2 data

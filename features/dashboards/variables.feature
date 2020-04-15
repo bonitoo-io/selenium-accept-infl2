@@ -1,3 +1,5 @@
+@feature-dashboards
+@dashboards-variables
 Feature: Dashboards - Dashboard - Variables
   As a user I want to Add Variables to cell Queries
   So that I can view specific Influxdbv2 data sets

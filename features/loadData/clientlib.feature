@@ -1,3 +1,5 @@
+@feature-loadData
+@loadData-clientlib
 Feature: Load Data - Client Libs
   As a user I want to Read Create Update and Delete Client Libraries
   So that I can manage the stores used with Influxdbv2

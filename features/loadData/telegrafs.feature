@@ -1,3 +1,5 @@
+@feature-loadData
+@loadData-telegrafs
 Feature: Load Data - Telegrafs
 
 Scenario: Load Initial Telegraf tab
@@ -129,6 +131,7 @@ Scenario Outline: Create Telegraf
     | NGINX      | Duchamp |Nymburk    | Lorem ipsum  | SKIP |
     | Redis      | DEFAULT |Rakovnik   | Lorem ipsum  | SKIP |
 
+@error-feature
 Scenario: Sort Telegrafs by Name
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
   When click the sort type dropdown
