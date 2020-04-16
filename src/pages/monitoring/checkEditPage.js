@@ -1,12 +1,17 @@
 const influxPage = require(__srcdir + '/pages/influxPage.js');
 const { By } = require('selenium-webdriver');
 
+const thresholds = ["CRIT", "WARN", "INFO", "OK"];
+
 const overlay = '[data-testid=overlay]';
 const dismissButton = '[data-testid=page-control-bar] [data-testid=square-button]';
+const saveCellButton = '[data-testid=overlay] [data-testid=save-cell--button]';
 const pageCheckEditTitle = '[data-testid=overlay] [data-testid=page-header] [data-testid=page-title]';
 const pageCheckEditTitleInput = '[data-testid=\'page-header\'] [data-testid=\'input-field\']';
 const queriesToggle = '[data-testid=overlay] [data-testid=select-group--option][title=queries]';
 const configureCheckToggle = '[data-testid=overlay] [data-testid=\'checkeo--header alerting-tab\']';
+const checklistPopover = '[data-testid=popover--contents] [class=query-checklist--popover]';
+const checklistPopoverItemByText = '//*[@data-testid=\'popover--contents\']//*[text()=\'%TEXT%\']';
 
 
 // TODO timemachine controls -- see dashboards - try and reuse
@@ -21,7 +26,9 @@ const confChkAddTagButton = '//*[./label/span[text() = \'Tags\']]//*[@data-testi
 const confChkMessageTextArea = '[data-testid=status-message-textarea]';
 // Thresholds
 const confChkAddThresholdButton = '[data-testid=add-threshold-condition-%STATUS%]';
-
+const confNthThresholdDefDropdownButton = '[data-testid=overlay] [data-testid=panel--body]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown]';
+const confNthThresholdDefDropdownItem = '[data-testid=overlay] [data-testid=panel--body]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown] [data-testid=dropdown-item][title=\'%ITEM%\']';
+const confNthThresholdDefInput = '[data-testid=overlay] [data-testid=panel--body]:nth-of-type(%INDEX%) [data-testid=input-field]';
 
 const urlCtx = 'checks';
 
@@ -44,6 +51,10 @@ class checkEditPage extends influxPage {
         return { type: 'css', selector: overlay};
     }
 
+    async getSaveCellButton(){
+        return await this.driver.findElement(By.css(saveCellButton));
+    }
+
     async getDismissButton(){
         return await this.driver.findElement(By.css(dismissButton));
     }
@@ -58,6 +69,10 @@ class checkEditPage extends influxPage {
 
     async getConfigureCheckToggle(){
         return await this.driver.findElement(By.css(configureCheckToggle))
+    }
+
+    async getChecklistPopover(){
+        return await this.driver.findElement(By.css(checklistPopover));
     }
 
     async getPageCheckEditTitleInput(){
@@ -82,6 +97,28 @@ class checkEditPage extends influxPage {
 
     async getConfChkAddThresholdButton(status){
         return await this.driver.findElement(By.css(confChkAddThresholdButton.replace('%STATUS%', status)));
+    }
+
+    async getConfNthThresholdDefDropdownButton(index){
+        return await this.driver.findElement(By.css(confNthThresholdDefDropdownButton
+            .replace('%INDEX%', await this.getThresholdIndex(index))));
+    }
+
+    async getConfNthThresholdDefDropdownItem(index, item){
+        return await this.driver.findElement(By.css(confNthThresholdDefDropdownItem
+            .replace('%INDEX%',await this.getThresholdIndex(index)).replace('%ITEM%', item.toLowerCase())));
+    }
+
+    async getConfNthThresholdDefInput(index){
+        return await this.driver.findElement(By.css(confNthThresholdDefInput.replace('%INDEX%', await this.getThresholdIndex(index))));
+    }
+
+    async getThresholdIndex(val){
+        return await thresholds.indexOf(val.toUpperCase().trim()) + 1;
+    }
+
+    async getChecklistPopoverItemByText(text){
+        return await this.driver.findElement(By.xpath(checklistPopoverItemByText.replace('%TEXT%', text.trim())));
     }
 
 }

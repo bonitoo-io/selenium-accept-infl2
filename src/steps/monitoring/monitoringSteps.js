@@ -30,6 +30,10 @@ class monitoringSteps extends influxSteps{
         await this.clickAndWait(await this.alPage.getCreateCheckButton());
     }
 
+    async clickCreateCheckDropdownItem(item){
+        await this.clickAndWait(await this.alPage.getCreateCheckDropdownItem(item));
+    }
+
     async verifyCreateCheckDropdownItems(items){
         let itemList = items.split(',');
         for(let i = 0; i < itemList.length; i++){

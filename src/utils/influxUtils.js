@@ -24,11 +24,17 @@ process.argv.slice(2).forEach((val) => {
     switch(pair[0]){
     case 'headless': //overrides value in config file
         config.headless = (pair[1] === 'true');
-        console.log(config.headless ? 'running headless' : 'running headed');
+        break;
+    case 'sel_docker':
+    case 'selDocker':
+        config.sel_docker = (pair[1] === 'true');
         break;
     }
 
 });
+
+console.log(config.headless ? 'running headless' : 'running headed');
+console.log(config.sel_docker ? 'running for selenium in docker' : 'running for selenium standard');
 
 /* Uncomment to debug axios
 axios.interceptors.request.use(request => {
@@ -582,19 +588,28 @@ function sleep(ms){
     return new Promise(resolve => setTimeout(() => resolve(), ms));
 }
 
-const dataGenProcess = async function(def = {sleep: 333}){
+const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
 
     console.log("DEBUG def " + JSON.stringify(def));
     //let define = JSON.parse(def);
    let total = 100;
-   let point = 0;
-   while(point < total && !__killLiveDataGen) {
+   let point = -1;
+   let val;
+   while(point++ < total && !__killLiveDataGen) {
        let current = (new Date()).getTime();
-       console.log("DEBUG " + point++%10);
+       switch(def.model){
+           case 'count10':
+               val = point%10;
+               break;
+           default:
+               val = `"model_${def.model}_undefined"`;
+               break;
+       }
+       console.log("DEBUG PULSE " + val);
        await writeData(__defaultUser.org,__defaultUser.bucket, [
-           `test,gen=gen val=${point%10} ${current * mil2Nano}`
+           `test,gen=gen val=${val} ${current * mil2Nano}`
        ]);
-       await sleep(def.sleep)
+       await sleep(def.pulse)
    }
 };
 

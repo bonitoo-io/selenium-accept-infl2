@@ -21,6 +21,10 @@ When(/^click the create check button$/, async () => {
    await monSteps.clickCreateCheckButton();
 });
 
+When(/^click the create check dropdown item "(.*)"$/, async item => {
+   await monSteps.clickCreateCheckDropdownItem(item);
+});
+
 Then(/^the create check dropodown list contains the items$/, async items => {
    await monSteps.verifyCreateCheckDropdownItems(items);
 });

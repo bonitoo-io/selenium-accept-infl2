@@ -13,8 +13,16 @@ Scenario: Load Initial Alerts view
   #When hover over the "alerting" menu item
   #When click nav sub menu "Monitoring & Alerting"
   Then the Alerting page is loaded
+  When API sign in user "DEFAULT"
+  When start live data generator
+  # It seems 5s is the quickest we can use stably given default values in create check controls
+  # Tried 1s, but need to use agg function like mean so the checks do not seem to match
+  """
+  { "pulse": 5000, "model": "count10" }
+  """
+  When wait "10" seconds
 
-Scenario: Exercise Initial Alerts view Controls
+  Scenario: Exercise Initial Alerts view Controls
   Then the notification rules create dropdown is disabled
   When click alerting tab "checks"
   When click the create check button
@@ -53,16 +61,41 @@ Scenario: Exercise Initial Alerts view Controls
   When dismiss edit chck overlay
   Then the edit check overlay is not loaded
 
-
-# Create and start generating data --  keep it simple
-
-# Create and start endpoint listener for notification checks
+# Create and start endpoint listener for notification checks - maybe move to separate endpoints test suite
 
 # Exercise Configure Check -- N.B. try and reuse dashboard time machine for Define Query
+# Check illogical alert thresholds
+
 
 # Create Threshold Alerts
+  Scenario: Create Simple Threshold Check
+    When click the first time create threshold check
+    When enter the alert check name "Simple Count Check"
+    When send keys "ENTER"
+    When click the tag "test" in builder card "1"
+    When click the tag "val" in builder card "2"
+    When click the query builder function "mean"
+    When click the time machine query builder function duration input
+    When click the query builder function duration suggestion "5s"
+    When click the time machine cell edit submit button
+    When click check editor configure check button
+    Then the interval indicator is set to "5s"
+    When enter into interval offset "1s"
+    When send keys "ENTER"
+    When update the check message template to
+  """
+${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
+  """
+    When click add threshold condition "CRIT"
+    When click the threshold definition dropdown for condition "CRIT"
+    When click the threshold definition dropodown item "Is Above" for condition "CRIT"
+    When set the unary boundary value for the threshold definition "CRIT" to "7.5"
+    When click the check editor save button
 
-# Check illogical alert thresholds
+# TODO - Add asserts
+
+# TODO - EDIT Threshold Check and drag threshold control in graph
+
 
 # Create Deadman Alerts
 

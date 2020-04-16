@@ -128,7 +128,7 @@ class alertsPage extends influxPage {
     }
 
     async getCreateCheckDropdownItem(item){
-        return await this.driver.findElement(By.css(createCheckDropdownItem.replace('%ITEM%', item)));
+        return await this.driver.findElement(By.css(createCheckDropdownItem.replace('%ITEM%', item.toLowerCase())));
     }
 
     static getCreateCheckDropdownSelector(){
