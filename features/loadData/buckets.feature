@@ -1,3 +1,5 @@
+@feature-loadData
+@loadData-buckets
 Feature: Load Data - Buckets
   As a user I want to Read Create Update and Delete Buckets
   So that I can manage the stores used with Influxdbv2
@@ -110,6 +112,7 @@ Scenario: Clear Filter
   Then the bucket named "_tasks" is in the list
   Then the bucket named "Týdenní" is in the list
 
+@error-feature
 Scenario: Sort Buckets by Name
   When click the sort type dropdown
   When click sort by item "Name Desc"
@@ -123,6 +126,7 @@ Scenario: Sort Buckets by Name
   When click sort by item "Name Desc"
   #Given ensure buckets name sort order "desc"
 
+@error-feature
 Scenario: Sort Buckets by Retention Policy
   When click the sort type dropdown
   When click sort by item "retentionRules[0].everySeconds-asc"
@@ -132,7 +136,6 @@ Scenario: Sort Buckets by Retention Policy
   When click sort by item "retentionRules[0].everySeconds-desc"
   #When click buckets sort by retention policy
   Then the buckets are sorted as "DEFAULT,Trvalá,Měsíční,Týdenní,_monitoring,_tasks,Oprava,Denní,Půldenní,Hodinová"
-
 
 Scenario Outline: Delete Buckets
 # following check leads to troublesome false positives - todo fix it

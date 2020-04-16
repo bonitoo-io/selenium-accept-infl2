@@ -1,3 +1,5 @@
+@feature-settings
+@settings-variables
 Feature: Settings - Variables
   As a user I want to Read Create Update and Delete Variables
   So that I can eventually reuse them in alerts and dashboards in Influxdbv2

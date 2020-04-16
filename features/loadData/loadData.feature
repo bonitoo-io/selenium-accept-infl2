@@ -1,7 +1,10 @@
+@feature-loadData
+@loadData-loadData
 Feature: Load Data - Base
   As a user I want to open the Load Data page
   So that I can explore how data is being loaded into Influxdbv2
 
+  @error-timeout
   Scenario: Verify Tabs
     Given I reset the environment
     Given run setup over REST "DEFAULT"

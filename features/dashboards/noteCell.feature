@@ -1,3 +1,5 @@
+@feature-dashboards
+@dashboards-noteCell
 Feature: Dashboards - Dashboard - Note Cell
   As a user I want to Add a Note Cell
   So that I can provide specific static information

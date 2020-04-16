@@ -1,3 +1,5 @@
+@feature-dashboards
+@dashboards-dashboards
 Feature: Dashboards - Base
   As a user I want to Read Create Update and Delete Dashboards
   So that I can organize my data in Influxdbv2

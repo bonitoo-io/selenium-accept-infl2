@@ -1,3 +1,5 @@
+@feature-settings
+@settings-labels
 Feature: Settings - Labels
   As a user I want to Read Create Update and Delete Labels
   So that I can manage the tag items used with Influxdbv2
