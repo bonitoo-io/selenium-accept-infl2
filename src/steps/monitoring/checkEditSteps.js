@@ -62,7 +62,6 @@ class checkEditSteps extends influxSteps {
 
     async verifyChecklistPopoverItems(items){
         let itemList = JSON.parse(items);
-        console.log("DEBUG itemList " + JSON.stringify(itemList));
         for(const item of itemList){
 
                 await this.verifyElementContainsClass(await this.ckEdPage.getChecklistPopoverItemByText(item.text),

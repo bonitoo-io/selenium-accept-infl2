@@ -31,7 +31,9 @@ class monitoringSteps extends influxSteps{
     }
 
     async clickCreateCheckDropdownItem(item){
-        await this.clickAndWait(await this.alPage.getCreateCheckDropdownItem(item));
+        await this.clickAndWait(await this.alPage.getCreateCheckDropdownItem(item), async () => {
+              await this.driver.sleep(500); //slow to load? 
+            });
     }
 
     async verifyCreateCheckDropdownItems(items){

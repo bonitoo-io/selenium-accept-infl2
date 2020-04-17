@@ -732,7 +732,6 @@ class baseSteps{
     }
 
     async sendKeysToCurrent(keys){
-        console.log("DEBUG keys " + keys);
         let current = await this.driver.switchTo().activeElement();
         let actionList = keys.split(',');
         for(let i = 0; i < actionList.length; i++){

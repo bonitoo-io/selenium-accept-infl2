@@ -590,8 +590,6 @@ function sleep(ms){
 
 const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
 
-    console.log("DEBUG def " + JSON.stringify(def));
-    //let define = JSON.parse(def);
    let total = 100;
    let point = -1;
    let val;
