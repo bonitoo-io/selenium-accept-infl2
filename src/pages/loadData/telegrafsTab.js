@@ -122,7 +122,7 @@ class telegrafsTab extends loadDataPage{
 
     // Telegraf Wizard step 2
     async getPluginItemByName(name){
-        return await this.driver.findElement(By.xpath(`//*[contains(@class, 'side-bar--tab')][text() = '${name.toLowerCase()}']`));
+        return await this.driver.findElement(By.xpath(`//*[contains(@class, 'side-bar--tab')]/div[.//*[text() = '${name.toLowerCase()}']]`));
     }
 
     async getConfigurationNameInput(){
