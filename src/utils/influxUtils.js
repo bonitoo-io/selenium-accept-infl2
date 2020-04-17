@@ -605,7 +605,7 @@ const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
                val = `"model_${def.model}_undefined"`;
                break;
        }
-       console.log("DEBUG PULSE " + val);
+       //console.log("PULSE " + val);
        await writeData(__defaultUser.org,__defaultUser.bucket, [
            `test,gen=gen val=${val} ${current * mil2Nano}`
        ]);
@@ -614,6 +614,7 @@ const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
 };
 
 const startLiveDataGen = function(def){
+    console.log("Starting live generator with " + JSON.stringify(def));
     __killLiveDataGen = false;
     dataGenProcess(JSON.parse(def));
 };

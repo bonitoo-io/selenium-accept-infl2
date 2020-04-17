@@ -104,9 +104,17 @@ class monitoringSteps extends influxSteps{
         });
     }
 
+    async verifyFirstTimeCreateThresholdCheckVisible(){
+        await this.assertVisible(await this.alPage.getFirstTimeThresholdCheckCreateButton());
+    }
+
     async clickFirstTimeCreateDeadmanCheck(){
         await this.scrollElementIntoView(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
         await this.clickAndWait(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
+    }
+
+    async verifyFirstTimeCreateDeadmanCheckVisible(){
+        await this.assertVisible(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
     }
 
 }

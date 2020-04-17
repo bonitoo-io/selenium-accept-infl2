@@ -39,7 +39,9 @@ class checkEditSteps extends influxSteps {
     }
 
     async clickCkEdConfigureCheck(){
-        await this.clickAndWait(await this.ckEdPage.getConfigureCheckToggle());
+        await this.clickAndWait(await this.ckEdPage.getConfigureCheckToggle(), async () => {
+            await this.driver.sleep(500); // slow to load?
+        });
     }
 
     async verifyConfigureCheckStepLoaded(){
@@ -115,12 +117,25 @@ class checkEditSteps extends influxSteps {
         await this.typeTextAndWait(await this.ckEdPage.getConfChkMessageTextArea(), content);
     }
 
+    async verifyCheckMessageTemplateContent(content){
+        await this.verifyElementText(await this.ckEdPage.getConfChkMessageTextArea(), content)
+    }
+
     async clickAddThresholdCondition(threshold){
         await this.clickAndWait(await this.ckEdPage.getConfChkAddThresholdButton(threshold))
     }
 
     async clickThresholdDefinitionDropdown(threshold){
         await this.clickAndWait(await this.ckEdPage.getConfNthThresholdDefDropdownButton(threshold))
+    }
+
+    async verifyThresholdDefinitionDropdownItems(threshold, items){
+        let itemList = items.split(',');
+        for(const item of itemList){
+            let elem = await this.ckEdPage.getConfNthThresholdDefDropdownItem(threshold,item)
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
     }
 
     async clickThresholdDefinitionDropdownItem(threshold, item){
@@ -130,6 +145,22 @@ class checkEditSteps extends influxSteps {
     async setUnaryThresholdBoundaryValue(threshold, val1){
         await this.clearInputText(await this.ckEdPage.getConfNthThresholdDefInput(threshold));
         await this.typeTextAndWait(await this.ckEdPage.getConfNthThresholdDefInput(threshold), val1);
+    }
+
+    async verifyBinaryThresholdBoundaryValues(threshold, lower, upper){
+        await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfNthThresholdDefInput(threshold), 'value', lower);
+        await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfNthThreshold2ndInput(threshold), 'value', upper);
+    }
+
+    async verifyUnaryThresholdBoundaryValue(threshold, val){
+        await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfNthThresholdDefInput(threshold), 'value', val);
+    }
+
+    async setBinaryThresholdBoundaryValues(threshold, lower, upper){
+        await this.clearInputText(await this.ckEdPage.getConfNthThresholdDefInput(threshold));
+        await this.typeTextAndWait(await this.ckEdPage.getConfNthThresholdDefInput(threshold), lower);
+        await this.clearInputText(await this.ckEdPage.getConfNthThreshold2ndInput(threshold));
+        await this.typeTextAndWait(await this.ckEdPage.getConfNthThreshold2ndInput(threshold), upper);
     }
 
 }

@@ -16,7 +16,7 @@ When(/^click the check editor save button$/, async () => {
    await ckEdSteps.clickCKEdSaveButton();
 });
 
-When(/^dismiss edit chck overlay$/, async () => {
+When(/^dismiss edit check overlay$/, async () => {
    await ckEdSteps.dismissOverlay();
 });
 
@@ -84,12 +84,20 @@ When(/^update the check message template to$/, async content => {
    await ckEdSteps.updateChecMessageTemplateContent(content);
 });
 
+Then(/^the check message tempate contains$/, async content => {
+   await ckEdSteps.verifyCheckMessageTemplateContent(content);
+});
+
 When(/^click add threshold condition "(.*)"$/, async threshold => {
    await ckEdSteps.clickAddThresholdCondition(threshold);
 });
 
 When(/^click the threshold definition dropdown for condition "(.*)"$/, async threshold => {
    await ckEdSteps.clickThresholdDefinitionDropdown(threshold);
+});
+
+Then(/^the threshold definition dropdown for "(.*)" contain items:$/, async (threshold, items) => {
+   await ckEdSteps.verifyThresholdDefinitionDropdownItems(threshold,items);
 });
 
 When(/^click the threshold definition dropodown item "(.*)" for condition "(.*)"$/,
@@ -100,5 +108,19 @@ When(/^click the threshold definition dropodown item "(.*)" for condition "(.*)"
 When(/^set the unary boundary value for the threshold definition "(.*)" to "(.*)"$/,
    async (threshold, val1) => {
     await ckEdSteps.setUnaryThresholdBoundaryValue(threshold, val1);
+});
+
+Then(/^there is a binary boundary for the threshold "(.*)" with values "(.*)" and "(.*)"$/,
+    async (threshold, lower, upper) => {
+    await ckEdSteps.verifyBinaryThresholdBoundaryValues(threshold, lower, upper);
+});
+
+Then(/^there is a unary boundary for the threshhold "(.*)" with the value "(.*)"$/, async (threshold, val) => {
+   await ckEdSteps.verifyUnaryThresholdBoundaryValue(threshold, val);
+});
+
+When(/^set the binary boundary for the threshold "(.*)" from "(.*)" to "(.*)"$/,
+    async (threshold, lower, upper) => {
+    await ckEdSteps.setBinaryThresholdBoundaryValues(threshold, lower, upper);
 });
 

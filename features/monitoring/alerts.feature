@@ -54,17 +54,78 @@ Scenario: Load Initial Alerts view
   When click alerting tab "checks"
   When click the first time create threshold check
   Then the edit check overlay is loaded
-  When dismiss edit chck overlay
+  When dismiss edit check overlay
   Then the edit check overlay is not loaded
   When click the first time create deadman check
   Then the edit check overlay is loaded
-  When dismiss edit chck overlay
+  When dismiss edit check overlay
   Then the edit check overlay is not loaded
 
 # Create and start endpoint listener for notification checks - maybe move to separate endpoints test suite
 
 # Exercise Configure Check -- N.B. try and reuse dashboard time machine for Define Query
-# Check illogical alert thresholds
+# TODO - Check illogical alert thresholds
+
+  Scenario: Exercise Configure Check - Threshold
+    When click the create check button
+    When click the create check dropdown item "Threshold"
+  # Query Builder steps cover same library as in dashboards - TODO - check for gaps
+  # For now cover just configure check step
+    When click check editor configure check button
+    Then the configure check view is loaded
+    Then the create check checklist contains:
+  """
+  [{ "state": "error", "text": "One field" },
+  { "state": "valid", "text": "One aggregate function" },
+  { "state": "error", "text": "One or more thresholds"}]
+  """
+    Then the check interval hint dropdown list is not visible
+    When click on check interval input
+    Then the check interval hint dropdown list includes
+  """
+  5s,15s,1m,6h,24h,30d
+  """
+    When click the interval hint dropdown list item "5m"
+    Then the check interval hint dropdown list is not visible
+    Then the interval indicator is set to "5m"
+    Then the check offset hint dropdown list is not visible
+    When click the check offset interval input
+    Then the check offset hint dropdown list includes
+  """
+  0s,5s,1m,1h,12h,2d
+  """
+    When click the offset hint dropdown list item "1m"
+    Then the check offset hint dropdown list is not visible
+    Then the offset input is set to "1m"
+    When update the check message template to
+  """
+  Kapela z Varsavy
+  """
+    Then the check message tempate contains
+  """
+  Kapela z Varsavy
+  """
+    When click add threshold condition "CRIT"
+    When click the threshold definition dropdown for condition "CRIT"
+  # TODO - after issue 17729 is resolved - should be equal criteria e.g. n == 0
+    Then the threshold definition dropdown for "CRIT" contain items:
+  """
+  is above,is below,is inside range,is outside range
+  """
+    When click the threshold definition dropodown item "Is Inside Range" for condition "CRIT"
+    Then there is a binary boundary for the threshold "CRIT" with values "20" and "100"
+  # N.B. currently cannot easily set negatve values - TODO use negative values once #17782 is resolved
+  # N.B. TODO - check dimensions of inputs - currently in smaller views they are unreadable #17783
+    When set the binary boundary for the threshold "CRIT" from "0" to "1000"
+    Then there is a binary boundary for the threshold "CRIT" with values "0" and "1000"
+    When click add threshold condition "WARN"
+    When click the threshold definition dropdown for condition "WARN"
+    When click the threshold definition dropodown item "Is Below" for condition "WARN"
+    When set the unary boundary value for the threshold definition "WARN" to "0"
+    Then there is a unary boundary for the threshhold "WARN" with the value "0"
+    When dismiss edit check overlay
+    Then the first time create threshold check is visible
+    Then the first time create deadman check is visible
 
 
 # Create Threshold Alerts
@@ -92,10 +153,9 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     When set the unary boundary value for the threshold definition "CRIT" to "7.5"
     When click the check editor save button
 
-# TODO - Add asserts
+# TODO - Add asserts above
 
 # TODO - EDIT Threshold Check and drag threshold control in graph
-
 
 # Create Deadman Alerts
 

@@ -85,7 +85,16 @@ When(/^click the first time create threshold check$/, async() => {
    await monSteps.clickFirstTimeCreateThresholdCheck();
 });
 
+Then(/^the first time create threshold check is visible$/, async () => {
+   await monSteps.verifyFirstTimeCreateThresholdCheckVisible();
+});
+
 When(/^click the first time create deadman check$/, async () => {
    await monSteps.clickFirstTimeCreateDeadmanCheck();
 });
+
+Then(/^the first time create deadman check is visible$/, async () => {
+   await monSteps.verifyFirstTimeCreateDeadmanCheckVisible();
+});
+
 

@@ -26,9 +26,10 @@ const confChkAddTagButton = '//*[./label/span[text() = \'Tags\']]//*[@data-testi
 const confChkMessageTextArea = '[data-testid=status-message-textarea]';
 // Thresholds
 const confChkAddThresholdButton = '[data-testid=add-threshold-condition-%STATUS%]';
-const confNthThresholdDefDropdownButton = '[data-testid=overlay] [data-testid=panel--body]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown]';
-const confNthThresholdDefDropdownItem = '[data-testid=overlay] [data-testid=panel--body]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown] [data-testid=dropdown-item][title=\'%ITEM%\']';
-const confNthThresholdDefInput = '[data-testid=overlay] [data-testid=panel--body]:nth-of-type(%INDEX%) [data-testid=input-field]';
+const confNthThresholdDefDropdownButton = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown]';
+const confNthThresholdDefDropdownItem = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown] [data-testid=dropdown-item][title=\'%ITEM%\']';
+const confNthThresholdDefInput = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid=input-field]';
+const confNthThreshold2ndInput = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid^=\'component-spacer--flex-child\']:nth-of-type(3) [data-testid=input-field]';
 
 const urlCtx = 'checks';
 
@@ -111,6 +112,10 @@ class checkEditPage extends influxPage {
 
     async getConfNthThresholdDefInput(index){
         return await this.driver.findElement(By.css(confNthThresholdDefInput.replace('%INDEX%', await this.getThresholdIndex(index))));
+    }
+
+    async getConfNthThreshold2ndInput(index){
+        return await this.driver.findElement(By.css(confNthThreshold2ndInput.replace('%INDEX%', await this.getThresholdIndex(index))));
     }
 
     async getThresholdIndex(val){
