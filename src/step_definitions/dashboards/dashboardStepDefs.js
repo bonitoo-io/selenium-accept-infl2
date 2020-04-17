@@ -278,6 +278,10 @@ Then(/^the empty cell error popover message is:$/, async msg => {
     await dbdSteps.verifyEmptyCellErrorPopoverMessage(msg);
 });
 
+Then(/^the cell error message of the cell named "(.*)" is:$/, async (name, msg) => {
+   await dbdSteps.verifyCellErrorMessage(name, msg);
+});
+
 Then(/^the dashboard variables button is highlighted$/, async () => {
    await dbdSteps.verifyVariablesButtonActive();
 });

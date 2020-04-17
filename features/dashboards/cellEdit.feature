@@ -457,8 +457,9 @@ Feature: Dashboards - Dashboard - Cell Edit
   """
     When click the cell edit save button
     Then the cell named "Kliky" contains a graph error
-    When hover over the error icon of the cell "Kliky"
-    Then the empty cell error popover message is:
+    # Popover has been replaced with message in cell
+    #When hover over the error icon of the cell "Kliky"
+    Then the cell error message of the cell named "Kliky" is:
   """
   type error 1:1-1:7: undefined identifier "Muffin"
   """
