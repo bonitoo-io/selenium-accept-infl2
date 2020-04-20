@@ -32,7 +32,7 @@ class scrapersSteps extends baseSteps{
 
     async verifyScraperCardHasBucket(scraper, bucketName){
         await this.driver.findElement(
-            By.xpath(`//*[@data-testid='resource-card'][.//span[text()='${scraper}']]//*[@data-testid='cf-resource-card--meta-item'][contains(text(),'Bucket')]`))
+            By.xpath(`//*[@data-testid='resource-card'][.//span[text()='${scraper}']]//*[@data-testid='resource-list--meta']//*[contains(text(),'Bucket')]`))
             .then(async elem => {
                 await elem.getText().then(async elText => {
                     await expect(elText).to.include(bucketName);
@@ -42,7 +42,7 @@ class scrapersSteps extends baseSteps{
 
     async verifyScraperCardHasEndpoint(scraper, endpoint){
         await this.driver.findElement(
-            By.xpath(`//*[@data-testid='resource-card'][.//span[text()='${scraper}']]//*[@data-testid='cf-resource-card--meta-item'][contains(text(),'URL')]`))
+            By.xpath(`//*[@data-testid='resource-card'][.//span[text()='${scraper}']]//*[@data-testid='resource-list--meta']//*[contains(text(),'URL')]`))
             .then(async elem => {
                 await elem.getText().then(async elText => {
                     await expect(elText).to.include(endpoint);

@@ -40,11 +40,11 @@ class scrapersTab extends loadDataPage{
     }
 
     async getScraperCardNameEditButton(name){
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='icon']`));
+        return await this.driver.findElement(By.xpath(`//*[./*[@data-testid='resource-editable-name'][.//span[text()='${name}']]]//*[@data-testid='editable-name']`));
     }
 
     async getScraperCardNameEditField(name){
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='resource-editable-name'][.//span[text()='${name}']]//*[@data-testid='input-field']`));
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='input-field'][@value='${name}']`));
     }
 
     async getScraperCardDeleteByName(name){
