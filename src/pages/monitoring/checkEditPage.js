@@ -30,6 +30,15 @@ const confNthThresholdDefDropdownButton = '[data-testid=overlay] [data-testid=pa
 const confNthThresholdDefDropdownItem = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown] [data-testid=dropdown-item][title=\'%ITEM%\']';
 const confNthThresholdDefInput = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid=input-field]';
 const confNthThreshold2ndInput = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid^=\'component-spacer--flex-child\']:nth-of-type(3) [data-testid=input-field]';
+//Deadman
+const confDeadmanForInput = '//*[@data-testid=\'component-spacer\']/*[@data-testid=\'component-spacer\'][.//*[text()=\'for\']]//*[@data-testid=\'duration-input\']';
+const confDeadmanForInputDropdownItem = '//*[@data-testid=\'component-spacer\']/*[@data-testid=\'component-spacer\'][.//*[text()=\'for\']]//*[@data-testid=\'dropdown-item\'][.//*[text()=\'%ITEM%\']]';
+const confDeadmanStopInput = '//*[@data-testid=\'component-spacer\']/*[@data-testid=\'component-spacer\'][.//*[text()=\'And stop checking after\']]//*[@data-testid=\'duration-input\']';
+const confDeadmanStopInputDropdownItem = '//*[@data-testid=\'component-spacer\']/*[@data-testid=\'component-spacer\'][.//*[text()=\'And stop checking after\']]//*[@data-testid=\'dropdown-item\'][.//*[text()=\'%ITEM%\']]';
+const confDeadmanCheckLevelsDropdown = '//*[@data-testid=\'component-spacer\']/*[@data-testid=\'component-spacer\']//*[@data-testid=\'check-levels--dropdown--button\']';
+const confDeadmanCheckLevelsDropodownItem = '[data-testid=\'check-levels--dropdown-item %LEVEL%\']';
+const confDeadmanCheckLevelsDropdownSelected = '[data-testid^=check-levels--dropdown--button] [class*=\'selected\'] [class*=\'dropdown--name\']';
+
 
 const urlCtx = 'checks';
 
@@ -124,6 +133,34 @@ class checkEditPage extends influxPage {
 
     async getChecklistPopoverItemByText(text){
         return await this.driver.findElement(By.xpath(checklistPopoverItemByText.replace('%TEXT%', text.trim())));
+    }
+
+    async getConfDeadmanForInput(){
+        return await this.driver.findElement(By.xpath(confDeadmanForInput));
+    }
+
+    async getConfDeadmanForInputDropdownItem(item){
+        return await this.driver.findElement(By.xpath(confDeadmanForInputDropdownItem.replace('%ITEM%', item)));
+    }
+
+    async getConfDeadmanStopInput(){
+        return await this.driver.findElement(By.xpath(confDeadmanStopInput));
+    }
+
+    async getConfDeadmanStopInputDropdownItem(item){
+        return await this.driver.findElement(By.xpath(confDeadmanStopInputDropdownItem.replace('%ITEM%', item)));
+    }
+
+    async getConfDeadmanCheckLevelsDropdown(){
+        return await this.driver.findElement(By.xpath(confDeadmanCheckLevelsDropdown));
+    }
+
+    async getConfDeadmanCheckLevelsDropodownItem(level){
+        return await this.driver.findElement(By.css(confDeadmanCheckLevelsDropodownItem.replace('%LEVEL%', level)));
+    }
+
+    async getConfDeadmanCheckLevelsDropdownSelected(){
+        return await this.driver.findElement(By.css(confDeadmanCheckLevelsDropdownSelected));
     }
 
 }

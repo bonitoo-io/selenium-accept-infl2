@@ -124,3 +124,59 @@ When(/^set the binary boundary for the threshold "(.*)" from "(.*)" to "(.*)"$/,
     await ckEdSteps.setBinaryThresholdBoundaryValues(threshold, lower, upper);
 });
 
+When(/^click the deadman definition No Values For input$/, async () => {
+   await ckEdSteps.clickNoValuesForDurationInput();
+});
+
+When(/^set the value of the deadman definition No Values for input to "(.*)"$/, async val => {
+   await ckEdSteps.setValueNoValuesForDurationInput(val);
+});
+
+Then(/^the deadman definition hints dropdown contains:$/, async items => {
+   await ckEdSteps.verifyNoValuesForDurationHintItems(items);
+});
+
+When(/^click the deadman definition hint dropdown item "(.*)"$/, async item => {
+   await ckEdSteps.clickNoValuesForDurationHintItem(item);
+});
+
+Then(/^the deadman definition No Values For input contains "(.*)"$/, async val => {
+   await ckEdSteps.verifyValueOfNoValuesForDurationInput(val);
+});
+
+When(/^click the deadman definition level dropdown$/, async () => {
+   await ckEdSteps.clickDefinitionLevelDropdown();
+});
+
+Then(/^the deadman definition level dropdown contains:$/, async items => {
+   await ckEdSteps.verifyDefinitionLevelDropdownItems(items);
+});
+
+When(/^click the deadman definition level dropdown item "(.*)"$/, async item => {
+   await ckEdSteps.clickDefinitionLevelDropdownItem(item);
+});
+
+Then(/^the deadman definition level dropdown selected item is "(.*)"$/, async val => {
+   await ckEdSteps.verifyDefinitionLevelDropdownSelected(val);
+});
+
+When(/^click the deadman definition Stop Checking input$/, async () => {
+   await ckEdSteps.clickStopCheckingDurationInput();
+});
+
+Then(/^the deadman definition stop hints dropdown contains:$/, async items => {
+   await ckEdSteps.verifyDefinitionStopDropdownItems(items);
+});
+
+When(/^click the deadman definition stop hint dropdown item "(.*)"$/, async item => {
+   await ckEdSteps.clickDefinitionStopDropdownItem(item);
+});
+
+Then(/^the deadman definition stop input contains "(.*)"$/, async val => {
+   await ckEdSteps.verifyDefinitionStopInputValue(val);
+});
+
+When(/^set the value of the definition stop input to "(.*)"$/, async val => {
+  await ckEdSteps.setValueDefinitionStopInput(val);
+});
+

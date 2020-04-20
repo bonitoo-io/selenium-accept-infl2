@@ -131,7 +131,7 @@ class checkEditSteps extends influxSteps {
     async verifyThresholdDefinitionDropdownItems(threshold, items){
         let itemList = items.split(',');
         for(const item of itemList){
-            let elem = await this.ckEdPage.getConfNthThresholdDefDropdownItem(threshold,item)
+            let elem = await this.ckEdPage.getConfNthThresholdDefDropdownItem(threshold,item);
             await this.scrollElementIntoView(elem);
             await this.assertVisible(elem);
         }
@@ -161,6 +161,86 @@ class checkEditSteps extends influxSteps {
         await this.clearInputText(await this.ckEdPage.getConfNthThreshold2ndInput(threshold));
         await this.typeTextAndWait(await this.ckEdPage.getConfNthThreshold2ndInput(threshold), upper);
     }
+
+    async clickNoValuesForDurationInput(){
+        await this.clickAndWait(await this.ckEdPage.getConfDeadmanForInput());
+    }
+
+    async setValueNoValuesForDurationInput(val){
+        await this.clearInputText(await this.ckEdPage.getConfDeadmanForInput());
+        await this.typeTextAndWait(await this.ckEdPage.getConfDeadmanForInput(), val);
+    }
+
+    async verifyValueOfNoValuesForDurationInput(val){
+        await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfDeadmanForInput(), 'value', val)
+    }
+
+    async verifyNoValuesForDurationHintItems(items){
+        let itemList = items.split(',');
+        for(const item of itemList){
+            let elem = await this.ckEdPage.getConfDeadmanForInputDropdownItem(item.trim());
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async clickNoValuesForDurationHintItem(item){
+        let elem = await this.ckEdPage.getConfDeadmanForInputDropdownItem(item.trim());
+        await this.scrollElementIntoView(elem);
+        await this.clickAndWait(elem);
+    }
+
+    async clickDefinitionLevelDropdown(){
+        await this.clickAndWait(await this.ckEdPage.getConfDeadmanCheckLevelsDropdown());
+    }
+
+    async verifyDefinitionLevelDropdownItems(items){
+        let itemList = items.split(',');
+        for(const item of itemList){
+            let elem = await this.ckEdPage.getConfDeadmanCheckLevelsDropodownItem(item.trim());
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async clickDefinitionLevelDropdownItem(item){
+        let elem = await this.ckEdPage.getConfDeadmanCheckLevelsDropodownItem(item.trim());
+        await this.scrollElementIntoView(elem);
+        await this.clickAndWait(elem);
+    }
+
+    async verifyDefinitionLevelDropdownSelected(val){
+        await this.verifyElementText(await this.ckEdPage.getConfDeadmanCheckLevelsDropdownSelected(), val);
+    }
+
+    async clickStopCheckingDurationInput(){
+        await this.clickAndWait(await this.ckEdPage.getConfDeadmanStopInput());
+    }
+
+    async verifyDefinitionStopDropdownItems(items){
+        let itemList = items.split(',');
+        for(const item of itemList){
+            let elem = await this.ckEdPage.getConfDeadmanStopInputDropdownItem(item.trim());
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
+        }
+    }
+
+    async clickDefinitionStopDropdownItem(item){
+        let elem = await this.ckEdPage.getConfDeadmanStopInputDropdownItem(item.trim());
+        await this.scrollElementIntoView(elem);
+        await this.clickAndWait(elem);
+    }
+
+    async verifyDefinitionStopInputValue(val){
+        await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfDeadmanStopInput(),
+            'value', val)
+    }
+
+    async setValueDefinitionStopInput(val){
+        await this.clearInputText(await this.ckEdPage.getConfDeadmanStopInput());
+        await this.typeTextAndWait(await this.ckEdPage.getConfDeadmanStopInput(), val);
+    };
 
 }
 

@@ -127,6 +127,42 @@ Scenario: Load Initial Alerts view
     Then the first time create threshold check is visible
     Then the first time create deadman check is visible
 
+  Scenario: Exercise configure check Deadman
+  # Just check Deadman fields others were covered in threshold test
+    When click the create check button
+    When click the create check dropdown item "Deadman"
+    When click check editor configure check button
+    Then the create check checklist contains:
+  """
+  [{ "state": "error", "text": "One field" }]
+  """
+    When click the deadman definition No Values For input
+    Then the deadman definition hints dropdown contains:
+  """
+  15s,5m,1h,12h,7d
+  """
+    When click the deadman definition hint dropdown item "1m"
+    Then the deadman definition No Values For input contains "1m"
+    When set the value of the deadman definition No Values for input to "30m"
+    When click the deadman definition level dropdown
+    Then the deadman definition level dropdown contains:
+  """
+  CRIT,WARN,INFO,OK
+  """
+    When click the deadman definition level dropdown item "WARN"
+    Then the deadman definition level dropdown selected item is "WARN"
+    When click the deadman definition Stop Checking input
+    Then the deadman definition stop hints dropdown contains:
+  """
+  5s,1m,1h,24h,7d,30d
+  """
+    When click the deadman definition stop hint dropdown item "5m"
+    Then the deadman definition stop input contains "5m"
+    When set the value of the definition stop input to "10m"
+    Then the deadman definition stop input contains "10m"
+    When dismiss edit check overlay
+    Then the first time create threshold check is visible
+    Then the first time create deadman check is visible
 
 # Create Threshold Alerts
   Scenario: Create Simple Threshold Check
