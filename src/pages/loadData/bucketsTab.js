@@ -203,7 +203,7 @@ class bucketsTab extends loadDataPage {
         //        return await this.driver.findElement(By.xpath(`//div[div/div[@data-testid='bucket--card ${name}']]//div[contains(text(), 'Retention')]`));
         //return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket--card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(),"Retention")]`));
         //return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card'][.//*[@data-testid='bucket--card--name ${name}']]//*[@data-testid='cf-resource-card--meta-item'][contains(text(), 'Retention')]`));
-        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card ${name}']//*[@data-testid='cf-resource-card--meta-item'][contains(text(), 'Retention')]`))
+        return await this.driver.findElement(By.xpath(`//*[@data-testid='bucket-card ${name}']//*[@data-testid='resource-list--meta']//*[contains(text(), 'Retention')]`));
     }
 
     async getBucketCardPopover(){
