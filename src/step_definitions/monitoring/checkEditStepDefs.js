@@ -36,6 +36,10 @@ Then(/^the create check checklist contains:$/, async items => {
     await ckEdSteps.verifyChecklistPopoverItems(items);
 });
 
+Then(/^the create check checklist is not present$/, async () => {
+   await ckEdSteps.verifyConfigureCheckListPopoverNotPresent();
+});
+
 Then(/^the interval indicator is set to "(.*)"$/, async duration => {
    await ckEdSteps.verifyCkEdIntervalInput(duration);
 });
@@ -178,5 +182,9 @@ Then(/^the deadman definition stop input contains "(.*)"$/, async val => {
 
 When(/^set the value of the definition stop input to "(.*)"$/, async val => {
   await ckEdSteps.setValueDefinitionStopInput(val);
+});
+
+Then(/^the time machine cell edit preview contains threshold markers:$/, async markers => {
+   await ckEdSteps.verifyCellEditPreviewThresholdMarkers(markers);
 });
 

@@ -13,6 +13,9 @@ const configureCheckToggle = '[data-testid=overlay] [data-testid=\'checkeo--head
 const checklistPopover = '[data-testid=popover--contents] [class=query-checklist--popover]';
 const checklistPopoverItemByText = '//*[@data-testid=\'popover--contents\']//*[text()=\'%TEXT%\']';
 
+//Preview area
+const previewThresholdHandleByLevel = '[class*=\'threshold-marker--handle threshold-marker--%LEVEL%\']';
+
 
 // TODO timemachine controls -- see dashboards - try and reuse
 
@@ -161,6 +164,10 @@ class checkEditPage extends influxPage {
 
     async getConfDeadmanCheckLevelsDropdownSelected(){
         return await this.driver.findElement(By.css(confDeadmanCheckLevelsDropdownSelected));
+    }
+
+    async getPreviewThresholdHandleByLevel(level){
+        return await this.driver.findElement(By.css(previewThresholdHandleByLevel.replace('%LEVEL%', level.toLowerCase())));
     }
 
 }

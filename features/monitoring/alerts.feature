@@ -167,16 +167,30 @@ Scenario: Load Initial Alerts view
 # Create Threshold Alerts
   Scenario: Create Simple Threshold Check
     When click the first time create threshold check
+    Then the create check checklist contains:
+  """
+  [{ "state": "error", "text": "One field" },
+  { "state": "valid", "text": "One aggregate function" },
+  { "state": "error", "text": "One or more thresholds"}]
+  """
     When enter the alert check name "Simple Count Check"
     When send keys "ENTER"
     When click the tag "test" in builder card "1"
     When click the tag "val" in builder card "2"
     When click the query builder function "mean"
+    Then the create check checklist contains:
+  """
+  [{ "state": "valid", "text": "One field" },
+  { "state": "valid", "text": "One aggregate function" },
+  { "state": "error", "text": "One or more thresholds"}]
+  """
     When click the time machine query builder function duration input
     When click the query builder function duration suggestion "5s"
     When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
     When click check editor configure check button
     Then the interval indicator is set to "5s"
+    Then the time machine cell edit preview graph is shown
     When enter into interval offset "1s"
     When send keys "ENTER"
     When update the check message template to
@@ -187,6 +201,11 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     When click the threshold definition dropdown for condition "CRIT"
     When click the threshold definition dropodown item "Is Above" for condition "CRIT"
     When set the unary boundary value for the threshold definition "CRIT" to "7.5"
+    Then the create check checklist is not present
+    Then the time machine cell edit preview contains threshold markers:
+    """
+    CRIT
+    """
     When click the check editor save button
 
 # TODO - Add asserts above

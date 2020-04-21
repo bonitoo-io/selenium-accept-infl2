@@ -2,6 +2,8 @@ const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const checkEditPage = require(__srcdir + '/pages/monitoring/checkEditPage.js');
 const basePage = require(__srcdir + '/pages/basePage.js');
 
+const { expect } = require('chai');
+
 class checkEditSteps extends influxSteps {
 
     constructor(driver) {
@@ -67,6 +69,10 @@ class checkEditSteps extends influxSteps {
                 await this.verifyElementContainsClass(await this.ckEdPage.getChecklistPopoverItemByText(item.text),
                     `${item.state}`);
         }
+    }
+
+    async verifyConfigureCheckListPopoverNotPresent(){
+       await this.assertNotPresent(await basePage.getpopoverDialogSelector());
     }
 
     async clickCkEdIntervalInput(){
@@ -241,6 +247,13 @@ class checkEditSteps extends influxSteps {
         await this.clearInputText(await this.ckEdPage.getConfDeadmanStopInput());
         await this.typeTextAndWait(await this.ckEdPage.getConfDeadmanStopInput(), val);
     };
+
+    async verifyCellEditPreviewThresholdMarkers(markers){
+        let markerList = markers.split(',');
+        for(const marker of markerList){
+            await this.assertVisible(await this.ckEdPage.getPreviewThresholdHandleByLevel(marker.trim()));
+        }
+    }
 
 }
 
