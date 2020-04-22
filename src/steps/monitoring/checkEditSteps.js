@@ -87,6 +87,11 @@ class checkEditSteps extends influxSteps {
         await this.clickAndWait(await this.ckEdPage.getConfChkIntervalInput());
     }
 
+    async setCheckIntervalInput(duration){
+        await this.clearInputText(await this.ckEdPage.getConfChkIntervalInput());
+        await this.typeTextAndWait(await this.ckEdPage.getConfChkIntervalInput(), duration);
+    }
+
     async verifyCkEdIntervalInput(duration){
         await this.verifyElementAttributeContainsText(await this.ckEdPage.getConfChkIntervalInput(),
             'value', duration );
@@ -99,6 +104,11 @@ class checkEditSteps extends influxSteps {
 
     async clickCkEdOffsetInput(){
         await this.clickAndWait(await this.ckEdPage.getConfChkOffset());
+    }
+
+    async setCheckOffsetInput(val){
+        await this.clearInputText(await this.ckEdPage.getConfChkOffset());
+        await this.typeTextAndWait(await this.ckEdPage.getConfChkOffset(), val);
     }
 
     async enterIntoIntervalOffset(offset){
@@ -261,6 +271,21 @@ class checkEditSteps extends influxSteps {
         for(const marker of markerList){
             await this.assertVisible(await this.ckEdPage.getPreviewThresholdHandleByLevel(marker.trim()));
         }
+    }
+
+    async clickAddTag(){
+        await this.scrollElementIntoView(await this.ckEdPage.getConfChkAddTagButton());
+        await this.clickAndWait(await this.ckEdPage.getConfChkAddTagButton())
+    }
+
+    async setCheckTagKey(index, key){
+        await this.clearInputText(await this.ckEdPage.getConfTagRuleKeyInputOfTag(index));
+        await this.typeTextAndWait(await this.ckEdPage.getConfTagRuleKeyInputOfTag(index), key);
+    }
+
+    async setCheckTagVal(index, val){
+        await this.clearInputText(await this.ckEdPage.getConfTagRuleValueInputOfTag(index));
+        await this.typeTextAndWait(await this.ckEdPage.getConfTagRuleValueInputOfTag(index), val);
     }
 
 }

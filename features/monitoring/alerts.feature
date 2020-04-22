@@ -65,6 +65,7 @@ Scenario: Load Initial Alerts view
 
 # Exercise Configure Check -- N.B. try and reuse dashboard time machine for Define Query
 # TODO - Check illogical alert thresholds
+# TODO - add simple tags check
 
   Scenario: Exercise Configure Check - Threshold
     When click the create check button
@@ -212,17 +213,48 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     When click the check editor save button
     Then there is an alert card named "Simple Count Check"
 
+    # Create Deadman Alerts
+  Scenario: Create simple Critical Deadman Check
+  # Just check Deadman fields others were covered in threshold test
+    When click the create check button
+    When click the create check dropdown item "Deadman"
+    When enter the alert check name "Deadman Critical Check"
+    When click the tag "test" in builder card "1"
+    When click the tag "val" in builder card "2"
+    When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
+    When click check editor configure check button
+    When set the check interval input to "10s"
+    When set the check offset interval input "2s"
+    When click the edit check add tag button
+    When set the check tag key of tag "1" to "mrtvola"
+    When set the check tag value of tag "1" to "neboztik"
+    When click the edit check add tag button
+    When set the check tag key of tag "2" to "kartoffel"
+    When set the check tag value of tag "2" to "brambor"
+    When update the check message template to
+  """
+${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped reporting
+  """
+    When set the value of the deadman definition No Values for input to "30s"
+    When set the value of the definition stop input to "1m"
+    When click the check editor save button
+    Then there is an alert card named "Deadman Critical Check"
+
 # TODO - Add asserts above
 
 # TODO - EDIT Threshold Check and drag threshold control in graph
 
-# Create Deadman Alerts
+# Add labels to checks
 
-# Filter alerts
 
-# Edit Alerts
+# Filter Checks
+
+# Edit Checks
 
 # Create Endpoints {HTTP, Slack, Pager Duty}
+
+# Add labels to Endpoints
 
 # Filter Endpoints
 
@@ -230,11 +262,13 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
 
 # Create Rules
 
+# Add labels to Rules
+
 # Filter Rules
 
 # Edit Rules
 
-# Delete Alerts (N.B. what is affect on dependent rules?)
+# Delete Checks (N.B. what is affect on dependent rules?)
 
 # Delete Endpoints (N.B. what is affect on dependent rules?)
 

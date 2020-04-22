@@ -27,6 +27,11 @@ const confChkOffset = '//*[./label/span[text() = \'Offset\']]//*[@data-testid=\'
 const confChkAddTagButton = '//*[./label/span[text() = \'Tags\']]//*[@data-testid=\'dashed-button\']';
 //    Status Message Template
 const confChkMessageTextArea = '[data-testid=status-message-textarea]';
+
+const confTagRuleKeyInputOfTag = '[data-testid=tag-rule]:nth-of-type(%INDEX%) [data-testid=\'tag-rule-key--input\'][name=key]';
+const confTagRuleValueInputOfTag = '[data-testid=tag-rule]:nth-of-type(%INDEX%) [data-testid=\'tag-rule-key--input\'][name=value]';
+
+
 // Thresholds
 const confChkAddThresholdButton = '[data-testid=add-threshold-condition-%STATUS%]';
 const confNthThresholdDefDropdownButton = '[data-testid=overlay] [data-testid=panel]:nth-of-type(%INDEX%) [data-testid=select-option-dropdown]';
@@ -168,6 +173,14 @@ class checkEditPage extends influxPage {
 
     async getPreviewThresholdHandleByLevel(level){
         return await this.driver.findElement(By.css(previewThresholdHandleByLevel.replace('%LEVEL%', level.toLowerCase())));
+    }
+
+    async getConfTagRuleKeyInputOfTag(index){
+        return await this.driver.findElement(By.css(confTagRuleKeyInputOfTag.replace('%INDEX%', parseInt(index) + 1)));
+    }
+
+    async getConfTagRuleValueInputOfTag(index){
+        return await this.driver.findElement(By.css(confTagRuleValueInputOfTag.replace('%INDEX%', parseInt(index) + 1)));
     }
 
 }
