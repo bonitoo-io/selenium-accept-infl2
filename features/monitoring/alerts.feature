@@ -247,7 +247,6 @@ ${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped rep
 
 # Add labels to checks
 
-
 # Filter Checks
 
 # Edit Checks
@@ -278,5 +277,6 @@ ${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped rep
 
 # Tear down http listened - In After All hook - ditto
 
-
+# NOTE - perhaps should have five features - base, checks, endpoints, rules, full monitoring (too harvest alerts
+# and notifications.) - breakup planned tests above into these feature files.
 
