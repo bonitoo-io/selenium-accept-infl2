@@ -7,24 +7,24 @@ const createConfigInHeader = '//div[@data-testid=\'tabbed-page--header\']//*[con
 const nameSort = '[data-testid=name-sorter]';
 const bucketSort = '[data-testid=bucket-sorter]';
 const createConfigInBody = '[data-testid=resource-list] [data-testid=button]';
-const telegrafCardTemplate = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]';
+const telegrafCardTemplate = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]';
 const telegrafCards = '[data-testid=resource-card]';
-const telegrafCardSetupInstructions = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'setup-instructions-link\']';
-const telegrafCardName = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]';
-const telegrafCardNameEditBtn = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]//span[@data-testid=\'icon\']';
-const telegrafCardNameInput = '//*[@data-testid=\'collector-card--name\'][span/span[text()=\'%NAME%\']]//input[@data-testid=\'collector-card--input\']';
-const telegrafCardDescr = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
-const telegrafCardDescrEditBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']';
-const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//div[@data-testid=\'resource-list--editable-description\']//input';
-const telegrafCardDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
-const telegrafCardDeleteConfirm = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//button[@data-testid=\'context-menu-item\']';
-const telegrafCardAddLabelBtn = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
+const telegrafCardSetupInstructions = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'setup-instructions-link\']';
+const telegrafCardName = '//*[@data-testid=\'collector-card--name\'][span[text()=\'%NAME%\']]';
+const telegrafCardNameEditBtn = '//*[./*[@data-testid=\'collector-card--name\'][span[text()=\'%NAME%\']]]//*[@data-testid=\'collector-card--name-button\']';
+const telegrafCardNameInput = '[data-testid=\'collector-card--input\']'; //should only be one active
+const telegrafCardDescr = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
+const telegrafCardDescrEditBtn = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']';
+const telegrafCardDescrInput = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//div[@data-testid=\'resource-list--editable-description\']//input';
+const telegrafCardDelete = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
+const telegrafCardDeleteConfirm = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//button[@data-testid=\'context-menu-item\']';
+const telegrafCardAddLabelBtn = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
 const telegrafCardLabelPopup = '[data-testid=inline-labels--popover--dialog]';
 const telegrafCardLabelPopupListItem = '[data-testid=\'inline-labels--popover--dialog\'] [data-testid=\'label-list--item %ITEM%\']';
-const telegrafCardLabelPillItem = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %ITEM%\']';
+const telegrafCardLabelPillItem = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %ITEM%\']';
 const telegrafCardLabelPopupFilter = '[data-testid=\'inline-labels--popover--dialog\'] [data-testid=\'inline-labels--popover-field\']';
 const telegrafCardLabelEmptyState = '[data-testid=\'inline-labels--popover--dialog\'] [data-testid=\'empty-state--text\']';
-const telegrafCardLabelPillDelete = '//*[@data-testid=\'resource-card\'][div/div/div/span/span[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %ITEM%\']';
+const telegrafCardLabelPillDelete = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %ITEM%\']';
 
 const urlCtx = 'telegrafs';
 
@@ -122,7 +122,7 @@ class telegrafsTab extends loadDataPage{
 
     // Telegraf Wizard step 2
     async getPluginItemByName(name){
-        return await this.driver.findElement(By.xpath(`//*[contains(@class, 'side-bar--tab')][text() = '${name.toLowerCase()}']`));
+        return await this.driver.findElement(By.xpath(`//*[contains(@class, 'side-bar--tab')]/div[.//*[text() = '${name.toLowerCase()}']]`));
     }
 
     async getConfigurationNameInput(){
@@ -239,7 +239,7 @@ class telegrafsTab extends loadDataPage{
     }
 
     async getTelegrafCardNameInput(name){
-        return await this.driver.findElement(By.xpath(telegrafCardNameInput.replace('%NAME%', name)));
+        return await this.driver.findElement(By.css(telegrafCardNameInput.replace('%NAME%', name)));
     }
 
     async getTelegrafCardDescr(name){

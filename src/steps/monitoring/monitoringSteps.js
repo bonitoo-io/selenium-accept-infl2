@@ -30,6 +30,12 @@ class monitoringSteps extends influxSteps{
         await this.clickAndWait(await this.alPage.getCreateCheckButton());
     }
 
+    async clickCreateCheckDropdownItem(item){
+        await this.clickAndWait(await this.alPage.getCreateCheckDropdownItem(item), async () => {
+              await this.driver.sleep(500); //slow to load?
+            });
+    }
+
     async verifyCreateCheckDropdownItems(items){
         let itemList = items.split(',');
         for(let i = 0; i < itemList.length; i++){
@@ -95,12 +101,22 @@ class monitoringSteps extends influxSteps{
     }
 
     async clickFirstTimeCreateThresholdCheck(){
-        await this.clickAndWait(await this.alPage.getFirstTimeThresholdCheckCreateButton());
+        await this.clickAndWait(await this.alPage.getFirstTimeThresholdCheckCreateButton(), async () => {
+            await this.driver.sleep(500); //can be slow to load - TODO better wait
+        });
+    }
+
+    async verifyFirstTimeCreateThresholdCheckVisible(){
+        await this.assertVisible(await this.alPage.getFirstTimeThresholdCheckCreateButton());
     }
 
     async clickFirstTimeCreateDeadmanCheck(){
         await this.scrollElementIntoView(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
         await this.clickAndWait(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
+    }
+
+    async verifyFirstTimeCreateDeadmanCheckVisible(){
+        await this.assertVisible(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
     }
 
 }

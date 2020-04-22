@@ -121,12 +121,15 @@ After(async function (scenario /*,   callback */) {
 });
 
 
-/*
+
 AfterAll(async function ( ) {
 
+    //safety kill any live data generator
+    console.log("killing live generator");
+    __killLiveDataGen = true;
 
 });
-*/
+
 
 
 

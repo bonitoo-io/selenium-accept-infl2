@@ -34,7 +34,9 @@ const popupGithubLink = '//a[contains(text(), \'GitHub Repository\')]';
 
 //generic controls
 const sortTypeButton = '[data-testid=resource-sorter--button]';
-const sortTypeListItem = '[data-testid=\'resource-sorter--%ITEM%\']'
+const sortTypeListItem = '[data-testid=\'resource-sorter--%ITEM%\']';
+const dropdownContents = '[data-testid=dropdown-menu--contents]';
+const dropdownItemByText = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%TEXT%\']]';
 
 class basePage{
 
@@ -327,6 +329,19 @@ class basePage{
             return await this.driver.findElement(By.css(sortTypeListItem.replace('%ITEM%', item)));
         }
     }
+
+    async getDropdownContents(){
+        return await this.driver.findElement(By.css(dropdownContents));
+    }
+
+    static getDropdownContentsSelector(){
+        return { type: 'css', selector: dropdownContents };
+    }
+
+    async getDropdownItemByText(text){
+        return await this.driver.findElement(By.xpath(dropdownItemByText.replace('%TEXT%', text.trim())));
+    }
+
 
 
 }

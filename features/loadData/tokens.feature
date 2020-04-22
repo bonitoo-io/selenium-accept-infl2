@@ -1,3 +1,5 @@
+@feature-loadData
+@loadData-tokens
 Feature: Load Data - Tokens
 
   Scenario: Load Initial Tokens tab

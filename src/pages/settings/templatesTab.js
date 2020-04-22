@@ -9,7 +9,7 @@ const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const templatesTypeFilterButton = '[data-testid=select-group--option][title=\'Static Templates\']';
 const userTemplatesRadioButton = '[data-testid=select-group--option][title=\'User Templates\']';
 const resourceList = '[data-testid=resource-list]';
-const templateCardNames = '[data-testid=template-card--name] span span';
+const templateCardNames = '[data-testid=template-card--name]';
 const importTemplateEmptyButton = '[data-testid=empty-state] [data-testid=button]';
 const templateCardByName = '//*[@data-testid=\'template-card\'][.//*[text() = \'%NAME%\']]';
 const templateCardCtxDelete = '//*[@data-testid=\'template-card\'][.//*[text() = \'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';

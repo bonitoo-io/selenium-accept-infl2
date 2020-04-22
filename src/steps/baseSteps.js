@@ -732,11 +732,9 @@ class baseSteps{
     }
 
     async sendKeysToCurrent(keys){
-        console.log("DEBUG keys " + keys);
         let current = await this.driver.switchTo().activeElement();
         let actionList = keys.split(',');
         for(let i = 0; i < actionList.length; i++){
-            console.log(`DEBUG actionList[${i}] ${actionList[i]}`);
             if(actionList[i].includes('+')){ //is chord
                 let chord = actionList[i].split('+');
                 if(chord.length === 2){
@@ -757,18 +755,24 @@ class baseSteps{
         }
     }
 
+    async startLiveDataGenerator(def){
+        await influxUtils.startLiveDataGen(def);
+    }
+
+    async stopLiveDataGenerator() {
+        await influxUtils.stopLiveDataGen();
+    }
+
     async clickSortTypeDropdown(){
         await this.clickAndWait(await this.basePage.getSortTypeButton());
     }
 
     async clickSortByListItem(item){
-        //Check for camel caps
+        //Check for special items
         if(item.startsWith('retentionRules[0]')){
-            console.log('DEBUG ' + item + ' matches')
             //don't normalize the string
             await this.clickAndWait(await this.basePage.getSortTypeListItem(item, false));
         }else{
-            console.log('DEBUG ' + item + ' does not match')
             await this.clickAndWait(await this.basePage.getSortTypeListItem(item));
         }
     }

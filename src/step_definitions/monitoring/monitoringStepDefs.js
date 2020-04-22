@@ -21,6 +21,10 @@ When(/^click the create check button$/, async () => {
    await monSteps.clickCreateCheckButton();
 });
 
+When(/^click the create check dropdown item "(.*)"$/, async item => {
+   await monSteps.clickCreateCheckDropdownItem(item);
+});
+
 Then(/^the create check dropodown list contains the items$/, async items => {
    await monSteps.verifyCreateCheckDropdownItems(items);
 });
@@ -81,7 +85,16 @@ When(/^click the first time create threshold check$/, async() => {
    await monSteps.clickFirstTimeCreateThresholdCheck();
 });
 
+Then(/^the first time create threshold check is visible$/, async () => {
+   await monSteps.verifyFirstTimeCreateThresholdCheckVisible();
+});
+
 When(/^click the first time create deadman check$/, async () => {
    await monSteps.clickFirstTimeCreateDeadmanCheck();
 });
+
+Then(/^the first time create deadman check is visible$/, async () => {
+   await monSteps.verifyFirstTimeCreateDeadmanCheckVisible();
+});
+
 

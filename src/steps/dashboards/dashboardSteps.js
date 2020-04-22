@@ -617,6 +617,10 @@ class dashboardSteps extends influxSteps {
         await this.verifyElementContainsText(await this.dbdPage.getEmptyGraphPopoverContents(), msg);
     }
 
+    async verifyCellErrorMessage(name, msg){
+        await this.verifyElementContainsText(await this.dbdPage.getCellEmptyGraphError(name), msg);
+    }
+
     async verifyVariablesButtonActive(){
         await this.verifyElementContainsClass(await this.dbdPage.getVariablesButton(), 'cf-button-secondary');
     }

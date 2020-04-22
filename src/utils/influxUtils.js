@@ -15,6 +15,7 @@ axios.defaults.baseURL = `${config.protocol}://${config.host}:${config.port}`;
 global.__config = config;
 global.__defaultUser = defaultUser;
 global.__users = { 'init': undefined };
+global.__killLiveDataGen = false;
 
 process.argv.slice(2).forEach((val) => {
 
@@ -23,11 +24,17 @@ process.argv.slice(2).forEach((val) => {
     switch(pair[0]){
     case 'headless': //overrides value in config file
         config.headless = (pair[1] === 'true');
-        console.log(config.headless ? 'running headless' : 'running headed');
+        break;
+    case 'sel_docker':
+    case 'selDocker':
+        config.sel_docker = (pair[1] === 'true');
         break;
     }
 
 });
+
+console.log(config.headless ? 'running headless' : 'running headed');
+console.log(config.sel_docker ? 'running for selenium in docker' : 'running for selenium standard');
 
 /* Uncomment to debug axios
 axios.interceptors.request.use(request => {
@@ -576,6 +583,44 @@ const readCSV = async function(content){
     return await csvParseSync(content, { columns: true, skip_empty_lines: true, comment: "#"});
 };
 
+
+function sleep(ms){
+    return new Promise(resolve => setTimeout(() => resolve(), ms));
+}
+
+const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
+
+   let total = 100;
+   let point = -1;
+   let val;
+   while(point++ < total && !__killLiveDataGen) {
+       let current = (new Date()).getTime();
+       switch(def.model){
+           case 'count10':
+               val = point%10;
+               break;
+           default:
+               val = `"model_${def.model}_undefined"`;
+               break;
+       }
+       //console.log("PULSE " + val);
+       await writeData(__defaultUser.org,__defaultUser.bucket, [
+           `test,gen=gen val=${val} ${current * mil2Nano}`
+       ]);
+       await sleep(def.pulse)
+   }
+};
+
+const startLiveDataGen = function(def){
+    console.log("Starting live generator with " + JSON.stringify(def));
+    __killLiveDataGen = false;
+    dataGenProcess(JSON.parse(def));
+};
+
+const stopLiveDataGen = function(){
+   __killLiveDataGen = true;
+};
+
 module.exports = { flush,
     config,
     defaultUser,
@@ -603,6 +648,8 @@ module.exports = { flush,
     createTemplateFromFile,
     removeFileIfExists,
     removeFilesByRegex,
+    startLiveDataGen,
+    stopLiveDataGen,
     fileExists,
     verifyFileMatchingRegexFilesExist,
     waitForFileToExist

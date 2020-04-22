@@ -1,5 +1,8 @@
+@feature-homePage
+@homePage-homePage
 Feature: Home Page
 
+  @error-timeout
   Scenario: logout home page
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -35,6 +38,7 @@ Feature: Home Page
     When I click the panel "Alerting"
     Then the Alerting page is loaded
 
+  @error-feature
   Scenario: Logout from Menu
     When hover over the "home" menu item
     When click nav menu item "home"
