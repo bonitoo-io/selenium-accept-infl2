@@ -75,6 +75,14 @@ class checkEditSteps extends influxSteps {
        await this.assertNotPresent(await basePage.getpopoverDialogSelector());
     }
 
+    async verifySaveCheckDisabled(){
+        await this.verifyElementDisabled(await this.ckEdPage.getSaveCellButton());
+    }
+
+    async verifySaveCheckEnabled(){
+        await this.verifyElementEnabled(await this.ckEdPage.getSaveCellButton());
+    }
+
     async clickCkEdIntervalInput(){
         await this.clickAndWait(await this.ckEdPage.getConfChkIntervalInput());
     }

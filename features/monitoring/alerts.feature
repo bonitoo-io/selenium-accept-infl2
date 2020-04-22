@@ -173,6 +173,7 @@ Scenario: Load Initial Alerts view
   { "state": "valid", "text": "One aggregate function" },
   { "state": "error", "text": "One or more thresholds"}]
   """
+    Then the save check button is disabled
     When enter the alert check name "Simple Count Check"
     When send keys "ENTER"
     When click the tag "test" in builder card "1"
@@ -184,6 +185,7 @@ Scenario: Load Initial Alerts view
   { "state": "valid", "text": "One aggregate function" },
   { "state": "error", "text": "One or more thresholds"}]
   """
+    Then the save check button is disabled
     When click the time machine query builder function duration input
     When click the query builder function duration suggestion "5s"
     When click the time machine cell edit submit button
@@ -202,11 +204,13 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     When click the threshold definition dropodown item "Is Above" for condition "CRIT"
     When set the unary boundary value for the threshold definition "CRIT" to "7.5"
     Then the create check checklist is not present
+    Then the save check button is enabled
     Then the time machine cell edit preview contains threshold markers:
     """
     CRIT
     """
     When click the check editor save button
+    Then there is an alert card named "Simple Count Check"
 
 # TODO - Add asserts above
 

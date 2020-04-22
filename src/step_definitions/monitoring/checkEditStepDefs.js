@@ -40,6 +40,14 @@ Then(/^the create check checklist is not present$/, async () => {
    await ckEdSteps.verifyConfigureCheckListPopoverNotPresent();
 });
 
+Then(/^the save check button is disabled$/, async () => {
+   await ckEdSteps.verifySaveCheckDisabled();
+});
+
+Then(/^the save check button is enabled$/, async () => {
+   await ckEdSteps.verifySaveCheckEnabled();
+});
+
 Then(/^the interval indicator is set to "(.*)"$/, async duration => {
    await ckEdSteps.verifyCkEdIntervalInput(duration);
 });
