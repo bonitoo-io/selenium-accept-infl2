@@ -31,6 +31,7 @@ const popupFileUploadHeader = '.drag-and-drop--header';
 const pageTitle = '[data-testid=page-title] ';
 const popupBody = '[data-testid=overlay--body]';
 const popupGithubLink = '//a[contains(text(), \'GitHub Repository\')]';
+const popoverDialog = '[data-testid=popover--dialog]';
 
 //generic controls
 const sortTypeButton = '[data-testid=resource-sorter--button]';
@@ -340,6 +341,14 @@ class basePage{
 
     async getDropdownItemByText(text){
         return await this.driver.findElement(By.xpath(dropdownItemByText.replace('%TEXT%', text.trim())));
+    }
+
+    async getPopoverDialog(){
+        return await this.drivre.findElement(By.css(popoverDialog));
+    }
+
+    static getpopoverDialogSelector(){
+        return { type: 'css', selector: popoverDialog };
     }
 
 

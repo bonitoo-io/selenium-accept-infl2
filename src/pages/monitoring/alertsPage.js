@@ -19,6 +19,7 @@ const rulesQuestionMark = '[data-testid=\'Notification Rules--question-mark\']';
 const rulesTooltipContents = '[data-testid=\'Notification Rules--question-mark-tooltip--contents\']';
 const firstTimeThresholdCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Threshold Check\']';
 const firstTimeDeadmanCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Deadman Check\']';
+const checkCardName = '//*[@data-testid=\'check-card--name\'][./*[text()=\'%NAME%\']]';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -157,6 +158,10 @@ class alertsPage extends influxPage {
 
     async getQbSelectorListItem(item){
         return await this.driver.findElement(By.css(qbSelectorListItem.replace('%ITEM%', item)))
+    }
+
+    async getCheckCardName(name){
+        return await this.driver.findElement(By.xpath(checkCardName.replace('%NAME%', name)));
     }
 
 }

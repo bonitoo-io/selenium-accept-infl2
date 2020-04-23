@@ -119,6 +119,10 @@ class monitoringSteps extends influxSteps{
         await this.assertVisible(await this.alPage.getFirstTimeDeadmanCheckCreateButton());
     }
 
+    async verifyAlertCardName(name){
+        await this.assertVisible(await this.alPage.getCheckCardName(name));
+    }
+
 }
 
 module.exports = monitoringSteps;
