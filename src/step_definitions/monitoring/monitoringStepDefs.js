@@ -101,4 +101,33 @@ Then(/^there is an alert card named "(.*)"$/, async name => {
    await monSteps.verifyAlertCardName(name);
 });
 
+When(/^hover over the name of the check card "(.*)"$/, async name => {
+   await monSteps.hoverOverCheckCardName(name);
+});
+
+When(/^click the name edit button of the check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardNameEditButton(name);
+});
+
+When(/^update the active check card name input to "(.*)"$/, async newVal => {
+   await monSteps.updateCheckCardActiveNameInput(newVal);
+});
+
+When(/^hover over the description of the check card "(.*)"$/, async name => {
+   await monSteps.hoverOverCheckCardDescription(name);
+});
+
+When(/^click the description edit button of the check card "(.*)"$/, async name => {
+  await monSteps.clickCheckCardDescriptionEditButton(name);
+});
+
+When(/^update the active check card description input to:$/, async text => {
+   await monSteps.updateCheckCardActiveDescription(text);
+});
+
+Then(/^the check card "(.*)" contains the description:$/, async (name,text) => {
+   await monSteps.verifyCheckCardDescription(name, text);
+});
+
+
 

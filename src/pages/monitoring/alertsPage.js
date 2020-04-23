@@ -19,7 +19,14 @@ const rulesQuestionMark = '[data-testid=\'Notification Rules--question-mark\']';
 const rulesTooltipContents = '[data-testid=\'Notification Rules--question-mark-tooltip--contents\']';
 const firstTimeThresholdCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Threshold Check\']';
 const firstTimeDeadmanCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Deadman Check\']';
+
+//Resource card
 const checkCardName = '//*[@data-testid=\'check-card--name\'][./*[text()=\'%NAME%\']]';
+const checkCardNameEditButton = '//*[./*/*[text()=\'%NAME%\']]//*[@data-testid=\'check-card--name-button\']';
+const checkCardNameInput = '[data-testid=check-card--input]';
+const checkCardDescription = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
+const checkCardDescriptionEditButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']';
+const checkCardDescriptionInput = '[data-testid=check-card] [data-testid=input-field]';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -162,6 +169,26 @@ class alertsPage extends influxPage {
 
     async getCheckCardName(name){
         return await this.driver.findElement(By.xpath(checkCardName.replace('%NAME%', name)));
+    }
+
+    async getCheckCardNameEditButton(name){
+        return await this.driver.findElement(By.xpath(checkCardNameEditButton.replace('%NAME%', name)));
+    }
+
+    async getCheckCardNameInput(){
+        return await this.driver.findElement(By.css(checkCardNameInput));
+    }
+
+    async getCheckCardDescription(name){
+        return await this.driver.findElement(By.xpath(checkCardDescription.replace('%NAME%', name)));
+    }
+
+    async getCheckCardDescriptionEditButton(name){
+        return await this.driver.findElement(By.xpath(checkCardDescriptionEditButton.replace('%NAME%', name)));
+    }
+
+    async getCheckCardDescriptionInput(){
+        return await this.driver.findElement(By.css(checkCardDescriptionInput));
     }
 
 }
