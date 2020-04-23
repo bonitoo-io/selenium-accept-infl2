@@ -65,6 +65,7 @@ Scenario: Load Initial Alerts view
 
 # Exercise Configure Check -- N.B. try and reuse dashboard time machine for Define Query
 # TODO - Check illogical alert thresholds
+# TODO - add simple tags check
 
   Scenario: Exercise Configure Check - Threshold
     When click the create check button
@@ -167,16 +168,32 @@ Scenario: Load Initial Alerts view
 # Create Threshold Alerts
   Scenario: Create Simple Threshold Check
     When click the first time create threshold check
+    Then the create check checklist contains:
+  """
+  [{ "state": "error", "text": "One field" },
+  { "state": "valid", "text": "One aggregate function" },
+  { "state": "error", "text": "One or more thresholds"}]
+  """
+    Then the save check button is disabled
     When enter the alert check name "Simple Count Check"
     When send keys "ENTER"
     When click the tag "test" in builder card "1"
     When click the tag "val" in builder card "2"
     When click the query builder function "mean"
+    Then the create check checklist contains:
+  """
+  [{ "state": "valid", "text": "One field" },
+  { "state": "valid", "text": "One aggregate function" },
+  { "state": "error", "text": "One or more thresholds"}]
+  """
+    Then the save check button is disabled
     When click the time machine query builder function duration input
     When click the query builder function duration suggestion "5s"
     When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
     When click check editor configure check button
     Then the interval indicator is set to "5s"
+    Then the time machine cell edit preview graph is shown
     When enter into interval offset "1s"
     When send keys "ENTER"
     When update the check message template to
@@ -187,19 +204,56 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     When click the threshold definition dropdown for condition "CRIT"
     When click the threshold definition dropodown item "Is Above" for condition "CRIT"
     When set the unary boundary value for the threshold definition "CRIT" to "7.5"
+    Then the create check checklist is not present
+    Then the save check button is enabled
+    Then the time machine cell edit preview contains threshold markers:
+    """
+    CRIT
+    """
     When click the check editor save button
+    Then there is an alert card named "Simple Count Check"
+
+    # Create Deadman Alerts
+  Scenario: Create simple Critical Deadman Check
+  # Just check Deadman fields others were covered in threshold test
+    When click the create check button
+    When click the create check dropdown item "Deadman"
+    When enter the alert check name "Deadman Critical Check"
+    When click the tag "test" in builder card "1"
+    When click the tag "val" in builder card "2"
+    When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
+    When click check editor configure check button
+    When set the check interval input to "10s"
+    When set the check offset interval input "2s"
+    When click the edit check add tag button
+    When set the check tag key of tag "1" to "mrtvola"
+    When set the check tag value of tag "1" to "neboztik"
+    When click the edit check add tag button
+    When set the check tag key of tag "2" to "kartoffel"
+    When set the check tag value of tag "2" to "brambor"
+    When update the check message template to
+  """
+${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped reporting
+  """
+    When set the value of the deadman definition No Values for input to "30s"
+    When set the value of the definition stop input to "1m"
+    When click the check editor save button
+    Then there is an alert card named "Deadman Critical Check"
 
 # TODO - Add asserts above
 
 # TODO - EDIT Threshold Check and drag threshold control in graph
 
-# Create Deadman Alerts
+# Add labels to checks
 
-# Filter alerts
+# Filter Checks
 
-# Edit Alerts
+# Edit Checks
 
 # Create Endpoints {HTTP, Slack, Pager Duty}
+
+# Add labels to Endpoints
 
 # Filter Endpoints
 
@@ -207,11 +261,13 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
 
 # Create Rules
 
+# Add labels to Rules
+
 # Filter Rules
 
 # Edit Rules
 
-# Delete Alerts (N.B. what is affect on dependent rules?)
+# Delete Checks (N.B. what is affect on dependent rules?)
 
 # Delete Endpoints (N.B. what is affect on dependent rules?)
 
@@ -221,5 +277,6 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
 
 # Tear down http listened - In After All hook - ditto
 
-
+# NOTE - perhaps should have five features - base, checks, endpoints, rules, full monitoring (too harvest alerts
+# and notifications.) - breakup planned tests above into these feature files.
 

@@ -692,8 +692,10 @@ class baseSteps{
     }
 
     async scrollElementIntoView(elem){
-        await this.driver.executeScript('arguments[0].scrollIntoView(true);', elem).then(async () => {
-            await this.driver.sleep(150);
+        await this.assertVisible(elem).catch(async () => {
+            await this.driver.executeScript('arguments[0].scrollIntoView(true);', elem).then(async () => {
+                await this.driver.sleep(150);
+            });
         });
     }
 

@@ -36,12 +36,28 @@ Then(/^the create check checklist contains:$/, async items => {
     await ckEdSteps.verifyChecklistPopoverItems(items);
 });
 
+Then(/^the create check checklist is not present$/, async () => {
+   await ckEdSteps.verifyConfigureCheckListPopoverNotPresent();
+});
+
+Then(/^the save check button is disabled$/, async () => {
+   await ckEdSteps.verifySaveCheckDisabled();
+});
+
+Then(/^the save check button is enabled$/, async () => {
+   await ckEdSteps.verifySaveCheckEnabled();
+});
+
 Then(/^the interval indicator is set to "(.*)"$/, async duration => {
    await ckEdSteps.verifyCkEdIntervalInput(duration);
 });
 
 When(/^click on check interval input$/, async () => {
    await ckEdSteps.clickCkEdIntervalInput();
+});
+
+When(/^set the check interval input to "(.*)"$/, async duration => {
+   await ckEdSteps.setCheckIntervalInput(duration);
 });
 
 When(/^enter into interval offset "(.*)"$/, async offset => {
@@ -62,6 +78,10 @@ When(/^click the interval hint dropdown list item "(.*)"$/, async item => {
 
 When(/^click the check offset interval input$/, async () => {
    await ckEdSteps.clickCkEdOffsetInput();
+});
+
+When(/^set the check offset interval input "(.*)"$/, async val => {
+   await ckEdSteps.setCheckOffsetInput(val);
 });
 
 Then(/^the check offset hint dropdown list is not visible$/, async () => {
@@ -178,5 +198,21 @@ Then(/^the deadman definition stop input contains "(.*)"$/, async val => {
 
 When(/^set the value of the definition stop input to "(.*)"$/, async val => {
   await ckEdSteps.setValueDefinitionStopInput(val);
+});
+
+Then(/^the time machine cell edit preview contains threshold markers:$/, async markers => {
+   await ckEdSteps.verifyCellEditPreviewThresholdMarkers(markers);
+});
+
+When(/^click the edit check add tag button$/, async () => {
+   await ckEdSteps.clickAddTag();
+});
+
+When(/^set the check tag key of tag "(.*)" to "(.*)"$/, async (index, key) => {
+   await ckEdSteps.setCheckTagKey(index, key);
+});
+
+When(/^set the check tag value of tag "(.*)" to "(.*)"$/, async (index,val) => {
+   await ckEdSteps.setCheckTagVal(index, val);
 });
 

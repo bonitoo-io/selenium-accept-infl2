@@ -2,6 +2,8 @@ const influxSteps = require(__srcdir + '/steps/influx/influxSteps.js');
 const checkEditPage = require(__srcdir + '/pages/monitoring/checkEditPage.js');
 const basePage = require(__srcdir + '/pages/basePage.js');
 
+const { expect } = require('chai');
+
 class checkEditSteps extends influxSteps {
 
     constructor(driver) {
@@ -69,8 +71,25 @@ class checkEditSteps extends influxSteps {
         }
     }
 
+    async verifyConfigureCheckListPopoverNotPresent(){
+       await this.assertNotPresent(await basePage.getpopoverDialogSelector());
+    }
+
+    async verifySaveCheckDisabled(){
+        await this.verifyElementDisabled(await this.ckEdPage.getSaveCellButton());
+    }
+
+    async verifySaveCheckEnabled(){
+        await this.verifyElementEnabled(await this.ckEdPage.getSaveCellButton());
+    }
+
     async clickCkEdIntervalInput(){
         await this.clickAndWait(await this.ckEdPage.getConfChkIntervalInput());
+    }
+
+    async setCheckIntervalInput(duration){
+        await this.clearInputText(await this.ckEdPage.getConfChkIntervalInput());
+        await this.typeTextAndWait(await this.ckEdPage.getConfChkIntervalInput(), duration);
     }
 
     async verifyCkEdIntervalInput(duration){
@@ -85,6 +104,11 @@ class checkEditSteps extends influxSteps {
 
     async clickCkEdOffsetInput(){
         await this.clickAndWait(await this.ckEdPage.getConfChkOffset());
+    }
+
+    async setCheckOffsetInput(val){
+        await this.clearInputText(await this.ckEdPage.getConfChkOffset());
+        await this.typeTextAndWait(await this.ckEdPage.getConfChkOffset(), val);
     }
 
     async enterIntoIntervalOffset(offset){
@@ -241,6 +265,28 @@ class checkEditSteps extends influxSteps {
         await this.clearInputText(await this.ckEdPage.getConfDeadmanStopInput());
         await this.typeTextAndWait(await this.ckEdPage.getConfDeadmanStopInput(), val);
     };
+
+    async verifyCellEditPreviewThresholdMarkers(markers){
+        let markerList = markers.split(',');
+        for(const marker of markerList){
+            await this.assertVisible(await this.ckEdPage.getPreviewThresholdHandleByLevel(marker.trim()));
+        }
+    }
+
+    async clickAddTag(){
+        await this.scrollElementIntoView(await this.ckEdPage.getConfChkAddTagButton());
+        await this.clickAndWait(await this.ckEdPage.getConfChkAddTagButton())
+    }
+
+    async setCheckTagKey(index, key){
+        await this.clearInputText(await this.ckEdPage.getConfTagRuleKeyInputOfTag(index));
+        await this.typeTextAndWait(await this.ckEdPage.getConfTagRuleKeyInputOfTag(index), key);
+    }
+
+    async setCheckTagVal(index, val){
+        await this.clearInputText(await this.ckEdPage.getConfTagRuleValueInputOfTag(index));
+        await this.typeTextAndWait(await this.ckEdPage.getConfTagRuleValueInputOfTag(index), val);
+    }
 
 }
 

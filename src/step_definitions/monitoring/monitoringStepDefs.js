@@ -97,4 +97,8 @@ Then(/^the first time create deadman check is visible$/, async () => {
    await monSteps.verifyFirstTimeCreateDeadmanCheckVisible();
 });
 
+Then(/^there is an alert card named "(.*)"$/, async name => {
+   await monSteps.verifyAlertCardName(name);
+});
+
 
