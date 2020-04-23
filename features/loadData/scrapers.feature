@@ -7,7 +7,6 @@ Feature: Load Data - Scrapers
 # N.B. can verify scrapers at endpoint http://localhost:9999/api/v2/scrapers
 
 
-@error-feature
 Scenario: Load Initial Scrapers tab
   Given I reset the environment
   Given run setup over REST "DEFAULT"
@@ -86,7 +85,6 @@ Scenario: Filter Scrapers
   When clear the scraper filter
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
-@error-feature
 Scenario: Sort Scrapers by Name
   When click the sort type dropdown
   When click sort by item "Name Desc"
@@ -97,7 +95,6 @@ Scenario: Sort Scrapers by Name
   #When click the scraper sort by name button
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
-@error-feature
 Scenario: Sort Scrapers by URL
   When click the sort type dropdown
   When click sort by item "URL Asc"
@@ -108,7 +105,6 @@ Scenario: Sort Scrapers by URL
   #When click the scraper sort By URL button
   Then the scraper name sort order is "Melnik,Morlaix,Brno,Brest"
 
-@error-feature
 Scenario: Sort Scrapers by Bucket
   When click the sort type dropdown
   When click sort by item "Bucket Asc"
