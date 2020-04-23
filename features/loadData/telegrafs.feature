@@ -15,6 +15,7 @@ Scenario: Load Initial Telegraf tab
   When click load data tab "Telegrafs"
   Then the telegrafs tab is loaded
 
+@error-feature
 Scenario: Exercise create Telegraf wizard
   When click the create Telegraf button empty
   Then the Create Telegraf Wizard is loaded
@@ -40,6 +41,7 @@ Scenario: Exercise create Telegraf wizard
   Then the Create Telegraf Wizard is no longer present
   When click the create Telegraf button empty
 
+@error-collateral
 Scenario Outline: Edit Plugin Values
   When click the plugin tile "<PLUGIN>" in the Create Telegraf Wizard
   When click the Popup Wizard continue button
@@ -105,6 +107,7 @@ Scenario: Cleanup from Edit Plugin Values
   When dismiss the Create Telegraf Wizard
 
 #N.B. just add UI artifacts - no need to check backend at this point
+@error-feature
 Scenario Outline: Create Telegraf
   When click the create Telegraf button in header
   When click the select bucket dropdown in the Create Telegraf Wizard
@@ -131,7 +134,7 @@ Scenario Outline: Create Telegraf
     | NGINX      | Duchamp |Nymburk    | Lorem ipsum  | SKIP |
     | Redis      | DEFAULT |Rakovnik   | Lorem ipsum  | SKIP |
 
-@error-feature
+@error-collateral
 Scenario: Sort Telegrafs by Name
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
   When click the sort type dropdown
@@ -143,6 +146,7 @@ Scenario: Sort Telegrafs by Name
   #When click the telegraf sort by name button
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
+@error-collateral
 Scenario: Filter Telegrafs
   When enter the value "Rak" into the Telegrafs filter
   Then the telegraf sort order is "Rakovnik,Strakonice"
@@ -150,18 +154,21 @@ Scenario: Filter Telegrafs
   When clear the Telegrafs filter
   Then the telegraf sort order is "Decin,Kladno,Nymburk,Rakovnik,Strakonice"
 
+@error-feature
 Scenario: Verify setup instructions
   When click on setup instructions for the telegraf card "Decin"
   Then the telegraf setup instruction popup is loaded
   When dismiss the popup
   Then popup is not loaded
 
+@error-feature
 Scenario: Verify configuration
   When click on the name of the telegraf card "Nymburk"
   Then the telegraf configuration popup for "Nymburk" is loaded
   When dismiss the popup
   Then popup is not loaded
 
+@error-feature
 Scenario: Edit Telegraf Card
   When hover over the name of the telegraf card "Nymburk"
   When click the name edit icon of the telegraf card "Nymburk"
@@ -175,6 +182,7 @@ Scenario: Edit Telegraf Card
   When set the description input of the telegraf card "Norimberk" to "Hunt the Wumpus"
   Then the description of the telegraf card "Norimberk" is "Hunt the Wumpus"
 
+@error-feature
   Scenario: Add labels to telegraf
     Then the Label Popup for the Telegraf Card "Kladno" is not present
     When click Add Label for Telegraf Card "Kladno"
@@ -198,6 +206,7 @@ Scenario: Edit Telegraf Card
     When dismiss the popup
     Then popup is not loaded
 
+@error-feature
   Scenario: Delete label from telegraf
     When hover over the label pill "Cesko" for the Telegraf Card "Kladno"
     When click delete the label pill "Cesko" for the Telegraf Card "Kladno"
@@ -209,6 +218,7 @@ Scenario: Edit Telegraf Card
     When click telegraf card "Kladno"
     Then the Label Popup for the Telegraf Card "Kladno" is not present
 
+@error-feature
 Scenario Outline: Delete Telegraf Card
   When hover over telegraf card "<NAME>"
   When click delete for telegraf card "<NAME>"

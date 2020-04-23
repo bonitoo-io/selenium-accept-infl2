@@ -248,6 +248,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click the cell edit save button
     Then the cell named "dočasný" is visible in the dashboard
 
+@error-timeout
   Scenario: Clone Cell
     When toggle context menu of dashboard cell named "dočasný"
     When click cell edit content popover clone
@@ -277,18 +278,21 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click the cell title "klouzavý průměr"
     Then the cell content popover is not loaded
 
+@error-feature
   Scenario: Two cells column to row
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "+300", "dy": "0" }"
     Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "-380" }"
 
+@error-feature
   Scenario: Two cells row to column
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "-300", "dy": "0" }"
     Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "+380" }"
 
+@error-feature
   Scenario: Two cells enlarge first into second
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "+300", "dy": "0" }"
@@ -299,6 +303,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "dočasný" is changed by "{ "dx": "0", "dy": "+380" }"
     Then size of the cell named "klouzavý průměr" has changed by "{ "dw": "+300", "dh": "0" }"
 
+@error-feature
   Scenario: Two cells reduce first when above second
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
@@ -306,12 +311,14 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "dočasný" is changed by "{ "dx": "0", "dy": "-380" }"
     Then size of the cell named "klouzavý průměr" has changed by "{ "dw": "-300", "dh": "0" }"
 
+@error-feature
   Scenario: Two cells column to row - Moved cell drops down
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "-150", "dy": "150" }"
     Then the location of the cell named "dočasný" is changed by "{ "dx": "-150", "dy": "+380" }"
 
+@error-feature
   Scenario Outline: Delete Cell
     When toggle context menu of dashboard cell named "<NAME>"
     When click cell content popover delete
