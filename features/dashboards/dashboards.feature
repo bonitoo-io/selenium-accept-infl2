@@ -97,7 +97,9 @@ Feature: Dashboards - Base
     Then the label "Mesto" is not present in the popover selector
     When clear the popover label selector filter
     Then there are "3" label pills in the select label popover
-    When press the "ESCAPE" key
+    # TODO use escape key once #17853 is resolved
+    #When press the "ESCAPE" key
+    When click the dashboards filter input
     Then the add label popover is not present
 
   Scenario Outline: Create new Dashboard

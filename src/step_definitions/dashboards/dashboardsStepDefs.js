@@ -285,4 +285,8 @@ When(/^click the dashboard name "(.*)"$/, async name => {
     await dbdsSteps.clickDashboardCardName(name);
 });
 
+When(/^click the dashboards filter input$/, async () => {
+    await dbdsSteps.clickDashboardsFilterInput();
+});
+
 

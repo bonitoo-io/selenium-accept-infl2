@@ -364,6 +364,10 @@ class dashboardsSteps extends influxSteps {
     async clickExportDashboardCopyToClipboard(){
         await this.clickAndWait(await this.dbdsPage.getexportPopupCopyToClipboard());
     }
+    
+    async clickDashboardsFilterInput(){
+        await this.clickAndWait(await this.dbdsPage.getFilterDashboards());
+    }
 
 }
 

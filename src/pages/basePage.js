@@ -40,7 +40,7 @@ const dropdownContents = '[data-testid=dropdown-menu--contents]';
 const dropdownItemByText = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%TEXT%\']]';
 
 //common controls
-const labelPopover = '[data-testid=\'inline-labels--popover\']';
+const labelPopover = '[data-testid=\'inline-labels--popover--dialog\']';
 const labelListItem = '[data-testid=\'label-list--item %ITEM%\']';
 
 
