@@ -159,10 +159,6 @@ class dashboardsSteps extends influxSteps {
         await this.assertVisible(await this.dbdsPage.getDashboardCardLabelPill(name, label));
     }
 
-    async verifyAddLabelsPopopverNotPresent(){
-        await this.assertNotPresent(await dashboardsPage.getAddLabelsPopoverSelector());
-    }
-
     async clickDasboardCardAddLabel(name){
         await this.clickAndWait(await this.dbdsPage.getDashboardCardAddLabels(name));
     }

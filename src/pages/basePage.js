@@ -39,6 +39,11 @@ const sortTypeListItem = '[data-testid=\'resource-sorter--%ITEM%\']';
 const dropdownContents = '[data-testid=dropdown-menu--contents]';
 const dropdownItemByText = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%TEXT%\']]';
 
+//common controls
+const labelPopover = '[data-testid=\'inline-labels--popover\']';
+const labelListItem = '[data-testid=\'label-list--item %ITEM%\']';
+
+
 class basePage{
 
     constructor(driver){
@@ -344,11 +349,23 @@ class basePage{
     }
 
     async getPopoverDialog(){
-        return await this.drivre.findElement(By.css(popoverDialog));
+        return await this.driver.findElement(By.css(popoverDialog));
     }
 
     static getpopoverDialogSelector(){
         return { type: 'css', selector: popoverDialog };
+    }
+
+    async getLabelPopover(){
+        return await this.driver.findElement(By.css(labelPopover));
+    }
+
+    static getLabelPopoverSelector(){
+        return { type: 'css', selector: labelPopover }
+    }
+
+    async getLabelListItem(item){
+        return await this.driver.findElement(By.css(labelListItem.replace('%ITEM%', item)));
     }
 
 

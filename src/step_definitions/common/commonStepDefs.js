@@ -328,3 +328,11 @@ When(/^click sort by item "(.*)"$/, async item => {
    await bSteps.clickSortByListItem(item);
 });
 
+Then(/^the add label popover is not present$/, async () => {
+    await bSteps.verifyAddLabelsPopopverNotPresent();
+});
+
+Then(/^the add label popover is present$/, async () => {
+   await bSteps.verifyAddLabelPopoverVisible();
+});
+

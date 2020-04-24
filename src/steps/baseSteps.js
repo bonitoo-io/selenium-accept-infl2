@@ -779,6 +779,14 @@ class baseSteps{
         }
     }
 
+    async verifyAddLabelPopoverVisible(){
+        await this.assertVisible(await this.basePage.getLabelPopover());
+    }
+
+    async verifyAddLabelsPopopverNotPresent(){
+        await this.assertNotPresent(await basePage.getLabelPopoverSelector());
+    }
+
 
 }
 

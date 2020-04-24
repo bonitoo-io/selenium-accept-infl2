@@ -130,10 +130,6 @@ Then(/^the dashboard card "(.*)" has the label "(.*)"$/, async (name, label) => 
     await dbdsSteps.verifyDashboardCardHasLabel(name, label);
 });
 
-Then(/^the add label popover is not present$/, async () => {
-    await dbdsSteps.verifyAddLabelsPopopverNotPresent();
-});
-
 When(/^click the add label button for the dashboard card "(.*)"$/, async name => {
     await dbdsSteps.clickDasboardCardAddLabel(name);
 });
