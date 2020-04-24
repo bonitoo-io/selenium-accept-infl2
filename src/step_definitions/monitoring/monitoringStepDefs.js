@@ -129,5 +129,21 @@ Then(/^the check card "(.*)" contains the description:$/, async (name,text) => {
    await monSteps.verifyCheckCardDescription(name, text);
 });
 
+When(/^click empty label for check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardEmptyLabel(name);
+});
+
+When(/^click the checks filter input$/, async () => {
+   await monSteps.clickChecksFilterInput();
+});
+
+When(/^click the add labels button for check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardAddLabels(name);
+});
+
+Then(/^the check card "(.*)" contains the label pills:$/, async (name,labels) => {
+   await monSteps.verifyCheckCardLabels(name,labels);
+});
+
 
 

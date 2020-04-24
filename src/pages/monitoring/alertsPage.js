@@ -27,6 +27,10 @@ const checkCardNameInput = '[data-testid=check-card--input]';
 const checkCardDescription = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']';
 const checkCardDescriptionEditButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'resource-list--editable-description\']//*[@data-testid=\'icon\']';
 const checkCardDescriptionInput = '[data-testid=check-card] [data-testid=input-field]';
+const checkCardAddLabelButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
+const checkCardLabelEmpty = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
+const checkCardLabelPill = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %LABEL%\']';
+const checkCardLabelRemove = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'%LABEL%\']';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -189,6 +193,26 @@ class alertsPage extends influxPage {
 
     async getCheckCardDescriptionInput(){
         return await this.driver.findElement(By.css(checkCardDescriptionInput));
+    }
+
+    async getCheckCardAddLabelButton(name){
+        return await this.driver.findElement(By.xpath(checkCardAddLabelButton.replace('%NAME%', name)));
+    }
+
+    async getCheckCardLabelEmpty(name){
+        return await this.driver.findElement(By.xpath(checkCardLabelEmpty.replace('%NAME%', name)));
+    }
+
+    async getCheckCardLabelPill(name, label){
+        return await this.driver.findElement(By.xpath(checkCardLabelPill
+            .replace('%NAME%', name)
+            .replace('%LABEL%', label)));
+    }
+
+    async getCheckCardLabelRemove(name, label){
+        return await this.driver.findElement(By.xpath(checkCardLabelRemove
+            .replace('%NAME%', name)
+            .replace('%LABEL%', label)));
     }
 
 }

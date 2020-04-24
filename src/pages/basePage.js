@@ -42,6 +42,8 @@ const dropdownItemByText = '//*[@data-testid=\'dropdown-item\'][./*[text()=\'%TE
 //common controls
 const labelPopover = '[data-testid=\'inline-labels--popover--dialog\']';
 const labelListItem = '[data-testid=\'label-list--item %ITEM%\']';
+const labelPopoverFilterField = '[data-testid=\'inline-labels--popover-field\']';
+const labelPopoverCreateNewButton = '[data-testid=\'inline-labels--create-new\']';
 
 
 class basePage{
@@ -361,12 +363,29 @@ class basePage{
     }
 
     static getLabelPopoverSelector(){
-        return { type: 'css', selector: labelPopover }
+        return { type: 'css', selector: labelPopover };
     }
 
     async getLabelListItem(item){
         return await this.driver.findElement(By.css(labelListItem.replace('%ITEM%', item)));
     }
+
+    static getLabelListItemSelector(item){
+        return { type: 'css', selector: labelListItem.replace('%ITEM%', item) };
+    }
+
+    async getLabelPopoverFilterField(){
+        return await this.driver.findElement(By.css(labelPopoverFilterField));
+    }
+
+    async getLabelPopoverCreateNewButton(){
+        return await this.driver.findElement(By.css(labelPopoverCreateNewButton));
+    }
+
+    static getLabelPopoverCreateNewButtonSelector(){
+        return { type: 'css', selector: labelPopoverCreateNewButton };
+    }
+
 
 
 

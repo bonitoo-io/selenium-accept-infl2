@@ -138,10 +138,6 @@ class dashboardsSteps extends influxSteps {
         });
     }
 
-    async clearDashboardLabelsFilter(){
-        await this.clearInputText(await this.dbdsPage.getAddLabelsPopoverFilter());
-    }
-
     async verifyLabelPopoverCreateNewNotPresent(){
         await this.assertNotPresent(await dashboardsPage.getAddLabelsPopoverNewItemSelector());
     }
@@ -364,7 +360,7 @@ class dashboardsSteps extends influxSteps {
     async clickExportDashboardCopyToClipboard(){
         await this.clickAndWait(await this.dbdsPage.getexportPopupCopyToClipboard());
     }
-    
+
     async clickDashboardsFilterInput(){
         await this.clickAndWait(await this.dbdsPage.getFilterDashboards());
     }

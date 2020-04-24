@@ -787,6 +787,44 @@ class baseSteps{
         await this.assertNotPresent(await basePage.getLabelPopoverSelector());
     }
 
+    async verifyLabelPopoverContainsLabels(labels){
+        let labelsList = labels.split(',');
+        for(const label of labelsList){
+            await this.assertVisible(await this.basePage.getLabelListItem(label.trim()));
+        }
+    }
+
+    async verifyLabelPopoverDoesNotContainLabels(labels){
+        let labelsList = labels.split(',');
+        for(const label of labelsList){
+            await this.assertNotPresent(await basePage.getLabelListItemSelector(label.trim()));
+        }
+
+    }
+
+    async clickLabelPopoverItem(item){
+        await this.clickAndWait(await this.basePage.getLabelListItem(item.trim()));
+    }
+
+    async setLabelPopoverFilter(val){
+        await this.clearInputText(await this.basePage.getLabelPopoverFilterField());
+        await this.typeTextAndWait(await this.basePage.getLabelPopoverFilterField(), val);
+    }
+
+    async verifyLabelPopoverCreateNew(name){
+        await this.verifyElementContainsText(await this.basePage.getLabelPopoverCreateNewButton(), name);
+    }
+
+    async verifyLabelPopupNoCreateNew(){
+        await this.assertNotPresent(await basePage.getLabelPopoverCreateNewButtonSelector());
+    }
+
+
+    async clearDashboardLabelsFilter(){
+        await this.clearInputText(await this.basePage.getLabelPopoverFilterField());
+    }
+
+
 
 }
 

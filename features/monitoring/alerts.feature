@@ -7,21 +7,23 @@ Feature: Monitoring - Alerts - Base
 Scenario: Load Initial Alerts view
   Given I reset the environment
   Given run setup over REST "DEFAULT"
-  When open the signin page
-  When UI sign in user "DEFAULT"
-  When click nav menu item "Alerting"
   #When hover over the "alerting" menu item
   #When click nav sub menu "Monitoring & Alerting"
-  Then the Alerting page is loaded
   When API sign in user "DEFAULT"
-  When API create a label "Peano" described as "theorie des ensembles" with color "#AAFFAA" for user "DEFAULT"
-  When API create a label "Euclide" described as "geometrie euclidienne" with color "#FFAAAA" for user "DEFAULT"
+  When API create a label "Peano" described as "Theorie des ensembles" with color "#AAFFAA" for user "DEFAULT"
+  When API create a label "Euclide" described as "Geometrie euclidienne" with color "#FFAAAA" for user "DEFAULT"
+  When API create a label "Leibniz" described as "Calcul infinitésimal" with color "#AAAAFF" for user "DEFAULT"
+  When API create a label "Descartes" described as "Géométrie analytique" with color "#FFFFAA" for user "DEFAULT"
   When start live data generator
   # It seems 5s is the quickest we can use stably given default values in create check controls
   # Tried 1s, but need to use agg function like mean so the checks do not seem to match
   """
   { "pulse": 5000, "model": "count10" }
   """
+  When open the signin page
+  When UI sign in user "DEFAULT"
+  When click nav menu item "Alerting"
+  Then the Alerting page is loaded
   When wait "10" seconds
 
 Scenario: Exercise Initial Alerts view Controls
@@ -294,6 +296,58 @@ Que ta voix, chat mystérieux, Chat séraphique, chat étrange... Baudelaire
   """
 
 # Add labels to checks
+Scenario: Add Labels To Checks
+  When click empty label for check card "Veille automatique - Avertissement"
+  Then the add label popover is present
+  # dismiss popover
+  # TODO - once #17853 is fixed - use ESC key to dismiss popover
+  When click the checks filter input
+  Then the add label popover is not present
+  When click the add labels button for check card "Veille automatique - Avertissement"
+  Then the add label popover is present
+  Then the add label popover contains the labels
+  """
+  Peano,Euclide,Leibniz,Descartes
+  """
+  When click the label popover item "Peano"
+  When click the label popover item "Leibniz"
+  Then the add label popover contains the labels
+  """
+  Euclide,Descartes
+  """
+  Then the add label popover does not contain the labels:
+  """
+  Peano,Leibniz
+  """
+  When set the label popover filter field to "Godel"
+  Then the add label popover does not contain the labels:
+  """
+  Euclide,Descartes
+  """
+  Then the label popover contains create new "Godel"
+  When clear the popover label selector filter
+  Then the add label popover contains the labels
+  """
+  Euclide,Descartes
+  """
+  Then the add label popover does not contain the labels:
+  """
+  Peano,Leibniz
+  """
+  Then the add label popover does not contain create new
+  When click the checks filter input
+  Then the add label popover is not present
+  Then the check card "Veille automatique - Avertissement" contains the label pills:
+  """
+  Peano,Leibniz
+  """
+  # TODO - When remove the label pill "Peano" from the check card "Veille automatique - Avertissement"
+
+
+
+# Clone check
+
+# Delete Check
 
 # Filter Checks
 

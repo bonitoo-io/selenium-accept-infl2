@@ -110,10 +110,6 @@ Then(/^there are "(.*)" label pills in the select label popover$/, async count =
     await dbdsSteps.verifyDasboardAddLabelsPillCount(count);
 });
 
-When(/^clear the popover label selector filter$/, async () => {
-    await dbdsSteps.clearDashboardLabelsFilter();
-});
-
 Then(/^the create new label item is not visible in the popover$/, async () => {
     await dbdsSteps.verifyLabelPopoverCreateNewNotPresent();
 });

@@ -156,6 +156,28 @@ class monitoringSteps extends influxSteps{
         await this.verifyElementContainsText(await this.alPage.getCheckCardDescription(name), text);
     }
 
+    async clickCheckCardEmptyLabel(name){
+        await this.scrollElementIntoView(await this.alPage.getCheckCardLabelEmpty(name));
+        await this.clickAndWait(await this.alPage.getCheckCardLabelEmpty(name));
+    }
+
+    async clickChecksFilterInput(){
+        await this.clickAndWait(await this.alPage.getChecksFilterInput());
+    }
+
+    async clickCheckCardAddLabels(name){
+        await this.clickAndWait(await this.alPage.getCheckCardAddLabelButton(name), async () => {
+            await this.driver.sleep(500); //fetching labels seems slow
+        });
+    }
+
+    async verifyCheckCardLabels(name,labels){
+        let labelsList = labels.split(',');
+        for(const label of labelsList){
+            await this.assertVisible(await this.alPage.getCheckCardLabelPill(name, label));
+        }
+    }
+
 
 }
 
