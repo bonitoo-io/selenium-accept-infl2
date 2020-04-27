@@ -298,13 +298,13 @@ Que ta voix, chat mystérieux, Chat séraphique, chat étrange... Baudelaire
 
 # Add labels to checks
 Scenario: Add Labels To Checks
-  When click empty label for check card "Veille automatique - Avertissement"
+  When click empty label for check card "Deadman Critical Check"
   Then the add label popover is present
   # dismiss popover
   # TODO - once #17853 is fixed - use ESC key to dismiss popover
   When click the checks filter input
   Then the add label popover is not present
-  When click the add labels button for check card "Veille automatique - Avertissement"
+  When click the add labels button for check card "Deadman Critical Check"
   Then the add label popover is present
   Then the add label popover contains the labels
   """
@@ -338,7 +338,7 @@ Scenario: Add Labels To Checks
   Then the add label popover does not contain create new
   When click the checks filter input
   Then the add label popover is not present
-  Then the check card "Veille automatique - Avertissement" contains the label pills:
+  Then the check card "Deadman Critical Check" contains the label pills:
   """
   Peano,Leibniz
   """
