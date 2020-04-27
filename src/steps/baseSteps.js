@@ -790,7 +790,9 @@ class baseSteps{
     async verifyLabelPopoverContainsLabels(labels){
         let labelsList = labels.split(',');
         for(const label of labelsList){
-            await this.assertVisible(await this.basePage.getLabelListItem(label.trim()));
+            let elem = await this.basePage.getLabelListItem(label.trim())
+            await this.scrollElementIntoView(elem);
+            await this.assertVisible(elem);
         }
     }
 
