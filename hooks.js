@@ -65,12 +65,17 @@ let currentFeature = '';
 Before(async function (scenario){
 
     //safety kill any live data generator
-    console.log("DEBUG __LiveDataGenRunning " + __LiveDataGenRunning);
+    console.log("DEBUG __liveDataGenRunning " + __liveDataGenRunning);
     console.log(`[${new Date().toISOString()}]`);
-    if(!scenarioContainsTag(scenario, '@use-live-data') && __LiveDataGenRunning){
+    if(!scenarioContainsTag(scenario, '@use-live-data') && __liveDataGenRunning){
         console.log("killing live generator");
         __killLiveDataGen = true;
     }
+    console.log("DEBUG __liveDataGenRunning " + __liveDataGenRunning);
+    console.log(`[${new Date().toISOString()}]`);
+
+    console.log("DEBUG __killLiveDataGen " + __killLiveDataGen);
+    console.log(`[${new Date().toISOString()}]`);
 
 });
 
@@ -136,7 +141,7 @@ After(async function (scenario /*,   callback */) {
 
 
 AfterAll(async function ( ) {
-    if(__LiveDataGenRunning) {
+    if(__liveDataGenRunning) {
         console.log("killing live generator");
         __killLiveDataGen = true;
     }
