@@ -16,6 +16,7 @@ global.__config = config;
 global.__defaultUser = defaultUser;
 global.__users = { 'init': undefined };
 global.__killLiveDataGen = false;
+global.__LiveDataGenRunning = false;
 
 process.argv.slice(2).forEach((val) => {
 
@@ -607,8 +608,10 @@ const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
        await writeData(__defaultUser.org,__defaultUser.bucket, [
            `test,gen=gen val=${val} ${current * mil2Nano}`
        ]);
+       global.__LiveDataGenRunning = true;
        await sleep(def.pulse)
    }
+    global.__LiveDataGenRunning = false;
 };
 
 const startLiveDataGen = function(def){

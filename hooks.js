@@ -62,11 +62,22 @@ async function writeDriverLog(filename){
 let scenarioCt = 0;
 let currentFeature = '';
 
-Before(async function (){
+Before(async function (scenario){
 
+    //safety kill any live data generator
     console.log(`[${new Date().toISOString()}]`);
+    if(!scenarioContainsTag(scenario, '@use-live-data') && __LiveDataGenRunning){
+        console.log("killing live generator");
+        __killLiveDataGen = true;
+    }
 
 });
+
+async function scenarioContainsTag(scenario, tag){
+    let match = scenario.pickle.tags.find( elem => elem.name === tag)
+    console.log("DEBUG match " + match);
+    return match;
+}
 
 After(async function (scenario /*,   callback */) {
 
@@ -75,6 +86,11 @@ After(async function (scenario /*,   callback */) {
   //  if(!fs.existsSync(`./${__config.screenshot_dir}`)){
   //      fs.mkdir(`./${__config.screenshot_dir}`, () => {})
   //  }
+
+
+    console.log("DEBUG scenario " + JSON.stringify(scenario.pickle.tags));
+    await scenarioContainsTag(scenario, '@feature-monitoring');
+    await scenarioContainsTag(scenario, '@bogus');
 
     let uri = scenario.sourceLocation.uri
     let feature = uri.substring(uri.lastIndexOf("/") + 1).replace('.','-')
@@ -116,6 +132,7 @@ After(async function (scenario /*,   callback */) {
                 await world.attach(img, 'image/png')
             })
     }
+
     //callback()
 
 });
@@ -123,10 +140,6 @@ After(async function (scenario /*,   callback */) {
 
 
 AfterAll(async function ( ) {
-
-    //safety kill any live data generator
-    console.log("killing live generator");
-    __killLiveDataGen = true;
 
 });
 
