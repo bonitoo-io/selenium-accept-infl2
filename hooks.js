@@ -65,6 +65,7 @@ let currentFeature = '';
 Before(async function (scenario){
 
     //safety kill any live data generator
+    console.log("DEBUG __LiveDataGenRunning " + __LiveDataGenRunning);
     console.log(`[${new Date().toISOString()}]`);
     if(!scenarioContainsTag(scenario, '@use-live-data') && __LiveDataGenRunning){
         console.log("killing live generator");
@@ -75,7 +76,7 @@ Before(async function (scenario){
 
 async function scenarioContainsTag(scenario, tag){
     let match = scenario.pickle.tags.find( elem => elem.name === tag)
-    console.log("DEBUG match " + match);
+    //console.log("DEBUG match " + match);
     return match;
 }
 
@@ -86,11 +87,6 @@ After(async function (scenario /*,   callback */) {
   //  if(!fs.existsSync(`./${__config.screenshot_dir}`)){
   //      fs.mkdir(`./${__config.screenshot_dir}`, () => {})
   //  }
-
-
-    console.log("DEBUG scenario " + JSON.stringify(scenario.pickle.tags));
-    await scenarioContainsTag(scenario, '@feature-monitoring');
-    await scenarioContainsTag(scenario, '@bogus');
 
     let uri = scenario.sourceLocation.uri
     let feature = uri.substring(uri.lastIndexOf("/") + 1).replace('.','-')
@@ -140,7 +136,10 @@ After(async function (scenario /*,   callback */) {
 
 
 AfterAll(async function ( ) {
-
+    if(__LiveDataGenRunning) {
+        console.log("killing live generator");
+        __killLiveDataGen = true;
+    }
 });
 
 
