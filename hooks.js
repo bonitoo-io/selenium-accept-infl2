@@ -67,7 +67,7 @@ Before(async function (scenario){
     //safety kill any live data generator
     console.log("DEBUG __liveDataGenRunning " + __liveDataGenRunning);
     console.log(`[${new Date().toISOString()}]`);
-    if(!scenarioContainsTag(scenario, '@use-live-data') && __liveDataGenRunning){
+    if(!await scenarioContainsTag(scenario, '@use-live-data') && __liveDataGenRunning){
         console.log("killing live generator");
         __killLiveDataGen = true;
     }
@@ -82,7 +82,7 @@ Before(async function (scenario){
 async function scenarioContainsTag(scenario, tag){
     let match = scenario.pickle.tags.find( elem => elem.name === tag)
     //console.log("DEBUG match " + match);
-    return match;
+    return match !== undefined;
 }
 
 After(async function (scenario /*,   callback */) {
