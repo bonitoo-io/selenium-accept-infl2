@@ -145,5 +145,12 @@ Then(/^the check card "(.*)" contains the label pills:$/, async (name,labels) =>
    await monSteps.verifyCheckCardLabels(name,labels);
 });
 
+When(/^remove the label pill "(.*)" from the check card "(.*)"$/, async (label, name) => {
+   await monSteps.removeLabelPillFromCheckCard(name,label);
+});
+
+Then(/^the check card "(.*)" does not contain the label pills:$/, {timeout: 10000}, async (name,labels) => {
+   await monSteps.verifyCheckCardDoesNotHaveLabels(name, labels);
+});
 
 

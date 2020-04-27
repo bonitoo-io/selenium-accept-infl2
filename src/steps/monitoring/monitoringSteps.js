@@ -178,6 +178,18 @@ class monitoringSteps extends influxSteps{
         }
     }
 
+    async removeLabelPillFromCheckCard(name,label){
+        await this.hoverOver(await this.alPage.getCheckCardLabelPill(name, label));
+        await this.clickAndWait(await this.alPage.getCheckCardLabelRemove(name, label));
+    }
+
+    async verifyCheckCardDoesNotHaveLabels(name, labels){
+        let labelsList = labels.split(',');
+        for(const label of labelsList){
+            await this.assertNotPresent(await alertsPage.getCheckCardLabelPillSelector(name, label));
+        }
+    }
+
 
 }
 

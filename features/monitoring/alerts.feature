@@ -336,13 +336,30 @@ Scenario: Add Labels To Checks
   Peano,Leibniz
   """
   Then the add label popover does not contain create new
+  # TODO - use escape to close popover once #17853 is resolved
   When click the checks filter input
   Then the add label popover is not present
   Then the check card "Deadman Critical Check" contains the label pills:
   """
   Peano,Leibniz
   """
-  # TODO - When remove the label pill "Peano" from the check card "Veille automatique - Avertissement"
+  When remove the label pill "Peano" from the check card "Deadman Critical Check"
+  Then the check card "Deadman Critical Check" contains the label pills:
+  """
+  Leibniz
+  """
+  Then the check card "Deadman Critical Check" does not contain the label pills:
+  """
+  Peano
+  """
+  When click the add labels button for check card "Deadman Critical Check"
+  Then the add label popover contains the labels
+  """
+  Peano,Euclide,Descartes
+  """
+  # TODO - use escape to close popover once #17853 is resolved
+  When click the checks filter input
+
 
 
 

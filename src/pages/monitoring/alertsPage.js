@@ -30,7 +30,7 @@ const checkCardDescriptionInput = '[data-testid=check-card] [data-testid=input-f
 const checkCardAddLabelButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--add\']';
 const checkCardLabelEmpty = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
 const checkCardLabelPill = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %LABEL%\']';
-const checkCardLabelRemove = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'%LABEL%\']';
+const checkCardLabelRemove = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %LABEL%\']';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -207,6 +207,12 @@ class alertsPage extends influxPage {
         return await this.driver.findElement(By.xpath(checkCardLabelPill
             .replace('%NAME%', name)
             .replace('%LABEL%', label)));
+    }
+
+    static getCheckCardLabelPillSelector(name, label){
+        return { type: 'xpath', selector: checkCardLabelPill
+                .replace('%NAME%', name)
+                .replace('%LABEL%', label)}
     }
 
     async getCheckCardLabelRemove(name, label){
