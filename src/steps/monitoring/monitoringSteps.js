@@ -152,7 +152,7 @@ class monitoringSteps extends influxSteps{
     }
 
     async verifyCheckCardDescription(name, text){
-        await this.driver.sleep(1000); //card update seems a bit slow
+        await this.driver.sleep(1500); //card update seems a bit slow
         await this.verifyElementContainsText(await this.alPage.getCheckCardDescription(name), text);
     }
 

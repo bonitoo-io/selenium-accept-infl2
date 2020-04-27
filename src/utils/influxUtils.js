@@ -608,16 +608,20 @@ const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
        await writeData(__defaultUser.org,__defaultUser.bucket, [
            `test,gen=gen val=${val} ${current * mil2Nano}`
        ]);
-       global.__liveDataGenRunning = true;
+       __liveDataGenRunning = true;
        await sleep(def.pulse)
    }
-    global.__liveDataGenRunning = false;
+    __liveDataGenRunning = false;
 };
 
 const startLiveDataGen = function(def){
-    console.log("Starting live generator with " + JSON.stringify(def));
-    __killLiveDataGen = false;
-    dataGenProcess(JSON.parse(def));
+    if(!__liveDataGenRunning) {
+        console.log("Starting live generator with " + JSON.stringify(def));
+        __killLiveDataGen = false;
+        dataGenProcess(JSON.parse(def));
+    }else{
+        console.log("Live Data Generator already running");
+    }
 };
 
 const stopLiveDataGen = function(){
