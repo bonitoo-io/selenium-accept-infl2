@@ -79,6 +79,13 @@ Feature: Influx common
     #Then the sign in page is loaded
     #When UI sign in user "DEFAULT"
 
+  Scenario: Click Organization
+    When click nav menu item "Organization"
+    Then the Organization page is loaded
+
+  Scenario: Click User
+    When click nav menu item "User"
+    Then the user menu items are "visible"
 
   # TODO - create organization from Home Menu Item
 
