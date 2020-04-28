@@ -328,3 +328,40 @@ When(/^click sort by item "(.*)"$/, async item => {
    await bSteps.clickSortByListItem(item);
 });
 
+Then(/^the add label popover is not present$/, async () => {
+    await bSteps.verifyAddLabelsPopopverNotPresent();
+});
+
+Then(/^the add label popover is present$/, async () => {
+   await bSteps.verifyAddLabelPopoverVisible();
+});
+
+Then(/^the add label popover contains the labels$/, async labels => {
+   await bSteps.verifyLabelPopoverContainsLabels(labels);
+});
+
+When(/^click the label popover item "(.*)"$/, async item => {
+   await bSteps.clickLabelPopoverItem(item);
+});
+
+Then(/^the add label popover does not contain the labels:$/, { timeout: 10000}, async labels => {
+    await bSteps.verifyLabelPopoverDoesNotContainLabels(labels);
+});
+
+When(/^set the label popover filter field to "(.*)"$/, async val => {
+   await bSteps.setLabelPopoverFilter(val);
+});
+
+Then(/^the label popover contains create new "(.*)"$/, async name => {
+   await bSteps.verifyLabelPopoverCreateNew(name);
+});
+
+Then(/^the add label popover does not contain create new$/, async () => {
+   await bSteps.verifyLabelPopupNoCreateNew();
+});
+
+When(/^clear the popover label selector filter$/, async () => {
+    await bSteps.clearDashboardLabelsFilter();
+});
+
+

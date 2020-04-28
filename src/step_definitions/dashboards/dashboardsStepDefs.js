@@ -110,10 +110,6 @@ Then(/^there are "(.*)" label pills in the select label popover$/, async count =
     await dbdsSteps.verifyDasboardAddLabelsPillCount(count);
 });
 
-When(/^clear the popover label selector filter$/, async () => {
-    await dbdsSteps.clearDashboardLabelsFilter();
-});
-
 Then(/^the create new label item is not visible in the popover$/, async () => {
     await dbdsSteps.verifyLabelPopoverCreateNewNotPresent();
 });
@@ -128,10 +124,6 @@ When(/^click the new label item in the add labels popover$/, async () => {
 
 Then(/^the dashboard card "(.*)" has the label "(.*)"$/, async (name, label) => {
     await dbdsSteps.verifyDashboardCardHasLabel(name, label);
-});
-
-Then(/^the add label popover is not present$/, async () => {
-    await dbdsSteps.verifyAddLabelsPopopverNotPresent();
 });
 
 When(/^click the add label button for the dashboard card "(.*)"$/, async name => {
@@ -287,6 +279,10 @@ When(/^click Export Dashboard popup Copy to Clipboard$/, async () => {
 
 When(/^click the dashboard name "(.*)"$/, async name => {
     await dbdsSteps.clickDashboardCardName(name);
+});
+
+When(/^click the dashboards filter input$/, async () => {
+    await dbdsSteps.clickDashboardsFilterInput();
 });
 
 

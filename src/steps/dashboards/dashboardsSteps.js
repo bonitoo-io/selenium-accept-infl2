@@ -138,10 +138,6 @@ class dashboardsSteps extends influxSteps {
         });
     }
 
-    async clearDashboardLabelsFilter(){
-        await this.clearInputText(await this.dbdsPage.getAddLabelsPopoverFilter());
-    }
-
     async verifyLabelPopoverCreateNewNotPresent(){
         await this.assertNotPresent(await dashboardsPage.getAddLabelsPopoverNewItemSelector());
     }
@@ -157,10 +153,6 @@ class dashboardsSteps extends influxSteps {
 
     async verifyDashboardCardHasLabel(name, label){
         await this.assertVisible(await this.dbdsPage.getDashboardCardLabelPill(name, label));
-    }
-
-    async verifyAddLabelsPopopverNotPresent(){
-        await this.assertNotPresent(await dashboardsPage.getAddLabelsPopoverSelector());
     }
 
     async clickDasboardCardAddLabel(name){
@@ -367,6 +359,10 @@ class dashboardsSteps extends influxSteps {
 
     async clickExportDashboardCopyToClipboard(){
         await this.clickAndWait(await this.dbdsPage.getexportPopupCopyToClipboard());
+    }
+
+    async clickDashboardsFilterInput(){
+        await this.clickAndWait(await this.dbdsPage.getFilterDashboards());
     }
 
 }

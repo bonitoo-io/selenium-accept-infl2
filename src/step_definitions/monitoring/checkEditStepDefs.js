@@ -216,3 +216,7 @@ When(/^set the check tag value of tag "(.*)" to "(.*)"$/, async (index,val) => {
    await ckEdSteps.setCheckTagVal(index, val);
 });
 
+When(/^remove check tag key "(.*)"$/, async index => {
+   await ckEdSteps.removeCheckTag(index);
+});
+

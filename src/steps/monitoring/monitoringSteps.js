@@ -123,6 +123,74 @@ class monitoringSteps extends influxSteps{
         await this.assertVisible(await this.alPage.getCheckCardName(name));
     }
 
+    async hoverOverCheckCardName(name){
+        await this.scrollElementIntoView(await this.alPage.getCheckCardName(name));
+        await this.hoverOver(await this.alPage.getCheckCardName(name));
+    }
+
+    async clickCheckCardNameEditButton(name){
+        await this.clickAndWait(await this.alPage.getCheckCardNameEditButton(name));
+    }
+
+    async updateCheckCardActiveNameInput(newVal){
+        await this.clearInputText(await this.alPage.getCheckCardNameInput());
+        await this.typeTextAndWait(await this.alPage.getCheckCardNameInput(), newVal);
+    }
+
+    async hoverOverCheckCardDescription(name){
+        await this.scrollElementIntoView(await this.alPage.getCheckCardDescription(name));
+        await this.hoverOver(await this.alPage.getCheckCardDescription(name));
+    }
+
+    async clickCheckCardDescriptionEditButton(name){
+        await this.clickAndWait(await this.alPage.getCheckCardDescriptionEditButton(name));
+    }
+
+    async updateCheckCardActiveDescription(text){
+        await this.clearInputText(await this.alPage.getCheckCardDescriptionInput());
+        await this.typeTextAndWait(await this.alPage.getCheckCardDescriptionInput(), text);
+    }
+
+    async verifyCheckCardDescription(name, text){
+        await this.driver.sleep(1500); //card update seems a bit slow
+        await this.verifyElementContainsText(await this.alPage.getCheckCardDescription(name), text);
+    }
+
+    async clickCheckCardEmptyLabel(name){
+        await this.scrollElementIntoView(await this.alPage.getCheckCardLabelEmpty(name));
+        await this.clickAndWait(await this.alPage.getCheckCardLabelEmpty(name));
+    }
+
+    async clickChecksFilterInput(){
+        await this.clickAndWait(await this.alPage.getChecksFilterInput());
+    }
+
+    async clickCheckCardAddLabels(name){
+        await this.clickAndWait(await this.alPage.getCheckCardAddLabelButton(name), async () => {
+            await this.driver.sleep(500); //fetching labels seems slow
+        });
+    }
+
+    async verifyCheckCardLabels(name,labels){
+        let labelsList = labels.split(',');
+        for(const label of labelsList){
+            await this.assertVisible(await this.alPage.getCheckCardLabelPill(name, label));
+        }
+    }
+
+    async removeLabelPillFromCheckCard(name,label){
+        await this.hoverOver(await this.alPage.getCheckCardLabelPill(name, label));
+        await this.clickAndWait(await this.alPage.getCheckCardLabelRemove(name, label));
+    }
+
+    async verifyCheckCardDoesNotHaveLabels(name, labels){
+        let labelsList = labels.split(',');
+        for(const label of labelsList){
+            await this.assertNotPresent(await alertsPage.getCheckCardLabelPillSelector(name, label));
+        }
+    }
+
+
 }
 
 module.exports = monitoringSteps;

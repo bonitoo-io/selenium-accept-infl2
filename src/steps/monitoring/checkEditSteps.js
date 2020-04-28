@@ -26,7 +26,9 @@ class checkEditSteps extends influxSteps {
     }
 
     async clickCKEdSaveButton(){
-        await this.clickAndWait(await this.ckEdPage.getSaveCellButton());
+        await this.clickAndWait(await this.ckEdPage.getSaveCellButton(), async () => {
+            await this.driver.sleep(500); //todo - better wait - can be slow to load
+        });
     }
 
     async dismissOverlay(){
@@ -286,6 +288,11 @@ class checkEditSteps extends influxSteps {
     async setCheckTagVal(index, val){
         await this.clearInputText(await this.ckEdPage.getConfTagRuleValueInputOfTag(index));
         await this.typeTextAndWait(await this.ckEdPage.getConfTagRuleValueInputOfTag(index), val);
+    }
+
+    async removeCheckTag(index){
+        await this.scrollElementIntoView(await this.ckEdPage.getConfTagRuleDimissOfTag(index));
+        await this.clickAndWait(await this.ckEdPage.getConfTagRuleDimissOfTag(index))
     }
 
 }
