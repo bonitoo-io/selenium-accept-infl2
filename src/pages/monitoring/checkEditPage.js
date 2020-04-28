@@ -10,6 +10,7 @@ const pageCheckEditTitle = '[data-testid=overlay] [data-testid=page-header] [dat
 const pageCheckEditTitleInput = '[data-testid=\'page-header\'] [data-testid=\'input-field\']';
 const queriesToggle = '[data-testid=overlay] [data-testid=select-group--option][title=queries]';
 const configureCheckToggle = '[data-testid=overlay] [data-testid=\'checkeo--header alerting-tab\']';
+const defineQueryToggle = '[data-testid=select-group--option]';
 const checklistPopover = '[data-testid=popover--contents] [class=query-checklist--popover]';
 const checklistPopoverItemByText = '//*[@data-testid=\'popover--contents\']//*[text()=\'%TEXT%\']';
 
@@ -88,6 +89,10 @@ class checkEditPage extends influxPage {
 
     async getConfigureCheckToggle(){
         return await this.driver.findElement(By.css(configureCheckToggle))
+    }
+
+    async getDefineQueryToggle(){
+        return await this.driver.findElement(By.css(defineQueryToggle));
     }
 
     async getChecklistPopover(){

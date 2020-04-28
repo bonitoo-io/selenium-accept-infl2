@@ -24,8 +24,16 @@ When(/^enter the alert check name "(.*)"$/, async name => {
     await ckEdSteps.enterAlertCheckName(name);
 });
 
+Then(/^the current edit check name is "(.*)"$/, async name => {
+    await ckEdSteps.verifyEditCheckName(name);
+});
+
 When(/^click check editor configure check button$/, async () => {
    await ckEdSteps.clickCkEdConfigureCheck();
+});
+
+When(/^click checkeditor define query button$/, async () => {
+   await ckEdSteps.clickDefineQuery();
 });
 
 Then(/^the configure check view is loaded$/, async () => {

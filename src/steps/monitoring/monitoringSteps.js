@@ -128,6 +128,12 @@ class monitoringSteps extends influxSteps{
         await this.hoverOver(await this.alPage.getCheckCardName(name));
     }
 
+    async clickCheckCardName(name){
+        let elem = await this.alPage.getCheckCardName(name);
+        await this.scrollElementIntoView(elem);
+        await this.clickAndWait(elem);
+    }
+
     async clickCheckCardNameEditButton(name){
         await this.clickAndWait(await this.alPage.getCheckCardNameEditButton(name));
     }
@@ -188,6 +194,14 @@ class monitoringSteps extends influxSteps{
         for(const label of labelsList){
             await this.assertNotPresent(await alertsPage.getCheckCardLabelPillSelector(name, label));
         }
+    }
+
+    async clickCheckCardCloneButton(name){
+        await this.clickAndWait(await this.alPage.getCheckCardCloneButton(name));
+    }
+
+    async clickCheckCardCloneConfirm(name){
+        await this.clickAndWait(await this.alPage.getCheckCardCloneConfirm(name));
     }
 
 

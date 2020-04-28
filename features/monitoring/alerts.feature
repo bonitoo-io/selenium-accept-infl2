@@ -359,6 +359,10 @@ Scenario: Add Labels To Checks
   When click the checks filter input
 
 # Clone check
+  Scenario: Clone Check
+    When hover over the name of the check card "Deadman Warn Check"
+
+
 
 # Delete Check
 
