@@ -101,4 +101,56 @@ Then(/^there is an alert card named "(.*)"$/, async name => {
    await monSteps.verifyAlertCardName(name);
 });
 
+When(/^hover over the name of the check card "(.*)"$/, async name => {
+   await monSteps.hoverOverCheckCardName(name);
+});
+
+When(/^click the name edit button of the check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardNameEditButton(name);
+});
+
+When(/^update the active check card name input to "(.*)"$/, async newVal => {
+   await monSteps.updateCheckCardActiveNameInput(newVal);
+});
+
+When(/^hover over the description of the check card "(.*)"$/, async name => {
+   await monSteps.hoverOverCheckCardDescription(name);
+});
+
+When(/^click the description edit button of the check card "(.*)"$/, async name => {
+  await monSteps.clickCheckCardDescriptionEditButton(name);
+});
+
+When(/^update the active check card description input to:$/, async text => {
+   await monSteps.updateCheckCardActiveDescription(text);
+});
+
+Then(/^the check card "(.*)" contains the description:$/, async (name,text) => {
+   await monSteps.verifyCheckCardDescription(name, text);
+});
+
+When(/^click empty label for check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardEmptyLabel(name);
+});
+
+When(/^click the checks filter input$/, async () => {
+   await monSteps.clickChecksFilterInput();
+});
+
+When(/^click the add labels button for check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardAddLabels(name);
+});
+
+Then(/^the check card "(.*)" contains the label pills:$/, async (name,labels) => {
+   await monSteps.verifyCheckCardLabels(name,labels);
+});
+
+When(/^remove the label pill "(.*)" from the check card "(.*)"$/, async (label, name) => {
+   await monSteps.removeLabelPillFromCheckCard(name,label);
+});
+
+Then(/^the check card "(.*)" does not contain the label pills:$/, {timeout: 10000}, async (name,labels) => {
+   await monSteps.verifyCheckCardDoesNotHaveLabels(name, labels);
+});
+
 

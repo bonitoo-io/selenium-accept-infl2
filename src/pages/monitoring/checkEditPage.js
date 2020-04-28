@@ -30,6 +30,7 @@ const confChkMessageTextArea = '[data-testid=status-message-textarea]';
 
 const confTagRuleKeyInputOfTag = '[data-testid=tag-rule]:nth-of-type(%INDEX%) [data-testid=\'tag-rule-key--input\'][name=key]';
 const confTagRuleValueInputOfTag = '[data-testid=tag-rule]:nth-of-type(%INDEX%) [data-testid=\'tag-rule-key--input\'][name=value]';
+const confTagRuleDimissOfTag = '[data-testid=tag-rule]:nth-of-type(%INDEX%) [data-testid=dismiss-button]';
 
 
 // Thresholds
@@ -181,6 +182,10 @@ class checkEditPage extends influxPage {
 
     async getConfTagRuleValueInputOfTag(index){
         return await this.driver.findElement(By.css(confTagRuleValueInputOfTag.replace('%INDEX%', parseInt(index) + 1)));
+    }
+
+    async getConfTagRuleDimissOfTag(index){
+        return await this.driver.findElement(By.css(confTagRuleDimissOfTag.replace('%INDEX%', parseInt(index) + 1)));
     }
 
 }

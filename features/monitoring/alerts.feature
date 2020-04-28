@@ -1,5 +1,6 @@
 @feature-monitoring
 @monitoring-alerts
+@use-live-data
 Feature: Monitoring - Alerts - Base
   As a user I want to setup alerts
   So that I can be notified of important changes in the data
@@ -7,22 +8,26 @@ Feature: Monitoring - Alerts - Base
 Scenario: Load Initial Alerts view
   Given I reset the environment
   Given run setup over REST "DEFAULT"
-  When open the signin page
-  When UI sign in user "DEFAULT"
-  When click nav menu item "Alerting"
   #When hover over the "alerting" menu item
   #When click nav sub menu "Monitoring & Alerting"
-  Then the Alerting page is loaded
   When API sign in user "DEFAULT"
+  When API create a label "Peano" described as "Theorie des ensembles" with color "#AAFFAA" for user "DEFAULT"
+  When API create a label "Euclide" described as "Geometrie euclidienne" with color "#FFAAAA" for user "DEFAULT"
+  When API create a label "Leibniz" described as "Calcul infinitésimal" with color "#AAAAFF" for user "DEFAULT"
+  When API create a label "Descartes" described as "Géométrie analytique" with color "#FFFFAA" for user "DEFAULT"
   When start live data generator
   # It seems 5s is the quickest we can use stably given default values in create check controls
   # Tried 1s, but need to use agg function like mean so the checks do not seem to match
   """
   { "pulse": 5000, "model": "count10" }
   """
+  When open the signin page
+  When UI sign in user "DEFAULT"
+  When click nav menu item "Alerting"
+  Then the Alerting page is loaded
   When wait "10" seconds
 
-  Scenario: Exercise Initial Alerts view Controls
+Scenario: Exercise Initial Alerts view Controls
   Then the notification rules create dropdown is disabled
   When click alerting tab "checks"
   When click the create check button
@@ -236,20 +241,130 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
   """
 ${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped reporting
   """
-    When set the value of the deadman definition No Values for input to "30s"
-    When set the value of the definition stop input to "1m"
+    When set the value of the deadman definition No Values for input to "60s"
+    When set the value of the definition stop input to "2m"
     When click the check editor save button
     Then there is an alert card named "Deadman Critical Check"
 
-# TODO - Add asserts above
+  # Need second card for filter and sort tests
+  Scenario: Create simple Warn Deadman Check
+  # Just check Deadman fields others were covered in threshold test
+    When click the create check button
+    When click the create check dropdown item "Deadman"
+    When enter the alert check name "Deadman Warn Check"
+    When click the tag "test" in builder card "1"
+    When click the tag "val" in builder card "2"
+    When click the time machine cell edit submit button
+    Then the time machine cell edit preview graph is shown
+    When click check editor configure check button
+    When set the check interval input to "10s"
+    When set the check offset interval input "2s"
+    When click the edit check add tag button
+    When update the check message template to
+  """
+${ r._check_name } is: ${ r._level } has stopped reporting.  Last value [${string(v: r.val)}]
+  """
+    When set the value of the deadman definition No Values for input to "20s"
+    When set the value of the definition stop input to "1m"
+    When click the check editor save button
+    Then the error notification contains "Failed to create check: tag must contain a key and a value"
+    When close all notifications
+    When remove check tag key "1"
+    When click the check editor save button
+    Then there is an alert card named "Deadman Warn Check"
 
 # TODO - EDIT Threshold Check and drag threshold control in graph
 
+# Edit Check Card
+Scenario: Edit Check Card
+   When hover over the name of the check card "Deadman Warn Check"
+   When click the name edit button of the check card "Deadman Warn Check"
+   When update the active check card name input to "Veille automatique - Avertissement"
+   When send keys "ENTER"
+   Then there is an alert card named "Veille automatique - Avertissement"
+   When hover over the description of the check card "Veille automatique - Avertissement"
+   When click the description edit button of the check card "Veille automatique - Avertissement"
+   When update the active check card description input to:
+  """
+Que ta voix, chat mystérieux, Chat séraphique, chat étrange... Baudelaire
+  """
+  When send keys "ENTER"
+  Then the check card "Veille automatique - Avertissement" contains the description:
+  """
+Que ta voix, chat mystérieux, Chat séraphique, chat étrange... Baudelaire
+  """
+
 # Add labels to checks
+Scenario: Add Labels To Checks
+  When click empty label for check card "Deadman Critical Check"
+  Then the add label popover is present
+  # dismiss popover
+  # TODO - once #17853 is fixed - use ESC key to dismiss popover
+  When click the checks filter input
+  Then the add label popover is not present
+  When click the add labels button for check card "Deadman Critical Check"
+  Then the add label popover is present
+  Then the add label popover contains the labels
+  """
+  Peano,Euclide,Leibniz,Descartes
+  """
+  When click the label popover item "Peano"
+  When click the label popover item "Leibniz"
+  Then the add label popover contains the labels
+  """
+  Euclide,Descartes
+  """
+  Then the add label popover does not contain the labels:
+  """
+  Peano,Leibniz
+  """
+  When set the label popover filter field to "Godel"
+  Then the add label popover does not contain the labels:
+  """
+  Euclide,Descartes
+  """
+  Then the label popover contains create new "Godel"
+  When clear the popover label selector filter
+  Then the add label popover contains the labels
+  """
+  Euclide,Descartes
+  """
+  Then the add label popover does not contain the labels:
+  """
+  Peano,Leibniz
+  """
+  Then the add label popover does not contain create new
+  # TODO - use escape to close popover once #17853 is resolved
+  When click the checks filter input
+  Then the add label popover is not present
+  Then the check card "Deadman Critical Check" contains the label pills:
+  """
+  Peano,Leibniz
+  """
+  When remove the label pill "Peano" from the check card "Deadman Critical Check"
+  Then the check card "Deadman Critical Check" contains the label pills:
+  """
+  Leibniz
+  """
+  Then the check card "Deadman Critical Check" does not contain the label pills:
+  """
+  Peano
+  """
+  When click the add labels button for check card "Deadman Critical Check"
+  Then the add label popover contains the labels
+  """
+  Peano,Euclide,Descartes
+  """
+  # TODO - use escape to close popover once #17853 is resolved
+  When click the checks filter input
+
+# Clone check
+
+# Delete Check
 
 # Filter Checks
 
-# Edit Checks
+# Edit Check definition
 
 # Create Endpoints {HTTP, Slack, Pager Duty}
 

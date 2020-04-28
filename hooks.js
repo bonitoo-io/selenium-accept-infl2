@@ -62,11 +62,20 @@ async function writeDriverLog(filename){
 let scenarioCt = 0;
 let currentFeature = '';
 
-Before(async function (){
+Before(async function (scenario){
 
-    console.log(`[${new Date().toISOString()}]`);
-
+    //safety kill any live data generator
+    if(!await scenarioContainsTag(scenario, '@use-live-data') && __liveDataGenRunning){
+        console.log("killing live generator");
+        __killLiveDataGen = true;
+    }
 });
+
+async function scenarioContainsTag(scenario, tag){
+    let match = scenario.pickle.tags.find( elem => elem.name === tag)
+    //console.log("DEBUG match " + match);
+    return match !== undefined;
+}
 
 After(async function (scenario /*,   callback */) {
 
@@ -116,6 +125,7 @@ After(async function (scenario /*,   callback */) {
                 await world.attach(img, 'image/png')
             })
     }
+
     //callback()
 
 });
@@ -123,11 +133,10 @@ After(async function (scenario /*,   callback */) {
 
 
 AfterAll(async function ( ) {
-
-    //safety kill any live data generator
-    console.log("killing live generator");
-    __killLiveDataGen = true;
-
+    if(__liveDataGenRunning) {
+        console.log("killing live generator");
+        __killLiveDataGen = true;
+    }
 });
 
 
