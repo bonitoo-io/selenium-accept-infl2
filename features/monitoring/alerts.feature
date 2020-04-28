@@ -273,8 +273,6 @@ ${ r._check_name } is: ${ r._level } has stopped reporting.  Last value [${strin
     When click the check editor save button
     Then there is an alert card named "Deadman Warn Check"
 
-# TODO - Add asserts above
-
 # TODO - EDIT Threshold Check and drag threshold control in graph
 
 # Edit Check Card
@@ -359,9 +357,6 @@ Scenario: Add Labels To Checks
   """
   # TODO - use escape to close popover once #17853 is resolved
   When click the checks filter input
-
-
-
 
 # Clone check
 

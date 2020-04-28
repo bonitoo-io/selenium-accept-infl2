@@ -12,7 +12,7 @@ const bucketCardSettingsByName = `[data-testid='bucket-card %NAME%'] [data-testi
 // Create Bucket Popup
 const popupContainer = '[data-testid=overlay--container]';
 const popupTitle = '[data-testid=overlay--header] div';
-const popupInputName = '[data-testid=overlay--body] [data-testid=input-field]';
+const popupInputName = '[data-testid=bucket-form-name]';
 const popupRetentionNever = '[data-testid=retention-never--button]';
 const popupRetentionIntervals = '[data-testid=retention-intervals--button]';
 const popupCancelButton = '[data-testid=overlay--body] button[title=Cancel]';
@@ -27,7 +27,7 @@ const popupRPSecondsInput = popupRPIntervalControls + ' [data-testid=grid--colum
 const popupFormError = '[data-testid=form--element-error]';
 
 //Edit Bucket Popup
-const popupSaveChanges = '[data-testid=\'button\'][type=submit]';
+const popupSaveChanges = '[data-testid=bucket-form-submit]';
 const popupHelpText = '[data-testid=form--help-text]';
 
 //Add data line protocol Popup Wizard
