@@ -105,6 +105,10 @@ When(/^hover over the name of the check card "(.*)"$/, async name => {
    await monSteps.hoverOverCheckCardName(name);
 });
 
+When(/^click the check card name "(.*)"$/, async name => {
+   await monSteps.clickCheckCardName(name);
+})
+
 When(/^click the name edit button of the check card "(.*)"$/, async name => {
    await monSteps.clickCheckCardNameEditButton(name);
 });
@@ -151,6 +155,14 @@ When(/^remove the label pill "(.*)" from the check card "(.*)"$/, async (label, 
 
 Then(/^the check card "(.*)" does not contain the label pills:$/, {timeout: 10000}, async (name,labels) => {
    await monSteps.verifyCheckCardDoesNotHaveLabels(name, labels);
+});
+
+When(/^click the check card "(.*)" clone button$/, async name => {
+   await monSteps.clickCheckCardCloneButton(name);
+});
+
+When(/^click the check card "(.*)" clone confirm button$/, async name => {
+   await monSteps.clickCheckCardCloneConfirm(name);
 });
 
 

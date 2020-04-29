@@ -325,6 +325,13 @@ class cellOverlaySteps extends influxSteps {
         }
     }
 
+    async verifyItemSelectedInBuilderCard(index, item){
+        let card = await this.cellOverlay.getTMBuilderCardByIndex(parseInt(index));
+        await this.verifyElementContainsClass(await card.findElement(By.css(`[data-testid='selector-list ${item.trim()}']`)),
+            'selected');
+
+    }
+
     async verifyEmptyTagsInBuilderCard(index){
         await this.cellOverlay.getTMBuilderCardByIndex(index).then(async elem => {
             await this.assertVisible(await elem.findElement(By.css('[data-testid=\'empty-tag-keys\']')));

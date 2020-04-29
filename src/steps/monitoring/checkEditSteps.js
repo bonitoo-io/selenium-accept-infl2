@@ -42,10 +42,18 @@ class checkEditSteps extends influxSteps {
         await this.typeTextAndWait(await this.ckEdPage.getPageCheckEditTitleInput(), name);
     }
 
+    async verifyEditCheckName(name){
+        await this.verifyElementContainsText(await this.ckEdPage.getPageCheckEditTitle(), name);
+    }
+
     async clickCkEdConfigureCheck(){
         await this.clickAndWait(await this.ckEdPage.getConfigureCheckToggle(), async () => {
             await this.driver.sleep(500); // slow to load?
         });
+    }
+
+    async clickDefineQuery(){
+        await this.clickAndWait(await this.ckEdPage.getDefineQueryToggle());
     }
 
     async verifyConfigureCheckStepLoaded(){

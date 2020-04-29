@@ -31,6 +31,8 @@ const checkCardAddLabelButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'
 const checkCardLabelEmpty = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
 const checkCardLabelPill = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %LABEL%\']';
 const checkCardLabelRemove = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %LABEL%\']';
+const checkCardCloneButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\'][./*[contains(@class,\'duplicate\')]]';
+const checkCardCloneConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu-item\'][text()=\'Clone\']';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -219,6 +221,14 @@ class alertsPage extends influxPage {
         return await this.driver.findElement(By.xpath(checkCardLabelRemove
             .replace('%NAME%', name)
             .replace('%LABEL%', label)));
+    }
+
+    async getCheckCardCloneButton(name){
+        return await this.driver.findElement(By.xpath(checkCardCloneButton.replace('%NAME%', name)))
+    }
+
+    async getCheckCardCloneConfirm(name){
+        return await this.driver.findElement(By.xpath(checkCardCloneConfirm.replace('%NAME%', name)))
     }
 
 }
