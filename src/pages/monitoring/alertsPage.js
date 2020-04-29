@@ -19,6 +19,7 @@ const rulesQuestionMark = '[data-testid=\'Notification Rules--question-mark\']';
 const rulesTooltipContents = '[data-testid=\'Notification Rules--question-mark-tooltip--contents\']';
 const firstTimeThresholdCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Threshold Check\']';
 const firstTimeDeadmanCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Deadman Check\']';
+const emptyStateColumnText = '[data-testid=\'%COL%--column\'] [data-testid=\'empty-state--text\']';
 
 //Resource card
 const checkCardName = '//*[@data-testid=\'check-card--name\'][./*[text()=\'%NAME%\']]';
@@ -177,6 +178,10 @@ class alertsPage extends influxPage {
         return await this.driver.findElement(By.xpath(checkCardName.replace('%NAME%', name)));
     }
 
+    static getCheckCardNameSelector(name){
+        return {type: 'xpath', selector: checkCardName.replace('%NAME%', name)}
+    }
+
     async getCheckCardNameEditButton(name){
         return await this.driver.findElement(By.xpath(checkCardNameEditButton.replace('%NAME%', name)));
     }
@@ -229,6 +234,10 @@ class alertsPage extends influxPage {
 
     async getCheckCardCloneConfirm(name){
         return await this.driver.findElement(By.xpath(checkCardCloneConfirm.replace('%NAME%', name)))
+    }
+
+    async getEmptyStateColumnText(col){
+        return await this.driver.findElement(By.css(emptyStateColumnText.replace('%COL%', col)));
     }
 
 }

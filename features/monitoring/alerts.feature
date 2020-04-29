@@ -387,13 +387,46 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
   """
     Then the item "test" in builder card "1" is selected
     Then the item "val" in builder card "2" is selected
+    # TODO - verify Bucket Card contents after #17879 fixed
     When enter the alert check name "Bécik"
     When click the check editor save button
     Then there is an alert card named "Bécik"
 
-# Delete Check
-
 # Filter Checks
+  Scenario: Filter Checks
+    Then the check cards column contains
+  """
+  Simple Count Check, Deadman Critical Check, Veille automatique - Avertissement, Bécik
+  """
+    When enter into the check cards filter field "Check"
+    Then the check cards column contains
+  """
+  Simple Count Check, Deadman Critical Check
+  """
+    Then the check cards column does not contain
+  """
+  Veille automatique - Avertissement, Bécik
+  """
+    When enter into the check cards filter field "Be"
+    Then the "checks" cards column empty state message is "No checks match your search"
+    When enter into the check cards filter field "Bé"
+    Then the check cards column contains
+  """
+  Bécik
+  """
+    Then the check cards column does not contain
+  """
+  Simple Count Check, Deadman Critical Check
+  """
+    When clear the check cards filter field
+    Then the check cards column contains
+  """
+  Simple Count Check, Deadman Critical Check, Veille automatique - Avertissement, Bécik
+  """
+
+
+
+# Delete Check
 
 # Edit Check definition
 
