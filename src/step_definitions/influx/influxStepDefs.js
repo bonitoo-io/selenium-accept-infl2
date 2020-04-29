@@ -50,3 +50,9 @@ Then(/^the menu item text "(.*?)" is "(.*?)"$/, async (text, state) => {
 Then(/^the feedback URL should include "(.*?)"$/, async text => {
     await iSteps.verifyFeedbackLinkContains(text);
 });
+
+Then(/^the user menu items are "(.*?)"$/, async(state) => {
+    await iSteps.verifyUserMenuItems('switchOrg', state);
+    await iSteps.verifyUserMenuItems('createOrg', state);
+    await iSteps.verifyUserMenuItems('logout', state);
+});

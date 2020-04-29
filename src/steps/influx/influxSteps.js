@@ -61,7 +61,6 @@ class influxSteps extends baseSteps {
             elem = await this.influxPage.getMenuLoadData();
             //            await this.driver.executeScript('arguments[0].style.border=\'3px solid red\'', elem);
             break;
-        case 'org':
         case 'organization':
             elem = await this.influxPage.getNavMenuOrg();
             break;
@@ -70,6 +69,25 @@ class influxSteps extends baseSteps {
             break;
         default:
             throw `Unkown menu item ${item}`;
+        }
+
+        return elem;
+    }
+
+    async getUserMenuElem(item){
+        let elem = undefined;
+        switch(item){
+            case 'switchOrg':
+                elem = await this.influxPage.getUserMenuSwitchOrg();
+                break;
+            case 'createOrg':
+                elem = await this.influxPage.getUserMenuCreateOrg();
+                break;
+            case 'logout':
+                elem = await this.influxPage.getUserMenuLogout();
+                break;
+            default:
+                throw `Unkown menu item ${item}`;
         }
 
         return elem;
@@ -84,6 +102,16 @@ class influxSteps extends baseSteps {
             this.assertNotVisible(await this.getNavMenuElem(item));
         }else if(state === 'visible'){
             this.assertVisible(await this.getNavMenuElem(item));
+        }else{
+            throw `unkown menu state ${state}`;
+        }
+    }
+
+    async verifyUserMenuItems(item, state = 'hidden'){
+        if(state === 'hidden'){
+            this.assertNotVisible(await this.getUserMenuElem(item));
+        }else if(state === 'visible'){
+            this.assertVisible(await this.getUserMenuElem(item));
         }else{
             throw `unkown menu state ${state}`;
         }
