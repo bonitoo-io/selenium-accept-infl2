@@ -19,6 +19,7 @@ const rulesQuestionMark = '[data-testid=\'Notification Rules--question-mark\']';
 const rulesTooltipContents = '[data-testid=\'Notification Rules--question-mark-tooltip--contents\']';
 const firstTimeThresholdCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Threshold Check\']';
 const firstTimeDeadmanCheckCreateButton = '[data-testid=\'checks--column\'] [data-testid=panel--body] [data-testid=button][title=\'Deadman Check\']';
+const emptyStateColumnText = '[data-testid=\'%COL%--column\'] [data-testid=\'empty-state--text\']';
 
 //Resource card
 const checkCardName = '//*[@data-testid=\'check-card--name\'][./*[text()=\'%NAME%\']]';
@@ -31,6 +32,8 @@ const checkCardAddLabelButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'
 const checkCardLabelEmpty = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'inline-labels--empty\']';
 const checkCardLabelPill = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill %LABEL%\']';
 const checkCardLabelRemove = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %LABEL%\']';
+const checkCardCloneButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\'][./*[contains(@class,\'duplicate\')]]';
+const checkCardCloneConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu-item\'][text()=\'Clone\']';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -175,6 +178,10 @@ class alertsPage extends influxPage {
         return await this.driver.findElement(By.xpath(checkCardName.replace('%NAME%', name)));
     }
 
+    static getCheckCardNameSelector(name){
+        return {type: 'xpath', selector: checkCardName.replace('%NAME%', name)}
+    }
+
     async getCheckCardNameEditButton(name){
         return await this.driver.findElement(By.xpath(checkCardNameEditButton.replace('%NAME%', name)));
     }
@@ -219,6 +226,18 @@ class alertsPage extends influxPage {
         return await this.driver.findElement(By.xpath(checkCardLabelRemove
             .replace('%NAME%', name)
             .replace('%LABEL%', label)));
+    }
+
+    async getCheckCardCloneButton(name){
+        return await this.driver.findElement(By.xpath(checkCardCloneButton.replace('%NAME%', name)))
+    }
+
+    async getCheckCardCloneConfirm(name){
+        return await this.driver.findElement(By.xpath(checkCardCloneConfirm.replace('%NAME%', name)))
+    }
+
+    async getEmptyStateColumnText(col){
+        return await this.driver.findElement(By.css(emptyStateColumnText.replace('%COL%', col)));
     }
 
 }

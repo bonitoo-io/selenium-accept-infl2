@@ -128,6 +128,12 @@ class monitoringSteps extends influxSteps{
         await this.hoverOver(await this.alPage.getCheckCardName(name));
     }
 
+    async clickCheckCardName(name){
+        let elem = await this.alPage.getCheckCardName(name);
+        await this.scrollElementIntoView(elem);
+        await this.clickAndWait(elem);
+    }
+
     async clickCheckCardNameEditButton(name){
         await this.clickAndWait(await this.alPage.getCheckCardNameEditButton(name));
     }
@@ -188,6 +194,42 @@ class monitoringSteps extends influxSteps{
         for(const label of labelsList){
             await this.assertNotPresent(await alertsPage.getCheckCardLabelPillSelector(name, label));
         }
+    }
+
+    async clickCheckCardCloneButton(name){
+        await this.clickAndWait(await this.alPage.getCheckCardCloneButton(name));
+    }
+
+    async clickCheckCardCloneConfirm(name){
+        await this.clickAndWait(await this.alPage.getCheckCardCloneConfirm(name));
+    }
+
+    async verifyCheckCardsVisible(names){
+        let namesList = names.split(',');
+        for(const name of namesList){
+            await this.assertVisible(await this.alPage.getCheckCardName(name.trim()));
+        }
+    }
+
+    async verifyCheckCardsNotPresent(names){
+        let namesList = names.split(',');
+        for(const name of namesList){
+            await this.assertNotPresent(await alertsPage.getCheckCardNameSelector(name.trim()));
+        }
+    }
+
+    async enterValueToCheckCardsFilter(value){
+        let elem = await this.alPage.getChecksFilterInput();
+        await this.clearInputText(elem);
+        await this.typeTextAndWait(elem, value);
+    }
+
+    async clearCheckCardsFilter(){
+        await this.clearInputText(await this.alPage.getChecksFilterInput());
+    }
+
+    async verifyEmptyChecksStateMessage(col, message){
+        await this.verifyElementContainsText(await this.alPage.getEmptyStateColumnText(col), message);
     }
 
 

@@ -359,10 +359,74 @@ Scenario: Add Labels To Checks
   When click the checks filter input
 
 # Clone check
-
-# Delete Check
+  Scenario: Clone Check
+    When hover over the name of the check card "Simple Count Check"
+    When wait "1" seconds
+    When click the check card "Simple Count Check" clone button
+    When click the check card "Simple Count Check" clone confirm button
+    Then there is an alert card named "Simple Count Check (clone 1)"
+    When click the check card name "Simple Count Check (clone 1)"
+    Then the edit check overlay is loaded
+    Then the current edit check name is "Simple Count Check (clone 1)"
+    Then the interval indicator is set to "5s"
+    Then the offset input is set to "1s"
+    Then the check message tempate contains
+    """
+${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
+    """
+    Then there is a unary boundary for the threshhold "CRIT" with the value "7.5"
+    When click checkeditor define query button
+    Then there are "3" time machine builder cards
+    Then time machine builder card "1" contains:
+  """
+  test
+  """
+    Then time machine builder card "2" contains:
+  """
+  val
+  """
+    Then the item "test" in builder card "1" is selected
+    Then the item "val" in builder card "2" is selected
+    # TODO - verify Bucket Card contents after #17879 fixed
+    When enter the alert check name "Bécik"
+    When click the check editor save button
+    Then there is an alert card named "Bécik"
 
 # Filter Checks
+  Scenario: Filter Checks
+    Then the check cards column contains
+  """
+  Simple Count Check, Deadman Critical Check, Veille automatique - Avertissement, Bécik
+  """
+    When enter into the check cards filter field "Check"
+    Then the check cards column contains
+  """
+  Simple Count Check, Deadman Critical Check
+  """
+    Then the check cards column does not contain
+  """
+  Veille automatique - Avertissement, Bécik
+  """
+    When enter into the check cards filter field "Be"
+    Then the "checks" cards column empty state message is "No checks match your search"
+    When enter into the check cards filter field "Bé"
+    Then the check cards column contains
+  """
+  Bécik
+  """
+    Then the check cards column does not contain
+  """
+  Simple Count Check, Deadman Critical Check
+  """
+    When clear the check cards filter field
+    Then the check cards column contains
+  """
+  Simple Count Check, Deadman Critical Check, Veille automatique - Avertissement, Bécik
+  """
+
+
+
+# Delete Check
 
 # Edit Check definition
 
