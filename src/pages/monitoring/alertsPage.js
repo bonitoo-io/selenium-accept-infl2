@@ -34,6 +34,8 @@ const checkCardLabelPill = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME
 const checkCardLabelRemove = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'label--pill--delete %LABEL%\']';
 const checkCardCloneButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\'][./*[contains(@class,\'duplicate\')]]';
 const checkCardCloneConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu-item\'][text()=\'Clone\']';
+const checkCardOpenHistory = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\'][./*[contains(@class,\'eye-open\')]]';
+const checkCardOpenHistoryConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu-item\']';
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -238,6 +240,14 @@ class alertsPage extends influxPage {
 
     async getEmptyStateColumnText(col){
         return await this.driver.findElement(By.css(emptyStateColumnText.replace('%COL%', col)));
+    }
+
+    async getCheckCardOpenHistory(name){
+        return await this.driver.findElement(By.xpath(checkCardOpenHistory.replace('%NAME%', name)))
+    }
+
+    async getCheckCardOpenHistoryConfirm(name){
+        return await this.driver.findElement(By.xpath(checkCardOpenHistoryConfirm.replace('%NAME%', name)));
     }
 
 }

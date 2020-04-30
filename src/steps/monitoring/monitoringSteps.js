@@ -232,6 +232,14 @@ class monitoringSteps extends influxSteps{
         await this.verifyElementContainsText(await this.alPage.getEmptyStateColumnText(col), message);
     }
 
+    async clickCheckCardOpenHistory(name){
+        await this.clickAndWait(await this.alPage.getCheckCardOpenHistory(name));
+    }
+
+    async clickCheckCardOpenHistoryConfirm(name){
+        await this.clickAndWait(await this.alPage.getCheckCardOpenHistoryConfirm(name));
+    }
+
 
 }
 

@@ -361,7 +361,7 @@ Scenario: Add Labels To Checks
 # Clone check
   Scenario: Clone Check
     When hover over the name of the check card "Simple Count Check"
-    When wait "1" seconds
+  #  When wait "1" seconds
     When click the check card "Simple Count Check" clone button
     When click the check card "Simple Count Check" clone confirm button
     Then there is an alert card named "Simple Count Check (clone 1)"
@@ -424,6 +424,24 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
   Simple Count Check, Deadman Critical Check, Veille automatique - Avertissement, Bécik
   """
 
+  Scenario: Threshold Check history - basic
+    When hover over the name of the check card "Simple Count Check"
+    # Collect some data - generate at least 1 event
+    When wait "10" seconds
+    When click open history of the check card "Simple Count Check"
+    When click open history confirm of the check card "Simple Count Check"
+    # Just check page load
+    # Check history will be separate test feature
+    Then the Check statusses page is loaded
+    Then there are at least "1" events in the history
+    Then event no "1" contains the check name "Simple Count Check"
+    When click the check name of event no "1"
+    Then the edit check overlay is loaded
+    Then the current edit check name is "Simple Count Check"
+    When dismiss edit check overlay
+    Then the edit check overlay is not loaded
+    Then the Alerting page is loaded
+    Then there is an alert card named "Simple Count Check"
 
 
 # Delete Check
