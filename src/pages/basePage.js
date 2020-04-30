@@ -1,9 +1,9 @@
 const { By, Condition, until, StaleElementReferenceError} = require('selenium-webdriver');
 
-const notificationSuccessMsg = '[data-testid=notification-success] div.notification-message';
-const notificationErrorMsg = '[data-testid=notification-error] div.notification-message';
-const notificationPrimaryMsg = '[data-testid=notification-primary] div.notification-message';
-const notificationCloseButton = '[data-testid^=notification-] button.notification-close';
+const notificationSuccessMsg = '[data-testid=notification-success] .notification--message';
+const notificationErrorMsg = '[data-testid=notification-error] .notification--message';
+const notificationPrimaryMsg = '[data-testid=notification-primary] .notification--message';
+const notificationCloseButton = '[data-testid^=notification-] button';
 const popupOverlayContainer = '[data-testid=overlay--container]';
 const popupFormElementError  = '[data-testid=form--element-error]';
 const formInputError = '[data-testid=input-error]';
