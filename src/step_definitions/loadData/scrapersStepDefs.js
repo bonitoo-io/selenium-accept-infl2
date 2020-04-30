@@ -70,7 +70,7 @@ When(/^click the scraper card name edit control for the card "(.*)"$/, async nam
 
 When(/^Enter the value "(.*)" for the card "(.*)"$/, {timeout: 10000}, async ( newName, oldName) => {
     await scrTabSteps.enterNewScraperName(newName, oldName);
-    await scrTabSteps.driver.sleep(5000);
+    //await scrTabSteps.driver.sleep(5000);
 });
 
 Then(/^the named query "(.*)" by user "(.*)" on the bucket "(.*)" contains the values "(.*)"$/,

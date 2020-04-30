@@ -140,7 +140,12 @@ class baseSteps{
         await this.driver.sleep(500); //might not be loaded - todo better wait
         await this.basePage.getNotificationCloseButtons().then(async btns => {
             await btns.forEach(async(btn) => {
-                await btn.click();
+                await btn.click().catch(async e => {
+                    //Ignore StaleElements - message likely already closed itself
+                    if(e.name !== 'StaleElementReferenceError'){
+                        throw e;
+                    }
+                });
             });
         });
         await this.driver.sleep(500); //make sure are closed - todo better wait

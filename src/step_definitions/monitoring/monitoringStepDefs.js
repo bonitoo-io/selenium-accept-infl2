@@ -165,4 +165,24 @@ When(/^click the check card "(.*)" clone confirm button$/, async name => {
    await monSteps.clickCheckCardCloneConfirm(name);
 });
 
+Then(/^the check cards column contains$/, async names => {
+   await monSteps.verifyCheckCardsVisible(names);
+});
+
+Then(/^the check cards column does not contain$/, {timeout: 10000}, async names => {
+   await monSteps.verifyCheckCardsNotPresent(names);
+});
+
+When(/^enter into the check cards filter field "(.*)"$/, async value => {
+   await monSteps.enterValueToCheckCardsFilter(value);
+});
+
+When(/^clear the check cards filter field$/, async () => {
+   await monSteps.clearCheckCardsFilter();
+});
+
+Then(/^the "(.*)" cards column empty state message is "(.*)"$/, async (col, message) => {
+   await monSteps.verifyEmptyChecksStateMessage(col, message);
+});
+
 
