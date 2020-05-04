@@ -4,6 +4,7 @@ Feature: Dashboards - Dashboard - Cell Edit
   As a user I want to Create and Update Cells
   So that I can view specific Influxdbv2 data
 
+@tested
   Scenario: Load Cell Edit View
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -55,6 +56,7 @@ Feature: Dashboards - Dashboard - Cell Edit
              # +Aggregate functions
              # +Variables
 
+@tested
   Scenario: Exercise Basic Cell Edit Controls
     When click the empty create cell button
     Then the cell edit overlay is loaded as "Name this Cell"
@@ -123,6 +125,7 @@ Feature: Dashboards - Dashboard - Cell Edit
        # ~~switch-to-script-editor
        # ~~switch-to-query-builder
 
+@tested
   Scenario: Exercise Query Builder
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
@@ -210,6 +213,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then there are "1" time machine builder cards
   # Check coverage of issue 16682 once fixed
 
+@tested
   Scenario: Exercise Query Builder Functions
     # TODO 16682 - following will not have been reset
     # Then the time machine query builder function duration period is "auto"
@@ -247,6 +251,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine query builder function duration period is "auto (10s)"
     When click dashboard cell edit cancel button
 
+@tested
   Scenario: Create basic query
     Then the cell named "Kliky" contains the empty graph message
     When toggle context menu of dashboard cell named "Kliky"
@@ -292,12 +297,6 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine preview axes have changed
     When click dashboard cell save button
     Then the cell named "Kliky" contains a graph
-
-  #Scenario: Create Second Query
-    # Add Query
-    # Queries
-       # Schema navigator
-       # Aggregate functions
 
   Scenario: Create Second Query
     When get the current graph of the cell "Kliky"
@@ -358,6 +357,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine preview axes have changed
     When click dashboard cell save button
 
+@tested
   Scenario: Delete Second Query
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
@@ -374,12 +374,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell save button
     Then the graph of the cell "Kliky" has changed
 
-  #Scenario: Edit Query
-    # time-machine--bottom
-       # switch-to-script-editor
-       # Queries
-          # Script Editor
-
+@tested
   Scenario: Edit Query
     When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
@@ -407,6 +402,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click the cell edit save button
     Then the graph of the cell "Kliky" has changed
 
+@tested
   Scenario: Switch to Query Builder
     When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
@@ -433,6 +429,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell edit cancel button
     Then the graph of the cell "Kliky" has not changed
 
+@tested
   Scenario:  Edit invalid query
     When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
@@ -464,13 +461,7 @@ Feature: Dashboards - Dashboard - Cell Edit
   type error 1:1-1:7: undefined identifier "Muffin"
   """
 
-    #Scenario: Exercise Add functions - Query Builder
-    # time-machine--bottom
-        # Queries
-            # Builder
-              # +Aggregate functions
-
-
+@tested
   Scenario: Exercise Add functions - Query Builder
     When toggle context menu of dashboard cell named "Kliky"
     When click cell content popover configure
@@ -515,6 +506,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     When click dashboard cell save button
     Then the cell named "Kliky" contains a graph
 
+@tested
   Scenario: Edit Query - Exercise functions
     When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
@@ -558,6 +550,7 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine query edit function popup is not visible
     When click dashboard cell edit cancel button
 
+@tested
   Scenario: Edit Query - Add a Function
     When get the current graph of the cell "Kliky"
     When toggle context menu of dashboard cell named "Kliky"
@@ -590,10 +583,6 @@ Feature: Dashboards - Dashboard - Cell Edit
     Then the time machine preview canvas has changed
     When click the cell edit save button
     Then the graph of the cell "Kliky" has changed
-
-  #Scenario: Change time range
-    # time-machine--bottom
-       # Time Range
 
   Scenario: Change time range
     When get the current graph of the cell "Kliky"

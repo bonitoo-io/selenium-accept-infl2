@@ -5,6 +5,7 @@ Feature: Monitoring - Alerts - Base
   As a user I want to setup alerts
   So that I can be notified of important changes in the data
 
+@tested
 Scenario: Load Initial Alerts view
   Given I reset the environment
   Given run setup over REST "DEFAULT"
@@ -27,6 +28,7 @@ Scenario: Load Initial Alerts view
   Then the Alerting page is loaded
   When wait "10" seconds
 
+@tested
 Scenario: Exercise Initial Alerts view Controls
   Then the notification rules create dropdown is disabled
   When click alerting tab "checks"
@@ -72,6 +74,7 @@ Scenario: Exercise Initial Alerts view Controls
 # TODO - Check illogical alert thresholds
 # TODO - add simple tags check
 
+@tested
   Scenario: Exercise Configure Check - Threshold
     When click the create check button
     When click the create check dropdown item "Threshold"
@@ -171,6 +174,7 @@ Scenario: Exercise Initial Alerts view Controls
     Then the first time create deadman check is visible
 
 # Create Threshold Alerts
+@tested
   Scenario: Create Simple Threshold Check
     When click the first time create threshold check
     Then the create check checklist contains:
@@ -295,6 +299,7 @@ Que ta voix, chat mystérieux, Chat séraphique, chat étrange... Baudelaire
   """
 
 # Add labels to checks
+@tested
 Scenario: Add Labels To Checks
   When click empty label for check card "Deadman Critical Check"
   Then the add label popover is present

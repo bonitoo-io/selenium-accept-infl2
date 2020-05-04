@@ -4,6 +4,7 @@ Feature: Settings - Templates
   As a user I want to Read Create Update and Delete Templatess
   So that I can eventually use them to create dashboards in Influxdbv2
 
+@tested
   Scenario: Open Templates Tab
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -27,6 +28,7 @@ Feature: Settings - Templates
     """
 
 
+@tested
   Scenario: Exercise Import Template Popup
     When click user templates
     When click empty state import template button

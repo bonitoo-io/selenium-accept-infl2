@@ -17,6 +17,7 @@ Feature: Signin
     When click the signin button
     Then the home page is loaded
 
+@tested
    Scenario Outline: Signin Bad Credentials
      Given I reset the environment
      Given run setup over REST "DEFAULT"

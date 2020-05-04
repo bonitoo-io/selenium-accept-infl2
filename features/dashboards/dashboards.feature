@@ -4,6 +4,7 @@ Feature: Dashboards - Base
   As a user I want to Read Create Update and Delete Dashboards
   So that I can organize my data in Influxdbv2
 
+@tested
   Scenario: Load dashboards page
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -26,6 +27,7 @@ Feature: Dashboards - Base
     """
 
 
+@tested
   Scenario: Create new dashboard
     When click the empty Create dashboard dropdown button
     Then the empty create dashboard dropdown list contains
@@ -40,6 +42,7 @@ Feature: Dashboards - Base
     Then the empty Create dashboard dropdown button is not present
     Then there is a dashboard card named "Name this Dashboard"
 
+@tested
   Scenario: Rename dashboard from card
     When hover over dashboard card named "Name this Dashboard"
     Then the export button for the dashboard card "Name this Dashboard" is visible
@@ -53,6 +56,7 @@ Feature: Dashboards - Base
     Then there is a dashboard card named "Mercure"
     Then there is no dashboard card named "Name this Dashboard"
 
+@tested
   Scenario: Add description to dashboard
     Then the description for card "Mercure" contains "No description"
     When hover over description of the dashboard card "Mercure"
@@ -64,6 +68,7 @@ Feature: Dashboards - Base
     When press the "ENTER" key
     Then the description for card "Mercure" contains "le dieu du commerce dans la mythologie romaine"
 
+@tested
   Scenario: Add Labels to dashboard
     # Issue 16529 - possible design change
     When click empty label for the dashboard card "Mercure"
@@ -102,6 +107,7 @@ Feature: Dashboards - Base
     When click the dashboards filter input
     Then the add label popover is not present
 
+@tested
   Scenario Outline: Create new Dashboard
     When click create dashboard control
     When click the create dashboard item "New Dashboard"
@@ -118,6 +124,7 @@ Feature: Dashboards - Base
     |Jupiter|
     |Mars |
 
+@tested
   Scenario: Access Dashboard from home page
     When hover over the "home" menu item
     When click nav menu item "home"
@@ -128,6 +135,7 @@ Feature: Dashboards - Base
     When click the dashboards panel link "Mercure"
     Then the dashboard named "Mercure" is loaded
 
+@tested
   Scenario: Filter Dashboard Cards
     When click nav menu item "Dashboards"
     #When hover over the "Dashboards" menu item
@@ -163,6 +171,7 @@ Feature: Dashboards - Base
     Then close all notifications
     Then there is a dashboard card named "Alpha Centauri"
 
+@tested
   Scenario: Import Dashboard paste json
     When click create dashboard control
     When click the create dashboard item "Import Dashboard"
@@ -176,6 +185,7 @@ Feature: Dashboards - Base
     Then close all notifications
     Then there is a dashboard card named "Tau Ceti"
 
+@tested
   Scenario: Create Dashboard from template
     When create a new template from the file "etc/test-data/sine-test-template.json" for user "DEFAULT"
     When click nav menu item "Dashboards"
@@ -199,6 +209,7 @@ Feature: Dashboards - Base
     When click Dashboard from Template create button
     Then there is a dashboard card named "Sinusoid test data"
 
+@tested
   Scenario: Sort Dashboards by Name
     When close all notifications
     Then the dashboards are sorted as:
@@ -257,6 +268,7 @@ Feature: Dashboards - Base
     Then the file "tau_ceti.json" has been downloaded
     When remove file "tau_ceti.json" if exists
 
+@tested
   Scenario: Clone Dashboard
     When hover over dashboard card named "Tau Ceti"
     When click clone of the dashboard card named "Tau Ceti"
@@ -270,6 +282,7 @@ Feature: Dashboards - Base
     #When click nav sub menu "Dashboards"
     Then there is a dashboard card named "Tau Ceti (clone 1)"
 
+@tested
   Scenario Outline: Delete dashboards
     When hover over dashboard card named "<NAME>"
     When click delete of dashboard card "<NAME>"

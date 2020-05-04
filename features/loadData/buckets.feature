@@ -5,6 +5,7 @@ Feature: Load Data - Buckets
   So that I can manage the stores used with Influxdbv2
 
 
+@tested
 Scenario: List Initial Buckets
   Given I reset the environment
   Given run setup over REST "DEFAULT"
@@ -15,6 +16,7 @@ Scenario: List Initial Buckets
   Then the buckets tab is loaded
   Then the buckets are sorted as "_monitoring,_tasks,DEFAULT"
 
+@tested
 Scenario: Exercise Create Bucket Dialog
   When click the Create Bucket button
   Then the Create Bucket Popup is loaded
@@ -65,6 +67,7 @@ Scenario: Exercise Create Bucket Dialog
   When cancel the Create Bucket Popup
   Then the Create Bucket Popup is not present
 
+@tested
 Scenario Outline: Create Buckets with Retention Policies
   When click the Create Bucket button
   When input the name of the bucket as "<NAME>"
@@ -83,6 +86,7 @@ Examples:
   | Hodinová  | 1h |
   | Oprava    | 24h  |
 
+@tested
 Scenario: Modify Retention Policy
   When click on settings for bucket named "Oprava"
   Then the Edit Bucket popup is loaded
@@ -100,6 +104,7 @@ Scenario: Modify Retention Policy
   # N.B. fix following once issue 14905 is resolved
   Then the bucket named "Oprava" has a Retention Policy of "48h"
 
+@tested
 Scenario: Filter Buckets
   When enter "denn" in the Buckets filter field
   Then the buckets are sorted as "Denní,Půldenní,Týdenní"
@@ -112,6 +117,7 @@ Scenario: Clear Filter
   Then the bucket named "_tasks" is in the list
   Then the bucket named "Týdenní" is in the list
 
+@tested
 Scenario: Sort Buckets by Name
   When click the sort type dropdown
   When click sort by item "Name Desc"
@@ -135,6 +141,7 @@ Scenario: Sort Buckets by Retention Policy
   #When click buckets sort by retention policy
   Then the buckets are sorted as "DEFAULT,Trvalá,Měsíční,Týdenní,_monitoring,_tasks,Oprava,Denní,Půldenní,Hodinová"
 
+@tested
 Scenario Outline: Delete Buckets
 # following check leads to troublesome false positives - todo fix it
 #  Then the delete button of the card named "<Name>" is not present
@@ -154,6 +161,7 @@ Examples:
   | Oprava    |
 
 
+@tested
 Scenario: Add Manual Line Protocol Data to Default
   Then the add data popover is not present
   When click add data button for bucket "DEFAULT"
@@ -191,6 +199,7 @@ Scenario: Add Manual Line Protocol Data to Default
     When click the Line Protocol wizard finish button
     Then the line Protocol wizard is not present
 
+@tested
   Scenario: Add Line Protocol Data from File to Default
     When generate a line protocol testdata file "etc/test-data/line-protocol-hydro.txt" based on:
     """
@@ -222,6 +231,7 @@ Scenario: Add Manual Line Protocol Data to Default
     { "points": 20, "field": "level", "measurement": "hydro", "start": "-60h", "vals": "skip", "rows": ["1","-1"], "name": "hydro" }
     """
 
+@tested
   Scenario: Add Scraper to Default
     When click add data button for bucket "DEFAULT"
     Then the add data popover for the bucket "DEFAULT" is visible

@@ -4,6 +4,8 @@ Feature: Dashboards - Dashboard - Variables
   As a user I want to Add Variables to cell Queries
   So that I can view specific Influxdbv2 data sets
 
+@tested
+@tested
   Scenario: Load Cell Edit View
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -312,6 +314,8 @@ from(bucket: "qa")
 
   # NEED TO CLEAN UP
   # Variables cached in localstore can influence other tests
+@tested
+@tested
   Scenario Outline: Delete Variable
     When click nav menu item "Settings"
     When click the settings tab "Variables"

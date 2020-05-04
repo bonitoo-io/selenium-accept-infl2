@@ -4,6 +4,7 @@ Feature: Dashboards - Dashboard - Base
   As a user I want to Read Create Update and Delete a Dashboard
   So that I can view specific Influxdbv2 data
 
+@tested
   Scenario: Load Initial Dashboard view
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -56,6 +57,7 @@ Feature: Dashboards - Dashboard - Base
     Custom Time Range,Past 5m,Past 15m,Past 1h,Past 6h,Past 12h,Past 24h,Past 2d,Past 7d,Past 30d
     """
 
+@tested
   Scenario: Create Cell
     When click the empty create cell button
     Then the cell edit overlay is loaded as "Name this Cell"
@@ -69,6 +71,7 @@ Feature: Dashboards - Dashboard - Base
     Then the dashboard contains a cell named "вре́менный"
 
     #Currently failing due to issue #16619
+@tested
   Scenario: Add Note to Cell
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover add note
@@ -106,6 +109,7 @@ Feature: Dashboards - Dashboard - Base
     When click the cell title "вре́менный"
     Then the cell content popover is not loaded
 
+@tested
   Scenario: Edit Cell Note
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover add note
@@ -172,6 +176,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "вре́менный" is unchanged
     When move the cell named "вре́менный" by "{ "dx": "-400", "dy": "0" }"
 
+@tested
   Scenario: Edit Cell - Simple
     Then the cell named "вре́менный" contains the empty graph message
     When toggle context menu of dashboard cell named "вре́менный"
@@ -239,6 +244,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When Click at the point "{"x": "1/2", "y": "1/2"}" of graph cell named "вре́менный"
     Then the graph of the cell "вре́менный" has changed
 
+@tested
   Scenario: Rename Cell
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover configure
@@ -248,6 +254,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click the cell edit save button
     Then the cell named "dočasný" is visible in the dashboard
 
+@tested
   Scenario: Clone Cell
     When toggle context menu of dashboard cell named "dočasný"
     When click cell edit content popover clone
@@ -312,6 +319,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When move the cell named "dočasný" by "{ "dx": "-150", "dy": "150" }"
     Then the location of the cell named "dočasný" is changed by "{ "dx": "-150", "dy": "+380" }"
 
+@tested
   Scenario Outline: Delete Cell
     When toggle context menu of dashboard cell named "<NAME>"
     When click cell content popover delete
