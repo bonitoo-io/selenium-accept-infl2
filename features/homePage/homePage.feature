@@ -2,7 +2,6 @@
 @homePage-homePage
 Feature: Home Page
 
-  @error-timeout
   Scenario: logout home page
     Given I reset the environment
     Given run setup over REST "DEFAULT"

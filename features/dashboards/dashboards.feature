@@ -163,7 +163,6 @@ Feature: Dashboards - Base
     Then close all notifications
     Then there is a dashboard card named "Alpha Centauri"
 
-@error-timeout
   Scenario: Import Dashboard paste json
     When click create dashboard control
     When click the create dashboard item "Import Dashboard"
@@ -177,7 +176,6 @@ Feature: Dashboards - Base
     Then close all notifications
     Then there is a dashboard card named "Tau Ceti"
 
-@error-timeout
   Scenario: Create Dashboard from template
     When create a new template from the file "etc/test-data/sine-test-template.json" for user "DEFAULT"
     When click nav menu item "Dashboards"
@@ -201,7 +199,6 @@ Feature: Dashboards - Base
     When click Dashboard from Template create button
     Then there is a dashboard card named "Sinusoid test data"
 
-@error-collateral
   Scenario: Sort Dashboards by Name
     When close all notifications
     Then the dashboards are sorted as:
@@ -224,7 +221,6 @@ Feature: Dashboards - Base
   # Scenario: Sort Dashboards by Modified time
   # TODO - implement after issue #15610 is resolved
 
-@error-feature
   Scenario: Export Dashboard as Template
     When hover over dashboard card named "Alpha Centauri"
     When click export of the dashboard card named "Alpha Centauri"
@@ -234,7 +230,6 @@ Feature: Dashboards - Base
     Then a REST template document for user "DEFAULT" titled "Alpha Centauri-Template" exists
     Then close all notifications
 
-@error-feature
   Scenario: Export Dashboard copy to clipboard
     When hover over dashboard card named "Jupiter"
     When click export of the dashboard card named "Jupiter"
@@ -246,7 +241,6 @@ Feature: Dashboards - Base
     When click the Export Dashboard dismiss button
     Then popup is not loaded
 
-@error-feature
   Scenario: Export Dashboard to file
     When remove file "tau_ceti.json" if exists
     When hover over dashboard card named "Tau Ceti"
@@ -263,7 +257,6 @@ Feature: Dashboards - Base
     Then the file "tau_ceti.json" has been downloaded
     When remove file "tau_ceti.json" if exists
 
-@error-feature
   Scenario: Clone Dashboard
     When hover over dashboard card named "Tau Ceti"
     When click clone of the dashboard card named "Tau Ceti"
@@ -277,7 +270,6 @@ Feature: Dashboards - Base
     #When click nav sub menu "Dashboards"
     Then there is a dashboard card named "Tau Ceti (clone 1)"
 
-@error-feature
   Scenario Outline: Delete dashboards
     When hover over dashboard card named "<NAME>"
     When click delete of dashboard card "<NAME>"
