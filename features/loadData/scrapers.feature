@@ -79,6 +79,7 @@ Scenario Outline: Create Scrapers
   | Brno | http://localhost:10018/bogus | DEFAULT |
   | Brest | http://localhost:10018/bogus | Duchamp |
 
+@error-collateral
 Scenario: Filter Scrapers
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
   When enter the value "Br" into the scraper filter
@@ -88,6 +89,7 @@ Scenario: Filter Scrapers
   When clear the scraper filter
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
+@error-collateral
 Scenario: Sort Scrapers by Name
   When click the sort type dropdown
   When click sort by item "Name Desc"
@@ -98,6 +100,7 @@ Scenario: Sort Scrapers by Name
   #When click the scraper sort by name button
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
+@error-collateral
 Scenario: Sort Scrapers by URL
   When click the sort type dropdown
   When click sort by item "URL Asc"
@@ -108,6 +111,7 @@ Scenario: Sort Scrapers by URL
   #When click the scraper sort By URL button
   Then the scraper name sort order is "Melnik,Morlaix,Brno,Brest"
 
+@error-collateral
 Scenario: Sort Scrapers by Bucket
   When click the sort type dropdown
   When click sort by item "Bucket Asc"
@@ -118,6 +122,7 @@ Scenario: Sort Scrapers by Bucket
   #When click the scraper sort By Bucket button
   Then the scraper name sort order is "Melnik,Brno,Morlaix,Brest"
 
+@error-collateral
 Scenario: Rename Scraper
   When hover over the scraper card name "Brno"
   When click the scraper card name edit control for the card "Brno"
@@ -126,6 +131,7 @@ Scenario: Rename Scraper
   Then there is a scraper card for "Plzeň"
   Then the scraper card "Brno" is no longer present in the list
 
+@error-collateral
 Scenario Outline: Verify Scraper data
   Then the named query "<NAMED_QUERY>" by user "<USER>" on the bucket "<BUCKET>" contains the values "<EXPECTED_VALUES>"
 

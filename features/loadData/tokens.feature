@@ -72,6 +72,7 @@ Feature: Load Data - Tokens
     When click popup cancel button
     Then popup is not loaded
 
+@error-collateral
   Scenario: Exercise Create All Access Token Popup
     When click the generate token dropdown
     When click the generate token item "all-access"
@@ -116,6 +117,7 @@ Feature: Load Data - Tokens
 
   # Scenario: Sort By Status # not working see issue 15301
 
+@error-collateral
   Scenario: Sort By Name
     Then the first tokens are sorted by description as "admin's Token, Campbells Soup, Dismaland, La Femme a la perle, La Jocande"
     When click the tokens sort By Name button
@@ -123,6 +125,7 @@ Feature: Load Data - Tokens
     When click the tokens sort By Name button
     Then the first tokens are sorted by description as "admin's Token, Campbells Soup, Dismaland, La Femme a la perle, La Jocande"
 
+@error-collateral
   Scenario: Edit Description
     When hover over the token description "La Jocande"
     When click the token description toggle for "La Jocande"

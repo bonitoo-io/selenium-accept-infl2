@@ -159,6 +159,7 @@ Feature: Dashboards - Base
     Mercure,Venus,Terre,Mars,Jupiter
     """
 
+@error-collateral
   Scenario: Import Dashboard from file
     When click create dashboard control
     When click the create dashboard item "Import Dashboard"
@@ -232,6 +233,7 @@ Feature: Dashboards - Base
   # Scenario: Sort Dashboards by Modified time
   # TODO - implement after issue #15610 is resolved
 
+@error-collateral
   Scenario: Export Dashboard as Template
     When hover over dashboard card named "Alpha Centauri"
     When click export of the dashboard card named "Alpha Centauri"
@@ -241,6 +243,7 @@ Feature: Dashboards - Base
     Then a REST template document for user "DEFAULT" titled "Alpha Centauri-Template" exists
     Then close all notifications
 
+@error-collateral
   Scenario: Export Dashboard copy to clipboard
     When hover over dashboard card named "Jupiter"
     When click export of the dashboard card named "Jupiter"
@@ -252,6 +255,7 @@ Feature: Dashboards - Base
     When click the Export Dashboard dismiss button
     Then popup is not loaded
 
+@error-collateral
   Scenario: Export Dashboard to file
     When remove file "tau_ceti.json" if exists
     When hover over dashboard card named "Tau Ceti"

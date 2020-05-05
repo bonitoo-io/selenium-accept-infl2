@@ -110,6 +110,7 @@ Scenario: Filter Buckets
   Then the buckets are sorted as "Denní,Půldenní,Týdenní"
   Then the bucket "Oprava" is not in the list
 
+@error-collateral
 Scenario: Clear Filter
   When clear the Buckets filter field
   Then the bucket named "Oprava" is in the list
@@ -131,6 +132,7 @@ Scenario: Sort Buckets by Name
   When click sort by item "Name Desc"
   #Given ensure buckets name sort order "desc"
 
+@error-collateral
 Scenario: Sort Buckets by Retention Policy
   When click the sort type dropdown
   When click sort by item "retentionRules[0].everySeconds-asc"
@@ -184,6 +186,7 @@ Scenario: Add Manual Line Protocol Data to Default
 { "points": 12, "field": "foo", "measurement": "fibonacci", "start": "-3h", "vals": ["1","233"], "rows": ["1","-1"] }
 """
 
+@error-collateral
   Scenario: Add Manual Line Protocol Bad Data to Default
     Then the add data popover is not present
     When click add data button for bucket "DEFAULT"

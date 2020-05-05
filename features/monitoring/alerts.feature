@@ -136,6 +136,7 @@ Scenario: Exercise Initial Alerts view Controls
     Then the first time create threshold check is visible
     Then the first time create deadman check is visible
 
+@error-collateral
   Scenario: Exercise configure check Deadman
   # Just check Deadman fields others were covered in threshold test
     When click the create check button
@@ -223,6 +224,7 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     Then there is an alert card named "Simple Count Check"
 
     # Create Deadman Alerts
+@error-collateral
   Scenario: Create simple Critical Deadman Check
   # Just check Deadman fields others were covered in threshold test
     When click the create check button
@@ -251,6 +253,7 @@ ${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped rep
     Then there is an alert card named "Deadman Critical Check"
 
   # Need second card for filter and sort tests
+@error-collateral
   Scenario: Create simple Warn Deadman Check
   # Just check Deadman fields others were covered in threshold test
     When click the create check button
@@ -280,6 +283,7 @@ ${ r._check_name } is: ${ r._level } has stopped reporting.  Last value [${strin
 # TODO - EDIT Threshold Check and drag threshold control in graph
 
 # Edit Check Card
+@error-collateral
 Scenario: Edit Check Card
    When hover over the name of the check card "Deadman Warn Check"
    When click the name edit button of the check card "Deadman Warn Check"
@@ -364,6 +368,7 @@ Scenario: Add Labels To Checks
   When click the checks filter input
 
 # Clone check
+@error-collateral
   Scenario: Clone Check
     When hover over the name of the check card "Simple Count Check"
     When wait "1" seconds
@@ -398,6 +403,7 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     Then there is an alert card named "Bécik"
 
 # Filter Checks
+@error-collateral
   Scenario: Filter Checks
     Then the check cards column contains
   """
@@ -463,4 +469,3 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
 
 # NOTE - perhaps should have five features - base, checks, endpoints, rules, full monitoring (too harvest alerts
 # and notifications.) - breakup planned tests above into these feature files.
-

@@ -100,6 +100,7 @@ Scenario: Sort By Name
   When click sort by item "Name Asc"
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
+@error-collateral
 Scenario: Sort By Description
   When click the sort type dropdown
   When click sort by item "Properties.Description Asc"
