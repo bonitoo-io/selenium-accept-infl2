@@ -611,16 +611,18 @@ const dataGenProcess = async function(def = {pulse: 333, model: 'count10'}){
        __liveDataGenRunning = true;
        await sleep(def.pulse)
    }
+
+   console.warn(`Live data generation process stopped ${(new Date()).toISOString()}`);
     __liveDataGenRunning = false;
 };
 
 const startLiveDataGen = function(def){
     if(!__liveDataGenRunning) {
-        console.log("Starting live generator with " + JSON.stringify(def));
+        console.log(`Starting live generator with ${JSON.stringify(def)} ${(new Date()).toISOString()}`);
         __killLiveDataGen = false;
         dataGenProcess(JSON.parse(def));
     }else{
-        console.log("Live Data Generator already running");
+        console.log(`Live Data Generator already running ${(new Date()).toISOString()}`);
     }
 };
 

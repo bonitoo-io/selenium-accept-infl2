@@ -19,3 +19,7 @@ Then(/^event no "(.*)" contains the check name "(.*)"$/, async (index, name) => 
 When(/^click the check name of event no "(.*)"$/, async index => {
    await ckStatHistSteps.clickEventName(index);
 });
+
+Then(/^there is at least "(.*)" events at level "(.*)"$/, async (count, level) => {
+   await ckStatHistSteps.verifyMinimumCountEventsAtLevel(count, level);
+});

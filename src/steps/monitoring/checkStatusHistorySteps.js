@@ -39,6 +39,15 @@ class checkStatusHistorySteps extends influxSteps {
             await this.driver.sleep(500); //can be slow to load?
         });
     }
+
+    async verifyMinimumCountEventsAtLevel(count, level){
+        await this.ckHistPage.getEventRowsAtLevel(level.trim()).then(async rows => {
+           expect(rows.length).to.be.at.least(parseInt(count));
+        }).catch(async e => {
+            console.warn(`Caught error looking for events at level ${level} ${JSON.stringify(e)}`);
+            throw e;
+        })
+    }
 }
 
 module.exports = checkStatusHistorySteps;

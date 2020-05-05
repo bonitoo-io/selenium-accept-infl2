@@ -5,6 +5,7 @@ const alertHistoryTitle = '[data-testid=alert-history-title]';
 const filterInput = '//*[./*[@data-testid=\'input-field--default\']]//*[@data-testid=\'input-field\']';
 const eventRows = '.event-row';
 const eventRowCheckNameField = '//*[./*[@class=\'event-row\']][%INDEX%]//a';
+const eventRowsAtLevel = '//*[./*[@class=\'event-row\']]//*[contains(@class,\'level-table-field--%LEVEL%\')]';
 
 const canvasGraphAxes = 'canvas.giraffe-axes';
 const canvasGraphContent = 'canvas.giraffe-layer-line';
@@ -55,6 +56,10 @@ class checkStatusHistoryPage extends influxPage {
 
     async getEventTable(){
         return await this.driver.findElement(By.css(eventTable));
+    }
+
+    async getEventRowsAtLevel(level){
+        return await this.driver.findElements(By.xpath(eventRowsAtLevel.replace('%LEVEL%', level)))
     }
 
 }
