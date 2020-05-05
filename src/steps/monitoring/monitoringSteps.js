@@ -240,6 +240,14 @@ class monitoringSteps extends influxSteps{
         await this.clickAndWait(await this.alPage.getCheckCardOpenHistoryConfirm(name));
     }
 
+    async clickCheckCardDelete(name){
+        await this.clickAndWait(await this.alPage.getCheckCardDeleteButton(name.trim()));
+    }
+
+    async clickCheckCardDeleteConfirm(name){
+        await this.clickAndWait(await this.alPage.getCheckCardDeleteConfirm(name.trim()));
+    }
+
 
 }
 

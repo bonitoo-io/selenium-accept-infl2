@@ -36,6 +36,9 @@ const checkCardCloneButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NA
 const checkCardCloneConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu-item\'][text()=\'Clone\']';
 const checkCardOpenHistory = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\'][./*[contains(@class,\'eye-open\')]]';
 const checkCardOpenHistoryConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-menu-item\']';
+const checkCardDeleteButton = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-menu\']';
+const checkCardDeleteConfirm = '//*[@data-testid=\'check-card\'][.//*[text()=\'%NAME%\']]//*[@data-testid=\'context-delete-task\']'
+
 
 //Create Endpoint Popup
 const epPopupEndpointDropdownButton = '[data-testid=endpoint--dropdown--button]';
@@ -248,6 +251,14 @@ class alertsPage extends influxPage {
 
     async getCheckCardOpenHistoryConfirm(name){
         return await this.driver.findElement(By.xpath(checkCardOpenHistoryConfirm.replace('%NAME%', name)));
+    }
+
+    async getCheckCardDeleteButton(name){
+        return await this.driver.findElement(By.xpath(checkCardDeleteButton.replace('%NAME%', name)));
+    }
+
+    async getCheckCardDeleteConfirm(name){
+        return await this.driver.findElement(By.xpath(checkCardDeleteConfirm.replace('%NAME%', name)));
     }
 
 }

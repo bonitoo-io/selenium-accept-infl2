@@ -467,6 +467,16 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     """
 
 # Delete Check
+  Scenario Template: Delete Check
+    When hover over the name of the check card "<NAME>"
+    When click delete of the check card "<NAME>"
+    When click delete confirm of the check card "<NAME>"
+    Then there is no alert card named "<NAME>"
+    Examples:
+      |NAME|
+      |Bécik|
+      |Veille automatique - Avertissement|
+
 
 # TODO - Edit Check definition -
 # Edit Check definition
