@@ -476,6 +476,8 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
       |NAME|
       |Bécik|
       |Veille automatique - Avertissement|
+      |Deadman Critical Check|
+      |Simple Count Check|
 
 
 # TODO - Edit Check definition -
