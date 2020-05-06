@@ -2,6 +2,7 @@
 @loadData-tokens
 Feature: Load Data - Tokens
 
+@tested
   Scenario: Load Initial Tokens tab
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -16,6 +17,7 @@ Feature: Load Data - Tokens
     Then the tokens tab is loaded
     Then the tokens list contains the token described as "admin's Token"
 
+@tested
   Scenario: Exercise Create Read/Write Token Popup
     When click the generate token dropdown
     When click the generate token item "read-write"
@@ -70,6 +72,7 @@ Feature: Load Data - Tokens
     When click popup cancel button
     Then popup is not loaded
 
+@error-collateral
   Scenario: Exercise Create All Access Token Popup
     When click the generate token dropdown
     When click the generate token item "all-access"
@@ -81,6 +84,7 @@ Feature: Load Data - Tokens
     When click all-access token popup cancel
     Then popup is not loaded
 
+@tested
   Scenario Outline: Create Token
     When click the generate token dropdown
     When select token type based on <PRIVILEGES> type
@@ -100,6 +104,7 @@ Feature: Load Data - Tokens
     | Cambpells Soup            | All       | RW |
     | La Jocande   | ALL                    |ALL |
 
+@tested
   Scenario Outline: Disable Token
     When disable the token described as <DESCR>
     Then the token described as <DESCR> is disabled
@@ -112,6 +117,7 @@ Feature: Load Data - Tokens
 
   # Scenario: Sort By Status # not working see issue 15301
 
+@error-collateral
   Scenario: Sort By Name
     Then the first tokens are sorted by description as "admin's Token, Campbells Soup, Dismaland, La Femme a la perle, La Jocande"
     When click the tokens sort By Name button
@@ -119,6 +125,7 @@ Feature: Load Data - Tokens
     When click the tokens sort By Name button
     Then the first tokens are sorted by description as "admin's Token, Campbells Soup, Dismaland, La Femme a la perle, La Jocande"
 
+@error-collateral
   Scenario: Edit Description
     When hover over the token description "La Jocande"
     When click the token description toggle for "La Jocande"
@@ -129,12 +136,14 @@ Feature: Load Data - Tokens
     Then the tokens list does not contain the token described as "La Jocande"
     When close all notifications
 
+@tested
   Scenario: Enable Token
     When enable the token described as "Nu descendant un escalier"
     Then the token described as "Nu descendant un escalier" is enabled
     Then the success notification contains "Token was updated successfully"
     When close all notifications
 
+@tested
   Scenario Outline: Review Token
     When click on the token described as "<DESCR>"
     Then the review token popup is loaded
@@ -149,6 +158,7 @@ Feature: Load Data - Tokens
     | Cambpells Soup            | All       | read,write |
     | La Dame a l hermine   | ALL                    |ALL |
 
+@tested
   Scenario Outline: Delete Token
     When hover over token card described as "<DESCR>"
     When click the delete button of the token card described as "<DESCR>"

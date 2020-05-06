@@ -4,6 +4,8 @@ Feature: Dashboards - Dashboard - Variables
   As a user I want to Add Variables to cell Queries
   So that I can view specific Influxdbv2 data sets
 
+@tested
+@tested
   Scenario: Load Cell Edit View
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -58,6 +60,7 @@ Feature: Dashboards - Dashboard - Variables
     Then the empty dashboard contains Add a Cell button
     When name dashboard "Semiotic"
 
+@error-collateral
   Scenario: Create Basic Cell for Variables
     When click the empty create cell button
     Then the cell edit overlay is loaded as "Name this Cell"
@@ -72,6 +75,7 @@ Feature: Dashboards - Dashboard - Variables
     When click dashboard cell save button
     Then the dashboard contains a cell named "Semantic"
 
+@error-collateral
   Scenario: Edit Query - Filter variables
     When toggle context menu of dashboard cell named "Semantic"
     When click cell content popover configure
@@ -111,6 +115,7 @@ Feature: Dashboards - Dashboard - Variables
           # Script Editor
              # Variables
 
+@error-collateral
   Scenario:  Add CSV variable to script
     When toggle context menu of dashboard cell named "Semantic"
     When click cell content popover configure
@@ -155,6 +160,7 @@ Feature: Dashboards - Dashboard - Variables
 
 
   #Script with Map variables
+@error-collateral
   Scenario:  Add Map variable to script
     Then the dashboard variables button is highlighted
     When toggle context menu of dashboard cell named "Semantic"
@@ -198,6 +204,7 @@ Feature: Dashboards - Dashboard - Variables
     Then the graph of the cell "Semantic" has changed
 
   #Script with Query variables
+@error-collateral
   Scenario:  Add Query variable to script
     Then the dashboard variables button is highlighted
     When toggle context menu of dashboard cell named "Semantic"
@@ -242,6 +249,7 @@ Feature: Dashboards - Dashboard - Variables
 
 
    #Change variables in Dashboard view two cells same variable.
+@error-collateral
   Scenario: Change variables in Dashboard view - two cells
     When click the header add cell button
     Then the cell edit overlay is loaded as "Name this Cell"
@@ -265,6 +273,7 @@ from(bucket: "qa")
     Then the graph of the cell "Semantic" has changed
     Then the graph of the cell "Syntagma" has changed
 
+@error-collateral
   Scenario: Change variables in Dashboard view - two variables
     When toggle context menu of dashboard cell named "Syntagma"
     When click cell content popover configure
@@ -298,6 +307,7 @@ from(bucket: "qa")
 
 
   #Dashboard view show/hide variables.
+@error-collateral
   Scenario: Toggle Variables in Dashboard
     Then the value dropdown for variable "POKUS" is visible
     Then the dashboard variables button is highlighted
@@ -312,6 +322,7 @@ from(bucket: "qa")
 
   # NEED TO CLEAN UP
   # Variables cached in localstore can influence other tests
+@tested
   Scenario Outline: Delete Variable
     When click nav menu item "Settings"
     When click the settings tab "Variables"

@@ -4,6 +4,7 @@ Feature: Dashboards - Dashboard - Base
   As a user I want to Read Create Update and Delete a Dashboard
   So that I can view specific Influxdbv2 data
 
+@tested
   Scenario: Load Initial Dashboard view
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -31,6 +32,7 @@ Feature: Dashboards - Dashboard - Base
     Then the empty dashboard contains Add a Cell button
     When name dashboard "про́бный прибо́ров"
 
+@error-collateral
   Scenario: Exercise Dashboard Dropdowns
     When click dashboard time locale dropdown
     Then the active dashboard dropdown contains items:
@@ -56,6 +58,7 @@ Feature: Dashboards - Dashboard - Base
     Custom Time Range,Past 5m,Past 15m,Past 1h,Past 6h,Past 12h,Past 24h,Past 2d,Past 7d,Past 30d
     """
 
+@tested
   Scenario: Create Cell
     When click the empty create cell button
     Then the cell edit overlay is loaded as "Name this Cell"
@@ -69,6 +72,7 @@ Feature: Dashboards - Dashboard - Base
     Then the dashboard contains a cell named "вре́менный"
 
     #Currently failing due to issue #16619
+@tested
   Scenario: Add Note to Cell
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover add note
@@ -106,6 +110,7 @@ Feature: Dashboards - Dashboard - Base
     When click the cell title "вре́менный"
     Then the cell content popover is not loaded
 
+@tested
   Scenario: Edit Cell Note
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover add note
@@ -148,6 +153,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click the cell title "вре́менный"
     Then the cell content popover is not loaded
 
+@error-collateral
   Scenario: Move cell
     When get metrics of cell named "вре́менный"
     When move the cell named "вре́менный" by "{ "dx": "+400", "dy": "+200" }"
@@ -172,6 +178,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "вре́менный" is unchanged
     When move the cell named "вре́менный" by "{ "dx": "-400", "dy": "0" }"
 
+@tested
   Scenario: Edit Cell - Simple
     Then the cell named "вре́менный" contains the empty graph message
     When toggle context menu of dashboard cell named "вре́менный"
@@ -196,6 +203,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When select dashboard Time Range "30d"
     Then the cell named "вре́менный" contains a graph
 
+@error-collateral
   Scenario: Resize Cell
     When get the current graph of the cell "вре́менный"
     When get metrics of cell named "вре́менный"
@@ -213,32 +221,38 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     #Then the dashboard named "про́бный прибо́ров" is loaded
     #Then the size of the of the cell named "вре́менный" is unchangd
 
+@error-collateral
   Scenario: Hover Cell Graph
     When hover over the graph of the cell named "вре́менный"
     Then the cell graph data point infobox is visible
 
+@error-collateral
   Scenario: Zoom Cell horizontal
     When get the current graph of the cell "вре́менный"
     When move horizontally to "2/5" of graph cell named "вре́менный"
     When drag horizontally to "3/5" of graph cell named "вре́менный"
     Then the graph of the cell "вре́менный" has changed
 
+@error-collateral
   Scenario: Unzoom Cell
     When get the current graph of the cell "вре́менный"
     When Click at the point "{"x": "1/2", "y": "1/2"}" of graph cell named "вре́менный"
     Then the graph of the cell "вре́менный" has changed
 
+@error-collateral
   Scenario: Zoom Cell vertical
     When get the current graph of the cell "вре́менный"
     When move vertically to "2/5" of graph cell named "вре́менный"
     When drag vertically to "3/5" of graph cell named "вре́менный"
     Then the graph of the cell "вре́менный" has changed
 
+@error-collateral
   Scenario: Unzoom Cell 2
     When get the current graph of the cell "вре́менный"
     When Click at the point "{"x": "1/2", "y": "1/2"}" of graph cell named "вре́менный"
     Then the graph of the cell "вре́менный" has changed
 
+@tested
   Scenario: Rename Cell
     When toggle context menu of dashboard cell named "вре́менный"
     When click cell content popover configure
@@ -248,7 +262,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click the cell edit save button
     Then the cell named "dočasný" is visible in the dashboard
 
-@error-timeout
+@tested
   Scenario: Clone Cell
     When toggle context menu of dashboard cell named "dočasný"
     When click cell edit content popover clone
@@ -278,21 +292,21 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     When click the cell title "klouzavý průměr"
     Then the cell content popover is not loaded
 
-@error-feature
+@error-collateral
   Scenario: Two cells column to row
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "+300", "dy": "0" }"
     Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "-380" }"
 
-@error-feature
+@error-collateral
   Scenario: Two cells row to column
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "-300", "dy": "0" }"
     Then the location of the cell named "klouzavý průměr" is changed by "{ "dx": "0", "dy": "+380" }"
 
-@error-feature
+@error-collateral
   Scenario: Two cells enlarge first into second
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "+300", "dy": "0" }"
@@ -303,7 +317,7 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "dočasný" is changed by "{ "dx": "0", "dy": "+380" }"
     Then size of the cell named "klouzavý průměr" has changed by "{ "dw": "+300", "dh": "0" }"
 
-@error-feature
+@error-collateral
   Scenario: Two cells reduce first when above second
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
@@ -311,14 +325,14 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     Then the location of the cell named "dočasný" is changed by "{ "dx": "0", "dy": "-380" }"
     Then size of the cell named "klouzavý průměr" has changed by "{ "dw": "-300", "dh": "0" }"
 
-@error-feature
+@error-collateral
   Scenario: Two cells column to row - Moved cell drops down
     When get metrics of cell named "dočasný"
     When get metrics of cell named "klouzavý průměr"
     When move the cell named "dočasný" by "{ "dx": "-150", "dy": "150" }"
     Then the location of the cell named "dočasný" is changed by "{ "dx": "-150", "dy": "+380" }"
 
-@error-feature
+@tested
   Scenario Outline: Delete Cell
     When toggle context menu of dashboard cell named "<NAME>"
     When click cell content popover delete
@@ -333,7 +347,4 @@ Dans une administration russe... mieux vaut ne pas dire le nom de cette administ
     |klouzavý průměr|
     |dočasný        |
 
-
 # TODO - Dark Mode / Light Mode
-
-

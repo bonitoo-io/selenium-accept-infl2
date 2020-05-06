@@ -7,6 +7,7 @@ Feature: Load Data - Scrapers
 # N.B. can verify scrapers at endpoint http://localhost:9999/api/v2/scrapers
 
 
+@tested
 Scenario: Load Initial Scrapers tab
   Given I reset the environment
   Given run setup over REST "DEFAULT"
@@ -18,6 +19,7 @@ Scenario: Load Initial Scrapers tab
   When click load data tab "Scrapers"
   Then the scrapers tab is loaded
 
+@tested
 Scenario: Exercise create Scraper popup
   When click the create scraper button empty
   Then the Create Scraper popup is loaded
@@ -53,6 +55,7 @@ Scenario: Exercise create Scraper popup
   When dismiss the Create Scraper popup
   Then the Create Scraper popup is no longer present
 
+@tested
 Scenario Outline: Create Scrapers
   When click the create scraper button from the header
   When clear the Scraper Popup name input
@@ -76,6 +79,7 @@ Scenario Outline: Create Scrapers
   | Brno | http://localhost:10018/bogus | DEFAULT |
   | Brest | http://localhost:10018/bogus | Duchamp |
 
+@error-collateral
 Scenario: Filter Scrapers
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
   When enter the value "Br" into the scraper filter
@@ -85,6 +89,7 @@ Scenario: Filter Scrapers
   When clear the scraper filter
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
+@error-collateral
 Scenario: Sort Scrapers by Name
   When click the sort type dropdown
   When click sort by item "Name Desc"
@@ -95,6 +100,7 @@ Scenario: Sort Scrapers by Name
   #When click the scraper sort by name button
   Then the scraper name sort order is "Brest,Brno,Melnik,Morlaix"
 
+@error-collateral
 Scenario: Sort Scrapers by URL
   When click the sort type dropdown
   When click sort by item "URL Asc"
@@ -105,6 +111,7 @@ Scenario: Sort Scrapers by URL
   #When click the scraper sort By URL button
   Then the scraper name sort order is "Melnik,Morlaix,Brno,Brest"
 
+@error-collateral
 Scenario: Sort Scrapers by Bucket
   When click the sort type dropdown
   When click sort by item "Bucket Asc"
@@ -115,6 +122,7 @@ Scenario: Sort Scrapers by Bucket
   #When click the scraper sort By Bucket button
   Then the scraper name sort order is "Melnik,Brno,Morlaix,Brest"
 
+@error-collateral
 Scenario: Rename Scraper
   When hover over the scraper card name "Brno"
   When click the scraper card name edit control for the card "Brno"
@@ -123,6 +131,7 @@ Scenario: Rename Scraper
   Then there is a scraper card for "Plzeň"
   Then the scraper card "Brno" is no longer present in the list
 
+@error-collateral
 Scenario Outline: Verify Scraper data
   Then the named query "<NAMED_QUERY>" by user "<USER>" on the bucket "<BUCKET>" contains the values "<EXPECTED_VALUES>"
 
@@ -131,6 +140,7 @@ Scenario Outline: Verify Scraper data
   |DEFAULT| Duchamp | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
   |DEFAULT| DEFAULT | Measurements | boltdb_reads_total,go_info,go_threads,influxdb_info,storage_reads_seeks |
 
+@tested
 Scenario Outline: Delete Scraper
   Then the delete button of the scraper card named "<NAME>" is not present
   When hover over scraper card named "<NAME>"

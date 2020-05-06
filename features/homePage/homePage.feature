@@ -2,7 +2,6 @@
 @homePage-homePage
 Feature: Home Page
 
-  @error-timeout
   Scenario: logout home page
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -18,6 +17,7 @@ Feature: Home Page
     When I click the panel "Data Collector"
     Then the Telegraf Tab is loaded
 
+@tested
   Scenario: Check Dashboards Panel
     When hover over the "home" menu item
     When click nav menu item "home"
@@ -32,6 +32,7 @@ Feature: Home Page
     When click the dashboard link to "Test Dashboard"
     Then the dashboard named "Test Dashboard" is loaded
 
+@tested
   Scenario: Click Alerting Panel
     When hover over the "home" menu item
     When click nav menu item "home"

@@ -73,6 +73,7 @@ Feature: Dashboards - Dashboard - Note Cell
     Then the note cell contains a "ul li" tag with "Rumcajs"
     Then the note cell contains a "ol li" tag with "Alpha"
 
+@tested
   Scenario: Edit note
     When toggle context menu of dashboard cell named "Note"
     When click cell content popover edit note
