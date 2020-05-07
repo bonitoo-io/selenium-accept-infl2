@@ -5,6 +5,7 @@ Feature: Monitoring - Alerts - Base
   As a user I want to setup alerts
   So that I can be notified of important changes in the data
 
+@tested
 Scenario: Load Initial Alerts view
   Given I reset the environment
   Given run setup over REST "DEFAULT"
@@ -27,6 +28,7 @@ Scenario: Load Initial Alerts view
   Then the Alerting page is loaded
   When wait "10" seconds
 
+@tested
 Scenario: Exercise Initial Alerts view Controls
   Then the notification rules create dropdown is disabled
   When click alerting tab "checks"
@@ -72,6 +74,7 @@ Scenario: Exercise Initial Alerts view Controls
 # TODO - Check illogical alert thresholds
 # TODO - add simple tags check
 
+@tested
   Scenario: Exercise Configure Check - Threshold
     When click the create check button
     When click the create check dropdown item "Threshold"
@@ -133,6 +136,7 @@ Scenario: Exercise Initial Alerts view Controls
     Then the first time create threshold check is visible
     Then the first time create deadman check is visible
 
+@error-collateral
   Scenario: Exercise configure check Deadman
   # Just check Deadman fields others were covered in threshold test
     When click the create check button
@@ -171,6 +175,7 @@ Scenario: Exercise Initial Alerts view Controls
     Then the first time create deadman check is visible
 
 # Create Threshold Alerts
+@tested
   Scenario: Create Simple Threshold Check
     When click the first time create threshold check
     Then the create check checklist contains:
@@ -219,6 +224,7 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     Then there is an alert card named "Simple Count Check"
 
     # Create Deadman Alerts
+@error-collateral
   Scenario: Create simple Critical Deadman Check
   # Just check Deadman fields others were covered in threshold test
     When click the create check button
@@ -247,6 +253,7 @@ ${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped rep
     Then there is an alert card named "Deadman Critical Check"
 
   # Need second card for filter and sort tests
+@error-collateral
   Scenario: Create simple Warn Deadman Check
   # Just check Deadman fields others were covered in threshold test
     When click the create check button
@@ -276,6 +283,7 @@ ${ r._check_name } is: ${ r._level } has stopped reporting.  Last value [${strin
 # TODO - EDIT Threshold Check and drag threshold control in graph
 
 # Edit Check Card
+@error-collateral
 Scenario: Edit Check Card
    When hover over the name of the check card "Deadman Warn Check"
    When click the name edit button of the check card "Deadman Warn Check"
@@ -295,6 +303,7 @@ Que ta voix, chat mystérieux, Chat séraphique, chat étrange... Baudelaire
   """
 
 # Add labels to checks
+@tested
 Scenario: Add Labels To Checks
   When click empty label for check card "Deadman Critical Check"
   Then the add label popover is present
@@ -359,6 +368,7 @@ Scenario: Add Labels To Checks
   When click the checks filter input
 
 # Clone check
+@error-collateral
   Scenario: Clone Check
     When hover over the name of the check card "Simple Count Check"
   #  When wait "1" seconds
@@ -393,6 +403,7 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
     Then there is an alert card named "Bécik"
 
 # Filter Checks
+@error-collateral
   Scenario: Filter Checks
     Then the check cards column contains
   """
@@ -511,4 +522,3 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
 
 # NOTE - perhaps should have five features - base, checks, endpoints, rules, full monitoring (too harvest alerts
 # and notifications.) - breakup planned tests above into these feature files.
-

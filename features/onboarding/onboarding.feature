@@ -3,7 +3,7 @@
 Feature: Onboard to Influxdbv2
   Create an initial user and organization
 
-  @error-feature
+@tested
   Scenario: Onboard Basic
 # Golden path check 1
     Given I reset the environment
@@ -26,7 +26,7 @@ Feature: Onboard to Influxdbv2
     When close all notifications
     Then the home page is loaded
 
-  @error-feature
+@tested
   Scenario: Onboard Advanced
 # Golden path check 2
     Given I reset the environment
@@ -47,7 +47,7 @@ Feature: Onboard to Influxdbv2
     When click advanced button
     Then the buckets tab is loaded
 
-  @error-feature
+@tested
   Scenario: Onboard field checks
 # N.B. would expect there to be rules for min/max length or allowed/disallowed characters in user-names
 # however none currently exist -- TODO add tests for such rules if they are ever implemented

@@ -4,6 +4,7 @@ Feature: Settings - Labels
   As a user I want to Read Create Update and Delete Labels
   So that I can manage the tag items used with Influxdbv2
 
+@tested
 Scenario: Open Labels Tab
   Given I reset the environment
   Given run setup over REST "DEFAULT"
@@ -13,6 +14,7 @@ Scenario: Open Labels Tab
   When click the settings tab "Labels"
   Then the labels Tab is loaded
 
+@tested
 Scenario: Exercise Create Label Popup
   When I click the empty state Create Label button
   Then the create Label popup is loaded
@@ -52,6 +54,7 @@ Scenario: Exercise Create Label Popup
   When dismiss the popup
   Then popup is not loaded
 
+@tested
 Scenario Outline: Create Label
   When I click the header Create Label button
   When clear the label popup name input
@@ -72,6 +75,7 @@ Scenario Outline: Create Label
   | Javor | Acer pseudoplatanus | #924544 |
   | Bouleau | Betula verrucosa | #F5EAD5 |
 
+@tested
 Scenario: Edit Label
   When I click the Label Card Pill "Bouleau"
   Then the edit label popup is loaded
@@ -86,6 +90,7 @@ Scenario: Edit Label
   Then the label card "Briza" has a pill colored "#ECFC31"
   Then the label card "Briza" has description "Betula pendula"
 
+@tested
 Scenario: Sort By Name
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
   When click the sort type dropdown
@@ -95,6 +100,7 @@ Scenario: Sort By Name
   When click sort by item "Name Asc"
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
+@error-collateral
 Scenario: Sort By Description
   When click the sort type dropdown
   When click sort by item "Properties.Description Asc"
@@ -106,6 +112,7 @@ Scenario: Sort By Description
   Then the first labels are sorted as "Jilm,Buk,Habr,Briza,Javor"
 
 
+@tested
   Scenario: Filter Labels
   When clear the labels filter input
   When enter the value "J" into the label filter
@@ -129,6 +136,7 @@ Scenario: Sort By Description
   When clear the labels filter input
   Then the first labels are sorted as "Briza,Buk,Habr,Javor,Jilm"
 
+@tested
 Scenario Outline: Delete Label
   When hover over label card "<NAME>"
   When click delete for the label card "<NAME>"
@@ -142,4 +150,3 @@ Scenario Outline: Delete Label
   | Habr |
   | Javor |
   | Jilm |
-

@@ -128,13 +128,13 @@ Then(/^verify ready page$/, async () => {
 
 });
 
-When(/^click quick start button$/, async () => {
+When(/^click quick start button$/, {timeout: 10000}, async () => {
     //await readyPage.clickQickStart()
     await onbSteps.clickQuickStartButton();
     //return 'pending'
 });
 
-When(/^click advanced button$/, async () => {
+When(/^click advanced button$/, {timeout: 10000}, async () => {
     await onbSteps.clickAdvancedButton();
 });
 

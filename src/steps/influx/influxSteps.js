@@ -78,13 +78,13 @@ class influxSteps extends baseSteps {
         let elem = undefined;
         switch(item){
             case 'switchOrg':
-                elem = await this.influxPage.getUserMenuSwitchOrg();
+                elem = await this.influxPage.getUserMenuItem('switch-orgs');
                 break;
             case 'createOrg':
-                elem = await this.influxPage.getUserMenuCreateOrg();
+                elem = await this.influxPage.getUserMenuItem('create-orgs');
                 break;
             case 'logout':
-                elem = await this.influxPage.getUserMenuLogout();
+                elem = await this.influxPage.getUserMenuItem('logout');
                 break;
             default:
                 throw `Unkown menu item ${item}`;
