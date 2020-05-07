@@ -1,7 +1,7 @@
 @feature-monitoring
 @monitoring-alerts
 @use-live-data
-Feature: Monitoring - Alerts - Base
+Feature: Monitoring - Alerts - History
   As a user I want to setup alerts
   So that I can be notified of important changes in the data
 
