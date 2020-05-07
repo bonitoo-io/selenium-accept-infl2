@@ -247,7 +247,7 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
   """
 ${ r._check_name } is: ${ r._level } value [${string(v: r.val)}] has stopped reporting
   """
-    When set the value of the deadman definition No Values for input to "60s"
+    When set the value of the deadman definition No Values for input to "30s"
     When set the value of the definition stop input to "2m"
     When click the check editor save button
     Then there is an alert card named "Deadman Critical Check"
@@ -371,7 +371,7 @@ Scenario: Add Labels To Checks
 @error-collateral
   Scenario: Clone Check
     When hover over the name of the check card "Simple Count Check"
-    When wait "1" seconds
+  #  When wait "1" seconds
     When click the check card "Simple Count Check" clone button
     When click the check card "Simple Count Check" clone confirm button
     Then there is an alert card named "Simple Count Check (clone 1)"
@@ -435,10 +435,63 @@ ${ r._check_name } is: ${ r._level } value was ${string(v: r.val)}
   Simple Count Check, Deadman Critical Check, Veille automatique - Avertissement, Bécik
   """
 
+  Scenario: Threshold Check history - basic
+    When hover over the name of the check card "Simple Count Check"
+    # Collect some data - generate at least 1 event
+    When wait "10" seconds
+    When click open history of the check card "Simple Count Check"
+    When click open history confirm of the check card "Simple Count Check"
+    # Just check page load
+    # Check history will be separate test feature
+    Then the Check statusses page is loaded
+    Then there are at least "1" events in the history
+    Then event no "1" contains the check name "Simple Count Check"
+    When click the check name of event no "1"
+    Then the edit check overlay is loaded
+    Then the current edit check name is "Simple Count Check"
+    When dismiss edit check overlay
+    Then the edit check overlay is not loaded
+    Then the Alerting page is loaded
+    Then there is an alert card named "Simple Count Check"
 
+  Scenario: Deadman Check history - basic
+    When stop live data generator
+    When wait "40" seconds
+    When hover over the name of the check card "Deadman Critical Check"
+    When click open history of the check card "Deadman Critical Check"
+    When click open history confirm of the check card "Deadman Critical Check"
+    Then the Check statusses page is loaded
+    Then there are at least "1" events in the history
+    Then event no "1" contains the check name "Deadman Critical Check"
+    Then there is at least "1" events at level "crit"
+    When click the check name of event no "1"
+    Then the edit check overlay is loaded
+    Then the current edit check name is "Deadman Critical Check"
+    When dismiss edit check overlay
+    Then the edit check overlay is not loaded
+    Then the Alerting page is loaded
+    Then there is an alert card named "Deadman Critical Check"
+    When start live data generator
+    # restart live generator as above
+    """
+    { "pulse": 5000, "model": "count10" }
+    """
 
 # Delete Check
+  Scenario Template: Delete Check
+    When hover over the name of the check card "<NAME>"
+    When click delete of the check card "<NAME>"
+    When click delete confirm of the check card "<NAME>"
+    Then there is no alert card named "<NAME>"
+    Examples:
+      |NAME|
+      |Bécik|
+      |Veille automatique - Avertissement|
+      |Deadman Critical Check|
+      |Simple Count Check|
 
+
+# TODO - Edit Check definition -
 # Edit Check definition
 
 # Create Endpoints {HTTP, Slack, Pager Duty}

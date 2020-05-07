@@ -185,4 +185,24 @@ Then(/^the "(.*)" cards column empty state message is "(.*)"$/, async (col, mess
    await monSteps.verifyEmptyChecksStateMessage(col, message);
 });
 
+When(/^click open history of the check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardOpenHistory(name);
+});
+
+When(/^click open history confirm of the check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardOpenHistoryConfirm(name);
+});
+
+When(/^click delete of the check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardDelete(name);
+});
+
+When(/^click delete confirm of the check card "(.*)"$/, async name => {
+   await monSteps.clickCheckCardDeleteConfirm(name);
+});
+
+Then(/^there is no alert card named "(.*)"$/, async name => {
+   await monSteps.verifyCheckCardsNotPresent(name);
+});
+
 
