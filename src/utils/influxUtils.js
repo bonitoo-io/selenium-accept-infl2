@@ -301,8 +301,8 @@ const createAlertCheckFromFile = async(filepath, orgID) => {
     //content = content.replace(/\\/g, "\\\\\\");
     ///console.log("DEBUG content \n" + content +  "\n");
 
-    let newCheck = JSON.parse('{"id":null,"type":"threshold","status":"active","activeStatus":"active","name":"ASDF","query":{"name":"","text":"from(bucket: \\"qa\\")\\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\\n  |> filter(fn: (r) => r[\\"_measurement\\"] == \\"test\\")\\n  |> filter(fn: (r) => r[\\"_field\\"] == \\"val\\")\\n  |> aggregateWindow(every: 1m, fn: mean)\\n  |> yield(name: \\"mean\\")","editMode":"builder","builderConfig":{"buckets":["qa"],"tags":[{"key":"_measurement","values":["test"],"aggregateFunctionType":"filter"},{"key":"_field","values":["val"],"aggregateFunctionType":"filter"},{"key":"gen","values":[],"aggregateFunctionType":"filter"}],"functions":[{"name":"mean"}],"aggregateWindow":{"period":"1m"}},"hidden":false},"orgID":"05a6a2d5ea213000","labels":[],"every":"1m","offset":"0s","statusMessageTemplate":"Check: ${ r._check_name } is: ${ r._level }","tags":[],"thresholds":[{"type":"greater","value":7.5,"level":"CRIT"}]}');
-    //let newCheck = JSON.parse(content);
+    //let newCheck = JSON.parse('{"id":null,"type":"threshold","status":"active","activeStatus":"active","name":"ASDF","query":{"name":"","text":"from(bucket: \\"qa\\")\\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\\n  |> filter(fn: (r) => r[\\"_measurement\\"] == \\"test\\")\\n  |> filter(fn: (r) => r[\\"_field\\"] == \\"val\\")\\n  |> aggregateWindow(every: 1m, fn: mean)\\n  |> yield(name: \\"mean\\")","editMode":"builder","builderConfig":{"buckets":["qa"],"tags":[{"key":"_measurement","values":["test"],"aggregateFunctionType":"filter"},{"key":"_field","values":["val"],"aggregateFunctionType":"filter"},{"key":"gen","values":[],"aggregateFunctionType":"filter"}],"functions":[{"name":"mean"}],"aggregateWindow":{"period":"1m"}},"hidden":false},"orgID":"05a6a2d5ea213000","labels":[],"every":"1m","offset":"0s","statusMessageTemplate":"Check: ${ r._check_name } is: ${ r._level }","tags":[],"thresholds":[{"type":"greater","value":7.5,"level":"CRIT"}]}');
+    let newCheck = JSON.parse(content);
 
     newCheck.orgID = orgID;
 
@@ -311,12 +311,9 @@ const createAlertCheckFromFile = async(filepath, orgID) => {
         url: '/api/v2/checks',
         data: newCheck
     }).then(resp => {
-        console.log("DEBUG resp.status " + resp.status);
-        console.log("DEBUG resp.headers " + JSON.stringify(resp.headers));
-        console.log("DEBUG resp.data " + JSON.stringify(resp.data));
         return resp.data;
     }).catch(err => {
-        console.log("DEBUG err " + JSON.stringify(err));
+        console.error("DEBUG err " + JSON.stringify(err));
         throw(err);
     });
 
