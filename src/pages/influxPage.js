@@ -10,7 +10,7 @@ const navMenuAlerting = '[data-testid=nav-item-alerting]'; //N.B. only available
 const navMenuLoadData = '[data-testid=nav-item-load-data]';
 const navMenuSettings = '[data-testid=nav-item-settings]';
 //const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
-const navMenuUser = '[data-testid=tree-nav--user]';
+const navMenuUser = '[data-testid=user-nav]';
 const navMenuOrg = '[data-testid=nav-item-org]';
 
 const navMenuHomeHeading = '//a[text() = \'admin (qa)\']';
@@ -57,7 +57,7 @@ class influxPage extends basePage {
                 {type: 'css', selector: navMenuLoadData},
                 {type: 'css', selector: navMenuSettings},
                 {type: 'css', selector: navMenuUser},
-                {type: 'css', selector: navMenuOrg},
+            //    {type: 'css', selector: navMenuOrg}, // TODO - reactivate when certain orgs should be in menu
                 {type: 'css', selector: pageHeader}
             ], urlCtx);
             return;
