@@ -106,6 +106,7 @@ Feature: Dashboards - Base
     #When press the "ESCAPE" key
     When click the dashboards filter input
     Then the add label popover is not present
+    #TODO add check for issue #17964
 
 @tested
   Scenario Outline: Create new Dashboard

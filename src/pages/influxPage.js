@@ -10,7 +10,7 @@ const navMenuAlerting = '[data-testid=nav-item-alerting]'; //N.B. only available
 const navMenuLoadData = '[data-testid=nav-item-load-data]';
 const navMenuSettings = '[data-testid=nav-item-settings]';
 //const navMenuFeedback = '[data-testid=nav-menu--item] span.nav-chat';
-const navMenuUser = '[data-testid=tree-nav--user]';
+const navMenuUser = '[data-testid=user-nav]';
 const navMenuOrg = '[data-testid=nav-item-org]';
 
 const navMenuHomeHeading = '//a[text() = \'admin (qa)\']';
@@ -18,7 +18,8 @@ const navMenuHomeNewOrg = 'a.cf-nav--sub-item[href=\'/orgs/new\']';
 const navMenuHomeLogout = 'a.cf-nav--sub-item[href=\'/logout\']';
 
 const navMenuXpath = '//*[@data-testid = \'nav-menu\']';
-const userMenuItemXpath = '//*[@data-testid = \'tree-nav--user-item\']';
+const userMenuItemXpath = '//*[@data-testid = \'user-nav\']';
+const userMenuItem = '[data-testid^=\'user-nav-item-%ITEM%\']';
 
 const pageHeader = '[data-testid=page-header]';
 
@@ -57,7 +58,7 @@ class influxPage extends basePage {
                 {type: 'css', selector: navMenuLoadData},
                 {type: 'css', selector: navMenuSettings},
                 {type: 'css', selector: navMenuUser},
-                {type: 'css', selector: navMenuOrg},
+            //    {type: 'css', selector: navMenuOrg}, // TODO - reactivate when certain orgs should be in menu
                 {type: 'css', selector: pageHeader}
             ], urlCtx);
             return;
@@ -148,6 +149,10 @@ class influxPage extends basePage {
 
     async getUserMenuLogout(){
         return await this.driver.findElement(By.xpath(`${userMenuItemXpath}[text() = 'Logout']`));
+    }
+
+    async getUserMenuItem(item){
+        return await this.driver.findElement(By.css(userMenuItem.replace('%ITEM%', item.toLowerCase())));
     }
 
 
