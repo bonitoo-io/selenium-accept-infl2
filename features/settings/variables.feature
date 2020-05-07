@@ -33,6 +33,7 @@ Feature: Settings - Variables
     Then dismiss the popup
     Then popup is not loaded
 
+@tested
   Scenario: Exercise Create Variable Popup
     When click create variable dropdown in header
     When click "new" variable dropdown item
@@ -93,6 +94,7 @@ Feature: Settings - Variables
 
 
   # TODO - failover on bad variable file
+@tested
   Scenario: Import Bad Variable
     When click create variable dropdown in header
     When click "import" variable dropdown item
@@ -326,6 +328,7 @@ Feature: Settings - Variables
     Then close all notifications
     Then there is a variable card for "Kybl"
 
+@tested
   Scenario Outline: Delete Variable
     When hover over variable card named "<NAME>"
     When click delete menu of variable card named "<NAME>"
@@ -344,9 +347,3 @@ Feature: Settings - Variables
       |Obdobi    |
       |Primaty   |
       |Reals     |
-
-
-
-
-
-

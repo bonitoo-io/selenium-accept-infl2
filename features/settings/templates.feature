@@ -4,6 +4,7 @@ Feature: Settings - Templates
   As a user I want to Read Create Update and Delete Templatess
   So that I can eventually use them to create dashboards in Influxdbv2
 
+@tested
   Scenario: Open Templates Tab
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -27,6 +28,7 @@ Feature: Settings - Templates
     """
 
 
+@tested
   Scenario: Exercise Import Template Popup
     When click user templates
     When click empty state import template button
@@ -52,6 +54,7 @@ Feature: Settings - Templates
 
 # TODO add variables to templates
 
+@error-collateral
   Scenario Outline: Import User Template File Upload
     When click user templates
     When click header import template button
@@ -73,6 +76,7 @@ Feature: Settings - Templates
     |Hydro test dashboard-Template|etc/test-data/hydro-test-template.json|
     |Note Dashboard-Template|etc/test-data/note-dboard-template.json|
 
+@error-collateral
   Scenario Outline: Import User Template as JSON
     When click header import template button
     Then click the import template paste button
@@ -94,6 +98,7 @@ Feature: Settings - Templates
     |Sinusoid test data-Template|etc/test-data/sine-test-template.json|
     |Notepad-Template|etc/test-data/notepad-test-template.json|
 
+@error-collateral
   Scenario: Import Bad Template File
     When click user templates
     When click header import template button
@@ -103,6 +108,7 @@ Feature: Settings - Templates
     Then the error notification contains "Failed to import template: Error: Request failed with status code 400"
     When close all notifications
 
+@error-collateral
   Scenario: Filter Templates
     When click user templates
     When enter the value "Note" into the templates filter field
@@ -117,6 +123,7 @@ Feature: Settings - Templates
     Hydro test dashboard-Template,Note Dashboard-Template,Notepad-Template,Sinusoid test data-Template
     """
 
+@error-collateral
   Scenario: Sort Templates by Name
     When click the sort type dropdown
     When click sort by item "Meta.Name Desc"
@@ -147,6 +154,7 @@ Feature: Settings - Templates
   # Scenario: Create Dashboard from Template
   # Covered in Dashboard tests
 
+@error-collateral
   Scenario Outline: Delete template
     When hover over template card named "<NAME>"
     When click the context delete button of template "<NAME>"

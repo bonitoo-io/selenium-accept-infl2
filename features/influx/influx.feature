@@ -3,7 +3,7 @@
 Feature: Influx common
   Click through the controls common to all influx pages
 
-  @error-timeout
+@tested
   Scenario: Open home page
     Given I reset the environment
     Given run setup over REST "DEFAULT"
@@ -14,6 +14,7 @@ Feature: Influx common
     #Then the header contains the org name "DEFAULT"
     Then the home page header contains "Getting Started"
 
+@tested
   Scenario: Click Data Explorer
     #Then the menu item text "Data Explorer" is "hidden"
     #When hover over the "explorer" menu item
@@ -21,6 +22,7 @@ Feature: Influx common
     When click nav menu item "Explorer"
     Then the Data Explorer page is loaded
 
+@tested
    Scenario: Click Dashboards
      #Then the menu item text "Dashboards" is "hidden"
      #When hover over the "dashboards" menu item
@@ -28,6 +30,7 @@ Feature: Influx common
      When click nav menu item "Dashboards"
      Then the Dashboards page is loaded
 
+@tested
   Scenario: Click Tasks
     #Then the menu item text "Tasks" is "hidden"
     #When hover over the "tasks" menu item
@@ -35,6 +38,7 @@ Feature: Influx common
     When click nav menu item "Tasks"
     Then the Tasks page is loaded
 
+@tested
   Scenario: Click Alerting
     #Then the menu item text "Monitoring & Alerting" is "hidden"
     #When hover over the "alerting" menu item
@@ -42,6 +46,7 @@ Feature: Influx common
     When click nav menu item "Alerting"
     Then the Alerting page is loaded
 
+@tested
   Scenario: Click Load Data
     #Then the menu item text "Settings" is "hidden"
     #When hover over the "loadData" menu item
