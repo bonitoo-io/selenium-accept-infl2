@@ -18,7 +18,8 @@ const navMenuHomeNewOrg = 'a.cf-nav--sub-item[href=\'/orgs/new\']';
 const navMenuHomeLogout = 'a.cf-nav--sub-item[href=\'/logout\']';
 
 const navMenuXpath = '//*[@data-testid = \'nav-menu\']';
-const userMenuItemXpath = '//*[@data-testid = \'tree-nav--user-item\']';
+const userMenuItemXpath = '//*[@data-testid = \'user-nav\']';
+const userMenuItem = '[data-testid^=\'user-nav-item-%ITEM%\']';
 
 const pageHeader = '[data-testid=page-header]';
 
@@ -148,6 +149,10 @@ class influxPage extends basePage {
 
     async getUserMenuLogout(){
         return await this.driver.findElement(By.xpath(`${userMenuItemXpath}[text() = 'Logout']`));
+    }
+
+    async getUserMenuItem(item){
+        return await this.driver.findElement(By.css(userMenuItem.replace('%ITEM%', item.toLowerCase())));
     }
 
 
