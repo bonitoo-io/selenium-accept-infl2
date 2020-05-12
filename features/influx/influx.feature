@@ -84,9 +84,11 @@ Feature: Influx common
     #Then the sign in page is loaded
     #When UI sign in user "DEFAULT"
 
-  Scenario: Click Organization
-    When click nav menu item "Organization"
-    Then the Organization page is loaded
+# This appears to have been removed 2020-05-12
+# See closed issue #17991
+#  Scenario: Click Organization
+#    When click nav menu item "Organization"
+#    Then the Organization page is loaded
 
   Scenario: Click User
     When click nav menu item "User"
