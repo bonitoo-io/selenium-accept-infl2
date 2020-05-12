@@ -279,6 +279,11 @@ When(/^create a new template from the file "(.*)" for user "(.*)"$/, async (file
     await influxUtils.createTemplateFromFile(filepath, orgID);
 });
 
+When(/^create check over API from file "(.*)" for user "(.*)"$/, async (filepath, user) => {
+    let orgID = influxUtils.getUser((user === 'DEFAULT') ? __defaultUser.username : user).orgid;
+    await influxUtils.createAlertCheckFromFile(filepath, orgID);
+});
+
 When(/^remove file "(.*)" if exists$/, async filePath => {
     await influxUtils.removeFileIfExists(filePath);
 });
