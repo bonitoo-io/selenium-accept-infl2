@@ -11,6 +11,7 @@ const eventFilterExamplesDropdown = '[data-testid=dropdown-menu]';
 const eventMarkerByIndex = '[data-testid=event-markers] > div:nth-of-type(%INDEX%)';
 const eventMarkers  = '[data-testid=event-markers] > *';
 const eventMarkersByType = '[data-testid=event-markers] > [class*=\'event-marker--line__%TYPE%\'';
+const eventMarkerToggleByType = '[data-testid=event-marker-vis-toggle-%TYPE%] > *';
 
 const canvasGraphAxes = 'canvas.giraffe-axes';
 const canvasGraphContent = 'canvas.giraffe-layer-line';
@@ -88,7 +89,11 @@ class checkStatusHistoryPage extends influxPage {
     }
 
     async getEventMarkersByType(){
-        return await this.driver.findElement(By.css(eventMarkersByType.replace('%TYPE%', type)));
+        return await this.driver.findElement(By.css(eventMarkersByType.replace('%TYPE%', type.toLowerCase())));
+    }
+
+    async getEventMarkerToggleByType(type){
+        return await this.driver.findElement(By.css(eventMarkerToggleByType.replace('%TYPE%', type.toLowerCase())));
     }
 
 }

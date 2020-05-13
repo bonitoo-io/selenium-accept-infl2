@@ -34,12 +34,24 @@ Feature: Monitoring - Alerts - History
     Then the event history examples dropdown is visible
     When click the alert history title
     Then the event history examples dropdown is not visible
-    #When get preview area
-    #When get event marker locations
+    When get events history graph area
+    When get event marker types and locations
     When zoom into event markers
-    When wait "5" seconds
+    Then the event marker locations have changed
+    Then the events history graph has changed
+    Then the event toggle "OK" is off
+    Then the event toggle "CRIT" is on
+    When get events history graph area
+    When get event marker types and locations
+    #Unzoom
+    When double click history graph area
+    Then the event marker locations have changed
+    Then the events history graph has changed
+    Then the event toggle "OK" is off
+    Then the event toggle "CRIT" is on
 
 # Toggle markers
+    #incl. hover bars and heads
 
 # Filter - N.B. clear filter shows all checks
 

@@ -36,10 +36,38 @@ Then(/^the event history examples dropdown is not visible$/, async () => {
    await ckStatHistSteps.verifyFilterExamplesDropdownNotVisible();
 });
 
+When(/^get events history graph area$/, async () => {
+   await ckStatHistSteps.getEventsHistoryGraph();
+});
+
+Then(/^the events history graph has changed$/, async () => {
+   await ckStatHistSteps.verifyEventsHistoryGraphChanged();
+});
+
+When(/^get event marker types and locations$/, async () => {
+   await ckStatHistSteps.getEventMarkerTypesAndLocations();
+});
+
 When(/^click the alert history title$/, async () => {
    await ckStatHistSteps.clickAlertHistoryTitle();
 });
 
 When(/^zoom into event markers$/, async () => {
    await ckStatHistSteps.zoomInOnEventMarkers();
+});
+
+Then(/^the event marker locations have changed$/, async () => {
+   await ckStatHistSteps.verifyEventMarkerLocationChanges();
+});
+
+Then(/^the event toggle "(.*)" is off$/, async event => {
+   await ckStatHistSteps.verifyEventToggleOff(event);
+});
+
+Then(/^the event toggle "(.*)" is on$/, async event => {
+   await ckStatHistSteps.verifyEventToggleOn(event);
+});
+
+When(/^double click history graph area$/, async () => {
+   await ckStatHistSteps.doubleClickHistoryGraph();
 });
