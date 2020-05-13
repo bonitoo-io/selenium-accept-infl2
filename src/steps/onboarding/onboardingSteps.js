@@ -91,10 +91,10 @@ class onboardingSteps extends baseSteps {
 
     async verifySubtitle(){
         await this.readyPage.getSubtitle().then( async subt => {
-            subt.getText().then( async subtxt => {
-                expect(subtxt).to.include('1 organization');
-                expect(subtxt).to.include('1 user');
-                expect(subtxt).to.include('1 bucket');
+            await subt.getText().then( async subtxt => {
+                await expect(subtxt).to.include('1 organization');
+                await expect(subtxt).to.include('1 user');
+                await expect(subtxt).to.include('1 bucket');
             });
         });
     }
