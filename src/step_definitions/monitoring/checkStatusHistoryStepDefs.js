@@ -23,3 +23,23 @@ When(/^click the check name of event no "(.*)"$/, async index => {
 Then(/^there is at least "(.*)" events at level "(.*)"$/, async (count, level) => {
    await ckStatHistSteps.verifyMinimumCountEventsAtLevel(count, level);
 });
+
+When(/^click event history filter input$/, async () => {
+   await ckStatHistSteps.clickEventFilterInput();
+});
+
+Then(/^the event history examples dropdown is visible$/, async () => {
+   await ckStatHistSteps.verifyFilterExamplesDropdownVisible();
+});
+
+Then(/^the event history examples dropdown is not visible$/, async () => {
+   await ckStatHistSteps.verifyFilterExamplesDropdownNotVisible();
+});
+
+When(/^click the alert history title$/, async () => {
+   await ckStatHistSteps.clickAlertHistoryTitle();
+});
+
+When(/^zoom into event markers$/, async () => {
+   await ckStatHistSteps.zoomInOnEventMarkers();
+});

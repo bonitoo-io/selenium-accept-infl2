@@ -22,10 +22,22 @@ Feature: Monitoring - Alerts - History
     When UI sign in user "DEFAULT"
     When click nav menu item "Alerting"
     Then the Alerting page is loaded
-
-# Create checks over API
+    # Need to create events for toggle markers
+    When wait "60" seconds
 
 # Exercise controls
+  Scenario: Exercise Event History Controls
+    When hover over the name of the check card "Threshold Check from File"
+    When click open history of the check card "Threshold Check from File"
+    When click open history confirm of the check card "Threshold Check from File"
+    When click event history filter input
+    Then the event history examples dropdown is visible
+    When click the alert history title
+    Then the event history examples dropdown is not visible
+    #When get preview area
+    #When get event marker locations
+    When zoom into event markers
+    When wait "5" seconds
 
 # Toggle markers
 
