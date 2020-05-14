@@ -1,12 +1,10 @@
 ## Selenium-Accept
 
-Selenium Acceptance tests for the Influxdbv2 UI.  
+Selenium Acceptance tests for the Influxdbv2 UI.
 
 **Run cycle**
 
 ```bash
-git clone https://github.com/bonitoo-io/selenium-accept-infl2.git
-cd selenium-accept-infl2/
 npm install
 npm run influx:setup
 npm test
@@ -27,9 +25,10 @@ npm test -- features/onboarding/onboarding.feature:4
 
 Number is line number where the target scenario starts.
 
+
 ### API Notes
 
-Steps classes should directly or indirectly inherit from the `baseSteps` class in `baseSteps,js`.  This class contains some generic methods to streamline Selenium and Cucumber interactions.  More will be added as the test suite grows.  Here is a list as of 1.10.2019.
+Steps classes should directly or indirectly inherit from the `baseSteps` class in `baseSteps.js`.  This class contains some generic methods to streamline Selenium and Cucumber interactions.  More will be added as the test suite grows.  Here is a list as of 1.10.2019.
 
 `assertNotPresent(selector)`
 

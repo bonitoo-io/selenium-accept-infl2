@@ -21,27 +21,9 @@ global.__dataBuffer = {};
 
 fs.mkdirSync(__screenShotDir,  { recursive: true });
 
-/*
-mkdirp(__screenShotDir, function (err) {
-    if (err) console.error(err)
-    else console.log('created screenshots directory ' + __screenShotDir)
-});
-*/
-
-
 var common = '--require "src/step_definitions/**/*.js" --require hooks.js --require-module babel-core/register ';
 
-// "download": {
-//         "default_directory": "/home/karl/bonitoo/prjs/github.com/bonitoo-io/selenium-accept-infl2/temp",
-//         "directory_upgrade": true,
-//         "prompt_for_download": false
-//     },
-
 let caps = new Capabilities();
-
-//global.__downloadsDir = __basedir + "/downloads/";
-
-//console.log("DEBUG __downloadsDir " + __downloadsDir);
 
 let chromeUserPreferences = { 'download.prompt_for_download': false, "download.default_directory": __basedir };
 let windowSize = { "width": 1024, "height": 768 };
@@ -52,12 +34,6 @@ if(__config.window_size){
 }
 
 console.log("DEBUG windowSize " + JSON.stringify(windowSize));
-/*
-try {
-    fs.statSync(__downloadsDir);
-}catch(e){
-    fs.mkdirSync(__downloadsDir);
-}*/
 
 let logPrefs =  new logging.Preferences();
 logPrefs.setLevel(logging.Type.BROWSER, logging.Level.ALL);
@@ -69,10 +45,6 @@ if(__config.sel_docker){
     chromeArguments.push('--disable-dev-shm-usage')
 }
 
-//let selDockerSharedMemory = __config.sel_docker ? '--disable-dev-shm-usage' : '';
-
-
-
 if(__config.headless) {
     caps.set('applicationCacheEnabled', false);
     caps.set('pageLoadStrategy', 'none');
@@ -83,10 +55,8 @@ if(__config.headless) {
             .withCapabilities(caps)
             .forBrowser(__config.browser)
             .setChromeOptions(new chrome.Options().headless()
-            //.addArguments("--no-sandbox")
             .addArguments(chromeArguments)
                 .setUserPreferences(chromeUserPreferences)
-                //.setPageLoadStrategy(PageLoadStrategy.NONE)
                 .setLoggingPrefs(logPrefs)
                 .windowSize({width: windowSize.width, height: windowSize.height}))
             .build();
@@ -107,7 +77,6 @@ if(__config.headless) {
                 .withCapabilities(caps)
                 .forBrowser(__config.browser)
                 .setChromeOptions(new chrome.Options().addArguments("--incognito")
-              //      .addArguments("--no-sandbox")
                     .addArguments(chromeArguments)
                     .setUserPreferences(chromeUserPreferences)
                     .setLoggingPrefs(logPrefs)
@@ -121,16 +90,11 @@ if(__config.headless) {
                 .build();
             break;
     }
-
 }
 
 __wdriver.manage().setTimeouts({implicit: 3000});
 __wdriver.executor_.w3c = true;
-//let browserVer = __wdriver.capabilities['browserVersion'];
-//let driverVer = __wdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0];
 console.log("DEBUG __wdriver: " + JSON.stringify(__wdriver));
-//console.log(`Browser version: ${browserVer}`);
-//console.log(`Driver version: ${driverVer}`);
 
 module.exports = {
     'default': common + '--format summary --format node_modules/cucumber-pretty --format json:report/cucumber_report.json',

@@ -4,9 +4,9 @@ const axios = require('axios');
 const fs = require('fs');
 const csvParseSync = require('csv-parse/lib/sync');
 
-const active_config = require(__basedir + '/bonitoo.conf.json').active;
-const config = require(__basedir + '/bonitoo.conf.json')[active_config];
-const defaultUser = require(__basedir + '/bonitoo.conf.json').default_user;
+const active_config = require(__basedir + '/e2e.conf.json').active;
+const config = require(__basedir + '/e2e.conf.json')[active_config];
+const defaultUser = require(__basedir + '/e2e.conf.json').default_user;
 
 const mil2Nano = 1000000;
 

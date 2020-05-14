@@ -3,7 +3,7 @@
 RUNCMD ?= cucumber-js --tags 'not @tested and not @error-collateral'
 
 docker-build:
-	docker build -t bonitoo-tests -f scripts/Dockerfile.bonitoo .
+	docker build -t e2e-tests -f scripts/Dockerfile.e2e .
 
 docker-prep:
 	mkdir -p /tmp/report \
@@ -12,13 +12,13 @@ docker-prep:
 	&& sleep 30s
 
 docker-test: docker-build
-	docker run --rm --name=test-bonitoo -v /tmp/report:/selenium-accept-infl2/report --network=container:test-influxdb bonitoo-tests ${RUNCMD}
+	docker run --rm --name=test-e2e -v /tmp/report:/selenium-accept-infl2/report --network=container:test-influxdb e2e-tests ${RUNCMD}
 
 docker-report:
-	docker run --rm -t --name=test-bonitoo -v /tmp/report:/selenium-accept-infl2/report bonitoo-tests npm run report:html
+	docker run --rm -t --name=test-e2e -v /tmp/report:/selenium-accept-infl2/report e2e-tests npm run report:html
 
 docker-test-kill:
-	docker rm -f test-bonitoo
+	docker rm -f test-e2e
 
 test: docker-test docker-report
 
