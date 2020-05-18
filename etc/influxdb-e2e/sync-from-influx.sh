@@ -47,7 +47,7 @@ echo "TODO - Patch not applied. APPLY PATCH: "
 echo ${SOURCE_DIR}/${CURRENT_HASH}.patch
 echo "MANUALLY"
 echo ""
-echo "HINT git apply etc/influxdb-e2e/59af36331b38637bbc89b2cea800b8866284bf95.patch"
+echo "HINT git apply --reject etc/influxdb-e2e/"${CURRENT_HASH}".patch"
 echo ""
 echo "Then updated last line of sync.last to " ${CURRENT_HASH}
 echo ""
