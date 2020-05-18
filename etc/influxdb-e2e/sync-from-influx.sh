@@ -47,12 +47,19 @@ echo "TODO - Patch not applied. APPLY PATCH: "
 echo ${SOURCE_DIR}/${CURRENT_HASH}.patch
 echo "MANUALLY"
 echo ""
-echo "HINT git apply --reject etc/influxdb-e2e/"${CURRENT_HASH}".patch"
+echo "1) In " ${HOME_DIR}
+echo "   Checkout a local patch branch: $ git checkout influxdata/patch"
 echo ""
-echo "Then updated last line of sync.last to " ${CURRENT_HASH}
+echo "2) Apply the patch"
+echo "   HINT $ git apply --reject etc/influxdb-e2e/"${CURRENT_HASH}".patch"
+echo ""
+echo "3) [!!! IMPORTANT !!!] Then updated last line of sync.last to "
+echo     ${CURRENT_HASH}
+echo ""
+echo "4) If the patch applied successfully merge the patch branch, including"
+echo "        change sync.last, into your working branch"
 echo ""
 echo "[NOTE] To apply to only 1 file:  git apply --include=path/to/file <PATCH> "
 echo ""
 echo "[NOTE] To revert patch:  git apply -R <patch>"
-echo ""
 
