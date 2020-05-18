@@ -46,13 +46,13 @@ echo "THIS SCRIPT IS NOT FINISHED"
 echo "TODO - Patch not applied. APPLY PATCH: "
 echo ${SOURCE_DIR}/${CURRENT_HASH}.patch
 echo "MANUALLY"
-echo.
+echo ""
 echo "HINT git apply etc/influxdb-e2e/59af36331b38637bbc89b2cea800b8866284bf95.patch"
-echo.
+echo ""
 echo "Then updated last line of sync.last to " ${CURRENT_HASH}
-echo.
+echo ""
 echo "[NOTE] To apply to only 1 file:  git apply --include=path/to/file <PATCH> "
-echo.
+echo ""
 echo "[NOTE] To revert patch:  git apply -R <patch>"
-echo.
+echo ""
 
