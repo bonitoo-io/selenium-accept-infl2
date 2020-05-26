@@ -60,14 +60,25 @@ Feature: Onboard to Influxdbv2
     Then the Initial Setup Page is loaded
     Then the continue button is disabled
     When enter a new user name "zaphod"
-    When enter a new password "42"
-    When enter confirm the new password "24"
+    When enter a new password "chachacha"
+    When enter confirm the new password "achachach"
     Then the form error message says "Passwords do not match"
-    When enter confirm the new password "42"
+    When enter confirm the new password "chachacha"
     Then the form error message is not present
     When enter a new organization name "asdf"
     When enter a new bucket name "asdf"
-    When click next from setup page without page check
-    # TODO - reactivate following check once issue #17642 is resolved
-    # Then the error notification contains "passwords must be at least 8 characters long"
+    When enter a new password "asdf"
+    When enter confirm the new password "asdf"
+    Then the form error message says "Password must be at least 8 characters"
+    Then the continue button is disabled
+    When enter a new password "chachacha"
+    When enter confirm the new password "chachacha"
+    When click next from setup page
+    Then verify ready page
+    Then the success notification says "Initial user details have been successfully set"
+    When click quick start button
+    Then the success notification contains "Metrics Dashboard has been created"
+    Then the success notification contains "The InfluxDB Scraper has been configured"
+    When close all notifications
+    Then the home page is loaded
 
