@@ -1,0 +1,6 @@
+Store last commit hash from sync with influxdb/e2e
+sync-from-influx.sh appends last successful patch to end
+Tail the last line in this file 
+c6d60924e5a06b1b4f6c8e3699c90f05392fac05
+9ed4770700bbc75269967c1d8e6de308028d9eb7
+99524028e6ee5d31d5d92c1c0568997080cce018
