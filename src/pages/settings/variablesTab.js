@@ -8,7 +8,7 @@ const nameSort = '[data-testid=resource-list--sorter]:nth-of-type(1)';
 const typeSort = '[data-testid=resource-list--sorter]:nth-of-type(2)';
 const createVariableEmpty = '[data-testid=resource-list--body] [data-testid=add-resource-dropdown--button]';
 const createVariableItem = '[data-testid=add-resource-dropdown--%ITEM%]';
-const variableCardNamed = '//*[@data-testid=\'resource-card\'][.//*[text()=\'%NAME%\']]';
+const variableCardNamed = '//*[@data-testid=\'resource-card variable\'][.//*[text()=\'%NAME%\']]';
 const variableCardNames = '//*[@data-testid=\'resource-name\']/span';
 const variableCardName = '//*[@data-testid=\'resource-name\']//span[text()=\'%NAME%\']';
 const variableCardContextMenu = '//*[@data-testid=\'resource-card\'][.//span[text()=\'%NAME%\']]//*[@data-testid=\'context-menu\']';
